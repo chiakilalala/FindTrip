@@ -71,8 +71,6 @@
                       <div
                         class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
                       >Or sign up with e-mail</div>
-                      <p v-if="loginError">{{ loginError }}</p>
-                      <p v-if="loginSuccessful">Login Successful</p>
                     </div>
 
                     <form class="mx-auto max-w-xl" @submit.prevent="signin">
@@ -101,7 +99,18 @@
                         ></i>
                       </div>
                       <!-- <div class=" text-sm text-red-400 ">此欄位必填</div> -->
-
+ <div class="relative">
+                        <input
+                          class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                          type="Password"
+                          placeholder="Password "
+                          v-model="user.Password"
+                        />
+                        <i
+                          class="pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
+                        ></i>
+                      </div>
+                      <!-- <div class=" text-sm text-red-400 ">此欄位必填</div> -->
                       <div class="text-sm text-gray-600 mb-2"></div>
                       <button
                         class="my-5 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
@@ -122,8 +131,7 @@
                         <span class="ml-3">Sign Up</span>
                       </button>
                       <div class="text-md text-gray-600 mb-2 flex justify-between">
-                        <router-link to="/sign" class="text-right">免費註冊</router-link>
-                        <!-- <p class="text-right">免費登入</p> -->
+                        <router-link to="/login" class="text-right">免費登入</router-link>
                         <p class="text-right">忘記密碼？</p>
                       </div>
 
@@ -152,8 +160,8 @@
 /* eslint-disable */
 import axios from "axios";
 import Footer from "@/components/Footer.vue";
-
-import { mapState, mapActions, mapMutations } from "vuex";
+import qs from "qs";
+import { mapMutations } from "vuex";
 export default {
   components: {
     Footer
@@ -171,78 +179,40 @@ export default {
       // }
     };
   },
-  computed: {
-    ...mapState(["isLogin", "loginError", "loginSuccessful"])
-  },
   methods: {
-    ...mapActions(["doLogin"]),
     ...mapMutations(["changeLogin"]),
-    loginSubmit() {
-      if (this.user.Email == "" || this.user.Password == "") {
-        this.$swal({
-          icon: "error",
-          title: "帳號密碼不得為空"
-        });
-      } else {
-        this.doLogin({
-          Email: this.user.Email,
-          Password: this.user.Password
-        });
-        this.$router.push("/home");
-        // this.userToken = `Bearer  ${res.data.token}`;
-        this.changeLogin({ Authorization: this.userToken });
-      }
-    },
 
     signin() {
-      console.log(this.$store.state);
       const api = `http://findtrip.rocket-coding.com/api/login/memberlogin`;
       const vm = this;
       if (this.user.Email == "" || this.user.Password == "") {
-        this.$swal({
-          icon: "error",
-          title: "帳號密碼不得為空"
-        });
+        alert("用戶或密碼不得為空");
       } else {
-        this.$http
-          .post(api, vm.user)
-          .then(res => {
-            console.log(res.data);
-            if (res.data.success) {
-              vm.$router.push("/home"); //登入成功轉到首頁
-              this.userToken = `Bearer  ${res.data.token}`;
-              this.changeLogin({ Authorization: this.userToken });
-            }
-          })
-          .catch(err => {
-            console.log("帳號密碼錯誤");
-          });
+        this.$axios.post(api, vm.user).then(res => {
+          console.log(res.data);
+          if (res.data.success) {
+            vm.$router.push("/home"); //登入成功轉到首頁
+            this.changeLogin({ Authorization: this.userToken });
+          }
+        });
       }
     },
     login() {
-      // const data = { Email: this.user.Email, Password: this.user.Password };
+      const data = { Email: this.user.Email, Password: this.user.Password };
 
-      console.log(qs.stringify(data));
-      console.log(data);
+      // console.log(qs.stringify(data));
       this.axios({
         method: "post",
         url: "http://findtrip.rocket-coding.com/api/login/memberlogin",
-        data: {
-          Email: this.user.Email,
-          Password: this.user.Password
-        },
+        data: JSON.stringify(data),
         headers: {
           "Content-Type": "application/x-www-form-urlencoded"
         }
-      })
-        .then(res => {
-          console.log(res);
-          this.$router.push("/home"); //登入成功轉到首頁
-          this.changeLogin({ Authorization: this.userToken });
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      }).then(res => {
+        console.log(res);
+        this.$router.push("/home"); //登入成功轉到首頁
+        this.changeLogin({ Authorization: this.userToken });
+      });
     }
   }
 };

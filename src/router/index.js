@@ -17,6 +17,30 @@ const routes = [
         meta: { requiresAuth: false }, //不需要驗證
     },
     {
+        path: '/sign',
+        name: 'Sign',
+
+        component: () =>
+            import ('@/components/page/Sign'),
+        meta: { requiresAuth: false }, //不需要驗證
+    },
+    {
+        path: '/home',
+        /* 首頁*/
+        name: 'Home',
+
+        component: () =>
+            import ('@/components/Home'),
+        meta: { requiresAuth: false }, //不需要驗證
+    },
+    {
+        path: '/Product',
+        name: 'Product',
+        component: () =>
+            import ('@/components/page/Product'),
+        meta: { requiresAuth: false }, //不需要驗證
+    },
+    {
         path: '/Dashboard',
         name: 'Dashboard',
         component: () =>
