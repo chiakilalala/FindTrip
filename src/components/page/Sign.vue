@@ -72,72 +72,113 @@
                         class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
                       >Or sign up with e-mail</div>
                     </div>
-
-                    <form class="mx-auto max-w-xl" @submit.prevent="signin">
-                      <div class="relative">
-                        <input
-                          class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
-                          type="email"
-                          name="email"
-                          placeholder="Email:@mail.com..."
-                          v-model="user.Email"
-                        />
-                        <i
-                          class="pointer-events-none fa fa-envelope absolute inset-0 pl-2 flex items-center text-gray-500"
-                        ></i>
-                      </div>
-                      <!-- <div class="text-sm  text-red-400 ">此欄位必填</div> -->
-                      <div class="relative">
-                        <input
-                          class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                          type="Password"
-                          placeholder="Password "
-                          v-model="user.Password"
-                        />
-                        <i
-                          class="pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
-                        ></i>
-                      </div>
-                      <!-- <div class=" text-sm text-red-400 ">此欄位必填</div> -->
- <div class="relative">
-                        <input
-                          class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                          type="Password"
-                          placeholder="Password "
-                          v-model="user.Password"
-                        />
-                        <i
-                          class="pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
-                        ></i>
-                      </div>
-                      <!-- <div class=" text-sm text-red-400 ">此欄位必填</div> -->
-                      <div class="text-sm text-gray-600 mb-2"></div>
-                      <button
-                        class="my-5 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-                        type="submit"
-                      >
-                        <svg
-                          class="w-6 h-6 -ml-2"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
+                    <ValidationObserver>
+                      <div class="mx-auto max-w-xl">
+                        <ValidationProvider
+                          rules="required|max:10"
+                          v-slot="{ errors, classes }"
+                          name="姓名"
                         >
-                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                          <circle cx="8.5" cy="7" r="4" />
-                          <path d="M20 8v6M23 11h-6" />
-                        </svg>
-                        <span class="ml-3">Sign Up</span>
-                      </button>
-                      <div class="text-md text-gray-600 mb-2 flex justify-between">
-                        <router-link to="/login" class="text-right">免費登入</router-link>
-                        <p class="text-right">忘記密碼？</p>
-                      </div>
+                          <div class="relative mb-5" :class="classes">
+                            <input
+                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
+                              type="name"
+                              name="name"
+                              placeholder="會員姓名"
+                              v-model="user.Name"
+                            />
+                            <i
+                              class="pointer-events-none fa fa-user absolute inset-0 pl-2 flex items-center text-gray-500"
+                            ></i>
+                          </div>
+                          <div class="text-sm text-red-400 my-2 ">{{ errors[0] }}</div>
+                        </ValidationProvider>
+                        <ValidationProvider
+                          rules="required|email"
+                          v-slot="{ errors, classes }"
+                          name="email"
+                        >
+                          <div class="relative" :class="classes">
+                            <input
+                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
+                              type="email"
+                              name="email"
+                              placeholder="電子郵件"
+                              v-model="user.Email"
+                            />
+                            <i
+                              class="pointer-events-none fa fa-envelope absolute inset-0 pl-2 flex items-center text-gray-500"
+                            ></i>
+                          </div>
+                          <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
+                        </ValidationProvider>
 
-                      <!-- barcode -->
-                      <div class="depart-barcode"></div>
-                    </form>
+                        <ValidationProvider
+                          rules="required|min:6|max:20"
+                          v-slot="{ errors, classes }"
+                          name="密碼"
+                        >
+                          <div class="relative" :class="classes">
+                            <input
+                              class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                              type="Password"
+                              placeholder="密碼"
+                              v-model="user.Password"
+                            />
+                            <i
+                              class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
+                            ></i>
+                          </div>
+                          <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
+                        </ValidationProvider>
+                        <ValidationProvider
+                          rules="required|confirmed:password"
+                          v-slot="{ errors, classes }"
+                          name="確認密碼"
+                        >
+                          <div class="relative" :class="classes">
+                            <input
+                              class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                              type="Password"
+                              placeholder="確認密碼 "
+                              v-model="user.PasswordConfirm"
+                            />
+                            <i
+                              class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
+                            ></i>
+                          </div>
+                          <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
+                        </ValidationProvider>
+
+                        <div class="text-sm text-gray-600 mb-2"></div>
+                        <button
+                          class="my-5 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                          type="submit"
+                          @click.prevent="SingUp"
+                        >
+                          <svg
+                            class="w-6 h-6 -ml-2"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="8.5" cy="7" r="4" />
+                            <path d="M20 8v6M23 11h-6" />
+                          </svg>
+                          <span class="ml-3">Sign Up</span>
+                        </button>
+                        <div class="text-md text-gray-600 mb-2 flex justify-between">
+                          <router-link to="/login" class="text-right">登入</router-link>
+                          <p class="text-right">忘記密碼？</p>
+                        </div>
+
+                        <!-- barcode -->
+                        <div class="depart-barcode"></div>
+                      </div>
+                    </ValidationObserver>
                   </div>
                 </div>
               </div>
@@ -160,7 +201,7 @@
 /* eslint-disable */
 import axios from "axios";
 import Footer from "@/components/Footer.vue";
-import qs from "qs";
+
 import { mapMutations } from "vuex";
 export default {
   components: {
@@ -169,8 +210,10 @@ export default {
   data() {
     return {
       user: {
+        Name: "",
         Email: "",
-        Password: ""
+        Password: "",
+        PasswordConfirm: ""
       },
       userToken: ""
       // rules: {
@@ -180,39 +223,66 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["changeLogin"]),
-
-    signin() {
-      const api = `http://findtrip.rocket-coding.com/api/login/memberlogin`;
+    ...mapMutations(["changeLogin"], ["loginStart"]),
+    // async serverSignIn(config) {
+    //   try {
+    //     const api = `http://findtrip.rocket-coding.com/api/login/memberlogin`;
+    //     const { data } = await this.$axios.post("api", config);
+    //     this.$swal({
+    //       icon: "success",
+    //       title: '成功'
+    //     });
+    //     this.$store.commit("UPDATE_USER", data.userInfo);
+    //     this.$router.push("/home");
+    //   } catch ({ response }) {
+    //     console.log({response});
+    //     this.$swal({
+    //       icon: "error",
+    //       title: '失敗'
+    //     });
+    //   }
+    // },
+    SingUp() {
+      const api = `http://findtrip.rocket-coding.com/api/Login/Register`;
       const vm = this;
-      if (this.user.Email == "" || this.user.Password == "") {
-        alert("用戶或密碼不得為空");
-      } else {
-        this.$axios.post(api, vm.user).then(res => {
-          console.log(res.data);
-          if (res.data.success) {
-            vm.$router.push("/home"); //登入成功轉到首頁
-            this.changeLogin({ Authorization: this.userToken });
-          }
+      if (vm.user.Name == "" || vm.user.Email == "" || vm.user.Password == "") {
+        this.$swal({
+          icon: "error",
+          title: "帳號密碼不得為空"
         });
-      }
-    },
-    login() {
-      const data = { Email: this.user.Email, Password: this.user.Password };
+      } else {
+        this.$http
+          .post(api, {
+            Name: this.user.Name,
+            Email: this.user.Email,
+            Password: this.user.Password,
+            PasswordConfirm: this.user.Password
+          })
+          .then(res => {
+            console.log(res);
+            if (res.data.success) {
+              this.$swal({
+                icon: "success",
+                title: res.data.message
+              });
 
-      // console.log(qs.stringify(data));
-      this.axios({
-        method: "post",
-        url: "http://findtrip.rocket-coding.com/api/login/memberlogin",
-        data: JSON.stringify(data),
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      }).then(res => {
-        console.log(res);
-        this.$router.push("/home"); //登入成功轉到首頁
-        this.changeLogin({ Authorization: this.userToken });
-      });
+              this.$router.push("/login");
+              this.changeLogin({ Authorization: this.userToken });
+            } else {
+              this.$swal({
+                icon: "error",
+                title: res.data.message
+              });
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            this.$swal({
+              icon: "error",
+              title: err.data.message
+            });
+          });
+      }
     }
   }
 };

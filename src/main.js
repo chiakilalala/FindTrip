@@ -16,8 +16,36 @@ window.$ = window.jQuery = jQuery;
 import VueScrollReveal from 'vue-scroll-reveal';
 
 // VeeValidate
-import { ValidationProvider } from 'vee-validate';
+import { localize, ValidationProvider, extend, configure, ValidationObserver } from 'vee-validate';
 
+import { email, required, min, max, confirmed, integer, max_value, min_value, } from 'vee-validate/dist/rules.umd.js';
+
+// // 設置語言為繁體中文
+import zh_TW from 'vee-validate/dist/locale/zh_TW.json';
+
+localize('zh_TW', zh_TW);
+
+configure({
+    classes: {
+        valid: 'is-valid',
+        invalid: 'is-invalid',
+    },
+});
+// 添加规则
+extend('email', email); //信箱驗證
+extend('required', required); //必須確認
+extend('confirmed', confirmed); //確認確認
+extend('min', min);
+extend('max', max);
+extend('integer', integer);
+extend('max_value', max_value);
+extend('min_value', min_value);
+
+
+// Register it globally
+// 全域註冊元件
+Vue.component('ValidationProvider', ValidationProvider);
+Vue.component('ValidationObserver', ValidationObserver);
 // VueSwal alert plugin
 
 
@@ -28,9 +56,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 
 Vue.use(VueSweetalert2);
 
-// Register it globally
-// 全域註冊元件
-Vue.component('ValidationProvider', ValidationProvider);
+
 
 Vue.use(VueScrollReveal, {
     class: 'v-scroll-reveal', // A CSS class applied to elements with the v-scroll-reveal directive; useful for animation overrides.

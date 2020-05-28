@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--Nav-->
-    <nav id="header" class="fixed w-full z-30 top-0 text-white ">
+    <nav id="header" class="fixed w-full z-30 top-0 text-white">
       <div
         class="w-full container mx-auto flex flex-wrap max-w-7xl items-center justify-between my-5 py-2"
       >
@@ -14,25 +14,25 @@
         </div>
 
         <div class="block lg:hidden pr-4">
-            <Slide  @closeMenu="open = false;" right>
-                    <ul class="">
-            <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black no-underline" href="#">尋找旅行規劃師</a>
-            </li>
-            <li class="mr-3">
-              <a
-                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                href="#"
-              >進入許願池</a>
-            </li>
-          </ul>
-          <button
-            id="navAction"
-            class="outline-none mx-auto lg:mx-0 hover:shadow-lg bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
-          >
-            <i class="fas fa-user-astronaut pr-3"></i>登入
-          </button>
-              </Slide>
+          <Slide @closeMenu="open = false;" right>
+            <ul class>
+              <li class="mr-3">
+                <a class="inline-block py-2 px-4 text-black no-underline" href="#">尋找旅行規劃師</a>
+              </li>
+              <li class="mr-3">
+                <a
+                  class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                  href="#"
+                >進入許願池</a>
+              </li>
+            </ul>
+            <button
+              id="navAction"
+              class="outline-none mx-auto lg:mx-0 hover:shadow-lg bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
+            >
+              <i class="fas fa-user-astronaut pr-3"></i>登入
+            </button>
+          </Slide>
           <!-- mobile -->
           <!-- <button @click='isOpen = !isOpen' 
             id="nav-toggle"
@@ -45,12 +45,13 @@
             >
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
-          </button> -->
+          </button>-->
         </div>
         <!-- desktop -->
         <div
-          class="w-full flex-grow lg:flex lg:items-center lg:w-auto  mt-2 lg:mt-0 bg-transparent text-black p-4 lg:p-0 z-20"
-          id="nav-content" :class="isOpen ? 'block' : 'hidden'"
+          class="w-full flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0 bg-transparent text-black p-4 lg:p-0 z-20"
+          id="nav-content"
+          :class="isOpen ? 'block' : 'hidden'"
         >
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
             <li class="mr-3">
@@ -66,9 +67,80 @@
           <button
             id="navAction"
             class="outline-none mx-auto lg:mx-0 hover:shadow-lg bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
+            v-if="!$store.state.Authorization"
+            @click="$router.push('/login')"
           >
             <i class="fas fa-user-astronaut pr-3"></i>登入
           </button>
+          <!-- 登入化緣狀態 -->
+          <div class="flex items-center text-blue-400" v-else>
+            <span class="mx-4 fas fa-comment text-2xl" style></span>
+            <span class="mx-3 fas fa-bell text-2xl" style></span>
+            <div class="dropdown relative items-center">
+              <button class="inline-flex items-center justify-between">
+                <div
+                  class="h-12 w-12 rounded-full overflow-hidden border-2 border-gray-500 focus:outline-none focus:border-white"
+                >
+                  <img
+                    src="../assets/img/man002.svg"
+                    alt
+                    srcset
+                    class="shadow object-cover h-full w-full"
+                    
+                  />
+                </div>
+                <!-- <div class="shadow bg-center bg-cover  bg-white bg-no-repeat rounded-full inline-block h-12 w-12 ml-2" :style="background-image: url(../../assets/img/man001.svg)"></div> -->
+                <svg
+                  class="hidden md:block md:flex flex-shrink-0 w-5 h-5 ml-1 text-blue"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 20 20"
+                >
+                  <path
+                    d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
+                  />
+                </svg>
+              </button>
+              <transition
+                enter-active-class="transition duration-300 ease-out transform"
+                enter-class="-translate-y-3 scale-95 opacity-0"
+                enter-to-class="translate-y-0 scale-100 opacity-100"
+                leave-active-class="transition duration-150 ease-in transform"
+                leave-class="translate-y-0 opacity-100"
+                leave-to-class="-translate-y-3 opacity-0"
+              >
+                <div class="dropdown-menu absolute pt-2">
+                  <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
+                    <div
+                      class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"
+                    ></div>
+                    <div class="relative">
+                      <a
+                        href="#"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >帳戶管理</a>
+                      <a
+                        href="#"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >點數儲值</a>
+                      <a
+                        href="#"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >旅行計劃</a>
+                      <a
+                        href="#"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >訂單管理</a>
+                      <a
+                        href="#"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                        @click="logout"
+                      >登出</a>
+                    </div>
+                  </div>
+                </div>
+              </transition>
+            </div>
+          </div>
         </div>
       </div>
     </nav>
@@ -76,82 +148,102 @@
 </template>
 
 <script>
-
-    /* eslint-disable */
-import { Slide } from 'vue-burger-menu'
+/* eslint-disable */
+import { Slide } from "vue-burger-menu";
 
 export default {
-    components: {
-        Slide // Register your component
-    },
-  data(){
-    return{
-      isOpen:false,
+  components: {
+    Slide // Register your component
+  },
+  data() {
+    return {
+      isOpen: false
+    };
+  },
+  methods: {
+    logout() {
+      this.$store.dispatch("logout");
+      this.$router.push("/");
     }
   }
-}
+};
 </script>
 
 <style scoped>
-.bm-burger-button {
-      position: fixed;
-      width: 36px;
-      height: 30px;
-      left: 36px;
-      top: 36px;
-      cursor: pointer;
-    }
-    .bm-burger-bars {
-      background-color: #373a47;
-    }
-    .line-style {
-      position: absolute;
-      height: 20%;
-      left: 0;
-      right: 0;
-    }
-    .cross-style {
-      position: absolute;
-      top: 12px;
-      right: 2px;
-      cursor: pointer;
-    }
-    .bm-cross {
-      background: #bdc3c7;
-    }
-    .bm-cross-button {
-      height: 24px;
-      width: 24px;
-    }
-    .bm-menu {
-      height: 100%; /* 100% Full-height */
-      width: 0; /* 0 width - change this with JavaScript */
-      position: fixed; /* Stay in place */
-      z-index: 1000; /* Stay on top */
-      top: 0;
-      left: 0;
-      background-color: rgb(63, 63, 65); /* Black*/
-      overflow-x: hidden; /* Disable horizontal scroll */
-      padding-top: 60px; /* Place content 60px from the top */
-      transition: 0.5s; /*0.5 second transition effect to slide in the sidenav*/
-    }
+.dropdown:hover .dropdown-menu {
+  display: block;
+}
+.dropmenu-enter-active {
+  transition: all 0.3s ease;
+}
+.dropmenu-leave-active {
+  transition: all 0.8s ease;
+}
+.dropmenu-enter,
+.dropmenu-leave-to {
+  transform: translateX(20px);
+  opacity: 0;
+}
 
-    .bm-overlay {
-      background: rgba(0, 0, 0, 0.3);
-    }
-    .bm-item-list {
-      color: #b8b7ad;
-      margin-left: 10%;
-      font-size: 20px;
-    }
-    .bm-item-list > * {
-      display: flex;
-      text-decoration: none;
-      padding: 0.7em;
-    }
-    .bm-item-list > * > span {
-      margin-left: 10px;
-      font-weight: 700;
-      color: white;
-    }
+.bm-burger-button {
+  position: fixed;
+  width: 36px;
+  height: 30px;
+  left: 36px;
+  top: 36px;
+  cursor: pointer;
+}
+.bm-burger-bars {
+  background-color: #373a47;
+}
+.line-style {
+  position: absolute;
+  height: 20%;
+  left: 0;
+  right: 0;
+}
+.cross-style {
+  position: absolute;
+  top: 12px;
+  right: 2px;
+  cursor: pointer;
+}
+.bm-cross {
+  background: #bdc3c7;
+}
+.bm-cross-button {
+  height: 24px;
+  width: 24px;
+}
+.bm-menu {
+  height: 100%; /* 100% Full-height */
+  width: 0; /* 0 width - change this with JavaScript */
+  position: fixed; /* Stay in place */
+  z-index: 1000; /* Stay on top */
+  top: 0;
+  left: 0;
+  background-color: rgb(63, 63, 65); /* Black*/
+  overflow-x: hidden; /* Disable horizontal scroll */
+  padding-top: 60px; /* Place content 60px from the top */
+  transition: 0.5s; /*0.5 second transition effect to slide in the sidenav*/
+}
+
+.bm-overlay {
+  background: rgba(0, 0, 0, 0.3);
+}
+.bm-item-list {
+  color: #b8b7ad;
+  margin-left: 10%;
+  font-size: 20px;
+}
+.bm-item-list > * {
+  display: flex;
+  text-decoration: none;
+  padding: 0.7em;
+}
+.bm-item-list > * > span {
+  margin-left: 10px;
+  font-weight: 700;
+  color: white;
+}
 </style>

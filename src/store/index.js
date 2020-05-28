@@ -13,14 +13,17 @@ const store = new Vuex.Store({
     state: {
 
         isLogin: false,
-        userInfo: {},
+        userInfo: { id: 1233333 },
         Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
         user: {
             Email: "",
             Password: ""
         },
         loginError: null,
-        loginSuccessful: false
+        loginSuccessful: false,
+
+
+
 
     },
     mutations: {
@@ -39,25 +42,71 @@ const store = new Vuex.Store({
             state.isLogin = false;
             state.loginError = errorMessage;
             state.loginSuccessful = !errorMessage;
+        },
+        logout(state) {
+
+            state.Authorization = "";
+        },
+        auth_success(state, Authorization, userInfo) {
+            state.Authorization = Authorization;
+            state.userInfo = userInfo;
         }
 
     },
     actions: {
-        doLogin({ commit }, loginData) {
-            commit('loginStart');
+        doLogin({ commit }, user) {
+
 
             axios.post('http://findtrip.rocket-coding.com/api/login/memberlogin', {
-                    ...loginData
+                    Email: user.Email,
+                    Password: user.Password
                 })
-                .then(() => {
-
-                    commit('loginStop', null)
+                .then((res) => {
+                    // commit('UPDATE_USER', res.date.user);
+                    if (res.data.success) {
+                        commit('loginStart');
+                        this.$router.push('/home')
+                    }
 
 
                 })
                 .catch(error => {
                     commit('loginStop', error.data)
                 })
+        },
+        logout({ commit }) {
+            return new Promise(resolve => {
+                commit('logout');
+                // console.log('logout');
+                commit('UPDATE_USER', {});
+                localStorage.removeItem("Authorization");
+                resolve();
+            })
+        },
+        register({ commit }, user) {
+            return new Promise((resolve, reject) => {
+                axios({
+                    url: 'http://findtrip.rocket-coding.com/api/Login/Register',
+                    data: user,
+                    method: 'POST'
+                }).then(res => {
+                    console.log(res);
+                    const token = res.data.token;
+                    const user = res.data.user;
+                    localStorage.setItem("token", token);
+                    axios.defaults.headers.common["Authorization"] = token; //
+                    commit("auth_success", token, user);
+                    this.$swal({
+                        icon: "success",
+                        title: '成功'
+                    });
+                    resolve(res);
+
+                }).catch(err => {
+                    localStorage.removeItem("token");
+                    reject(err);
+                })
+            })
         }
     }
 

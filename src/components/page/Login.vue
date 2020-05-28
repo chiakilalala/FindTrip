@@ -74,62 +74,77 @@
                       <p v-if="loginError">{{ loginError }}</p>
                       <p v-if="loginSuccessful">Login Successful</p>
                     </div>
-
-                    <form class="mx-auto max-w-xl" @submit.prevent="signin">
-                      <div class="relative">
-                        <input
-                          class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
-                          type="email"
+                    <ValidationObserver>
+                      <form class="mx-auto max-w-xl" @submit.prevent="signin">
+                        <ValidationProvider
+                          rules="required|email"
+                          v-slot="{ errors, classes }"
                           name="email"
-                          placeholder="Email:@mail.com..."
-                          v-model="user.Email"
-                        />
-                        <i
-                          class="pointer-events-none fa fa-envelope absolute inset-0 pl-2 flex items-center text-gray-500"
-                        ></i>
-                      </div>
-                      <!-- <div class="text-sm  text-red-400 ">此欄位必填</div> -->
-                      <div class="relative">
-                        <input
-                          class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
-                          type="Password"
-                          placeholder="Password "
-                          v-model="user.Password"
-                        />
-                        <i
-                          class="pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
-                        ></i>
-                      </div>
-                      <!-- <div class=" text-sm text-red-400 ">此欄位必填</div> -->
-
-                      <div class="text-sm text-gray-600 mb-2"></div>
-                      <button
-                        class="my-5 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-                        type="submit"
-                      >
-                        <svg
-                          class="w-6 h-6 -ml-2"
-                          fill="none"
-                          stroke="currentColor"
-                          stroke-width="2"
-                          stroke-linecap="round"
-                          stroke-linejoin="round"
                         >
-                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                          <circle cx="8.5" cy="7" r="4" />
-                          <path d="M20 8v6M23 11h-6" />
-                        </svg>
-                        <span class="ml-3">Sign Up</span>
-                      </button>
-                      <div class="text-md text-gray-600 mb-2 flex justify-between">
-                        <router-link to="/sign" class="text-right">免費註冊</router-link>
-                        <!-- <p class="text-right">免費登入</p> -->
-                        <p class="text-right">忘記密碼？</p>
-                      </div>
+                          <div class="relative" :class="classes">
+                            <input
+                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
+                              type="email"
+                              name="email"
+                              placeholder="Email:@mail.com..."
+                              v-model="user.Email"
+                            />
+                            <i
+                              class="pointer-events-none fa fa-envelope absolute inset-0 pl-2 flex items-center text-gray-500"
+                            ></i>
+                          </div>
+                          <div class="text-sm text-red-400">{{ errors[0] }}</div>
+                        </ValidationProvider>
 
-                      <!-- barcode -->
-                      <div class="depart-barcode"></div>
-                    </form>
+                        <ValidationProvider
+                          rules="required|min:6|max:20"
+                          v-slot="{ errors, classes }"
+                          name="密碼"
+                        >
+                          <div class="relative" :class="classes">
+                            <input
+                              class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                              type="Password"
+                              placeholder="Password "
+                              v-model="user.Password"
+                            />
+                            <i
+                              class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
+                            ></i>
+                          </div>
+                          
+                          <div class="text-sm text-red-400">{{ errors[0] }}</div>
+                        </ValidationProvider>
+
+                        <div class="text-sm text-gray-600 mb-2"></div>
+                        <button
+                          class="my-5 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                          type="submit"
+                        >
+                          <svg
+                            class="w-6 h-6 -ml-2"
+                            fill="none"
+                            stroke="currentColor"
+                            stroke-width="2"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                          >
+                            <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                            <circle cx="8.5" cy="7" r="4" />
+                            <path d="M20 8v6M23 11h-6" />
+                          </svg>
+                          <span class="ml-3">log In</span>
+                        </button>
+                        <div class="text-md text-gray-600 mb-2 flex justify-between">
+                          <router-link to="/sign" class="text-right">免費註冊</router-link>
+                          <!-- <p class="text-right">免費登入</p> -->
+                          <p class="text-right">忘記密碼？</p>
+                        </div>
+
+                        <!-- barcode -->
+                        <div class="depart-barcode"></div>
+                      </form>
+                    </ValidationObserver>
                   </div>
                 </div>
               </div>
@@ -175,24 +190,7 @@ export default {
     ...mapState(["isLogin", "loginError", "loginSuccessful"])
   },
   methods: {
-    ...mapActions(["doLogin"]),
-    ...mapMutations(["changeLogin"]),
-    loginSubmit() {
-      if (this.user.Email == "" || this.user.Password == "") {
-        this.$swal({
-          icon: "error",
-          title: "帳號密碼不得為空"
-        });
-      } else {
-        this.doLogin({
-          Email: this.user.Email,
-          Password: this.user.Password
-        });
-        this.$router.push("/home");
-        // this.userToken = `Bearer  ${res.data.token}`;
-        this.changeLogin({ Authorization: this.userToken });
-      }
-    },
+    ...mapMutations(["changeLogin"], ["loginStart"]),
 
     signin() {
       console.log(this.$store.state);
@@ -211,11 +209,17 @@ export default {
             if (res.data.success) {
               vm.$router.push("/home"); //登入成功轉到首頁
               this.userToken = `Bearer  ${res.data.token}`;
+              this.$store.commit("loginStart", true);
+              //  this.$store.commit('UPDATE_USER', data.userInfo);
               this.changeLogin({ Authorization: this.userToken });
             }
           })
           .catch(err => {
             console.log("帳號密碼錯誤");
+            this.$swal({
+              icon: "error",
+              title: "帳號密碼錯誤"
+            });
           });
       }
     },
