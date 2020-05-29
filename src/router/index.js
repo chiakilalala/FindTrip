@@ -41,11 +41,31 @@ const routes = [
         meta: { requiresAuth: false }, //不需要驗證
     },
     {
-        path: '/Dashboard',
-        name: 'Dashboard',
+        path: '/member',
+        name: 'Member',
         component: () =>
-            import ('@/components/Dashboard'),
+            import ('@/components/page/Dashboard'),
         meta: { requiresAuth: true }, //需要驗證
+
+        children: [{
+                path: 'order', // url= /member/order
+                component: () =>
+                    import ('@/components/member/Order'),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: 'point', // url= /member/point
+                component: () =>
+                    import ('@/components/member/Point'),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: 'account', // url= /member/account
+                component: () =>
+                    import ('@/components/member/Account'),
+                meta: { requiresAuth: true },
+            },
+        ]
     },
 
     {
@@ -57,6 +77,7 @@ const routes = [
 
 
 ]
+
 
 const router = new VueRouter({
 

@@ -1,7 +1,5 @@
 <template>
   <div>
-    登入了！！！！！！
-
-    
+    point
   </div>
 </template>

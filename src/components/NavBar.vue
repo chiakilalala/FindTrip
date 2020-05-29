@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--Nav-->
-    <nav id="header" class="fixed w-full z-30 top-0 text-white">
+    <nav id="header" class="fixed w-full z-30 top-0 text-white" @scroll="scrollhandle">
       <div
         class="w-full container mx-auto flex flex-wrap max-w-7xl items-center justify-between my-5 py-2"
       >
@@ -55,7 +55,10 @@
         >
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
             <li class="mr-3">
-              <a class="inline-block py-2 px-4 text-black no-underline" href="#">尋找旅行規劃師</a>
+              <router-link
+                to="/product"
+                class="inline-block py-2 px-4 text-black no-underline"
+              >尋找旅行規劃師</router-link>
             </li>
             <li class="mr-3">
               <a
@@ -76,7 +79,12 @@
           <div class="flex items-center text-blue-400" v-else>
             <span class="mx-4 fas fa-comment text-2xl" style></span>
             <span class="mx-3 fas fa-bell text-2xl" style></span>
-            <div class="dropdown relative items-center">
+            <div
+              class="dropdown relative items-center"
+              @mouseover="$store.state.isVisble = true"
+              @mouseleave="$store.state.isVisble = false"
+              @click="$store.state.isVisble = true"
+            >
               <button class="inline-flex items-center justify-between">
                 <div
                   class="h-12 w-12 rounded-full overflow-hidden border-2 border-gray-500 focus:outline-none focus:border-white"
@@ -86,7 +94,6 @@
                     alt
                     srcset
                     class="shadow object-cover h-full w-full"
-                    
                   />
                 </div>
                 <!-- <div class="shadow bg-center bg-cover  bg-white bg-no-repeat rounded-full inline-block h-12 w-12 ml-2" :style="background-image: url(../../assets/img/man001.svg)"></div> -->
@@ -96,6 +103,8 @@
                   viewBox="0 0 20 20"
                 >
                   <path
+                    :class="{ 'rotate-180': $store.state.isVisble }"
+                    class="transition duration-300 ease-in-out origin-center transform"
                     d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
                   />
                 </svg>
@@ -108,28 +117,46 @@
                 leave-class="translate-y-0 opacity-100"
                 leave-to-class="-translate-y-3 opacity-0"
               >
-                <div class="dropdown-menu absolute pt-2">
+                <div class="dropdown-menu absolute pt-2" v-show="$store.state.isVisble">
                   <div class="relative py-1 bg-white border border-gray-200 rounded-md shadow-xl">
                     <div
                       class="absolute top-0 w-4 h-4 origin-center transform rotate-45 translate-x-5 -translate-y-2 bg-white border-t border-l border-gray-200 rounded-sm pointer-events-none"
                     ></div>
-                    <div class="relative">
+                    <div class="relative px-5">
+                      <router-link
+                        to="/member"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >
+                        <i class="text-gray-500 hover:text-blue-500 pr-3 fas fa-cog"></i> 帳戶設定
+                      </router-link>
+
                       <a
                         href="#"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
-                      >帳戶管理</a>
+                      >
+                        <i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-coins"></i>儲值點數
+                      </a>
+
                       <a
                         href="#"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
-                      >點數儲值</a>
+                      >
+                        <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-list-alt"></i>訂單記錄
+                      </a>
+
                       <a
                         href="#"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
-                      >旅行計劃</a>
+                      >
+                        <i class="text-gray-500 hover:text-blue-100 pr-3 far fa-clipboard"></i>旅行計劃
+                      </a>
+
                       <a
                         href="#"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
-                      >訂單管理</a>
+                      >
+                        <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-comment"></i>訊息記錄
+                      </a>
                       <a
                         href="#"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
@@ -150,21 +177,59 @@
 <script>
 /* eslint-disable */
 import { Slide } from "vue-burger-menu";
-
+import $ from 'jquery'
 export default {
   components: {
     Slide // Register your component
   },
   data() {
     return {
-      isOpen: false
+      isOpen: false,
+      isSticky: true
     };
   },
   methods: {
     logout() {
       this.$store.dispatch("logout");
       this.$router.push("/");
+    },
+    handleScroll(e) {
+      this.isSticky = window.screenY > window.innerHeight / 2; // 瀏覽器視窗窗空
+    },
+    scrollhandle(){
+        const setFixed = $('#header');
+        const setbutton = $('#navAction');
+    
+        const changeLogo = $('#changeLogo');
+        let menuTop = setFixed.height();
+          // let navScroll = {
+    
+          //   init: function() {
+          //       $(window).on('scroll', function() {
+          //           navScroll.navDrop();
+          //       })
+          //   },
+
+                let $scrollTop = $(window).scrollTop();
+    
+                if ($scrollTop > menuTop) {
+                    setFixed.addClass('is-fixtop');
+                    setbutton.addClass('bg-blue-500 text-white');
+                    // setbutton.removeClass('text-gray-800');
+    
+                    changeLogo.addClass('changeLogo');
+                } else if ($scrollTop == 0) {
+                    setFixed.removeClass('is-fixtop');
+                    setbutton.removeClass('bg-blue-500 text-white');
+                    // setbutton.addClass('text-gray-800');
+    
+                    changeLogo.removeClass('changeLogo');
+                }
+
     }
+  },
+  created() {
+    window.addEventListener("scroll", this.scrollhandle, true);
   }
 };
 </script>

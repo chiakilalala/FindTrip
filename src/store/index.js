@@ -21,6 +21,9 @@ const store = new Vuex.Store({
         },
         loginError: null,
         loginSuccessful: false,
+        isVisble: false, //導覽列
+        status:'',
+        token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
 
 
 
@@ -96,10 +99,7 @@ const store = new Vuex.Store({
                     localStorage.setItem("token", token);
                     axios.defaults.headers.common["Authorization"] = token; //
                     commit("auth_success", token, user);
-                    this.$swal({
-                        icon: "success",
-                        title: '成功'
-                    });
+                    console.log("succes")
                     resolve(res);
 
                 }).catch(err => {

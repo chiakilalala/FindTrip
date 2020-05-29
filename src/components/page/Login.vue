@@ -49,8 +49,19 @@
                         <span class="ml-4">Sign Up with Google</span>
                       </button>
 
-                      <button
-                        class="mr-2 lg:mb-0 mb-4 w-full lg:w-1/2 font-semibold shadow-sm rounded-lg py-3 bg-indigo-300 hover:bg-indigo-200 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                      <facebook-login
+                        class="mr-2 lg:mb-0 mb-4 w-full 
+                        lg:w-1/2 font-semibold shadow-sm 
+                        rounded-lg py-3 bg-indigo-300 
+                        hover:bg-indigo-200 text-gray-800 
+                        flex items-center justify-center 
+                        transition-all duration-300 ease-in-out 
+                        focus:outline-none hover:shadow focus:shadow-sm 
+                        focus:shadow-outline"
+                         appId="702263037187512"
+      @login="getUserData"
+      @logout="onLogout"
+      @get-initial-status="getUserData"
                       >
                         <div class="bg-white p-2 rounded-full">
                           <svg
@@ -64,7 +75,7 @@
                           </svg>
                         </div>
                         <span class="ml-1">Sign Up with Facebook</span>
-                      </button>
+                      </facebook-login>
                     </div>
 
                     <div class="my-12 border-b text-center">
@@ -112,7 +123,7 @@
                               class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
                             ></i>
                           </div>
-                          
+
                           <div class="text-sm text-red-400">{{ errors[0] }}</div>
                         </ValidationProvider>
 
@@ -167,17 +178,23 @@
 /* eslint-disable */
 import axios from "axios";
 import Footer from "@/components/Footer.vue";
+import facebookLogin from "facebook-login-vuejs";
 
 import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   components: {
-    Footer
+    Footer,
+    facebookLogin
   },
   data() {
     return {
       user: {
+        Id:'',
         Email: "",
-        Password: ""
+        Password: "",
+        Name:'',
+        Picture:'',
+        FB:undefined
       },
       userToken: ""
       // rules: {
@@ -247,6 +264,28 @@ export default {
         .catch(err => {
           console.log(err);
         });
+    },
+      getUserData() {
+      this.FB.api('/me', 'GET', { fields: 'id,name,email,picture' },
+        user => {
+          this.personalID = user.id;
+          this.email = user.email;
+          this.name = user.name;
+          this.picture = user.picture.data.url;
+        }
+      )
+    },
+    sdkLoaded(payload) {
+      this.isConnected = payload.isConnected
+      this.FB = payload.FB
+      if (this.isConnected) this.getUserData()
+    },
+    onLogin() {
+      this.isConnected = true
+      this.getUserData()
+    },
+    onLogout() {
+      this.isConnected = false;
     }
   }
 };

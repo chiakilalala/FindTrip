@@ -14,3 +14,29 @@ html {
     -webkit-box-sizing: border-box;
     box-sizing: border-box;
 }
+
+.is-invalid {
+    @apply relative;
+}
+
+.is-invalid input,
+.is-invalid select {
+    @apply border-red-500;
+}
+
+.is-invalid span {
+    @apply text-red-500 text-xs tracking-wide absolute left-0 top-0 mt-10 ml-3;
+}
+
+.banScroll {
+    max-height: 100vh;
+    overflow: hidden;
+}
+
+body.swal2-toast-shown .swal2-container.swal2-top-end,
+body.swal2-toast-shown .swal2-container.swal2-top-right {
+    top: 60px;
+    right: 0;
+    bottom: auto;
+    left: auto;
+}

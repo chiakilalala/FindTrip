@@ -19,7 +19,7 @@
               <div class="mb-3">
                 <div class="w-full flex flex-wrap">
                   <div class="w-full flex-1 mt-8">
-                    <h3 class="text-center text-2xl text-blue-700 mb-3 tracking-widest">會 員 登入</h3>
+                    <h3 class="text-center text-2xl text-blue-700 mb-3 tracking-widest">會 員 註 冊</h3>
                     <div
                       class="flex md:flex-1 tracking-widestflex flex-col lg:flex-row items-center lg:justify-around justify-center"
                     >
@@ -72,7 +72,7 @@
                         class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
                       >Or sign up with e-mail</div>
                     </div>
-                    <ValidationObserver>
+                    <ValidationObserver >
                       <div class="mx-auto max-w-xl">
                         <ValidationProvider
                           rules="required|max:10"
@@ -90,39 +90,42 @@
                             <i
                               class="pointer-events-none fa fa-user absolute inset-0 pl-2 flex items-center text-gray-500"
                             ></i>
+                            <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
                           </div>
-                          <div class="text-sm text-red-400 my-2 ">{{ errors[0] }}</div>
                         </ValidationProvider>
                         <ValidationProvider
                           rules="required|email"
                           v-slot="{ errors, classes }"
                           name="email"
                         >
-                          <div class="relative" :class="classes">
+                          <div class="relative my-5 " :class="classes">
                             <input
                               class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
                               type="email"
-                              name="email"
+                              name="E-mail"
                               placeholder="電子郵件"
                               v-model="user.Email"
                             />
                             <i
                               class="pointer-events-none fa fa-envelope absolute inset-0 pl-2 flex items-center text-gray-500"
                             ></i>
+                            <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
                           </div>
-                          <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
                         </ValidationProvider>
 
                         <ValidationProvider
-                          rules="required|min:6|max:20"
+                          rules="required|confirmed:password|min:6|max:20"
                           v-slot="{ errors, classes }"
+                          vid="password"
                           name="密碼"
                         >
-                          <div class="relative" :class="classes">
+                          <div class="relative my-5 " :class="classes">
                             <input
-                              class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
                               type="Password"
+                              id="password"
                               placeholder="密碼"
+                              autocomplete="current-password"
                               v-model="user.Password"
                             />
                             <i
@@ -134,20 +137,21 @@
                         <ValidationProvider
                           rules="required|confirmed:password"
                           v-slot="{ errors, classes }"
-                          name="確認密碼"
+                          name="密碼"
                         >
-                          <div class="relative" :class="classes">
+                          <div class="relative my-5 " :class="classes">
                             <input
-                              class="w-full px-8 py-5 rounded-lg font-medium text-gray-300 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white mt-5"
+                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
                               type="Password"
                               placeholder="確認密碼 "
                               v-model="user.PasswordConfirm"
                             />
-                            <i
-                              class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
-                            ></i>
+
+                            <i class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500" ></i>
+
                           </div>
                           <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
+
                         </ValidationProvider>
 
                         <div class="text-sm text-gray-600 mb-2"></div>
@@ -224,24 +228,36 @@ export default {
   },
   methods: {
     ...mapMutations(["changeLogin"], ["loginStart"]),
-    // async serverSignIn(config) {
-    //   try {
-    //     const api = `http://findtrip.rocket-coding.com/api/login/memberlogin`;
-    //     const { data } = await this.$axios.post("api", config);
-    //     this.$swal({
-    //       icon: "success",
-    //       title: '成功'
-    //     });
-    //     this.$store.commit("UPDATE_USER", data.userInfo);
-    //     this.$router.push("/home");
-    //   } catch ({ response }) {
-    //     console.log({response});
-    //     this.$swal({
-    //       icon: "error",
-    //       title: '失敗'
-    //     });
-    //   }
-    // },
+    register() {
+      let data = {
+        Name: this.user.Name,
+        Email: this.user.Email,
+        Password: this.user.Password,
+        PasswordConfirm: this.user.Password
+      };
+      this.$store
+        .dispatch("register", data)
+        .then(() => this.$router.push("/home"))
+        .catch(err => console.log(err));
+    },
+    async serverSignIn(config) {
+      try {
+        const api = `http://findtrip.rocket-coding.com/api/login/memberlogin`;
+        const { data } = await this.$axios.post("api", config);
+        this.$swal({
+          icon: "success",
+          title: '成功'
+        });
+        this.$store.commit("UPDATE_USER", data.user);
+        this.$router.push("/home");
+      } catch ({ response }) {
+        console.log({response});
+        this.$swal({
+          icon: "error",
+          title: '失敗'
+        });
+      }
+    },
     SingUp() {
       const api = `http://findtrip.rocket-coding.com/api/Login/Register`;
       const vm = this;
@@ -265,13 +281,13 @@ export default {
                 icon: "success",
                 title: res.data.message
               });
-
+              this.$store.commit("loginStart", true);
               this.$router.push("/login");
               this.changeLogin({ Authorization: this.userToken });
             } else {
               this.$swal({
                 icon: "error",
-                title: res.data.message
+                title: data.message
               });
             }
           })
@@ -291,5 +307,20 @@ export default {
 #wrapper {
   background-color: #ebf8ff;
 }
+
+.is-invalid{
+  color: #EB0600;
+}
+.is-invalid input {
+  border: 1px #EB0600 solid
+}
+.is-valid{
+  color: green;
+}
+.is-valid input {
+  border: 1px solid green
+}
+
+
 </style>
 

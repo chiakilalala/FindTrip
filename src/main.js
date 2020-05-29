@@ -18,7 +18,7 @@ import VueScrollReveal from 'vue-scroll-reveal';
 // VeeValidate
 import { localize, ValidationProvider, extend, configure, ValidationObserver } from 'vee-validate';
 
-import { email, required, min, max, confirmed, integer, max_value, min_value, } from 'vee-validate/dist/rules.umd.js';
+import { email, required, min, max, confirmed, integer, max_value, min_value } from 'vee-validate/dist/rules.umd.js';
 
 // // 設置語言為繁體中文
 import zh_TW from 'vee-validate/dist/locale/zh_TW.json';
@@ -74,6 +74,9 @@ axios.defaults.withCredentials = false; //解決跨域問題
 Vue.use(VueAxios, axios);
 
 
+
+
+
 Vue.config.productionTip = false;
 
 new Vue({
@@ -82,29 +85,25 @@ new Vue({
     render: h => h(App),
 }).$mount('#app')
 
+
+// 頁面轉跳驗證
 // router.beforeEach((to, from, next) => {
-//     console.log('to', to, 'from', from, 'next', next);
-//     if (to.meta.requiresAuth) {
-//         // 請求介面獲取資料
-//         //  requiresAuth 是我們這次記錄 是否需要驗證 自訂的參數。
-//         console.log(to.meta.requiresAuth);
-//         const api = `https://forlife.southeastasia.cloudapp.azure.com/api/ApiMembers`;
-
-//         axios.post(api).then(res => {
-//             console.log(res.data);
-
-//             if (res.data.success) {
-//                 next(); //如果正確
-//             } else {
-//                 next({
-//                     path: '/login'
-//                 })
-//             }
-//         });
-
+//     // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
+//     //導航守衛
+//     console.log('to=', to.fullPath, '| from=', from.fullPath);
+//     if (to.matched.some(record => {
+//             console.log(record.name, record.meta.requiresAuth);
+//             return record.meta.requiresAuth;
+//         })) {
+//         // 如果沒有 token 
+//         console.log('token?', store.state.Authorization);
+//         if (store.state.Authorization === '') {
+//             // 轉跳到 login page
+//             next({ path: '/login' });
+//         } else {
+//             next(); // 往下繼續執行
+//         }
 //     } else {
-//         next();
+//         next(); // 往下繼續執行
 //     }
-
-//     // ...
 // });

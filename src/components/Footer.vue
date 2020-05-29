@@ -1,6 +1,6 @@
 <template>
   <div>
-        <div class="relative -mt-12 lg:-mt-4">
+    <div class="relative -mt-12 lg:-mt-4">
       <svg
         class="editorial"
         xmlns="http://www.w3.org/2000/svg"
@@ -26,16 +26,17 @@
         </g>
       </svg>
     </div>
-    <footer class="bg-blue-sea  text-white">
+    <footer class="bg-blue-sea text-white">
       <div class="container mx-auto px-6 pt-10 pb-6">
         <div class="flex flex-wrap">
           <div class="w-full md:w-1/4 text-center md:text-left">
             <h5 class="uppercase mb-6 font-bold text-3xl">
               <a
-            id="changeLogo"
-            class="bg-cover bg-no-repeat toggleColour no-underline hover:no-underline font-bold text-2xl lg:text-4xl flex relative h-10 w-40 logo"
-            href="#"
-          ></a></h5>
+                id="changeLogo"
+                class="bg-cover bg-no-repeat toggleColour no-underline hover:no-underline font-bold text-2xl lg:text-4xl flex relative h-10 w-40 logo"
+                href="#"
+              ></a>
+            </h5>
           </div>
           <div class="w-full md:w-1/4 text-center md:text-left">
             <h5 class="mb-6 font-bold text-md">服務須知</h5>
@@ -82,6 +83,16 @@
         </div>
       </div>
     </footer>
-
+    <!-- gotop -->
+    <GoTop />
   </div>
 </template>
+<script>
+import GoTop from "@/components/GoTop.vue";
+
+export default {
+  components: {
+    GoTop
+  }
+};
+</script>
