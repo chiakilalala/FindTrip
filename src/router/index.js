@@ -45,43 +45,43 @@ const routes = [
         name: 'member',
         component: () =>
             import ('@/components/page/Dashboard'),
-        meta: { requiresAuth: false }, //需要驗證
+        meta: { requiresAuth: true }, //需要驗證
 
         children: [{
                 path: 'order', // url= /member/order
                 component: () =>
                     import ('@/components/member/Order'),
-                meta: { requiresAuth: false },
+                meta: { requiresAuth: true },
             },
             {
                 path: 'point', // url= /member/point
                 component: () =>
                     import ('@/components/member/Point'),
-                meta: { requiresAuth: false },
+                meta: { requiresAuth: true },
             },
             {
                 path: 'account', // url= /member/account
                 component: () =>
                     import ('@/components/member/Account'),
-                meta: { requiresAuth: false },
+                meta: { requiresAuth: true },
             },
             {
                 path: 'project', // url= /member/project
                 component: () =>
                     import ('@/components/member/Project'),
-                meta: { requiresAuth: false },
+                meta: { requiresAuth: true },
             },
             {
                 path: 'message', // url= /member/message
                 component: () =>
                     import ('@/components/member/Message'),
-                meta: { requiresAuth: false },
+                meta: { requiresAuth: true },
             },
             {
                 path: 'favorite', // url= /member/favorite
                 component: () =>
                     import ('@/components/member/Favorite'),
-                meta: { requiresAuth: false },
+                meta: { requiresAuth: true },
             },
         ]
     },

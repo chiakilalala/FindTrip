@@ -87,23 +87,23 @@ new Vue({
 
 
 // 頁面轉跳驗證
-// router.beforeEach((to, from, next) => {
-//     // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
-//     //導航守衛
-//     console.log('to=', to.fullPath, '| from=', from.fullPath);
-//     if (to.matched.some(record => {
-//             console.log(record.name, record.meta.requiresAuth);
-//             return record.meta.requiresAuth;
-//         })) {
-//         // 如果沒有 token 
-//         console.log('token?', store.state.Authorization);
-//         if (store.state.Authorization === '') {
-//             // 轉跳到 login page
-//             next({ path: '/login' });
-//         } else {
-//             next(); // 往下繼續執行
-//         }
-//     } else {
-//         next(); // 往下繼續執行
-//     }
-// });
+router.beforeEach((to, from, next) => {
+    // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
+    //導航守衛
+    console.log('to=', to.fullPath, '| from=', from.fullPath);
+    if (to.matched.some(record => {
+            console.log(record.name, record.meta.requiresAuth);
+            return record.meta.requiresAuth;
+        })) {
+        // 如果沒有 token 
+        console.log('token?', store.state.Authorization);
+        if (store.state.Authorization === '') {
+            // 轉跳到 login page
+            next({ path: '/login' });
+        } else {
+            next(); // 往下繼續執行
+        }
+    } else {
+        next(); // 往下繼續執行
+    }
+});
