@@ -3,19 +3,18 @@
     <!-- NavBar Component -->
     <NavBar />
     <!-- banner -->
-    <div class="hero h-64 bg-cover h-112 overflow-hidden"></div>
+    <div class="hero bg-cover h-112 overflow-hidden"></div>
+    <!--search  -->
     <!--search  -->
     <div
-      class="container mx-auto max-w-6xl flex flex-col items-center h-112 lg:h-64 h-auto search-box my-2 ml-0 px-2 lg:px-0"
+      class="search-box container mx-auto max-w-7xl flex flex-col items-center h-112 lg:h-64 h-auto my-2 px-2 lg:px-0"
     >
       <div
         class="shadow-lg flex flex-wrap w-full lg:w-1/2 h-112 lg:h-64 bg-white rounded-lg z-30 relative search-box_inner"
       >
         <div class="pt-0 bg-blue-prod h-1 0 px-5 py-12 w-full rounded-t-lg">
           <div class="flex justify-between lg:mt-2 mt-4 text-gray-200">
-            <div
-              class="lg:text-xl text-sm lg:tracking-xl md:tracking-normal logo font-light"
-            >Find-Trip</div>
+            <div class="lg:text-xl text-sm lg:tracking-xl md:tracking-normal font-light">Find-Trip</div>
             <h3 class="lg:text-2xl text-md font-extrabold">
               <i class="fas fa-plane text-md pr-2 text-gray-300"></i>BOARDING PASS
             </h3>
@@ -92,7 +91,7 @@
     </div>
 
     <div class="my-2 lg:ml-10 ml-2">
-      <div class="flex max-w-6xl mx-auto -mt-32">
+      <div class="container flex max-w-7xl mx-auto -mt-32">
         <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
           <ul class="list-inline inline-flex hover:underlines">
             <li class>
@@ -107,7 +106,7 @@
     <!-- 熱門規劃師 -->
     <section class="bg-chiaki-blue py-10">
       <!-- filter -->
-      <div class="container mx-auto max-w-6xl px-4 sm:px-5">
+      <div class="container mx-auto max-w-7xl px-4 sm:px-5">
         <div class="py-5 flex">
           <div class="relative mr-8">
             <input
@@ -155,7 +154,7 @@
           </div>
         </div>
         <!-- 類型挑選 -->
-        <div class="container mx-auto max-w-6xl px-4 xs:px-4 mb-5">
+        <div class="container mx-auto max-w-7xl px-4 xs:px-4 mb-5">
           <div class="people_wrap my-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center">
             <button class="bg-blue-500">冒險</button>
             <button class="bg-blue-500">秘境</button>
@@ -166,19 +165,23 @@
           </div>
         </div>
 
-        <div class="container mx-auto flex max-w-6xl flex-wrap pb-12 sm:px-4 px-2">
+        <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2">
           <!-- Column -->
 
-          <Product-Card />
+          <Product-Card  :projects="projects" />
+
         </div>
       </div>
     </section>
     <Footer />
   </div>
 </template>
+
+
 <script>
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
+import { mapState, mapActions } from "vuex";
 
 import ProductCard from "@/components/products/ProductCard.vue";
 export default {
@@ -188,22 +191,46 @@ export default {
     Footer,
     ProductCard
   },
-  data() {
-    return {
-      products: []
-    };
+data(){
+return{
+  project:[]
+}
+},
+  computed: {
+    ...mapState(["projects"])
   },
   methods: {
-    getProducts() {
-      const api = `https://next.json-generator.com/api/json/get/4y_gTejsO`;
-
-      this.axios.get(api).then(response => {
-        console.log(response.data);
-      });
-    }
+    //api 動作
+    ...mapActions(["getProjects"])
   },
-  created() {
-    this.getProducts();
+  mounted() {
+    this.getProjects(); // 曲德api
   }
 };
 </script>
+
+<style scoped>
+.search-box {
+  position: relative;
+  top: -121px;
+  height: 13rem;
+  margin-bottom: -126px;
+  margin: 0 auto;
+  margin-top: -79px;
+}
+
+.search-box_inner:before {
+  content: "";
+  background-image: url(../../assets/img/map_bg.png);
+  background-size: cover;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  opacity: 0.3;
+  position: absolute;
+  right: 0;
+  top: 24%;
+  width: 80%;
+  height: 80%;
+}
+</style>

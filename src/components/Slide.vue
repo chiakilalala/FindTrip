@@ -1,8 +1,7 @@
 <template>
   <div></div>
 </template>
-<script>
-</script>
+
 <style>
 .bm-burger-button {
   position: fixed;

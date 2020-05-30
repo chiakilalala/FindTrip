@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 import VueRouter from 'vue-router'
 
-
+/* eslint-disable */
 
 Vue.use(VueRouter)
 
@@ -34,10 +34,17 @@ const routes = [
         meta: { requiresAuth: false }, //不需要驗證
     },
     {
-        path: '/Product',
+        path: '/product',
         name: 'Product',
         component: () =>
             import ('@/components/page/Product'),
+        meta: { requiresAuth: false }, //不需要驗證
+    },
+    {
+        path: '/wish',
+        name: 'wish',
+        component: () =>
+            import ('@/components/page/Wish'),
         meta: { requiresAuth: false }, //不需要驗證
     },
     {

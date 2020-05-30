@@ -2,6 +2,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
+import Axios from 'axios';
 
 Vue.use(Vuex);
 Vue.use(VueAxios, axios);
@@ -11,7 +12,7 @@ const store = new Vuex.Store({
     // 儲存token
 
     state: {
-
+        projects: [],
         isLogin: false,
         userInfo: {},
         Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
@@ -50,7 +51,12 @@ const store = new Vuex.Store({
         auth_success(state, Authorization, userInfo) {
             state.Authorization = Authorization;
             state.userInfo = userInfo;
-        }
+        },
+        setProjectInfo(state, val) {
+
+            state.projects = val;
+            console.log(val);
+        },
 
     },
     actions: {
@@ -83,6 +89,15 @@ const store = new Vuex.Store({
                 resolve();
             })
         },
+        getProjects({ commit }) {
+            // 取得所有card
+            const api = 'https://next.json-generator.com/api/json/get/4y_gTejsO'
+            Axios.get(api).then(res => {
+                commit('setProjectInfo', res.data)
+                console.log(res.data);
+            })
+        }
+
         // register({ commit }, user) {
         //     return new Promise((resolve, reject) => {
         //         axios({

@@ -3,18 +3,19 @@
     <!--Nav-->
     <nav id="header" class="fixed w-full z-30 top-0 text-white" @scroll="scrollhandle">
       <div
-        class="w-full container mx-auto flex flex-wrap max-w-7xl items-center justify-between my-5 py-2"
+        class="w-full container mx-auto flex flex-wrap max-w-7xl items-center justify-between my-2 py-2"
       >
         <div class="pl-4 flex items-center">
-          <a
+           <router-link to="/home"
             id="changeLogo"
             class="bg-cover bg-no-repeat toggleColour no-underline hover:no-underline font-bold text-2xl lg:text-4xl flex relative h-10 w-40 logo"
             href="#"
-          ></a>
+         > </router-link>
+        
         </div>
 
         <div class="block lg:hidden pr-4">
-          <Slide @closeMenu="open = false;" right>
+          <!-- <Slide @closeMenu="open = false;" right>
             <ul class>
               <li class="mr-3">
                 <a class="inline-block py-2 px-4 text-black no-underline" href="#">尋找旅行規劃師</a>
@@ -32,9 +33,9 @@
             >
               <i class="fas fa-user-astronaut pr-3"></i>登入
             </button>
-          </Slide>
+          </Slide> -->
           <!-- mobile -->
-          <!-- <button @click='isOpen = !isOpen' 
+          <button @click='isOpen = !isOpen' 
             id="nav-toggle"
             class="cursor-pointer flex items-center px-3 py-2 text-gray-500 hover:text-blue-100 hover:text-gray-800 appearance-none focus:outline-none"
           >
@@ -45,7 +46,7 @@
             >
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
             </svg>
-          </button>-->
+          </button>
         </div>
         <!-- desktop -->
         <div
@@ -176,11 +177,11 @@
 
 <script>
 /* eslint-disable */
-import { Slide } from "vue-burger-menu";
+// import { Slide } from "vue-burger-menu";
 import $ from 'jquery'
 export default {
   components: {
-    Slide // Register your component
+    // Slide // Register your component
   },
   data() {
     return {

@@ -168,13 +168,13 @@ body {
     flex-direction: column;
     justify-content: center;
     position: fixed;
-    bottom: 2.8125rem;
-    right: 2.8125rem;
+    bottom: 2.5rem;
+    right: 2.5rem;
     opacity: 0.6;
     z-index: 9999;
     transition: 0.5s;
-    width: 2.8125rem;
-    height: 2.8125rem;
+    width: 2.5rem;
+    height: 2.5rem;
     color: white;
     font-size: 0.8rem;
     cursor: pointer;
@@ -673,35 +673,9 @@ svg#life-bg-bottom {
     }
 }
 
-.search-box {
-    position: relative;
-    top: -121px;
-    height: 13rem;
-    margin-bottom: -126px;
-    margin: 0 auto;
-    margin-top: -79px;
-}
-
-.search-box_inner:before {
-    content: '';
-    background-image: url(../img/map_bg.png);
-    background-size: cover;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    opacity: 0.3;
-    position: absolute;
-    right: 0;
-    top: 24%;
-    width: 80%;
-    height: 80%;
-}
-
 .select-arrow {
     transform: translate(-16px, 17px);
 }
-
-.filter-arrow {}
 
 .tap_wrap button,
 .people_wrap button {
