@@ -6,12 +6,12 @@
         class="w-full container mx-auto flex flex-wrap max-w-7xl items-center justify-between my-2 py-2"
       >
         <div class="pl-4 flex items-center">
-           <router-link to="/home"
+          <router-link
+            to="/home"
             id="changeLogo"
             class="bg-cover bg-no-repeat toggleColour no-underline hover:no-underline font-bold text-2xl lg:text-4xl flex relative h-10 w-40 logo"
             href="#"
-         > </router-link>
-        
+          ></router-link>
         </div>
 
         <div class="block lg:hidden pr-4">
@@ -33,9 +33,10 @@
             >
               <i class="fas fa-user-astronaut pr-3"></i>登入
             </button>
-          </Slide> -->
+          </Slide>-->
           <!-- mobile -->
-          <button @click='isOpen = !isOpen' 
+          <button
+            @click="isOpen = !isOpen"
             id="nav-toggle"
             class="cursor-pointer flex items-center px-3 py-2 text-gray-500 hover:text-blue-100 hover:text-gray-800 appearance-none focus:outline-none"
           >
@@ -77,7 +78,7 @@
             <i class="fas fa-user-astronaut pr-3"></i>登入
           </button>
           <!-- 登入化緣狀態 -->
-          <div class="flex items-center text-blue-400" v-else>
+          <div class="flex items-center text-blue-700" v-else>
             <span class="mx-4 fas fa-comment text-2xl" style></span>
             <span class="mx-3 fas fa-bell text-2xl" style></span>
             <div
@@ -88,7 +89,7 @@
             >
               <button class="inline-flex items-center justify-between">
                 <div
-                  class="h-12 w-12 rounded-full overflow-hidden border-2 border-gray-500 focus:outline-none focus:border-white"
+                  class="bg-white h-12 w-12 rounded-full overflow-hidden border-2 border-gray-500 focus:outline-none focus:border-white"
                 >
                   <img
                     src="../assets/img/man002.svg"
@@ -125,44 +126,43 @@
                     ></div>
                     <div class="relative px-5">
                       <router-link
-                        to="/member"
+                        to="/member/account"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 fas fa-cog"></i> 帳戶設定
                       </router-link>
 
-                      <a
-                        href="#"
+                      <router-link
+                        to="/member/point"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-coins"></i>儲值點數
-                      </a>
+                      </router-link>
 
-                      <a
-                        href="#"
+                      <router-link
+                        to="/member/order"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-list-alt"></i>訂單記錄
-                      </a>
+                      </router-link>
 
-                      <a
-                        href="#"
+                      <router-link
+                        to="/member/project"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-100 pr-3 far fa-clipboard"></i>旅行計劃
-                      </a>
+                      </router-link>
 
-                      <a
-                        href="#"
+                      <router-link
+                        to="/member/message"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-comment"></i>訊息記錄
-                      </a>
-                      <a
-                        href="#"
+                      </router-link>
+                      <router-link
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                         @click="logout"
-                      >登出</a>
+                      >登出</router-link>
                     </div>
                   </div>
                 </div>
@@ -178,7 +178,7 @@
 <script>
 /* eslint-disable */
 // import { Slide } from "vue-burger-menu";
-import $ from 'jquery'
+import $ from "jquery";
 export default {
   components: {
     // Slide // Register your component
@@ -197,28 +197,27 @@ export default {
     handleScroll(e) {
       this.isSticky = window.screenY > window.innerHeight / 2; // 瀏覽器視窗窗空
     },
-    scrollhandle(){
-        const setFixed = $('#header');
-        const setbutton = $('#navAction');
-    
-        const changeLogo = $('#changeLogo');
-        let menuTop = setFixed.height();
-              let $scrollTop = $(window).scrollTop();
-    
-                if ($scrollTop > menuTop) {
-                    setFixed.addClass('is-fixtop');
-                    setbutton.addClass('bg-blue-500 text-white');
-                    // setbutton.removeClass('text-gray-800');
-    
-                    changeLogo.addClass('changeLogo');
-                } else if ($scrollTop == 0) {
-                    setFixed.removeClass('is-fixtop');
-                    setbutton.removeClass('bg-blue-500 text-white');
-                    // setbutton.addClass('text-gray-800');
-    
-                    changeLogo.removeClass('changeLogo');
-                }
+    scrollhandle() {
+      const setFixed = $("#header");
+      const setbutton = $("#navAction");
 
+      const changeLogo = $("#changeLogo");
+      let menuTop = setFixed.height();
+      let $scrollTop = $(window).scrollTop();
+
+      if ($scrollTop > menuTop) {
+        setFixed.addClass("is-fixtop");
+        setbutton.addClass("bg-blue-500 text-white");
+        // setbutton.removeClass('text-gray-800');
+
+        changeLogo.addClass("changeLogo");
+      } else if ($scrollTop == 0) {
+        setFixed.removeClass("is-fixtop");
+        setbutton.removeClass("bg-blue-500 text-white");
+        // setbutton.addClass('text-gray-800');
+
+        changeLogo.removeClass("changeLogo");
+      }
     }
   },
   created() {
