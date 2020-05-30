@@ -5,7 +5,9 @@
     "scripts": {
         "serve": "vue-cli-service serve",
         "build": "vue-cli-service build",
-        "lint": "vue-cli-service lint"
+        "lint": "vue-cli-service lint",
+        "dev": "webpack --watch",
+        "dev-server": "webpack-dev-server --hot --inline"
     },
     "dependencies": {
         "autoprefixer": "^9.8.0",
@@ -26,7 +28,8 @@
         "vue-scroll-reveal": "^1.0.11",
         "vue-swal2": "^1.0.3",
         "vue-sweetalert2": "^3.0.5",
-        "vuex": "^3.4.0"
+        "vuex": "^3.4.0",
+        "webpack-dev-server": "^3.11.0"
     },
     "devDependencies": {
         "@fullhuman/postcss-purgecss": "^2.2.0",
