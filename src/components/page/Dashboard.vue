@@ -402,8 +402,16 @@ import Footer from "@/components/Footer.vue";
 import NavBar from "@/components/NavBar.vue";
 import Sidebar from "@/components/Sidebar.vue";
 
+
+let token = localStorage.getItem("Authorization");
+const headers = {
+  'Accept': 'application/json',
+  'Content-Type': 'application/json',
+  'Authorization': token
+}
+
 export default {
-  data() {},
+
   components: {
     NavBar,
     Footer,
@@ -415,18 +423,13 @@ export default {
 
     getUser() {
       const api = "http://findtrip.rocket-coding.com/api/Login/Load";
-      let token = localStorage.getItem("Authorization");
+      // let token = localStorage.getItem("Authorization");
       console.log(token);
 
       this.axios
-        .get(api, {
-          headers: {
-            "Content-Type": "application/json;charset=UTF-8",
-            Authorization: token
-          }
-        })
+        .get(api, { headers })
         .then(response => {
-          console.log(response.data);
+          console.log(response);
         })
         .catch(err => {
           console.log(err.message);

@@ -279,7 +279,7 @@ export default {
             if (res.data.success) {
               this.$swal({
                 icon: "success",
-                title: res.data.message
+                title: "註冊成功"
               });
               this.$store.commit("loginStart", true);
               this.$router.push("/login");
@@ -287,7 +287,7 @@ export default {
             } else {
               this.$swal({
                 icon: "error",
-                title: res.data.message
+                title: "這帳號已有人註冊"
               });
             }
           })
@@ -295,7 +295,7 @@ export default {
             console.log(err);
             this.$swal({
               icon: "error",
-              title: res.data.message
+              title: "已經有人註冊過"
             });
           });
       }
