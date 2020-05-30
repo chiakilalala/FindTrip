@@ -287,7 +287,7 @@ export default {
             } else {
               this.$swal({
                 icon: "error",
-                title: data.message
+                title: res.data.message
               });
             }
           })
@@ -295,7 +295,7 @@ export default {
             console.log(err);
             this.$swal({
               icon: "error",
-              title: err.data.message
+              title: res.data.message
             });
           });
       }

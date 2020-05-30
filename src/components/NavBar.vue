@@ -202,15 +202,7 @@ export default {
     
         const changeLogo = $('#changeLogo');
         let menuTop = setFixed.height();
-          // let navScroll = {
-    
-          //   init: function() {
-          //       $(window).on('scroll', function() {
-          //           navScroll.navDrop();
-          //       })
-          //   },
-
-                let $scrollTop = $(window).scrollTop();
+              let $scrollTop = $(window).scrollTop();
     
                 if ($scrollTop > menuTop) {
                     setFixed.addClass('is-fixtop');

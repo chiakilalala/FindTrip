@@ -12,14 +12,21 @@ module.exports = {
             }),
         ],
     },
+    devServer: {
+        disableHostCheck: true
+    },
+
 };
+
+
 
 // module.exports = {
 //     devServer: {
 //         open: process.platform === 'darwin',
-//         host: '0.0.0.0',
+//         Host: 'localhost',
 //         port: 8080, // CHANGE YOUR PORT HERE!
-//         https: true,
+//         https: false,
 //         hotOnly: false,
+//         disableHostCheck: true
 //     },
 // }

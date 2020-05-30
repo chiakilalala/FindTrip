@@ -1,5 +1,7 @@
 <template>
   <div>
+    <!-- NavBar Component -->
+    <NavBar />
     <!-- banner -->
     <div class="hero h-64 bg-cover h-112 overflow-hidden"></div>
     <!--search  -->
@@ -521,9 +523,11 @@
   </div>
 </template>
 <script>
+import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
 export default {
   components: {
+    NavBar,
     Footer
   }
 };

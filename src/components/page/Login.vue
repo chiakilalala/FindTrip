@@ -49,19 +49,8 @@
                         <span class="ml-4">Sign Up with Google</span>
                       </button>
 
-                      <facebook-login
-                        class="mr-2 lg:mb-0 mb-4 w-full 
-                        lg:w-1/2 font-semibold shadow-sm 
-                        rounded-lg py-3 bg-indigo-300 
-                        hover:bg-indigo-200 text-gray-800 
-                        flex items-center justify-center 
-                        transition-all duration-300 ease-in-out 
-                        focus:outline-none hover:shadow focus:shadow-sm 
-                        focus:shadow-outline"
-                         appId="702263037187512"
-      @login="getUserData"
-      @logout="onLogout"
-      @get-initial-status="getUserData"
+                      <button
+                        class="mr-2 lg:mb-0 mb-4 w-full lg:w-1/2 font-semibold shadow-sm rounded-lg py-3 bg-indigo-300 hover:bg-indigo-200 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
                         <div class="bg-white p-2 rounded-full">
                           <svg
@@ -75,7 +64,7 @@
                           </svg>
                         </div>
                         <span class="ml-1">Sign Up with Facebook</span>
-                      </facebook-login>
+                      </button>
                     </div>
 
                     <div class="my-12 border-b text-center">
@@ -177,24 +166,20 @@
 <script>
 /* eslint-disable */
 import axios from "axios";
+import qs from 'qs'
 import Footer from "@/components/Footer.vue";
-import facebookLogin from "facebook-login-vuejs";
 
 import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   components: {
-    Footer,
-    facebookLogin
+    Footer
   },
   data() {
     return {
       user: {
-        Id:'',
+        Id: "",
         Email: "",
-        Password: "",
-        Name:'',
-        Picture:'',
-        FB:undefined
+        Password: ""
       },
       userToken: ""
       // rules: {
@@ -232,61 +217,60 @@ export default {
             }
           })
           .catch(err => {
-            console.log("帳號密碼錯誤");
+            console.log(err.message);
             this.$swal({
               icon: "error",
-              title: "帳號密碼錯誤"
+              title: err.message
             });
           });
       }
     },
-    login() {
-      // const data = { Email: this.user.Email, Password: this.user.Password };
+    fetchLogin(){
+      var myHeaders = new Headers();
+      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
 
-      console.log(qs.stringify(data));
-      console.log(data);
-      this.axios({
-        method: "post",
-        url: "http://findtrip.rocket-coding.com/api/login/memberlogin",
-        data: {
-          Email: this.user.Email,
-          Password: this.user.Password
-        },
-        headers: {
-          "Content-Type": "application/x-www-form-urlencoded"
-        }
-      })
-        .then(res => {
-          console.log(res);
-          this.$router.push("/home"); //登入成功轉到首頁
-          this.changeLogin({ Authorization: this.userToken });
-        })
-        .catch(err => {
-          console.log(err);
-        });
-    },
-      getUserData() {
-      this.FB.api('/me', 'GET', { fields: 'id,name,email,picture' },
-        user => {
-          this.personalID = user.id;
-          this.email = user.email;
-          this.name = user.name;
-          this.picture = user.picture.data.url;
-        }
-      )
-    },
-    sdkLoaded(payload) {
-      this.isConnected = payload.isConnected
-      this.FB = payload.FB
-      if (this.isConnected) this.getUserData()
-    },
-    onLogin() {
-      this.isConnected = true
-      this.getUserData()
-    },
-    onLogout() {
-      this.isConnected = false;
+      var urlencoded = new URLSearchParams();
+      urlencoded.append("Email", "chiakilalala@gmail.com");
+      urlencoded.append("Password", "123456");
+
+      var requestOptions = {
+        method: 'POST',
+        headers: myHeaders,
+        body: urlencoded,
+        redirect: 'follow'
+      };
+
+fetch("http://findtrip.rocket-coding.com/api/Login/memberlogin", requestOptions)
+  .then(response => response.text())
+  .then(result => console.log(result))
+  .catch(error => console.log('error', error));
     }
+    
+    // login() {
+    //   // const data = { Email: this.user.Email, Password: this.user.Password };
+
+    //   // console.log(qs.stringify(data));
+    //   // console.log(data);
+    //   this.axios({
+    //     method: "post",
+    //     url: "http://findtrip.rocket-coding.com/api/login/memberlogin",
+    //     data: {
+    //       Email: this.user.Email,
+    //       Password: this.user.Password
+    //     },
+    //     headers: {
+    //       "Content-Type": "application/x-www-form-urlencoded"
+    //     }
+    //   })
+    //     .then(res => {
+    //       console.log(res);
+    //       this.$router.push("/home"); //登入成功轉到首頁
+    //       this.changeLogin({ Authorization: this.userToken });
+    //     })
+    //     .catch(err => {
+    //       console.log(err);
+    //     });
+    // }
   }
 };
 </script>
