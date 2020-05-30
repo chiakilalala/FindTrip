@@ -97,7 +97,7 @@
 
             <!-- left-col -->
             <div class="lg:px-8 px-6 w-full lg:w-3/4 mt-0 lg:mt-0 text-gray-900 leading-normal">
-              <div class="my-2">
+              <div class="my-2 mt-10">
                 <!-- 麵包屑 -->
                 <div class="flex max-w-6xl mx-auto">
                   <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
@@ -112,7 +112,8 @@
                 </div>
 
                 <!-- 書籤表示旅行家和規劃師 -->
-                <div class="my-2 mb-3">
+                <!-- status :false 不存在書籤 -->
+                <div class="my-2 mb-3" v-if="this.$store.state.status">
                   <ul class="flex border-b">
                     <li class="-mb-px mr-1">
                       <a
@@ -128,8 +129,10 @@
                     </li>
                   </ul>
                 </div>
-
-                <div
+                <div id="member">
+                  <router-view></router-view>
+                </div>
+                <!-- <div
                   class="flex-1 text-gray-700 text-left bg-white py-5 my-2 rounded-lg shadow-lg mb-5"
                 >
                   <div class="lg:flex">
@@ -374,7 +377,7 @@
                       </div>
                     </div>
                   </div>
-                </div>
+                </div>-->
               </div>
 
               <!-- 訂單資料 -->
@@ -400,30 +403,13 @@ import NavBar from "@/components/NavBar.vue";
 import Sidebar from "@/components/Sidebar.vue";
 
 export default {
+  data() {},
   components: {
     NavBar,
     Footer,
     Sidebar
   },
-  async asyncData({ $axios }) {
-    const api = "http://findtrip.rocket-coding.com/api/Login/Load";
-    let token = localStorage.getItem("Authorization");
-    // const headers = {
-    //   "Content-Type": "application/json",
-    //   Authorization: token
-    // };
-    try {
-      const response = await $axios.get(api, {
-        headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          'Authorization': token
-        }
-      });
-      console.log(response);
-    } catch (error) {
-      console.error(error);
-    }
-  },
+
   methods: {
     ...mapMutations(["changeLogin"], ["loginStart"]),
 
@@ -435,8 +421,8 @@ export default {
       this.axios
         .get(api, {
           headers: {
-          "Content-Type": "application/json;charset=UTF-8",
-          'Authorization': token
+            "Content-Type": "application/json;charset=UTF-8",
+            Authorization: token
           }
         })
         .then(response => {

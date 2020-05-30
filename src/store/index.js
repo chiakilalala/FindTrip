@@ -13,7 +13,7 @@ const store = new Vuex.Store({
     state: {
 
         isLogin: false,
-        userInfo: { id: 1233333 },
+        userInfo: {},
         Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
         user: {
             Email: "",
@@ -22,11 +22,8 @@ const store = new Vuex.Store({
         loginError: null,
         loginSuccessful: false,
         isVisble: false, //導覽列
-        status:'',
+        status: false,
         token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
-
-
-
 
     },
     mutations: {
@@ -86,28 +83,28 @@ const store = new Vuex.Store({
                 resolve();
             })
         },
-        register({ commit }, user) {
-            return new Promise((resolve, reject) => {
-                axios({
-                    url: 'http://findtrip.rocket-coding.com/api/Login/Register',
-                    data: user,
-                    method: 'POST'
-                }).then(res => {
-                    console.log(res);
-                    const token = res.data.token;
-                    const user = res.data.user;
-                    localStorage.setItem("token", token);
-                    axios.defaults.headers.common["Authorization"] = token; //
-                    commit("auth_success", token, user);
-                    console.log("succes")
-                    resolve(res);
+        // register({ commit }, user) {
+        //     return new Promise((resolve, reject) => {
+        //         axios({
+        //             url: 'http://findtrip.rocket-coding.com/api/Login/Register',
+        //             data: user,
+        //             method: 'POST'
+        //         }).then(res => {
+        //             console.log(res);
+        //             const token = res.data.token;
+        //             const user = res.data.user;
+        //             localStorage.setItem("token", token);
+        //             axios.defaults.headers.common["Authorization"] = token; //
+        //             commit("auth_success", token, user);
+        //             console.log("succes")
+        //             resolve(res);
 
-                }).catch(err => {
-                    localStorage.removeItem("token");
-                    reject(err);
-                })
-            })
-        }
+        //         }).catch(err => {
+        //             localStorage.removeItem("token");
+        //             reject(err);
+        //         })
+        //     })
+        // }
     }
 
 });

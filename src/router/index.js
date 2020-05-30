@@ -42,7 +42,7 @@ const routes = [
     },
     {
         path: '/member',
-        name: 'Member',
+        name: 'member',
         component: () =>
             import ('@/components/page/Dashboard'),
         meta: { requiresAuth: false }, //需要驗證

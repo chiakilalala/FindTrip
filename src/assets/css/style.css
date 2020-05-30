@@ -50,7 +50,6 @@ body {
     /* top: 0;
   right: 0;
   left: 0; */
-    z-index: 999;
     box-shadow: 0 1px 3px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .06);
 }
 
@@ -331,7 +330,7 @@ a.changeLogo {
 #header.is-fixtop {
     transform: translateY(2px);
     background: #fff;
-    z-index: 2;
+    z-index: 99;
     transition: transform .2s ease, background .3s ease;
     -webkit-transition: transform .2ms ease, background .3s ease;
 }
