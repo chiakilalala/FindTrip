@@ -57,10 +57,8 @@
         >
           <ul class="list-reset lg:flex justify-end flex-1 items-center">
             <li class="mr-3">
-              <router-link
-                to="/product"
-                class="inline-block py-2 px-4 text-black no-underline"
-              >尋找旅行規劃師</router-link>
+              
+              <router-link to="/product" class="inline-block py-2 px-4 text-black no-underline">尋找旅行規劃師</router-link>
             </li>
             <li class="mr-3">
               <a
@@ -132,12 +130,12 @@
                         <i class="text-gray-500 hover:text-blue-500 pr-3 fas fa-cog"></i> 帳戶設定
                       </router-link>
 
-                      <router-link
+                       <router-link
                         to="/member/point"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-coins"></i>儲值點數
-                      </router-link>
+                       </router-link>
 
                       <router-link
                         to="/member/order"
@@ -159,10 +157,12 @@
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-comment"></i>訊息記錄
                       </router-link>
-                      <router-link
+
+                      <a
+                        href="#"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
-                        @click="logout"
-                      >登出</router-link>
+                        @click.prevent="logout"
+                      >登出</a>
                     </div>
                   </div>
                 </div>
@@ -192,7 +192,7 @@ export default {
   methods: {
     logout() {
       this.$store.dispatch("logout");
-      this.$router.push("/");
+      this.$router.push("/home");
     },
     handleScroll(e) {
       this.isSticky = window.screenY > window.innerHeight / 2; // 瀏覽器視窗窗空

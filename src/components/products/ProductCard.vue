@@ -2,21 +2,21 @@
 
   <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2">
     <div class="my-4 px-4 w-full lg:w-1/3 mb-8" 
-    v-for="(item, index) in projects" :key="index">
+    v-for="(item) in projects" :key="item._id">
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
         <a href="#">
           <img
             alt="Placeholder"
             class="block h-auto w-full"
-            src="https://picsum.photos/600/400/?travel=1"
+            :src="item.Cpicture"
           />
         </a>
         <div class="flex justify-content-end relative people">
           <img
             alt="Placeholder"
             class="block rounded-full border-white border-2 shadow"
-            src="https://picsum.photos/50/50/?people=1"
+            :src="item.manpic"
           />
         </div>
         <header class="px-6 pb-4 -mt-10">
@@ -27,32 +27,34 @@
             <i class="fa fa-star"></i>
             <i class="fa fa-star"></i>
             <i class="fa fa-star text-gray-300"></i>
-            <span class="tracking-wider text-xs text-gray-500">(12)</span>
+            <span class="tracking-wider text-xs text-gray-500">({{item.rating}})</span>
           </span>
-          <div class="text-lg text-gray-800 font-semibold mt-2 mb-3">冰島</div>
-          <p class="text-gray-600 text-sm mt-2">辛格維利爾 海克拉山 蘭德納曼卡 黃金圈</p>
+          <div class="text-lg text-gray-800 font-semibold mt-2 mb-3">{{item.country}}</div>
+          <p class="text-gray-600 text-sm mt-2">{{citys}}</p>
+          <!-- 辛格維利爾 海克拉山 蘭德納曼卡 黃金圈 this city -->
         </header>
         <div class="px-6 pb-4">
           <span
             class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white mr-2 tracking-wider"
-          >吃貨</span>
+          >{{item.tags[0]}}</span> 
+          <!-- 吃貨 秘境 冒險 文化 購物 宗教 -->
           <span
             class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white mr-2 tracking-wider"
-          >秘境</span>
+          >{{item.tags[1]}}</span>
           <span
             class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white tracking-wider"
-          >冒險</span>
+          >{{item.tags[2]}}</span>
         </div>
 
         <footer class="flex items-center justify-between leading-none px-6 py-4">
           <a class="flex items-center no-underline hover:underline text-black" href="#">
-            <p class="font-semibold text-md">Author Name</p>
+            <p class="font-semibold text-md">{{item.name}}</p>
           </a>
 
           <!-- end star -->
 
           <span class="flex items-center text-lg text-blue-500">
-            1,000
+            {{item.point}}
             <i class="fa fa-coin"></i>
           </span>
         </footer>
@@ -64,6 +66,7 @@
 </template>
 <script>
 // import { mapGetters, mapMutations } from 'vuex';
+import {  mapGetters } from 'vuex';
 
 export default {
   props:{
@@ -73,7 +76,22 @@ export default {
         return [];
       },
    }
-  }
+  },
+  computed: {
+      citys(){
+    
+      return this.projects.city
+      
+     
+  },
+  
+     // 使用展開運算符將 mapGetters 混合到外部物件中
+    ...mapGetters([
+      'doCity',
+    
+    ]),
+   
+  },
  
  
   

@@ -193,7 +193,7 @@ export default {
   },
 data(){
 return{
-  project:[]
+
 }
 },
   computed: {

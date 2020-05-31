@@ -14,7 +14,15 @@ const store = new Vuex.Store({
     state: {
         projects: [],
         isLogin: false,
-        userInfo: {},
+        userInfo: {
+            id: "",
+            Name: "",
+            UserPoint: 1000,
+            UserImg: null,
+            BGImg: null,
+            MemberIntro: "hello",
+            Tel: null
+        },
         Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
         user: {
             Email: "",
@@ -27,6 +35,13 @@ const store = new Vuex.Store({
         token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
 
     },
+    getters: {
+        doCity: state => {
+            return state.projects.map(todo => todo.city)
+
+        }
+    },
+
     mutations: {
         //修改token 並將token 存入localStoreage
         changeLogin(state, user) { //這裡的state 對應上面的state
@@ -93,7 +108,7 @@ const store = new Vuex.Store({
             // 取得所有card
             const api = 'https://next.json-generator.com/api/json/get/4y_gTejsO'
             Axios.get(api).then(res => {
-                commit('setProjectInfo', res.data)
+                commit('setProjectInfo', res.data);
                 console.log(res.data);
             })
         }
