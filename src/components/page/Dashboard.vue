@@ -1,24 +1,25 @@
 <template>
-  <div class="tracking-normal bg-member">
-    <div  class="hero-member">
+  <div class="bg-member">
+    <div class="hero-member">
       <!-- NavBar Component -->
       <NavBar />
-
+    <div class="w-full "   v-for="user in userInfo"
+        :key="user.id" :style="`background-image:url(${user.BGImg})`">
       <div
         class="pt-32 lg:px-5 p-6 flex container max-w-7xl mx-auto member flex flex-wrap items-center justify-around"
+      
       >
         <div
           class="lg:py-0 py-5 flex-col lg:flex-row container max-w-7xl md:max-w-4xl bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
-         
         >
           <div class="w-full lg:w-1/5 flex-1 flex justify-center">
             <div
               class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0 mx-auto sm:m-0 bg-blue-100"
             >
-              <img src="" class="w-40 h-40 p-5" alt />
+              <img :src="user.UserImg" class="w-40 h-40 p-5" alt />
             </div>
           </div>
-          <div class="w-full lg:w-4/5" >
+          <div class="w-full lg:w-4/5">
             <div class="sm:pl-12 sm:pt-4 flex-1 text-gray-800">
               <div
                 class="flex lg:items-start sm:flex-col sm:flex-wrap justify-center flex-wrap lg:mb-6 mb-0"
@@ -28,7 +29,7 @@
                 >
                   <h2
                     class="lg:text-left text-center text-2xl w-full mb-3 mt-4 sm:mt-0"
-                  ></h2>
+                  >{{user.Name}}</h2>
                   <div
                     class="flex sm:w-auto sm:mt-0 mb-0 lg:mb-3 w-full justify-center items-center"
                   >
@@ -57,20 +58,20 @@
                   </div>
                   <div class="flex sm:w-auto w-full mb-0 lg:mb-3 justify-center items-center">
                     <div class="lg:text-white lg:mr-4 mr-0 tracking-wider flex items-center">
-                      <span class="text-gray-500">點數：</span>
+                      <span class="text-gray-500">點數：{{user.UserPoints}}</span>
                       <img src="../../assets/img/coin.png" class="w-8 h-8 mr-2" alt srcset />
                     </div>
                   </div>
                   <p
                     class="lg:text-gray-500 text-center leading-normal px-4 sm:px-0"
-                  ></p>
+                  >{{user.MemberIntro}}</p>
                 </div>
               </div>
             </div>
           </div>
         </div>
       </div>
-
+</div>
       <div class="bg-member">
         <div class="flex container max-w-7xl mx-auto mt-10">
           <div class="w-full flex flex-row flex-wrap justify-around">
@@ -151,7 +152,7 @@
 <script>
 /* eslint-disable */
 
-import { mapActions,mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 // import { mapState, mapActions, mapMutations } from "vuex";
 
 import Footer from "@/components/Footer.vue";
@@ -160,7 +161,7 @@ import Sidebar from "@/components/Sidebar.vue";
 
 let token = localStorage.getItem("Authorization");
 const headers = {
-  'Authorization': token
+  Authorization: token
 };
 //     const $axios = axios.create({
 // baseURL: 'http://findtrip.rocket-coding.com/api',
@@ -174,11 +175,8 @@ const headers = {
 // });
 
 export default {
- 
-  data(){
-    return{
-   
-    }
+  data() {
+    return {};
   },
   components: {
     NavBar,
@@ -187,9 +185,9 @@ export default {
   },
 
   methods: {
-       //api 動作
+    //api 動作
     ...mapActions(["getOneUser"]),
-    ...mapMutations(["changeLogin"], ["loginStart"],['UPDATE_USER']),
+    ...mapMutations(["changeLogin"], ["loginStart"], ["UPDATE_USER"]),
     postman() {
       var myHeaders = new Headers();
       myHeaders.append("Authorization", token);
@@ -224,7 +222,7 @@ export default {
           console.log(result);
         })
         .catch(error => console.log("error", error));
-    },
+    }
 
     // getUser() {
     //   const api = "http://findtrip.rocket-coding.com/api/Login/Load";
@@ -244,6 +242,9 @@ export default {
     //       console.log(err.message);
     //     });
     // }
+  },
+  computed: {
+    ...mapState(["userInfo"])
   },
   created() {
     // this.getUser();
