@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2">
-    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="(item) in projects" :key="item._id">
+    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="(item) in projects" :key="item._id" @click="$router.push({ name: 'people', params: { id: item._id } })">
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
         <a href="#">

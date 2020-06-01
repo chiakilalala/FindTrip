@@ -39,6 +39,14 @@ const routes = [
         component: () =>
             import ('@/components/page/Product'),
         meta: { requiresAuth: false }, //不需要驗證
+
+    },
+    {
+        path: '/product/:id',
+        name: 'people',
+        component: () =>
+            import ('@/components/page/People'),
+        meta: { requiresAuth: false }, //不需要驗證
     },
     {
         path: '/wish',
