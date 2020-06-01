@@ -237,16 +237,7 @@ export default {
     search(val) {
       // console.log(this.projects);
       this.searchp(val);
-      // if (this.search.trim() !== "") {
-      //   this.projects.filter(item => {
-      //     console.log(item);
-      //     return (
-      //       item.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
-      //     );
-      //   });
-      // } else {
-      //   return this.projects;
-      // }
+
     }
   },
 

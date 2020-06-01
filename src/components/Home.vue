@@ -165,7 +165,7 @@
       </section>
 
       <!-- 熱門規劃師 Component -->
-      <section class="bg-chiaki-blue">
+      <section class="bg-chiaki-blue" v-scroll-reveal.reset="{ delay: 250 }">
         <div class="w-full mb-5">
           <div
             class="mx-auto bg-blue-200 border-4 border-white w-20 h-20 my-0 py-0 rounded-full flex items-center"
@@ -478,8 +478,9 @@ export default {
     recommends() {
       const project = [...this.projects];
       console.log(project);
-      return project.sort(() => Math.random() - 0.5).splice(0, 3);
-    }
+      return project.sort(() => Math.random() - 0.5).splice(0, 3);//取亂數
+    },
+  
   },
   methods: {
     //api 動作
