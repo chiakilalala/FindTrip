@@ -14,16 +14,8 @@ const store = new Vuex.Store({
     state: {
         projects: [],
         isLogin: false,
-
-        userInfo: {
-            id: "",
-            Name: "",
-            UserPoint: 1000,
-            UserImg: null,
-            BGImg: null,
-            MemberIntro: "hello",
-            Tel: null
-        },
+        // 5. state 改變，通知 UI 更新
+        userInfo: [],
         Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
         user: {
             Email: "",
@@ -36,7 +28,9 @@ const store = new Vuex.Store({
         token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
 
     },
-
+    getter: {
+        getUserList: (state) => state.userInfo
+    },
     mutations: {
         //修改token 並將token 存入localStoreage
         changeLogin(state, user) { //這裡的state 對應上面的state
@@ -45,8 +39,10 @@ const store = new Vuex.Store({
             localStorage.setItem('Authorization', user.Authorization);
 
         },
+        // 4. 收到資料改變 state
         UPDATE_USER(state, userInfo) {
             state.userInfo = userInfo;
+            console.log(userInfo);
         },
         loginStart: state => state.isLogin = true,
         loginStop: (state, errorMessage) => {
@@ -104,8 +100,37 @@ const store = new Vuex.Store({
             const api = 'https://next.json-generator.com/api/json/get/4y_gTejsO'
             Axios.get(api).then(res => {
                 commit('setProjectInfo', res.data);
-                console.log(res.data);
+                // console.log(res.data);
             })
+        },
+        getOneUser({ commit }) {
+            let token = localStorage.getItem("Authorization");
+            const headers = {
+                'Authorization': token
+            };
+            // 2. action 發出 ajax
+            //取得會員資料
+            const api = "http://findtrip.rocket-coding.com/api/Login/Load";
+            // let token = localStorage.getItem("Authorization");
+            console.log(token);
+
+            Axios
+                .get(api, { headers })
+                .then(response => {
+                    console.log(response.data);
+                    if (response.status == 200) {
+
+                        // 3. success 後把資料丟給 mutation
+                        console.log(commit, "ssss");
+
+                        commit('UPDATE_USER', response.data);
+                        console.log(response.data);
+                        // commit('auth_success',Authorization, userInfo)
+                    }
+                })
+                .catch(err => {
+                    console.log(err.message);
+                });
         }
 
         // register({ commit }, user) {
