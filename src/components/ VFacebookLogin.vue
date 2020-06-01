@@ -1,15 +1,27 @@
 <template>
   <div>
-    <span>{{connected}}</span>
-    <button v-if="!connected" @click="connect">
-      Connect
+    <v-facebook-login v-model="model" @sdk-init="handleSdkInit" />
+    <button v-if="scope.logout && model.connected" @click="scope.logout">
+      Logout
     </button>
-    <div v-else>
-      <h4>{{username}}</h4>
-      <img :src="picture"/>
-    </div>
   </div>
 </template>
+
+<script>
+  export default {
+    data: () => ({
+      FB: {},
+      model: {},
+      scope: {}
+    }),
+    methods: {
+      handleSdkInit({ FB, scope }) {
+        this.FB = FB
+        this.scope = scope
+      }
+    }
+  }
+</script>
 
 <script>
 /* eslint-disable */

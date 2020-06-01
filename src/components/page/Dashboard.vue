@@ -4,7 +4,7 @@
       <!-- NavBar Component -->
       <NavBar />
     <div class="w-full "   v-for="user in userInfo"
-        :key="user.id" :style="`background-image:url(${user.BGImg})`">
+        :key="user.id" >
       <div
         class="pt-32 lg:px-5 p-6 flex container max-w-7xl mx-auto member flex flex-wrap items-center justify-around"
       
