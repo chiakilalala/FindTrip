@@ -38,10 +38,12 @@
               <select
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
+                name="country"
+                v-model="selected.country"
+                @change="selected.city = null"
               >
-                <option>New Mexico</option>
-                <option>Missouri</option>
-                <option>Texas</option>
+                <option value disabled selected>--請選擇你想要去的國家--</option>
+                <option v-for="item in county" :key="item._id" :value="item">{{item}}</option>
               </select>
               <div
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 select-arrow"
@@ -62,14 +64,16 @@
               <label
                 class="block tracking-wide text-gray-700 text-md font-bold mb-2"
                 for="grid-state"
-              >區域</label>
+              >城市</label>
               <select
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
+                name="city"
+                v-model="selected.city"
+                @change="list"
               >
-                <option>New Mexico</option>
-                <option>Missouri</option>
-                <option>Texas</option>
+                <option :value="null" selected>-- 請選擇 --</option>
+                <option v-for="el in cities[0]" :key="el._id" :value="el">{{ el }}</option>
               </select>
               <div
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 select-arrow"
@@ -109,10 +113,12 @@
       <div class="container mx-auto max-w-7xl px-4 sm:px-5">
         <div class="py-5 flex">
           <div class="relative mr-8">
+            <!-- search 功能 -->
             <input
               type="search"
               class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
-              placeholder="Search..."
+              placeholder="請輸入關鍵字..."
+              v-model="search"
             />
             <div class="absolute top-0 left-0 inline-flex items-center p-2">
               <svg
@@ -167,9 +173,7 @@
 
         <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2">
           <!-- Column -->
-
-          <Product-Card  :projects="projects" />
-
+          <product-card :projects="list" />
         </div>
       </div>
     </section>
@@ -181,9 +185,10 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
-import { mapState, mapActions } from "vuex";
-
 import ProductCard from "@/components/products/ProductCard.vue";
+
+import { mapState, mapActions, mapMutations } from "vuex";
+
 export default {
   name: "Product",
   components: {
@@ -191,17 +196,98 @@ export default {
     Footer,
     ProductCard
   },
-data(){
-return{
-
-}
-},
-  computed: {
-    ...mapState(["projects"])
+  data() {
+    return {
+      product: "",
+      selected: {
+        country: "",
+        city: null
+      },
+      search: ""
+    };
   },
+  computed: {
+    ...mapState(["projects"]),
+    county() {
+      return this.projects
+        .map(item => item.country) //篩出國家
+        .filter((item, index, arr) => arr.indexOf(item) === index);
+    },
+    cities() {
+      return this.projects //篩出城市
+        .filter(item => item.country === this.selected.country)
+        .map(item => item.city)
+        .filter((item, index, arr) => arr.indexOf(item) === index);
+    },
+    list() {
+      return this.projects.filter(item => {
+        if (!this.selected.city) {
+          return item.country.includes(this.selected.country);
+        }
+        return (
+          item.country.includes(this.selected.country) ||
+          item.country.includes(this.selected.city)
+          // item.country.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1 ||
+          //  item.city.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1
+        );
+      });
+    }
+  },
+  watch: {
+    search(val) {
+      // console.log(this.projects);
+      this.searchp(val);
+      // if (this.search.trim() !== "") {
+      //   this.projects.filter(item => {
+      //     console.log(item);
+      //     return (
+      //       item.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
+      //     );
+      //   });
+      // } else {
+      //   return this.projects;
+      // }
+    }
+  },
+
   methods: {
     //api 動作
-    ...mapActions(["getProjects"])
+    ...mapActions(["getProjects"]),
+    ...mapMutations(["setProjectInfo"]),
+    getList() {
+      if (!this.selected.city) {
+        return; //如果沒選到特定特定的城市
+      }
+    },
+    searchp() {
+      if (this.search.trim() !== "") {
+        this.projects.filter(item => {
+          console.log(item);
+          return (
+            item.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
+          );
+        });
+      } else {
+        return this.projects;
+      }
+    }
+
+    // searchProject() {
+    //         let vm = this;
+
+    // let api = `https://next.json-generator.com/api/json/get/4y_gTejsO?search=${this.search}`;
+    // if (this.search === "") {
+    //   api = "https://next.json-generator.com/api/json/get/4y_gTejsO";
+    // } else {
+    //   fetch(api)
+    //     .then(rs => rs.json())
+    //     .then(data => {
+    //       this.projects = data;
+    //     });
+    // }
+    // const { data }  = await this.axios.get(api);
+    // console.log(data)
+    // return this.projects.filter(item => item.)
   },
   mounted() {
     this.getProjects(); // 曲德api

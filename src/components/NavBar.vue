@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--Nav-->
-    <nav id="header" class="fixed w-full z-30 top-0 text-white" @scroll="scrollhandle">
+    <nav id="header" class="md:bg-white fixed w-full z-30 top-0 text-white" @scroll="scrollhandle">
       <div
         class="w-full container mx-auto flex flex-wrap max-w-7xl items-center justify-between my-2 py-2"
       >
@@ -51,7 +51,7 @@
         </div>
         <!-- desktop -->
         <div
-          class="w-full flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0 bg-transparent text-black p-4 lg:p-0 z-20"
+          class=" w-full flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0 bg-transparent text-black p-4 lg:p-0 z-20"
           id="nav-content"
           :class="isOpen ? 'block' : 'hidden'"
         >

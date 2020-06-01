@@ -14,6 +14,7 @@ const store = new Vuex.Store({
     state: {
         projects: [],
         isLogin: false,
+
         userInfo: {
             id: "",
             Name: "",
@@ -34,12 +35,6 @@ const store = new Vuex.Store({
         status: false,
         token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
 
-    },
-    getters: {
-        doCity: state => {
-            return state.projects.map(todo => todo.city)
-
-        }
     },
 
     mutations: {

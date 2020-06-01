@@ -8,7 +8,7 @@
         class="pt-32 lg:px-5 p-6 flex container max-w-7xl mx-auto member flex flex-wrap items-center justify-around"
       >
         <div
-          class="lg:py-0 py-5 flex-col lg:flex-row container max-w-7xl  md:max-w-4xl bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
+          class="lg:py-0 py-5 flex-col lg:flex-row container max-w-7xl md:max-w-4xl bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
         >
           <div class="w-full lg:w-1/5 flex-1 flex justify-center">
             <div
@@ -132,7 +132,6 @@
                 <div id="member">
                   <router-view></router-view>
                 </div>
-              
               </div>
 
               <!-- 訂單資料 -->
@@ -159,7 +158,6 @@ import Sidebar from "@/components/Sidebar.vue";
 
 let token = localStorage.getItem("Authorization");
 const headers = {
-  "Content-Type": "application/json; charset=utf-8",
   'Authorization': token
 };
 //     const $axios = axios.create({
@@ -182,19 +180,40 @@ export default {
 
   methods: {
     ...mapMutations(["changeLogin"], ["loginStart"]),
+    postman() {
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", token);
+
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+      };
+
+      fetch("http://findtrip.rocket-coding.com/api/Login/Load", requestOptions)
+        .then(response => response.json())
+        .then(result => console.log(result))
+        .catch(error => console.log("error", error));
+    },
     getFetch() {
       const api = "http://findtrip.rocket-coding.com/api/Login/Load";
-
-      fetch(api, {
-        method: "get",
-        headers: headers
-      })
+      var myHeaders = new Headers();
+      myHeaders.append("Authorization", token);
+      var requestOptions = {
+        method: "GET",
+        headers: myHeaders,
+        redirect: "follow"
+      };
+      fetch(api, requestOptions)
         .then(res => {
           res.json();
+          // let token = localStorage.getItem("Authorization");
+          console.log(token);
         })
         .then(result => {
-          console.log(result.data);
-        })  .catch(error => console.log('error', error));
+          console.log(result);
+        })
+        .catch(error => console.log("error", error));
     },
 
     getUser() {
@@ -213,7 +232,7 @@ export default {
     }
   },
   created() {
-    this.getFetch();
+    this.getUser();
   }
 };
 </script>

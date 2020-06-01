@@ -1,12 +1,13 @@
 <template>
   <div id="wrapper">
     <div>
-      <div class="flex container max-w-4xl mx-auto">
-        <div class="w-full flex flex-col flex-wrap justify-center px-6 lg:px-0">
-          <div class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative">
+
+      <div class="flex container max-w-xl mx-auto">
+        <div class="w-full flex flex-col flex-wrap justify-center px-6 lg:px-0 my-10">
+          <div class="mt-6 container mx-auto  round-xll overflow-hidden bg-white relative my-10 max-w-450 shadow-md">
             <div
-              class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head"
-              style="background-image: url(https://content.api.news/v3/images/bin/11990db1d540d5c13ea8ca3e01f2083c)"
+              class=" bg-cover  h-24 p-4 flex justify-end items-center form-head bg-bottom"
+              style="background-image: url(https://images.unsplash.com/photo-1545922016-87c93aaca2ce?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ)"
             >
               <p
                 class="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg"
@@ -15,16 +16,16 @@
                 <span class="tracking-normal">--&gt;</span> SEA
               </p>
             </div>
-            <div class="p-12 px-10 lg:px-20">
+            <div class="p-12 px-10 ">
               <div class="mb-3">
                 <div class="w-full flex flex-wrap">
-                  <div class="w-full flex-1 mt-8">
+                  <div class="w-full flex-1 mt-5">
                     <h3 class="text-center text-2xl text-blue-700 mb-3 tracking-widest">會 員 登入</h3>
                     <div
-                      class="flex md:flex-1 tracking-widestflex flex-col lg:flex-row items-center lg:justify-around justify-center"
+                      class="flex md:flex-1 tracking-widestflex flex-col  items-center lg:justify-around justify-center"
                     >
                       <button
-                        class="mr-2 lg:mb-0 mb-4 w-full lg:w-1/2 font-semibold shadow-sm rounded-lg py-3 bg-indigo-300 hover:bg-indigo-200 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                        class="mr-2  mb-4 w-full  font-semibold shadow-sm rounded-lg py-3 bg-blue-300 hover:bg-blue-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
                         <div class="bg-white p-2 rounded-full">
                           <svg class="w-4" viewBox="0 0 533.5 544.3">
@@ -50,7 +51,7 @@
                       </button>
 
                       <button
-                        class="mr-2 lg:mb-0 mb-4 w-full lg:w-1/2 font-semibold shadow-sm rounded-lg py-3 bg-indigo-300 hover:bg-indigo-200 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                        class="mr-2 lg:mb-0 mb-4 w-full  font-semibold shadow-sm rounded-lg py-3 bg-blue-300 hover:bg-blue-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
                         <div class="bg-white p-2 rounded-full">
                           <svg
@@ -64,10 +65,11 @@
                           </svg>
                         </div>
                         <span class="ml-1">Sign Up with Facebook</span>
+                    
                       </button>
                     </div>
 
-                    <div class="my-12 border-b text-center">
+                    <div class="my-10  border-b-2 text-center  ">
                       <div
                         class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
                       >Or sign up with e-mail</div>
@@ -135,8 +137,8 @@
                           </svg>
                           <span class="ml-3">log In</span>
                         </button>
-                        <div class="text-md text-gray-600 mb-2 flex justify-between">
-                          <router-link to="/sign" class="text-right">免費註冊</router-link>
+                        <div class="text-sm text-gray-600 mb-2 flex justify-between">
+                          <span>尚未設立帳戶？<router-link to="/sign" class="text-right text-blue-500">在此註冊</router-link></span>
                           <!-- <p class="text-right">免費登入</p> -->
                           <p class="text-right">忘記密碼？</p>
                         </div>
@@ -151,7 +153,8 @@
             </div>
 
             <div
-              class="bg-blue-800 bg-cover bg-center h-20 p-4 flex justify-end items-center form-head"
+              class="bg-blue-800 bg-cover bg-right h-20 p-4 flex justify-end items-center form-head"
+                  style="background-image: url(https://images.unsplash.com/photo-1545922016-87c93aaca2ce?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ)"
             ></div>
           </div>
 
@@ -165,14 +168,18 @@
 
 <script>
 /* eslint-disable */
+
+
 import axios from "axios";
 import qs from 'qs'
 import Footer from "@/components/Footer.vue";
 
+
 import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   components: {
-    Footer
+    Footer,
+  
   },
   data() {
     return {
@@ -225,26 +232,7 @@ export default {
           });
       }
     },
-    fetchLogin(){
-      var myHeaders = new Headers();
-      myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-
-      var urlencoded = new URLSearchParams();
-      urlencoded.append("Email", "chiakilalala@gmail.com");
-      urlencoded.append("Password", "123456");
-
-      var requestOptions = {
-        method: 'POST',
-        headers: myHeaders,
-        body: urlencoded,
-        redirect: 'follow'
-      };
-
-fetch("http://findtrip.rocket-coding.com/api/Login/memberlogin", requestOptions)
-  .then(response => response.text())
-  .then(result => console.log(result))
-  .catch(error => console.log('error', error));
-    }
+ 
     
     // login() {
     //   // const data = { Email: this.user.Email, Password: this.user.Password };
@@ -276,7 +264,16 @@ fetch("http://findtrip.rocket-coding.com/api/Login/memberlogin", requestOptions)
 </script>
 <style scoped>
 #wrapper {
+ 
+    background-size: cover;
+    background: bottom;
+ 
+    background-repeat: no-repeat;
   background-color: #ebf8ff;
+      background-image: url(https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?q=80&fm=jpg&s=fa68c48…);
+}
+.max-w-450{
+  max-width: 450px;
 }
 </style>
 

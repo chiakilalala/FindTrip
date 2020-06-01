@@ -211,6 +211,8 @@ body {
     min-height: 100vh;
 }
 
+
+/* 
 .form-head:before,
 .form-head:after {
     background-color: #ebf8ff;
@@ -225,12 +227,13 @@ body {
     border-radius: 100%;
     bottom: 0;
     margin-bottom: -10px;
-}
+} */
 
-.form-head:after {
+
+/* .form-head:after {
     top: 9%;
     left: -13px;
-}
+} */
 
 .gradient {
     background: linear-gradient(90deg, #1983d4 0%, #53e8f3 100%);
