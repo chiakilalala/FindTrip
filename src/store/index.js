@@ -26,10 +26,39 @@ const store = new Vuex.Store({
         isVisble: false, //導覽列
         status: false,
         token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
+        searchData: [],
+
+        selectedCountry: "",
+        selectedCity: null,
+        form: {
+            Rid: '',
+            county: '',
+            city: '',
+            data: '',
+            tag: { //checkbox
+                act: false,
+                secrect: false,
+                cultue: false,
+                fun: false,
+                food: false,
+                shopping: false,
+                religion: false
+            },
+            adult: 0,
+            child: 0,
+            message: ''
+
+
+        }
+
+
 
     },
     getter: {
-        getUserList: (state) => state.userInfo
+        getUserList: (state) => state.userInfo,
+        selectedCountry: (state) => state.selectedCountry,
+        selectedCity: (state) => state.selectedCity,
+
     },
     mutations: {
         //修改token 並將token 存入localStoreage
@@ -63,6 +92,24 @@ const store = new Vuex.Store({
             state.projects = val;
             console.log(val);
         },
+        SELECTEDCOUNTY(state, payload) {
+            state.selectedCountry = payload;
+        },
+        SELECTEDCITY(state, payload) {
+            state.selectedCity = payload;
+        },
+        SEARCHDATA(state, payload) {
+            state.searchData = payload;
+        },
+        // SETORDERINFO(state ,val){
+        //     console.log('SETORDERINFO',val);
+        //     if(val.Rid) state.form.Rid = val.Rid
+        //     if(val.county) state.form.county = val.county
+        //     if(val.city) state.form.city = val.city
+        //     if(val.date && val.data.length >1) state.form.date = val.date
+        //     if(val.date && val.data.length >1) state.form.date = val.date
+        //     if(val.date && val.data.length >1) state.form.date = val.date   
+        // }
 
     },
     actions: {
@@ -131,7 +178,48 @@ const store = new Vuex.Store({
                 .catch(err => {
                     console.log(err.message);
                 });
-        }
+        },
+        // postProject({ commit }, obj) {
+
+        //     let token = localStorage.getItem("Authorization");
+        //     const headers = {
+        //         'Authorization': token
+        //     };
+        //     const api = `http://localhost:3000/posts`;
+
+        //     // this.$http.post(url,{data:order}).then((response)=>{
+        //     //     console.log('訂單建立',response.data)
+
+        //     // })
+        //     Axios.request({
+        //         url: api,
+        //         method: 'post',
+        //         headers,
+        //         data: {
+        //             city: '',
+        //             county: '',
+        //             data: '',
+        //             tag: { //checkbox
+        //                 act: false,
+        //                 secrect: false,
+        //                 cultue: false,
+        //                 fun: false,
+        //                 food: false,
+        //                 shopping: false,
+        //                 religion: false
+        //             },
+        //             adult: 0,
+        //             child: 0,
+        //             message: ''
+        //         }
+        //     }).then(res => {
+        //         console.log(res);
+        //         if (res.data) {
+        //             commit
+        //         }
+        //     })
+
+        // }
 
         // register({ commit }, user) {
         //     return new Promise((resolve, reject) => {

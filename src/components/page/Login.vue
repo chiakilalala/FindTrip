@@ -199,7 +199,7 @@ export default {
     ...mapState(["isLogin", "loginError", "loginSuccessful"])
   },
   methods: {
-    ...mapMutations(["changeLogin"], ["loginStart"]),
+    ...mapMutations(["changeLogin"], ["loginStart"],['UPDATE_USER']),
 
     signin() {
       console.log(this.$store.state);
@@ -219,7 +219,8 @@ export default {
               vm.$router.push("/home"); //登入成功轉到首頁
               this.userToken = `Bearer  ${res.data.token}`;
               this.$store.commit("loginStart", true);
-              //  this.$store.commit('UPDATE_USER', data.userInfo);
+                this.$store.commit("UPDATE_USER", res.data);
+           
               this.changeLogin({ Authorization: this.userToken });
             }
           })

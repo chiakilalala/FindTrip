@@ -1,6 +1,11 @@
 <template>
   <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2">
-    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="(item) in projects" :key="item._id" @click="$router.push({ name: 'people', params: { id: item._id } })">
+    <div
+      class="my-4 px-4 w-full lg:w-1/3 mb-8"
+      v-for="(item) in projects"
+      :key="item._id"
+      @click="$router.push({ name: 'people', params: { id: item._id } })"
+    >
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
         <a href="#">
@@ -16,11 +21,13 @@
         <header class="px-6 pb-4 -mt-10">
           <!-- start star -->
           <span class="star text-yellow-500 text-xs">
-            <i class="fa fa-star fa-1x"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star"></i>
-            <i class="fa fa-star text-gray-300"></i>
+            <el-rate
+              v-model="item.rating"
+              disabled
+              text-color="#ff9900"
+              score-template="{value}"
+              class="inline-block"
+            ></el-rate>
             <span class="tracking-wider text-xs text-gray-500">({{item.rating}})</span>
           </span>
           <div class="text-lg text-gray-800 font-semibold mt-2 mb-3">{{item.country}}</div>
@@ -60,7 +67,6 @@
 <script>
 // import { mapGetters, mapMutations } from 'vuex';
 
-
 export default {
   props: {
     projects: {
@@ -68,12 +74,16 @@ export default {
       default() {
         return [];
       }
-    }
+    },
+  
   },
   computed: {
     // 使用展開運算符將 mapGetters 混合到外部物件中
-   
-
+    value() {
+      return this.projects.map(item => {
+        console.log(item.rating);
+      });
+    }
   }
 };
 </script>

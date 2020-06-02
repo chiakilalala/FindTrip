@@ -118,7 +118,7 @@
               type="search"
               class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
               placeholder="請輸入關鍵字..."
-              v-model="search"
+              v-model.trim="search"
             />
             <div class="absolute top-0 left-0 inline-flex items-center p-2">
               <svg
@@ -173,7 +173,7 @@
 
         <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2">
           <!-- Column -->
-          <product-card :projects="list" />
+          <product-card :projects="list"/>
         </div>
       </div>
     </section>
@@ -203,7 +203,8 @@ export default {
         country: "",
         city: null
       },
-      search: ""
+      search: "",
+       isResult: false,
     };
   },
   computed: {
@@ -231,6 +232,20 @@ export default {
           //  item.city.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1
         );
       });
+    },
+    keywordSearch(){
+
+    
+      if(this.search){
+        return this.projects.filter(item=>{
+          return (
+            item.county.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 ||
+            item.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 
+          )
+        })
+      }else{
+        return this.projects
+      }
     }
   },
   watch: {

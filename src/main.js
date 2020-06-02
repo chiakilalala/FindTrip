@@ -3,7 +3,7 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App from './App.vue'
 
-import { Button, Select, Dialog, Rate } from 'element-ui';
+import { Button, Select, Dialog, Rate, InputNumber } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css' //樣式一定要引入
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
@@ -12,6 +12,7 @@ Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
 Vue.component(Dialog.name, Dialog);
 Vue.component(Rate.name, Rate);
+Vue.component(InputNumber.name, InputNumber);
 
 import router from './router'
 import store from './store'

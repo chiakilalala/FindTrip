@@ -48,10 +48,14 @@ const routes = [
             import ('@/components/page/People'),
         meta: { requiresAuth: false }, //不需要驗證
         children: [{
-            path: '/product/:id',
-            name: 'order'
+            path: '/product/:id/order',
+            name: 'order',
+            component: () =>
+                import ('@/components/peopleorder'),
+            meta: { requiresAuth: false }, //不需要驗證
         }]
     },
+
     {
         path: '/wish',
         name: 'wish',
@@ -107,7 +111,7 @@ const routes = [
 
     {
         path: '/*',
-        redirect: '/login',
+        redirect: '/home',
 
     }, //// 當 url path 不符合 router 表的時候，預設轉址到
     // 順序一定要最後面

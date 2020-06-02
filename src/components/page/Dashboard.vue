@@ -159,10 +159,10 @@ import Footer from "@/components/Footer.vue";
 import NavBar from "@/components/NavBar.vue";
 import Sidebar from "@/components/Sidebar.vue";
 
-let token = localStorage.getItem("Authorization");
-const headers = {
-  Authorization: token
-};
+  let token = localStorage.getItem("Authorization");
+  const headers = {
+    'Authorization': token
+  };
 //     const $axios = axios.create({
 // baseURL: 'http://findtrip.rocket-coding.com/api',
 // timeout: 1000,

@@ -3,9 +3,9 @@
     <!-- Column -->
     <div
       class="my-4 px-6 w-full lg:w-1/3 ml-0"
-      v-scroll-reveal.reset="{ delay: 450 }"
+      v-scroll-reveal.reset="{ delay: 250 }"
       v-for="item in project"
-      :key="item._id"
+      :key="item._id" @click="$router.push({ name: 'people', params: { id: item._id } })"
     >
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
@@ -23,14 +23,14 @@
           <!-- start star -->
           <span class="star text-yellow-500 text-xs">
             <el-rate
-              v-model="value"
+              v-model="item.rating"
               disabled
-              show-score
+             
               text-color="#ff9900"
               score-template="{value}"
-            ></el-rate>
+              class="inline-block"></el-rate>
 
-            <!-- <span class="tracking-wider text-xs text-gray-500">({{item.rating}})</span> -->
+            <span class="tracking-wider text-xs text-gray-500">({{item.rating}})</span>
           </span>
           <div class="text-lg text-gray-800 font-semibold mt-2 mb-3">{{item.country}}</div>
           <p class="text-gray-600 text-sm mt-2">{{ item.city.join( ' , ') }}</p>
@@ -75,26 +75,26 @@ export default {
       default() {
         return [];
       },
-      // value:{
-      //   type:Number,
-      //   default: 0
-      // }
+      value:{
+        type:Number,
+        default: 0
+      }
     }
   },
   data() {
     return {
-      value: 4.9
+      // value:4.5
     };
   },
   computed: {
     ...mapState(["projects"]),
-    // value() {
-    //   // return this.projects.map((item,index) => {
-    //   //   console.log(item.rating,index)
-    //   //   return item.rating[index]
-    //   // });
-    // }
-  },
+  value(){
+    return this.projects.map(item =>{
+      console.log(item.rating)
+    })
+  }
+
+  },  
 
 };
 </script>
