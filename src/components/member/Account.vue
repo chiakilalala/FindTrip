@@ -43,7 +43,7 @@
           <!-- 更換 -->
           <!-- <i class="fa fa-upload"></i> -->
         </div>
-        <div class="w-full lg:w-4/5">
+        <div class="w-full lg:w-4/5" v-for="(user,index) in userInfo" :key="index">
           <div class="sm:pl-6 sm:pt-4 flex-1 text-gray-800">
             <div class="mx-auto max-w-xl">
               <div class="flex flex-wrap md:w-auto w-full mb-0 lg:flex-col justify-center">
@@ -52,7 +52,7 @@
                   <input
                     class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
                     type="text"
-                    placeholder="Chiakilalala"
+                    :value = "user.Name"
                   />
                 </div>
                 <div class="md:w-full mb-3">
@@ -69,7 +69,8 @@
                   >FB 帳號網址：</label>
                   <input
                     class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
-                    placeholder="https://www.facebook.com/自己帳號"
+                    
+                     :value = "user.PlannerSocial1"
                   />
                 </div>
                 <div class="md:w-full mb-3">
@@ -78,7 +79,7 @@
                   >推特 帳號網址：</label>
                   <input
                     class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
-                    placeholder="https://www.facebook.com/自己帳號"
+                    :value = "user.PlannerSocial2"
                   />
                 </div>
 
@@ -88,8 +89,9 @@
                     for="grid-first-name"
                   >E-mail 網址：</label>
                   <input
-                    placeholder="2051sss02@gmail.com"
+                    placeholder="沒有資料2051sss02@gmail.com"
                     type="text"
+                    
                     class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
                   />
                 </div>
@@ -100,7 +102,7 @@
                     for="grid-first-name"
                   >聯絡電話：</label>
                   <input
-                    placeholder="930057001"
+                     :value = "user.Tel"
                     type="text"
                     class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
                   />
@@ -121,7 +123,7 @@
                   class="flex sm:w-auto w-full sm:justify-start mb-0 lg:mb-3 justify-center items-center"
                 >
                   <div class="lg:mr-4 mr-0 tracking-wider flex items-center">
-                    <span class="text-grey-darker">點數：1000</span>
+                    <span class="text-grey-darker">點數：{{user.UserPoints}}</span>
                     <img src="../../assets/img/coin.png" class="w-8 h-8 mr-2" alt srcset />
                   </div>
                   <span
@@ -153,7 +155,7 @@
 </template>
 <script>
 let token = localStorage.getItem("Authorization");
-import {  mapMutations } from "vuex";
+import {  mapMutations,mapState } from "vuex";
 
 export default {
   data() {
@@ -161,6 +163,9 @@ export default {
       products: [],
       tempProduct: {}
     };
+  },
+  computed: {
+    ...mapState(["userInfo"])
   },
   methods: {
      ...mapMutations(["changeLogin"]),
