@@ -40,7 +40,7 @@
                 id="grid-state"
                 name="country"
                 v-model="selected.country"
-                @change="selected.city = null"
+                @change="selected.city = ''"
               >
                 <option value disabled selected>--請選擇你想要去的國家--</option>
                 <option v-for="item in county" :key="item._id" :value="item">{{item}}</option>
@@ -70,10 +70,10 @@
                 id="grid-state"
                 name="city"
                 v-model="selected.city"
-                @change="list"
               >
+                <!--   @change="list" -->
                 <option :value="null" selected>-- 請選擇 --</option>
-                <option v-for="el in cities[0]" :key="el._id" :value="el">{{ el }}</option>
+                <option v-for="el in city[0]" :key="el._id" :value="el">{{ el }}</option>
               </select>
               <div
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 select-arrow"
@@ -117,8 +117,8 @@
             <input
               type="search"
               class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
-              placeholder="請輸入關鍵字..." 
-              v-model.trim="searchText" @keyup.enter="handleSearch"
+              placeholder="請輸入關鍵字..."
+              v-model.trim="searchText"
             />
             <div class="absolute top-0 left-0 inline-flex items-center p-2">
               <svg
@@ -170,11 +170,75 @@
             <button class="bg-blue-500">購物</button>
           </div>
         </div>
-
-        <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2">
+    <!-- <product-card :projects="keywordSearch" /> -->
+        <!-- <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2"> -->
           <!-- Column -->
-          <product-card :projects="list"/>
-        </div>
+      
+          <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2">
+            <div
+              class="my-4 px-4 w-full lg:w-1/3 mb-8"
+              v-for="(item) in keywordSearch"
+              :key="item._id"
+              @click="$router.push({ name: 'people', params: { id: item._id } })"
+            >
+              <!-- Article -->
+              <article class="overflow-hidden rounded-lg shadow-lg bg-white">
+                <a href="#">
+                  <img alt="Placeholder" class="block h-auto w-full" :src="item.Cpicture" />
+                </a>
+                <div class="flex justify-content-end relative people">
+                  <img
+                    alt="Placeholder"
+                    class="block rounded-full border-white border-2 shadow"
+                    :src="item.manpic"
+                  />
+                </div>
+                <header class="px-6 pb-4 -mt-10">
+                  <!-- start star -->
+                  <span class="star text-yellow-500 text-xs">
+                    <el-rate
+                      v-model="item.rating"
+                      disabled
+                      text-color="#ff9900"
+                      score-template="{value}"
+                      class="inline-block"
+                    ></el-rate>
+                    <span class="tracking-wider text-xs text-gray-500">({{item.rating}})</span>
+                  </span>
+                  <div class="text-lg text-gray-800 font-semibold mt-2 mb-3">{{item.country}}</div>
+                  <p class="text-gray-600 text-sm mt-2">{{ item.city.join( ' , ')}}</p>
+                  <!-- 辛格維利爾 海克拉山 蘭德納曼卡 黃金圈 this city -->
+                </header>
+                <div class="px-6 pb-4">
+                  <span
+                    class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white mr-2 tracking-wider"
+                  >{{item.tags[0]}}</span>
+                  <!-- 吃貨 秘境 冒險 文化 購物 宗教 -->
+                  <span
+                    class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white mr-2 tracking-wider"
+                  >{{item.tags[1]}}</span>
+                  <span
+                    class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white tracking-wider"
+                  >{{item.tags[2]}}</span>
+                </div>
+
+                <footer class="flex items-center justify-between leading-none px-6 py-4">
+                  <a class="flex items-center no-underline hover:underline text-black" href="#">
+                    <p class="font-semibold text-md">{{item.name}}</p>
+                  </a>
+
+                  <!-- end star -->
+
+                  <span class="flex items-center text-lg text-blue-500">
+                    {{item.point}}
+                    <i class="fa fa-coin"></i>
+                  </span>
+                </footer>
+              </article>
+              <!-- END Article -->
+            </div>
+          </div>
+        <!-- </div> -->
       </div>
     </section>
     <Footer />
@@ -185,7 +249,7 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
-import ProductCard from "@/components/products/ProductCard.vue";
+
 
 import { mapState, mapActions, mapMutations } from "vuex";
 
@@ -194,7 +258,7 @@ export default {
   components: {
     NavBar,
     Footer,
-    ProductCard
+    // ProductCard
   },
   data() {
     return {
@@ -204,7 +268,7 @@ export default {
         city: null
       },
       searchText: "",
-       isResult: false,
+      isResult: false
     };
   },
   computed: {
@@ -214,7 +278,7 @@ export default {
         .map(item => item.country) //篩出國家
         .filter((item, index, arr) => arr.indexOf(item) === index);
     },
-    cities() {
+    city() {
       return this.projects //篩出城市
         .filter(item => item.country === this.selected.country)
         .map(item => item.city)
@@ -233,18 +297,38 @@ export default {
         );
       });
     },
-    keywordSearch(){
-
-    
-      if(this.searchText){
-        return this.projects.filter(item=>{
+    // list() {
+    //   if (this.selected.city !== "") {
+    //     return this.projects.filter(item => {
+         
+    //       return item.country == this.selected.country;
+        
+    //     });
+    //   } else {
+    //     return this.projects;
+    //   }
+    // },
+    keywordSearch() {
+      if (this.searchText) {
+        return this.list.filter(item => {
+          //item為變數 存放篩選後資料
+          console.log(item);
+          let name = item.name.toLowerCase();
+          // let county = item.county.toLowerCase();
+          // let city = item.city.toLowerCase();
+          let keyword = this.searchText.toLowerCase();
           return (
-            item.county.toLowerCase().indexOf(this.searchText.toLowerCase()) !== -1 ||
-            item.name.toLowerCase().indexOf(this.searchText.toLowerCase()) !== -1 
-          )
-        })
-      }else{
-        return this.projects
+            name.indexOf(keyword) != -1 
+            // county.indexOf(keyword) != -1 ||
+            // city.indexOf(keyword) != -1
+            // item.county.toLowerCase().indexOf(this.searchText.toLowerCase()) !==
+            //   -1 ||
+            // item.name.toLowerCase().indexOf(this.searchText.toLowerCase()) !==
+            //   -1
+          );
+        });
+      } else {
+        return this.list;
       }
     }
   },
@@ -259,12 +343,12 @@ export default {
   methods: {
     //api 動作
     ...mapActions(["getProjects"]),
-    ...mapMutations(["setProjectInfo"]),
+    ...mapMutations(["setProjectInfo"],["UPDATE_USER"]),
     getList() {
       if (!this.selected.city) {
         return; //如果沒選到特定特定的城市
       }
-    },
+    }
     // searchp() {
     //   if (this.search.trim() !== "") {
     //     this.projects.filter(item => {

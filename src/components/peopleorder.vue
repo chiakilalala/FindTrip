@@ -407,7 +407,7 @@ export default {
           }
         });
     },
-    reserveOrder() {}
+   
   },
   created() {
     this.getProjects();

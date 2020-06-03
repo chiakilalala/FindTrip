@@ -189,16 +189,32 @@ const store = new Vuex.Store({
                 resolve();
             })
         },
+        // getProjects({ commit }) {
+        //     // 取得所有card
+        //     const headers = {
+        //         'Authorization': token
+        //     };
+        //     const api = 'https://jsonbin.org/chiakilalala'
+        //     Axios.get(api).then(res => {
+        //         commit('setProjectInfo', res.data);
+
+        //         // console.log(res.data);
+        //     })
+        // },
         getProjects({ commit }) {
             // 取得所有card
-            const api = 'https://next.json-generator.com/api/json/get/4y_gTejsO'
-            Axios.get(api).then(res => {
+            const headers = {
+                "Content-Type": "application/json",
+                "secret-key": "$2b$10$ij0rh9TWxI4z.evx9S/zbOCfgrMFiekyJWwKEQLQMpsclSLWw8Zsu"
+            };
+            const api = 'https://api.jsonbin.io/b/5ed7e55979382f568bd28418'
+            Axios.get(api, { headers }).then(res => {
                 commit('setProjectInfo', res.data);
 
-                // console.log(res.data);
+                console.log(res.data);
             })
         },
-        getOneUser({ commit }) {
+        getOneUser({ commit }) { //拿到會員資料
             let token = localStorage.getItem("Authorization");
             const headers = {
                 'Authorization': token

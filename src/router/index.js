@@ -62,13 +62,7 @@ const routes = [
             import ('@/components/CheckOrder.vue'),
         meta: { requiresAuth: false },
     },
-    // {
-    //     path: '/order/:id',
-    //     name: 'List',
-    //     components: () =>
-    //         import ('@/components/List'),
-    //     meta: { requiresAuth: false },
-    // },
+
 
     {
         path: '/wish',

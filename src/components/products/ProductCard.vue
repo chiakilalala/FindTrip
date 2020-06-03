@@ -76,11 +76,7 @@ export default {
   },
   computed: {
     // 使用展開運算符將 mapGetters 混合到外部物件中
-  value(){
-    return this.projects.map(item =>{
-      console.log(item.rating)
-    })
-  }
+
 
   }
 };

@@ -173,24 +173,41 @@ export default {
     NavBar,
     Footer
   },
-  data(){
-    return{
-        order:{
-            user:{
-
-            }
-        },
-        OrderId: this.$route.params.id,
-
-    }  
+  data() {
+    return {
+      order: {
+        user: {}
+      },
+      OrderId: this.$route.params.id
+    };
   },
-  methods:{
-       //api 動作
-    ...mapActions(["getOneUser"]),
-     ...mapMutations(["changeLogin"], ["loginStart"], ["UPDATE_USER"]),
+  methods: {
+    //api 動作
+    
+    ...mapActions(["getOneUser"],["getProjects"]),
+    ...mapMutations(["setProjectInfo"],["changeLogin"], ["loginStart"], ["UPDATE_USER"]),
+
+    getOrder(){
+        const vm = this;
+        // http://localhost:3000/posts/${vm.OrderId}
+        let api =`http://localhost:3000/posts/`;
+        this.$http.get(api).then(res=>{
+           console.log(res);
+           vm.order = res.data;
+
+        })
+
+    },
+    
   },
   computed: {
-      ...mapState(["userInfo"])
+    ...mapState(["userInfo"]),
+     ...mapState(["projects"]),
+  },
+  created() {
+       this.getOrder();
+        this.getOneUser();
+     
   },
 };
 </script>

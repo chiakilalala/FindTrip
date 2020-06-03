@@ -460,7 +460,7 @@ import NavBar from "@/components/NavBar.vue";
 import TravelCard from "@/components/TravelCard.vue";
 import WishBoard from "@/components/WishBoard.vue";
 
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions,mapMutations } from "vuex";
 //
 export default {
   name: "Home",
@@ -471,7 +471,8 @@ export default {
     WishBoard
   },
   computed: {
-    ...mapState(["projects"]),
+    ...mapState(["projects"],["userInfo"]),
+   
     // project(){
     //   return store.state.projects
     // },
@@ -484,10 +485,12 @@ export default {
   },
   methods: {
     //api 動作
-    ...mapActions(["getProjects"])
+    ...mapActions(["getProjects"],["getOneUser"]),
+     ...mapMutations(["changeLogin"], ["loginStart"],['UPDATE_USER']),
   },
   created() {
     this.getProjects();
+    
   }
 };
 </script>

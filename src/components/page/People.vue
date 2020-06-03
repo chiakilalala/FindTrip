@@ -252,6 +252,9 @@
     </el-dialog>
 
       <!-- dialog -->
+
+      <el-button type="text" @click="centerDialogVisible = true">点击打开 Dialog</el-button>
+      <dialog/>
       
     <!-- Footer -->
     <Footer />
