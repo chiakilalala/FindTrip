@@ -32,7 +32,7 @@
                 <span class="tracking-normal">--&gt;</span> SEA
               </p>
             </div>
-            <div class="p-10 px-22">
+            <form class="p-10 px-22" @submit.prevent="createdOrder">
               <div class="md:flex mb-8">
                 <div class="md:flex-1 md:pr-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-md font-bold">國家 :</label>
@@ -287,16 +287,16 @@
               </p>
               <div class="mb-8">
                 <div class="flex justify-around">
-                   <el-button @click="dialogVisible = false"
+                   <button @click="close"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-4"
-                  >上一步</el-button>
+                  >上一步</button>
                   <button
                     class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-4"
-                    @click="createdOrder"
+                    
                   >確認送出</button>
                 </div>
               </div>
-            </div>
+            </form>
           </div>
 
           <!-- </div> -->
@@ -383,6 +383,9 @@ export default {
     handleChange(value) {
       console.log(value);
     },
+    close(){
+        this.dialogVisible = true;
+    },
     createdOrder() {
       const vm = this;
       const headers = {
@@ -400,7 +403,7 @@ export default {
               icon: "success",
               title: "確定接受這個訂單喔"
             });
-            this.$router.push({ name: "list", params: { id: this.OrderId } });
+            this.$router.push({ name: "orderlist", params: { id: this.OrderId } });
           }
         });
     },

@@ -56,19 +56,19 @@ const routes = [
         // }]
     },
     {
-        path: '/order',
+        path: '/order/:id',
         name: 'orderlist',
         component: () =>
-            import ('@/components/test.vue'),
+            import ('@/components/CheckOrder.vue'),
         meta: { requiresAuth: false },
     },
-    {
-        path: '/order/:id',
-        name: 'list',
-        components: () =>
-            import ('@/components/List'),
-        meta: { requiresAuth: false },
-    },
+    // {
+    //     path: '/order/:id',
+    //     name: 'List',
+    //     components: () =>
+    //         import ('@/components/List'),
+    //     meta: { requiresAuth: false },
+    // },
 
     {
         path: '/wish',
