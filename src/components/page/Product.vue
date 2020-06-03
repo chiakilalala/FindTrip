@@ -117,8 +117,8 @@
             <input
               type="search"
               class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
-              placeholder="請輸入關鍵字..."
-              v-model.trim="search"
+              placeholder="請輸入關鍵字..." 
+              v-model.trim="searchText" @keyup.enter="handleSearch"
             />
             <div class="absolute top-0 left-0 inline-flex items-center p-2">
               <svg
@@ -203,7 +203,7 @@ export default {
         country: "",
         city: null
       },
-      search: "",
+      searchText: "",
        isResult: false,
     };
   },
@@ -236,11 +236,11 @@ export default {
     keywordSearch(){
 
     
-      if(this.search){
+      if(this.searchText){
         return this.projects.filter(item=>{
           return (
-            item.county.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 ||
-            item.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1 
+            item.county.toLowerCase().indexOf(this.searchText.toLowerCase()) !== -1 ||
+            item.name.toLowerCase().indexOf(this.searchText.toLowerCase()) !== -1 
           )
         })
       }else{
@@ -248,13 +248,13 @@ export default {
       }
     }
   },
-  watch: {
-    search(val) {
-      // console.log(this.projects);
-      this.searchp(val);
+  // watch: {
+  //   search(val) {
+  //     // console.log(this.projects);
+  //     this.searchp(val);
 
-    }
-  },
+  //   }
+  // },
 
   methods: {
     //api 動作
@@ -265,18 +265,18 @@ export default {
         return; //如果沒選到特定特定的城市
       }
     },
-    searchp() {
-      if (this.search.trim() !== "") {
-        this.projects.filter(item => {
-          console.log(item);
-          return (
-            item.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
-          );
-        });
-      } else {
-        return this.projects;
-      }
-    }
+    // searchp() {
+    //   if (this.search.trim() !== "") {
+    //     this.projects.filter(item => {
+    //       console.log(item);
+    //       return (
+    //         item.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
+    //       );
+    //     });
+    //   } else {
+    //     return this.projects;
+    //   }
+    // }
 
     // searchProject() {
     //         let vm = this;

@@ -242,7 +242,7 @@
     <!-- dialog -->
     <el-dialog :visible.sync="dialogVisible" top="8vh" width="80%">
       <div class="">
-        <order />
+        <Order />
             <el-button @click="dialogVisible = false">取 消</el-button>
         <el-button type="primary" @click="dialogVisible = false">确 定</el-button>
       </div>
@@ -250,6 +250,9 @@
     
       </span>
     </el-dialog>
+
+      <!-- dialog -->
+      
     <!-- Footer -->
     <Footer />
   </div>
@@ -258,7 +261,7 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
-import order from "@/components/peopleorder.vue";
+import Order from "@/components/peopleorder.vue";
 
 export default {
   name: "people",
@@ -266,30 +269,30 @@ export default {
   components: {
     NavBar,
     Footer,
-    order
+    Order
   },
   data() {
     return {
       dialogVisible: false,
-      form:{
-        county:'',
-        city:'',
-        data:'',
-        tag:{ //checkbox
-          act:false,
-          secrect:false,
-          cultue:false,
-          fun:false,
-          food:false,
-          shopping:false,
-          religion:false
-        },
-        adult:0,
-        child:0,
-        message:''
+      // form:{
+      //   county:'',
+      //   city:'',
+      //   data:'',
+      //   tag:{ //checkbox
+      //     act:false,
+      //     secrect:false,
+      //     cultue:false,
+      //     fun:false,
+      //     food:false,
+      //     shopping:false,
+      //     religion:false
+      //   },
+      //   adult:0,
+      //   child:0,
+      //   message:''
 
         
-      }
+      // }
     };
   },
   methods: {

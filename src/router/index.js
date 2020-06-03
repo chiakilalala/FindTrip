@@ -47,13 +47,27 @@ const routes = [
         component: () =>
             import ('@/components/page/People'),
         meta: { requiresAuth: false }, //不需要驗證
-        children: [{
-            path: '/product/:id/order',
-            name: 'order',
-            component: () =>
-                import ('@/components/peopleorder'),
-            meta: { requiresAuth: false }, //不需要驗證
-        }]
+        // children: [{
+        //     path: '/product/:id/order',
+        //     name: 'order',
+        //     component: () =>
+        //         import ('@/components/peopleorder'),
+        //     meta: { requiresAuth: false }, //不需要驗證
+        // }]
+    },
+    {
+        path: '/order',
+        name: 'orderlist',
+        component: () =>
+            import ('@/components/test.vue'),
+        meta: { requiresAuth: false },
+    },
+    {
+        path: '/order/:id',
+        name: 'list',
+        components: () =>
+            import ('@/components/List'),
+        meta: { requiresAuth: false },
     },
 
     {

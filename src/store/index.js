@@ -13,6 +13,7 @@ const store = new Vuex.Store({
 
     state: {
         projects: [],
+
         isLogin: false,
         // 5. state 改變，通知 UI 更新
         userInfo: [],
@@ -31,24 +32,24 @@ const store = new Vuex.Store({
         selectedCountry: "",
         selectedCity: null,
         form: {
-            Rid: '',
-            county: '',
-            city: '',
-            data: '',
-            tag: { //checkbox
+            Rid: "a01",
+            county: "日本",
+            city: ["大阪", "關西", "神戶", "京都"],
+            data: "2020.6.22 ~2020.7.8",
+            money: "",
+            type: {
+                //checkbox
                 act: false,
                 secrect: false,
-                cultue: false,
+                culture: false,
                 fun: false,
                 food: false,
                 shopping: false,
                 religion: false
             },
-            adult: 0,
+            adult: 1,
             child: 0,
-            message: ''
-
-
+            messages: "沒有啦啦啦啊啊啊啊"
         }
 
 
@@ -58,6 +59,48 @@ const store = new Vuex.Store({
         getUserList: (state) => state.userInfo,
         selectedCountry: (state) => state.selectedCountry,
         selectedCity: (state) => state.selectedCity,
+        county: (state) => {
+            const counies = new Set();
+            state.projects.forEach((value) => {
+                if (!value.projects.country) return;
+                counies.add(value.country);
+
+            });
+            return Array.from(counies);
+        },
+        city: (state) => {
+            const cities = [];
+            state.projects.forEach((value) => {
+                if (!value.projects.city) return;
+                cities.add(value.city);
+
+            });
+            return Array.from(cities);
+        },
+        filterCountyData: (state, getters) => {
+            return state.projects.filter((value) => {
+                console.log(getters);
+                return value.projects.country === getters.selectedCountry;
+
+            });
+        },
+        filterCityData: (state, getters) => {
+            return getters.filterCountyData.filter((value) => {
+                return value.projects.city === getters.selectedCity;
+            });
+        },
+        updateSearch: (state, getters) => {
+            let filterData = [];
+            if (state.searchData.length > 0) {
+                filterData = state.searchData;
+
+            } else if (getters.selectedCity) {
+                filterData = getters.filterCityData;
+            } else if (getters.selectedCountry) {
+                filterData = getters.filterCountyData;
+            }
+            return filterData;
+        },
 
     },
     mutations: {
@@ -87,29 +130,33 @@ const store = new Vuex.Store({
             state.Authorization = Authorization;
             state.userInfo = userInfo;
         },
-        setProjectInfo(state, val) {
+        setProjectInfo(state, val) { //拿到全部計畫
 
             state.projects = val;
-            console.log(val);
+            // console.log(val);
         },
-        SELECTEDCOUNTY(state, payload) {
+        SELECTEDCOUNTY(state, payload) { //拿到全部國家
             state.selectedCountry = payload;
+            console.log(payload);
         },
-        SELECTEDCITY(state, payload) {
+        SELECTEDCITY(state, payload) { //拿到全部城市
             state.selectedCity = payload;
         },
         SEARCHDATA(state, payload) {
             state.searchData = payload;
         },
-        // SETORDERINFO(state ,val){
-        //     console.log('SETORDERINFO',val);
-        //     if(val.Rid) state.form.Rid = val.Rid
-        //     if(val.county) state.form.county = val.county
-        //     if(val.city) state.form.city = val.city
-        //     if(val.date && val.data.length >1) state.form.date = val.date
-        //     if(val.date && val.data.length >1) state.form.date = val.date
-        //     if(val.date && val.data.length >1) state.form.date = val.date   
-        // }
+        setORDERDate(state, val) {
+            console.log('setORDERDate', val);
+            if (val.Rid) state.form.Rid = val.Rid;
+            if (val.county) state.form.county = val.county;
+            if (val.city) state.form.city = val.city;
+            if (val.date && val.data.length > 1) state.form.date = val.date;
+            if (val.money) state.form.money = val.money;
+            if (val.messages) state.form.messages = val.messages;
+            if (val.adult) state.form.adult = val.adult;
+            if (val.child) state.form.child = val.child;
+
+        }
 
     },
     actions: {
@@ -147,6 +194,7 @@ const store = new Vuex.Store({
             const api = 'https://next.json-generator.com/api/json/get/4y_gTejsO'
             Axios.get(api).then(res => {
                 commit('setProjectInfo', res.data);
+
                 // console.log(res.data);
             })
         },
@@ -179,6 +227,34 @@ const store = new Vuex.Store({
                     console.log(err.message);
                 });
         },
+        orderBooking({ commit }, obj) {
+            const vm = this;
+            const headers = {
+                "Content-Type": "application/json"
+            };
+            const order = vm.form;
+            Axios.request({
+                url: 'http://localhost:3000/posts',
+                method: 'post',
+                headers: headers,
+                data: {
+                    order
+                }
+            }).then(res => {
+                console.log(res)
+                if (res.data) {
+                    commit('setReservationDate', obj);
+                }
+            }).catch(err => {
+                if (err.response) {
+                    alert("err")
+                }
+            });
+        },
+        setORDERDate({ commit }, obj) {
+            // 儲存
+            commit('setORDERDate', obj);
+        }
         // postProject({ commit }, obj) {
 
         //     let token = localStorage.getItem("Authorization");

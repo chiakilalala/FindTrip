@@ -219,7 +219,7 @@ export default {
               vm.$router.push("/home"); //登入成功轉到首頁
               this.userToken = `Bearer  ${res.data.token}`;
               this.$store.commit("loginStart", true);
-                this.$store.commit("UPDATE_USER", res.data);
+                this.$store.commit("UPDATE_USER", res.data);// 可以更新會員資料
            
               this.changeLogin({ Authorization: this.userToken });
             }
