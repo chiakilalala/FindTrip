@@ -16,7 +16,7 @@ const store = new Vuex.Store({
 
         isLogin: false,
         // 5. state 改變，通知 UI 更新
-        userInfo: [],
+        userInfo: {},
         Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
         user: {
             Email: "",
@@ -116,6 +116,7 @@ const store = new Vuex.Store({
             state.userInfo = userInfo;
             console.log(userInfo);
         },
+
         loginStart: state => state.isLogin = true,
         loginStop: (state, errorMessage) => {
             state.isLogin = false;
@@ -228,14 +229,14 @@ const store = new Vuex.Store({
             Axios
                 .get(api, { headers })
                 .then(response => {
-                    console.log(response.data);
+                    // console.log(response.data);
                     if (response.status == 200) {
 
                         // 3. success 後把資料丟給 mutation
 
 
                         commit('UPDATE_USER', response.data);
-                        console.log(commit('UPDATE_USER', response.data));
+                        console.log(commit, "資料獲取完成");
                         // commit('auth_success',Authorization, userInfo)
                     }
                 })
@@ -267,10 +268,23 @@ const store = new Vuex.Store({
                 }
             });
         },
-        setORDERDate({ commit }, obj) {
-            // 儲存
-            commit('setORDERDate', obj);
-        }
+        // getPlan({ commit }, obj) {
+
+        //     let token = localStorage.getItem("Authorization");
+        //     const headers = {
+        //         'Authorization': token
+        //     };
+        //     const api = `http://findtrip.rocket-coding.com/api/plan/loadsingle/${obj}`;
+        //     console.log(api);
+        //     this.axios.get(api, { headers }).then(response => {
+        //         console.log(response.data);
+
+        //         // vm.isLoading = false;
+        //         // vm.plans = response.data.products;
+        //     });
+        //     // 儲存
+        //     // commit('setORDERDate', obj);
+        // }
         // postProject({ commit }, obj) {
 
         //     let token = localStorage.getItem("Authorization");

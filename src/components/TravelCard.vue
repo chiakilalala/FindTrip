@@ -30,21 +30,15 @@
               score-template="{value}"
               class="inline-block"></el-rate>
 
-            <span class="tracking-wider text-xs text-gray-500">({{item.rating}})</span>
+           <span class="tracking-wider text-xs text-gray-500">({{item.star}})</span>
           </span>
           <div class="text-lg text-gray-800 font-semibold mt-2 mb-3">{{item.country}}</div>
           <p class="text-gray-600 text-sm mt-2">{{ item.city.join( ' , ') }}</p>
         </header>
         <div class="px-6 pb-4">
-          <span
+            <span v-for="(el,index)    in item.tags.slice(2)" :key="index"
             class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white mr-2 tracking-wider"
-          >{{item.tags[0]}}</span>
-          <span
-            class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white mr-2 tracking-wider"
-          >{{item.tags[1]}}</span>
-          <span
-            class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white tracking-wider"
-          >{{item.tags[2]}}</span>
+          >{{ el | category  }}</span>
         </div>
 
         <footer class="flex items-center justify-between leading-none px-6 py-4">

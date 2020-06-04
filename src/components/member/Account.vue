@@ -165,11 +165,13 @@ export default {
     };
   },
   computed: {
-    ...mapState(["userInfo"])
+    ...mapState(["userInfo"]),
+   
   },
   methods: {
      ...mapMutations(["changeLogin"]),
     uploadFile() {
+      
       console.log(this);
       const uploadedFile = this.$refs.files.files[0]; //這是檔案上傳物件
       const vm = this;
@@ -203,7 +205,8 @@ export default {
             console.log("失敗");
           }
         });
-    }
+    },
+
   }
 };
 </script>

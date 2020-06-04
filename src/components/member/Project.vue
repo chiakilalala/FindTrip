@@ -164,7 +164,8 @@
               >經歷</div>
               <textarea
                 class="border border-gray-400 w-full rounded px-2 py-1 resize-none"
-                rows="4"  v-model="temPlans.TravelPlanIntro"
+                rows="4"
+                v-model="temPlans.TravelPlanIntro"
               ></textarea>
             </label>
             <label class="block mb-6">
@@ -344,7 +345,7 @@
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+import { mapState, mapMutations } from "vuex";
 export default {
   data() {
     return {
@@ -356,6 +357,7 @@ export default {
     };
   },
   methods: {
+    ...mapMutations(["UPDATE_USER"]),
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
@@ -371,34 +373,65 @@ export default {
       }
       return isJPG && isLt2M;
     },
+    getPlans() {
+      let token = localStorage.getItem("Authorization");
+      const headers = {
+        Authorization: token
+      };
+      // let USERid = this.userInfo.id
+      const api = `http://findtrip.rocket-coding.com/api/plan/loadsingle/${this.$store.state.userInfo[0].id}`;
+      console.log(api);
+      // const vm = this;
+      // vm.isLoading = true;
+      this.axios.get(api, { headers }).then(response => {
+        console.log(response);
+        // vm.isLoading = false;
+        // vm.plans = response.data.products;
+      }).catch(err=>{
+        console.log(err.message);
+      });
+      //  this.$store.dispatch('getApi');
+    },
+
     updatePlan() {
       let token = localStorage.getItem("Authorization");
       const headers = {
-        'Authorization': token
+        Authorization: token
       };
-      const api = `http://findtrip.rocket-coding.com/api/plan/create`;
+      const api = `http://findtrip.rocket-coding.com/api/plan/create/`;
       let httpMethod = "post";
-       console.log(token);
+      console.log(api);
       const vm = this;
       //  let httpMethod = "post";
       // vm.isLoading = true;
-      this.$http[httpMethod](api,
-      { data: vm.temPlans },
-      {headers}).then(response => {
-        console.log(response.data);
-        if (response.data.success){
-          this.dialogVisible = false;//新增成功的話就會關掉視窗並取得遠端的內容
+      this.$http[httpMethod](api, { data: vm.temPlans }, { headers }).then(
+        response => {
+          console.log(response.data);
+          if (response.data.success) {
+            this.dialogVisible = false; //新增成功的話就會關掉視窗並取得遠端的內容
+            // vm.getProducts(); //重新取得資料一次
+          } else {
+            this.dialogVisible = false;
+            //vm.getProducts(); //重新取得資料一次
+            console.log("failure");
+          }
+          // vm.isLoading = false;
+          vm.plans = response.data.result;
         }
-        // vm.isLoading = false;
-        vm.plans = response.data.result;
-      });
+      );
       //  this.$store.dispatch('getApi');
     }
   },
   computed: {
-    ...mapState(["userInfo"])
+    ...mapState(["userInfo"]),
+    rfv(){
+      return console.log(this.$store.state.userInfo[0].id,"rrrr");
+    } 
   },
-  created() {}
+  created() {
+    
+    this.getPlans();
+  }
 };
 </script>
 <style scoped>

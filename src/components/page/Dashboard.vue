@@ -123,7 +123,7 @@ export default {
   methods: {
     //api 動作
     ...mapActions(["getOneUser"]),
-    ...mapMutations(["changeLogin"], ["loginStart"], ["UPDATE_USER"]),
+    ...mapMutations(["changeLogin"], ["loginStart"]),
   
     // getUser() {
     //   const api = "http://findtrip.rocket-coding.com/api/Login/Load";
@@ -151,6 +151,7 @@ export default {
     // this.getUser();
     //1.呼叫api action
     this.getOneUser();
+      console.log("組建獲取完成");
   }
 };
 </script>

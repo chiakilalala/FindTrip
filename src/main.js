@@ -128,7 +128,7 @@ router.beforeEach((to, from, next) => {
         })) {
         // 如果沒有 token 
         console.log('token?', store.state.Authorization);
-        if (store.state.Authorization === '') {
+        if (store.state.Authorization === '' || store.state.Authorization === 'undefined') {
             // 轉跳到 login page
             next({ path: '/login' });
         } else {
