@@ -90,6 +90,24 @@ Vue.use(VueAxios, axios);
 
 Vue.config.productionTip = false;
 
+Vue.filter('category', (value) => {
+    switch (value) {
+        case 'food':
+            return '吃貨';
+        case 'secret':
+            return '秘境';
+        case 'act':
+            return '冒險';
+        case 'culture':
+            return '文化';
+        case 'shopping':
+            return '購物';
+        case 'religion':
+            return '宗教';
+    }
+});
+
+
 new Vue({
     router,
     store,

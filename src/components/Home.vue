@@ -255,7 +255,7 @@
 
       <!-- 許願池  Component-->
       <section class="gradient-blue">
-        <div class="w-full mb-5 mt-2">
+        <div class="w-full mb-5 mt-2" v-scroll-reveal.reset="{ delay: 250 }">
           <div
             class="mx-auto bg-blue-200 border-4 border-white w-20 h-20 my-0 py-0 rounded-full flex items-center"
           >
@@ -272,7 +272,7 @@
             >許下理想行程</p>
           </div>
           <!-- wishboard -->
-          <WishBoard />
+          <WishBoard  v-scroll-reveal.reset="{ delay: 450 }"/>
           <div class="py-5 mx-auto outline-none">
             <button
               class="bg-orange-500 outline-none hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full"
@@ -478,7 +478,7 @@ export default {
     // },
     recommends() {
       const project = [...this.projects];
-      console.log(project);
+      // console.log(project);
       return project.sort(() => Math.random() - 0.5).splice(0, 3);//取亂數
     },
   

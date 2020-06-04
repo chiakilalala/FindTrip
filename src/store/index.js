@@ -59,19 +59,19 @@ const store = new Vuex.Store({
         getUserList: (state) => state.userInfo,
         selectedCountry: (state) => state.selectedCountry,
         selectedCity: (state) => state.selectedCity,
-        county: (state) => {
-            const counies = new Set();
+        countyVX: (state) => {
+            const countyVX = new Set();
             state.projects.forEach((value) => {
-                if (!value.projects.country) return;
-                counies.add(value.country);
+                if (!value.country) return;
+                countyVX.add(value.country);
 
             });
-            return Array.from(counies);
+            return Array.from(countyVX);
         },
         city: (state) => {
             const cities = [];
             state.projects.forEach((value) => {
-                if (!value.projects.city) return;
+                if (!value.city) return;
                 cities.add(value.city);
 
             });
@@ -79,14 +79,14 @@ const store = new Vuex.Store({
         },
         filterCountyData: (state, getters) => {
             return state.projects.filter((value) => {
-                console.log(getters);
-                return value.projects.country === getters.selectedCountry;
+                console.log(value);
+                return value.country === getters.selectedCountry;
 
             });
         },
         filterCityData: (state, getters) => {
             return getters.filterCountyData.filter((value) => {
-                return value.projects.city === getters.selectedCity;
+                return value.city === getters.selectedCity;
             });
         },
         updateSearch: (state, getters) => {
@@ -207,7 +207,7 @@ const store = new Vuex.Store({
                 "Content-Type": "application/json",
                 "secret-key": "$2b$10$ij0rh9TWxI4z.evx9S/zbOCfgrMFiekyJWwKEQLQMpsclSLWw8Zsu"
             };
-            const api = 'https://api.jsonbin.io/b/5ed7e55979382f568bd28418'
+            const api = 'https://api.jsonbin.io/b/5ed8097279382f568bd297dd'
             Axios.get(api, { headers }).then(res => {
                 commit('setProjectInfo', res.data);
 
@@ -232,10 +232,10 @@ const store = new Vuex.Store({
                     if (response.status == 200) {
 
                         // 3. success 後把資料丟給 mutation
-                        console.log(commit, "ssss");
+
 
                         commit('UPDATE_USER', response.data);
-                        console.log(response.data);
+                        console.log(commit('UPDATE_USER', response.data));
                         // commit('auth_success',Authorization, userInfo)
                     }
                 })

@@ -16,11 +16,11 @@
             "斯科加"
         ],
         "tags": [
-            "deserunt",
-            "qui",
-            "consectetur",
-            "laborum",
-            "est"
+            "food",
+            "secret",
+            "culture",
+            "act",
+            "shopping"
         ],
         "star": 70
     },
@@ -42,11 +42,11 @@
             "威尼斯"
         ],
         "tags": [
-            "eiusmod",
-            "commodo",
-            "deserunt",
-            "culpa",
-            "sunt"
+            "food",
+            "secret",
+            "culture",
+            "act",
+            "shopping"
         ],
         "star": 13
     },
@@ -68,11 +68,11 @@
             "格拉納達"
         ],
         "tags": [
-            "duis",
-            "aliqua",
-            "ullamco",
-            "aute",
-            "ullamco"
+            "act",
+            "food",
+            "culture",
+            "shopping",
+            "secret"
         ],
         "star": 33
     },
@@ -94,11 +94,11 @@
             "優勝美地"
         ],
         "tags": [
-            "labore",
-            "ut",
-            "deserunt",
-            "aliqua",
-            "adipisicing"
+            "food",
+            "secret",
+            "culture",
+            "act",
+            "shopping"
         ],
         "star": 28
     },
@@ -120,11 +120,11 @@
             "艾爾斯岩"
         ],
         "tags": [
-            "nostrud",
-            "ad",
-            "qui",
-            "consectetur",
-            "adipisicing"
+            "act",
+            "food",
+            "culture",
+            "shopping",
+            "secret"
         ],
         "star": 14
     },
@@ -146,11 +146,11 @@
             "格拉納達"
         ],
         "tags": [
-            "mollit",
-            "voluptate",
-            "minim",
-            "dolor",
-            "consequat"
+            "food",
+            "secret",
+            "culture",
+            "act",
+            "shopping"
         ],
         "star": 79
     },
@@ -172,11 +172,11 @@
             "斯科加"
         ],
         "tags": [
-            "nulla",
-            "duis",
-            "excepteur",
-            "mollit",
-            "mollit"
+            "religion",
+            "food",
+            "act",
+            "shopping",
+            "secret"
         ],
         "star": 29
     },
@@ -198,11 +198,11 @@
             "奈良"
         ],
         "tags": [
-            "quis",
-            "reprehenderit",
-            "magna",
-            "tempor",
-            "in"
+            "food",
+            "secret",
+            "culture",
+            "act",
+            "shopping"
         ],
         "star": 54
     },
@@ -224,11 +224,11 @@
             "黃金圈"
         ],
         "tags": [
-            "consequat",
-            "amet",
-            "tempor",
-            "cupidatat",
-            "aliqua"
+            "religion",
+            "food",
+            "act",
+            "shopping",
+            "secret"
         ],
         "star": 63
     },
@@ -250,11 +250,11 @@
             "艾爾斯岩"
         ],
         "tags": [
-            "sunt",
-            "consequat",
-            "duis",
-            "ullamco",
-            "deserunt"
+            "food",
+            "secret",
+            "act",
+            "culture",
+            "shopping"
         ],
         "star": 93
     },
@@ -276,11 +276,11 @@
             "奈良"
         ],
         "tags": [
-            "nostrud",
-            "sunt",
-            "duis",
-            "voluptate",
-            "sint"
+            "religion",
+            "food",
+            "act",
+            "shopping",
+            "secret"
         ],
         "star": 88
     },
@@ -302,11 +302,11 @@
             "黃金海岸"
         ],
         "tags": [
-            "magna",
-            "est",
-            "est",
-            "eiusmod",
-            "eiusmod"
+            "act",
+            "culture",
+            "shopping",
+            "food",
+            "secret"
         ],
         "star": 81
     },
@@ -328,11 +328,11 @@
             "舊金山"
         ],
         "tags": [
-            "consequat",
-            "adipisicing",
-            "cupidatat",
-            "magna",
-            "magna"
+            "food",
+            "culture",
+            "act",
+            "shopping",
+            "religion"
         ],
         "star": 71
     },
@@ -354,11 +354,11 @@
             "黃金圈"
         ],
         "tags": [
-            "eu",
-            "consectetur",
-            "anim",
-            "cupidatat",
-            "id"
+            "food",
+            "culture",
+            "act",
+            "shopping",
+            "religion"
         ],
         "star": 94
     },
@@ -380,11 +380,11 @@
             "黃金海岸"
         ],
         "tags": [
-            "ad",
-            "ut",
-            "excepteur",
-            "ut",
-            "duis"
+            "food",
+            "secret",
+            "act",
+            "culture",
+            "shopping"
         ],
         "star": 45
     }

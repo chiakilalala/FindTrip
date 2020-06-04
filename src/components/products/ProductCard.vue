@@ -29,17 +29,17 @@
           <p class="text-gray-600 text-sm mt-2">{{ item.city.join( ' , ')}}</p>
           <!-- 辛格維利爾 海克拉山 蘭德納曼卡 黃金圈 this city -->
         </header>
-        <div class="px-6 pb-4">
-          <span
+        <div class="px-6 pb-4"> 
+          <span v-for="(item,index)    in item.tags" :key="index"
             class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white mr-2 tracking-wider"
-          >{{item.tags[0]}}</span>
+          >{{ item }}</span>
           <!-- 吃貨 秘境 冒險 文化 購物 宗教 -->
-          <span
+          <!-- <span
             class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white mr-2 tracking-wider"
-          >{{item.tags[1]}}</span>
+          >{{item[1] }}</span>
           <span
             class="inline-block bg-blue-400 rounded-full px-2 py-1 text-xs font-normal text-white tracking-wider"
-          >{{item.tags[2]}}</span>
+          >{{item[2]}}</span> -->
         </div>
 
         <footer class="flex items-center justify-between leading-none px-6 py-4">
