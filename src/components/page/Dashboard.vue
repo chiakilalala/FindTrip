@@ -8,7 +8,7 @@
 
       <div class="bg-member">
         <div class="flex container max-w-7xl mx-auto mt-10">
-          <div class="w-full flex flex-row flex-wrap justify-around">
+          <div class="w-full flex flex-row flex-wrap justify-around min-h-screen">
             <div class="w-full lg:w-1/5 px-6 text-xl text-gray-800 leading-normal">
               <p class="text-base font-bold py-4 lg:pb-6 text-gray-700 lg:hidden">menu</p>
               <div class="block lg:hidden sticky inset-0">
@@ -154,3 +154,29 @@ export default {
   }
 };
 </script>
+
+<style>
+.avatar-uploader .el-upload {
+    border: 1px dashed #d9d9d9;
+    border-radius: 6px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .avatar-uploader .el-upload:hover {
+    border-color: #409EFF;
+  }
+  .avatar-uploader-icon {
+    font-size: 28px;
+    color: #8c939d;
+    width: 178px;
+    height: 178px;
+    line-height: 178px;
+    text-align: center;
+  }
+  .avatar {
+    width: 178px;
+    height: 178px;
+    display: block;
+  }
+</style>

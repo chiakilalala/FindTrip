@@ -11,7 +11,7 @@
         >
           <div class="w-full lg:w-1/5 flex-1 flex justify-center">
             <div
-              class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0 mx-auto sm:m-0 bg-blue-100"
+              class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0 mx-auto sm:m-0 bg-white"
             >
               <img :src="user.UserImg" class="w-40 h-40 p-5" alt />
             </div>
