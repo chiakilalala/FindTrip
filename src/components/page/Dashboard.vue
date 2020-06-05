@@ -138,7 +138,7 @@ export default {
       console.log("組建獲取完成");
   },
   beforeUpdate() {
-    console.log("更新食用ㄚ");
+    console.log("beforeUpdate");
   },
 };
 </script>

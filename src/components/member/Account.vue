@@ -154,7 +154,7 @@
   </div>
 </template>
 <script>
-let token = localStorage.getItem("Authorization");
+let token = localStorage.getItem("token");
 import {  mapMutations,mapState } from "vuex";
 
 export default {
@@ -177,13 +177,13 @@ export default {
       const vm = this;
       const formData = new FormData(); //新增新物件可以
       formData.append("file-to-upload", uploadedFile); //新增物件
-      const url = `http://findtrip.rocket-coding.com/api/Login/userimg`;
+      const url = `${process.env.VUE_APP_APIPATH}/Login/userimg`;
       // vm.status.fileUploading =true;//接受到之後就圖片打開
       vm.axios
         .post(url, formData, {
           headers: {
-            "Content-Type": "multipart/form-data",
-            Authorization: token
+            'Content-Type': 'multipart/form-data',
+            'Authorization': `Bearer ${token}`
           }
         })
         .then(response => {

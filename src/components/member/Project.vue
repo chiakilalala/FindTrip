@@ -74,9 +74,10 @@
                 >吃貨</span>
               </div>
               <div class="lg:flex-0 flex justify-between items-center">
-                <button
+                <el-button
+                  @click="deleteDialogModal(item)"
                   class="bg-red-500 hover:bg-red-400 hover:shadow-xl text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
-                >刪除</button>
+                >刪除</el-button>
                 <button
                   class="bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                 >編輯</button>
@@ -102,11 +103,15 @@
           <div class="relative lg:p-4 p-6 lg:flex-shrink-0 w-full">
             <el-upload
               class="relative rounded w-full md:h-48 py-16 px-0 text-center bg-gray-300 opacity-50 md:border-solid md:border-2 md:border-gray-400 avatar-uploader"
-              action="https://jsonplaceholder.typicode.com/posts/"
+              action="uploadActionUrl"
+              name="file-to-upload"
+              :http-request="uploadImg"
               :show-file-list="false"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload"
+              ref="files"
             >
+              <div class="py-4">Add Cover Art</div>
               <!-- <svg
                 class="mx-auto feather feather-image"
                 xmlns="http://www.w3.org/2000/svg"
@@ -122,10 +127,21 @@
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21 15 16 10 5 21" />
-              </svg> -->
+              </svg>-->
               <img v-if="imageUrl" :src="imageUrl" class="avatar" />
               <i v-else class="el-icon-plus avatar-uploader-icon"></i>
             </el-upload>
+            <div class="flex justify-center mt-2">
+              <el-upload action="uploadActionUrl">
+                <el-button
+                  class="bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-6 rounded-full lg:ml-4 ml-0 mt-0 text-sm shadow-md"
+                  @click="uploadImg"
+                >
+                  上傳圖片
+                  <i class="fa fa-upload"></i>
+                </el-button>
+              </el-upload>
+            </div>
             <p class="lg:visible hidden text-xs leading-normal">上傳背景圖</p>
           </div>
           <!-- <div class="lg:p-4 p-6 lg:flex-shrink-0 w-full">
@@ -226,7 +242,7 @@
         <div class="lg:flex flex-col">
           <div class="lg:flex-shrink-0 py-4 w-full lg:flex">
             <div class="w-full lg:w-1/2 text-xl text-gray-800 leading-normal flex-1">
-              <!-- <div class="lg:flex-shrink-0 w-full">
+              <div class="lg:flex-shrink-0 w-full">
                 <div
                   id=" empty-cover-art"
                   class="rounded w-full lg:h-64 h-auto py-16 px-0 text-center bg-gray-300 opacity-50 md:border-solid md:border-2 md:border-gray-400"
@@ -249,8 +265,8 @@
                   </svg>
                   <div class="py-4">Add Cover Art</div>
                 </div>
-              </div>-->
-              <!-- <div class="lg:mt-4 mt-0 flex items-center mt-4 lg:flex-0 justify-center">
+              </div>
+              <div class="lg:mt-4 mt-0 flex items-center mt-4 lg:flex-0 justify-center">
                 <p class="lg:visible hidden text-xs leading-normal">上傳圖片</p>
 
                 <button
@@ -259,7 +275,7 @@
                   上 傳
                   <i class="fa fa-upload"></i>
                 </button>
-              </div>-->
+              </div>
             </div>
             <div class="ml-0 lg:ml-10 w-full lg:w-1/2 text-xl text-gray-800 leading-normal">
               <label class="block mb-6">
@@ -374,9 +390,19 @@
           >確認送出</el-button>
         </div>
       </div>
+    </el-dialog>
+    <!-- 刪除modal -->
 
-      <!-- <el-button @click="dialogVisible = false">取 消</el-button>
-      <el-button type="primary" @click="dialogVisible = false">确 定</el-button>-->
+    <el-dialog
+      :visible="deleteModal"
+      :before-close="beforeClose"
+      class="bg-red-100 border border-red-400"
+    >
+      確定要將此旅行計劃永久刪除？
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="deleteModale = false">取 消</el-button>
+        <el-button type="primary" @click="deletePlans">确 定</el-button>
+      </div>
     </el-dialog>
   </div>
 </template>
@@ -387,6 +413,7 @@ export default {
   data() {
     return {
       dialogVisible: false,
+      deleteModal: false,
       imageUrl: "",
       plans: [],
       temPlans: {
@@ -423,6 +450,11 @@ export default {
   },
   methods: {
     ...mapMutations(["UPDATE_USER"], ["changeLogin"]),
+    beforeClose(done) {
+      this.dialogVisible = false;
+      this.deleteModal = false;
+      done();
+    },
     handleAvatarSuccess(res, file) {
       this.imageUrl = URL.createObjectURL(file.raw);
     },
@@ -461,16 +493,21 @@ export default {
         });
       //  this.$store.dispatch('getApi');
     },
-    openModel(isNew, item){
+    openModel(isNew, item) {
       const vm = this;
-      
-      if(isNew){
+
+      if (isNew) {
         vm.isNew = true;
-      }else{
+      } else {
         vm.temPlans = Object.assign({}, item); //資料傳參特性
         vm.isNew = false;
       }
       vm.dialogVisible = true;
+    },
+    deleteDialogModal(item) {
+      const vm = this;
+      vm.temPlans = item;
+      vm.deleteModal = true;
     },
     updatePlan() {
       let token = localStorage.getItem("token");
@@ -508,13 +545,62 @@ export default {
     },
     onEditorChange() {
       //内容改变事件
+    },
+    uploadImg() {
+      let token = localStorage.getItem("token");
+      console.log(this);
+      const uploadedFile = this.$refs.files.uploadFiles[0]; //這是檔案上傳物件
+      const vm = this;
+      const formData = new FormData(); //新增新物件可以
+      formData.append("file-to-upload", uploadedFile); //新增物件
+      const url = `${process.env.VUE_APP_APIPATH}/plan/bgimg/${vm.temPlans.id}`;
+      // vm.status.fileUploading =true;//接受到之後就圖片打開
+      vm.axios
+        .post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          console.log(response.data);
+          // vm.status.fileUploading =false;//接受到之後就圖片隱藏
+          if (response.data.success) {
+            // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
+            console.log("成功了！");
+            // this.$swal({
+            //     icon: "success",
+            //     title: "上傳成功"
+            //   });
+            console.log(vm.temPlans);
+            // vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
+            //   this.changeLogin({ Authorization: this.userToken });
+            // console.log(vm.tempProduct);
+          } else {
+            // this.$bus.$emit('message:push',response.data.message,'danger');
+            console.log("失敗");
+          }
+        });
+    },
+    deletePlans() {
+      const vm = this;
+      const url = `${process.env.VUE_APP_APIPATH}/plan/loadsingle/${vm.tempProduct.id}`;
+      console.log(url);
+      vm.axios.delete(url).then(response => {
+        console.log(response.data);
+        if (response.data.success) {
+          vm.deleteModal = false;
+          vm.getPlans();
+        } else {
+          vm.deleteModal = false;
+          vm.getPlans();
+          console.log("刪除失敗");
+        }
+      });
     }
   },
   computed: {
     ...mapState(["userInfo"])
-    // tags(){
-
-    // }
   },
   created() {
     this.getPlans();
