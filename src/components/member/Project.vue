@@ -17,7 +17,7 @@
     <div
       class="flex-1 text-gray-700 text-left bg-white py-5 my-2 rounded-lg shadow-lg mb-5"
       v-for="item   in plans"
-      :key="item.id"
+      :key="item._id"
     >
       <div class="lg:flex">
         <div class="lg:flex-shrink-0 relative">
@@ -44,12 +44,12 @@
               class="block lg:mb-4 lg:text-lg mt-0 text-base leading-tight font-semibold text-gray-900"
             >
               上架日期 ：
-              <span class="text-md font-thin">{{item.CreateOn.substring(0, 10)}}</span>
+              <span class="text-md font-thin">{{item.CreateOn.substring(0,10)}}</span>
             </p>
             <div class="mt-0 lg:flex justify-between">
               <div>
                 <span
-                  :class="{'hidden' : item.tags['Culture']}"
+                  :class="{'hidden' : !item.tags['Culture']}"
                   class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
                 >文化</span>
                 <span
@@ -61,7 +61,7 @@
                   class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
                 >秘境</span>
                 <span
-                  :class="{'hidden' : item.tags['Shopping']}"
+                  :class="{'hidden' : !item.tags['Shopping']}"
                   class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
                 >購物</span>
                 <span
@@ -79,6 +79,7 @@
                   class="bg-red-500 hover:bg-red-400 hover:shadow-xl text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                 >刪除</el-button>
                 <button
+                  @click="openModel(false, item)"
                   class="bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                 >編輯</button>
               </div>
@@ -227,8 +228,8 @@
                 class="h-10 bg-white focus:outline-none focus:shadow-outline border border-gray-400 rounded px-4 py-1 mt-2 block w-full lg:w-40 appearance-none leading-normal"
                 type="text"
                 name="address_number"
-                placeholder="點數300"
-                v-model="temPlans.TPExperience"
+                placeholder="請設定點數"
+                v-model="temPlans.points"
               />
             </label>
           </div>
@@ -279,9 +280,12 @@
             </div>
             <div class="ml-0 lg:ml-10 w-full lg:w-1/2 text-xl text-gray-800 leading-normal">
               <label class="block mb-6">
-                <div class="text-md text-gray-600 font-medium mb-3">國家</div>
+                <div class="text-md text-gray-600 font-medium mb-3">
+                  國家
+                  <span class="text-gray-500 text-md font-mono">{{temPlans.country}}</span>
+                </div>
 
-                <div class="relative inline-block w-full lg:w-48">
+                <div class="relative inline-block w-full lg:w-48" v-if="isNew">
                   <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
@@ -299,9 +303,9 @@
               </label>
 
               <label class="block mb-6">
-                <div class="text-md text-gray-600 font-medium mb-3">區域(最多可選4個)</div>
-
-                <div class="relative inline-block w-full lg:w-48">
+                <div class="text-md text-gray-600 font-medium mb-3">城市 (最多可選4個)</div>
+                <span class="text-gray-500 text-md font-mono">{{temPlans.city.join(',')}}</span>
+                <div class="relative inline-block w-full lg:w-48" v-if="isNew">
                   <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
@@ -321,11 +325,15 @@
               <div class="mb-3">
                 <fieldset class="border-0">
                   <legend class="text-gray-600 mb-3 font-bold">制定行程擅長類型 （可多選）</legend>
+                
                   <label class="mr-1 text-gray-600 mb-2 inline-flex items-center">
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
                       name="group"
+                      v-model="temPlans.tags['Act']"
+                       value="冒險"
+                      checked
                     />
                     <span class="text-base">冒險</span>
                   </label>
@@ -333,6 +341,9 @@
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
+                      v-model="temPlans.tags['Secret']"
+                   value="秘境"
+                      checked
                       name="group"
                     />
                     <span class="text-base">秘境</span>
@@ -340,7 +351,10 @@
                   <label class="text-gray-600 mb-2 inline-flex items-center">
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
+                      v-model="temPlans.tags['Culture']"
+                     value="文化"
                       type="checkbox"
+                      checked
                       name="group"
                     />
                     <span class="text-sm">文化</span>
@@ -348,6 +362,9 @@
                   <label class="text-gray-600 mb-2 inline-flex items-center">
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
+                      v-model="temPlans.tags['Food']"
+                     
+                      checked
                       type="checkbox"
                       name="group"
                     />
@@ -356,7 +373,10 @@
                   <label class="text-gray-600 mb-2 inline-flex items-center">
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
+                      v-model="temPlans.tags['Shopping']"
+                    value="購物"
                       type="checkbox"
+                      checked
                       name="group"
                     />
                     <span class="text-base">購物</span>
@@ -365,6 +385,9 @@
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
+                      v-model="temPlans.tags['Religion']"
+                  value="宗教"
+                      checked
                       name="group"
                     />
                     <span class="text-base">宗教</span>
@@ -393,21 +416,17 @@
     </el-dialog>
     <!-- 刪除modal -->
 
-    <el-dialog
-      :visible="deleteModal"
-      :before-close="beforeClose"
-      class="bg-red-100 border border-red-400"
-    >
+    <el-dialog :visible="deleteModal" :before-close="beforeClose">
       確定要將此旅行計劃永久刪除？
       <div slot="footer" class="dialog-footer">
-        <el-button @click="deleteModale = false">取 消</el-button>
+        <el-button @click=" deleteModal = false">取 消</el-button>
         <el-button type="primary" @click="deletePlans">确 定</el-button>
       </div>
     </el-dialog>
   </div>
 </template>
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState, mapMutations, mapActions } from "vuex";
 import { quillEditor } from "vue-quill-editor";
 export default {
   data() {
@@ -449,7 +468,9 @@ export default {
     };
   },
   methods: {
-    ...mapMutations(["UPDATE_USER"], ["changeLogin"]),
+    ...mapMutations(["UPDATE_USER"], ["changeLogin"], ["setProjectInfo"]),
+    ...mapActions(["getProjects"]),
+
     beforeClose(done) {
       this.dialogVisible = false;
       this.deleteModal = false;
@@ -514,12 +535,20 @@ export default {
       const headers = {
         Authorization: `Bearer ${token}`
       };
-      const api = `${process.env.VUE_APP_APIPATH}/plan/create/`;
+      let api = `${process.env.VUE_APP_APIPATH}/plan/create/`;
       let httpMethod = "post";
       console.log(api);
       const vm = this;
       //  let httpMethod = "post";
       // vm.isLoading = true;
+      if (!vm.isNew) {
+        //假設產品不是新的
+        api = `${process.env.VUE_APP_APIPATH}/plan/update/${vm.temPlans._id}`;
+
+        httpMethod = "put";
+      }
+      console.log(api, "update");
+
       this.$http[httpMethod](api, { data: vm.temPlans }, { headers }).then(
         response => {
           console.log(response.data);
@@ -532,7 +561,7 @@ export default {
             console.log("failure");
           }
           // vm.isLoading = false;
-          vm.plans = response.data.result;
+          // vm.plans = response.data.result;
         }
       );
       //  this.$store.dispatch('getApi');
@@ -553,7 +582,7 @@ export default {
       const vm = this;
       const formData = new FormData(); //新增新物件可以
       formData.append("file-to-upload", uploadedFile); //新增物件
-      const url = `${process.env.VUE_APP_APIPATH}/plan/bgimg/${vm.temPlans.id}`;
+      const url = `${process.env.VUE_APP_APIPATH}/plan/bgimg/${vm.temPlans._id}`;
       // vm.status.fileUploading =true;//接受到之後就圖片打開
       vm.axios
         .post(url, formData, {
@@ -583,11 +612,15 @@ export default {
         });
     },
     deletePlans() {
+      let token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
       const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/plan/loadsingle/${vm.tempProduct.id}`;
+      const url = `${process.env.VUE_APP_APIPATH}/plan/delete/${vm.temPlans._id}`;
       console.log(url);
-      vm.axios.delete(url).then(response => {
-        console.log(response.data);
+      vm.axios.delete(url,{headers}).then(response => {
+        console.log(response);
         if (response.data.success) {
           vm.deleteModal = false;
           vm.getPlans();
@@ -604,6 +637,7 @@ export default {
   },
   created() {
     this.getPlans();
+    this.getProjects();
   }
 };
 </script>

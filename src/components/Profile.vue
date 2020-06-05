@@ -13,7 +13,7 @@
             <div
               class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0 mx-auto sm:m-0 bg-white"
             >
-              <img :src="user.UserImg" class="w-40 h-40 p-5" alt />
+              <img :src="user.manpic" class="w-40 h-40 p-5" alt />
             </div>
           </div>
           <div class="w-full lg:w-4/5">
@@ -26,11 +26,11 @@
                 >
                   <h2
                     class="lg:text-left text-center text-2xl w-full mb-3 mt-4 sm:mt-0"
-                  >{{user.Name}}</h2>
+                  >{{user.name}}</h2>
                   <div
                     class="flex sm:w-auto sm:mt-0 mb-0 lg:mb-3 w-full justify-center items-center"
                   >
-                    <a href="#" class="text-blue-500 mr-3 hover:text-blue-500">
+                    <a :href="user.PlannerSocial1" class="text-blue-500 mr-3 hover:text-blue-500">
                       <svg
                         class="w-5 h-5 fill-current"
                         xmlns="http://www.w3.org/2000/svg"
@@ -41,7 +41,7 @@
                         />
                       </svg>
                     </a>
-                    <a href="#" class="text-blue-500 mr-3 hover:text-blue-500">
+                    <a href="user.PlannerSocial2" class="text-blue-500 mr-3 hover:text-blue-500">
                       <svg
                         class="w-5 h-5 fill-current"
                         xmlns="http://www.w3.org/2000/svg"
@@ -55,7 +55,7 @@
                   </div>
                   <div class="flex sm:w-auto w-full mb-0 lg:mb-3 justify-center items-center">
                     <div class="lg:text-white lg:mr-4 mr-0 tracking-wider flex items-center">
-                      <span class="text-gray-500">點數：{{user.UserPoints}}</span>
+                      <span class="text-gray-500">點數：{{user.points}}</span>
                       <img src="../assets/img/coin.png" class="w-8 h-8 mr-2" alt srcset />
                     </div>
                   </div>

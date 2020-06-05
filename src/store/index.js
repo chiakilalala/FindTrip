@@ -61,14 +61,11 @@ const store = new Vuex.Store({
         getUserList: (state) => state.userInfo,
         selectedCountry: (state) => state.selectedCountry,
         selectedCity: (state) => state.selectedCity,
-        countyVX: (state) => {
-            const countyVX = new Set();
-            state.projects.forEach((value) => {
-                if (!value.country) return;
-                countyVX.add(value.country);
 
-            });
-            return Array.from(countyVX);
+        county: (state) => {
+            return state.projects
+                .map(item => item.country) //篩出國家
+                .filter((item, index, arr) => arr.indexOf(item) === index);
         },
         city: (state) => {
             const cities = [];
