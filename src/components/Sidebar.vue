@@ -1,7 +1,23 @@
 <template>
-  <div>
+  <div class="w-full lg:w-1/5 px-6 text-xl text-gray-800 leading-normal">
+    <p class="text-base font-bold py-4 lg:pb-6 text-gray-700 lg:hidden">menu</p>
+    <div class="block lg:hidden sticky inset-0">
+      <button
+        id="menu-toggle"
+        class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-blue-500 appearance-none focus:outline-none"
+      >
+        <svg
+          class="fill-current h-3 float-right"
+          viewBox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z" />
+        </svg>
+      </button>
+    </div>
+    <!-- right-col -->
     <div
-      class="mt-10 sticky inset-0 hidden py-5 lg:rounded-lg shadow-sm w-full inset-0 hidden h-64 lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 border border-gray-400 lg:border-0 bg-white shadow lg:shadow-lg z-20"
+      class="sticky inset-0 hidden py-5 lg:rounded-lg shadow-sm w-full inset-0 hidden h-64 lg:h-auto overflow-x-hidden overflow-y-auto lg:overflow-y-hidden lg:block mt-0 border border-gray-400 lg:border-0 bg-white shadow lg:shadow-lg z-20"
       style="top:5em;"
       id="menu-content"
     >
@@ -17,8 +33,8 @@
           </router-link>
         </li>
         <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-          <router-link
-            to="/member/point"
+            <router-link
+              to="/member/point"
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
@@ -27,18 +43,18 @@
           </router-link>
         </li>
         <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-          <router-link
-            to="/member/order"
+            <router-link
+              to="/member/order"
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
               <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-list-alt"></i>訂單記錄
             </span>
-          </router-link>
+           </router-link>
         </li>
         <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-          <router-link
-            to="/member/message"
+         <router-link
+              to="/member/message"
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
@@ -47,8 +63,8 @@
           </router-link>
         </li>
         <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-          <router-link
-            to="/member/project"
+           <router-link
+              to="/member/project"
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
@@ -57,8 +73,8 @@
           </router-link>
         </li>
         <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-          <router-link
-            to="/member/favorite"
+            <router-link
+              to="/member/favorite"
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
@@ -69,6 +85,8 @@
       </ul>
     </div>
   </div>
+
+
 </template>
 <script>
 export default {};

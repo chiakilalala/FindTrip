@@ -30,6 +30,7 @@
         "vue-facebook-login-component": "^2.3.0",
         "vue-hotel-datepicker": "^3.0.9",
         "vue-i18n": "^8.18.0",
+        "vue-quill-editor": "^3.0.6",
         "vue-router": "^3.2.0",
         "vue-scroll-reveal": "^1.0.11",
         "vue-sweetalert2": "^3.0.5",

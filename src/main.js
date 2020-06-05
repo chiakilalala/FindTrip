@@ -36,6 +36,13 @@ import { email, required, min, max, confirmed, integer, max_value, min_value } f
 // // 設置語言為繁體中文
 import zh_TW from 'vee-validate/dist/locale/zh_TW.json';
 
+// 文編編輯器
+import VueQuillEditor from 'vue-quill-editor'
+
+import 'quill/dist/quill.core.css' // import styles
+import 'quill/dist/quill.snow.css' // for snow theme
+import 'quill/dist/quill.bubble.css' // for bubble theme
+
 localize('zh_TW', zh_TW);
 
 configure({
@@ -80,6 +87,13 @@ Vue.use(VueScrollReveal, {
 });
 // Using ScrollReveal's default configuration
 Vue.use(VueScrollReveal);
+
+
+
+
+
+
+Vue.use(VueQuillEditor);
 
 Vue.config.productionTip = false;
 axios.defaults.withCredentials = false; //解決跨域問題 
@@ -127,8 +141,8 @@ router.beforeEach((to, from, next) => {
             return record.meta.requiresAuth;
         })) {
         // 如果沒有 token 
-        console.log('token?', store.state.Authorization);
-        if (store.state.Authorization === '' || store.state.Authorization === 'undefined') {
+        // console.log('token?', store.state.Authorization);
+        if (store.state.token === '' || store.state.token === 'undefined') {
             // 轉跳到 login page
             next({ path: '/login' });
         } else {

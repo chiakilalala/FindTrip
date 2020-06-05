@@ -70,7 +70,7 @@
           <button
             id="navAction"
             class="outline-none mx-auto lg:mx-0 hover:shadow-lg bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
-            v-if="!$store.state.Authorization"
+            v-if="!$store.state.token"
             @click="$router.push('/login')"
           >
             <i class="fas fa-user-astronaut pr-3"></i>登入

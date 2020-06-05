@@ -188,7 +188,8 @@ export default {
         Email: "",
         Password: ""
       },
-      userToken: ""
+      userToken: "",
+      token:''
       // rules: {
       //   Email: [{ required: true, message: " 請輸入使用者名稱" }],
       //   Password: [{ required: true, message: " 請輸入密碼" }]
@@ -202,8 +203,8 @@ export default {
     ...mapMutations(["changeLogin"], ["loginStart"],['UPDATE_USER']),
 
     signin() {
-      console.log(this.$store.state);
-      const api = `http://findtrip.rocket-coding.com/api/login/memberlogin`;
+
+      const api = `${process.env.VUE_APP_APIPATH}/login/memberlogin`;
       const vm = this;
       if (this.user.Email == "" || this.user.Password == "") {
         this.$swal({
@@ -218,17 +219,20 @@ export default {
             if (res.data.success) {
               vm.$router.push("/home"); //登入成功轉到首頁
               this.userToken = `Bearer  ${res.data.token}`;
+              this.token =res.data.token;
               this.$store.commit("loginStart", true);
-                this.$store.commit("UPDATE_USER", res.data);// 可以更新會員資料
-           
-              this.changeLogin({ Authorization: this.userToken });
+              this.$store.commit("UPDATE_USER", res.data);// 可以更新會員資料
+            //將使用者token儲存到vuex中
+              // this.changeLogin({ Authorization: this.userToken });重複使用undefined
+               this.changeLogin({token: this.token });
+                    console.log(this.$store.state);
             }
           })
           .catch(err => {
             console.log(err.message);
             this.$swal({
               icon: "error",
-              title: err.message
+              title: "密碼或帳號錯誤"
             });
           });
       }

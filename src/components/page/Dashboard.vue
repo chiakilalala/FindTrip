@@ -8,28 +8,12 @@
 
       <div class="bg-member">
         <div class="flex container max-w-7xl mx-auto mt-10">
-          <div class="w-full flex flex-row flex-wrap justify-around min-h-screen">
-            <div class="w-full lg:w-1/5 px-6 text-xl text-gray-800 leading-normal">
-              <p class="text-base font-bold py-4 lg:pb-6 text-gray-700 lg:hidden">menu</p>
-              <div class="block lg:hidden sticky inset-0">
-                <button
-                  id="menu-toggle"
-                  class="flex w-full justify-end px-3 py-3 bg-white lg:bg-transparent border rounded border-gray-600 hover:border-blue-500 appearance-none focus:outline-none"
-                >
-                  <svg
-                    class="fill-current h-3 float-right"
-                    viewBox="0 0 20 20"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                    />
-                  </svg>
-                </button>
-              </div>
+          <div class="w-full flex flex-row flex-wrap justify-around ">
+            <!-- <div class="w-full lg:w-1/5 px-2 text-xl text-gray-800 leading-normal"> -->
+          
               <!-- right-col 左邊 sidebar-->
               <Sidebar />
-            </div>
+            <!-- </div> -->
 
             <!-- left-col -->
             <div class="lg:px-8 px-6 w-full lg:w-3/4 mt-0 lg:mt-0 text-gray-900 leading-normal">
@@ -94,9 +78,9 @@ import NavBar from "@/components/NavBar.vue";
 import Sidebar from "@/components/Sidebar.vue";
 import Profile from '@/components/Profile.vue';
 
-  let token = localStorage.getItem("Authorization");
+  let token = localStorage.getItem("token");
   const headers = {
-    'Authorization': token
+    'Authorization': `Bearer ${token}`
   };
 //     const $axios = axios.create({
 // baseURL: 'http://findtrip.rocket-coding.com/api',
@@ -152,17 +136,25 @@ export default {
     //1.呼叫api action
     this.getOneUser();
       console.log("組建獲取完成");
-  }
+  },
+  beforeUpdate() {
+    console.log("更新食用ㄚ");
+  },
 };
 </script>
 
 <style>
+
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;
     border-radius: 6px;
     cursor: pointer;
-    position: relative;
+     position: absolute;
     overflow: hidden;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
   }
   .avatar-uploader .el-upload:hover {
     border-color: #409EFF;
@@ -170,7 +162,7 @@ export default {
   .avatar-uploader-icon {
     font-size: 28px;
     color: #8c939d;
-    width: 178px;
+    width: 100%;
     height: 178px;
     line-height: 178px;
     text-align: center;

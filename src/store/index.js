@@ -17,6 +17,8 @@ const store = new Vuex.Store({
         isLogin: false,
         // 5. state 改變，通知 UI 更新
         userInfo: {},
+        loginUser: {},
+
         Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
         user: {
             Email: "",
@@ -107,8 +109,10 @@ const store = new Vuex.Store({
         //修改token 並將token 存入localStoreage
         changeLogin(state, user) { //這裡的state 對應上面的state
             console.log(user);
-            state.Authorization = user.Authorization;
-            localStorage.setItem('Authorization', user.Authorization);
+            // state.Authorization = user.Authorization;
+            state.token = user.token;
+            // localStorage.setItem('Authorization', user.Authorization);
+            localStorage.setItem('token', user.token);
 
         },
         // 4. 收到資料改變 state
@@ -125,10 +129,10 @@ const store = new Vuex.Store({
         },
         logout(state) {
 
-            state.Authorization = "";
+            state.token = "";
         },
-        auth_success(state, Authorization, userInfo) {
-            state.Authorization = Authorization;
+        auth_success(state, token, userInfo) {
+            state.token = token;
             state.userInfo = userInfo;
         },
         setProjectInfo(state, val) { //拿到全部計畫
@@ -136,16 +140,16 @@ const store = new Vuex.Store({
             state.projects = val;
             // console.log(val);
         },
-        SELECTEDCOUNTY(state, payload) { //拿到全部國家
-            state.selectedCountry = payload;
-            console.log(payload);
-        },
-        SELECTEDCITY(state, payload) { //拿到全部城市
-            state.selectedCity = payload;
-        },
-        SEARCHDATA(state, payload) {
-            state.searchData = payload;
-        },
+        // SELECTEDCOUNTY(state, payload) { //拿到全部國家
+        //     state.selectedCountry = payload;
+        //     console.log(payload);
+        // },
+        // SELECTEDCITY(state, payload) { //拿到全部城市
+        //     state.selectedCity = payload;
+        // },
+        // SEARCHDATA(state, payload) {
+        //     state.searchData = payload;
+        // },
         setORDERDate(state, val) {
             console.log('setORDERDate', val);
             if (val.Rid) state.form.Rid = val.Rid;
@@ -186,22 +190,10 @@ const store = new Vuex.Store({
                 commit('logout');
                 // console.log('logout');
                 commit('UPDATE_USER', {});
-                localStorage.removeItem("Authorization");
+                localStorage.removeItem("token");
                 resolve();
             })
         },
-        // getProjects({ commit }) {
-        //     // 取得所有card
-        //     const headers = {
-        //         'Authorization': token
-        //     };
-        //     const api = 'https://jsonbin.org/chiakilalala'
-        //     Axios.get(api).then(res => {
-        //         commit('setProjectInfo', res.data);
-
-        //         // console.log(res.data);
-        //     })
-        // },
         getProjects({ commit }) {
             // 取得所有card
             const headers = {
@@ -216,13 +208,14 @@ const store = new Vuex.Store({
             })
         },
         getOneUser({ commit }) { //拿到會員資料
-            let token = localStorage.getItem("Authorization");
+            let token = localStorage.getItem("token");
             const headers = {
-                'Authorization': token
+                'Authorization': `Bearer ${token}`
             };
             // 2. action 發出 ajax
             //取得會員資料
-            const api = "http://findtrip.rocket-coding.com/api/Login/Load";
+            const api = `${process.env.VUE_APP_APIPATH}/Login/Load`;
+            //http://findtrip.rocket-coding.com/api/Login/Load
             // let token = localStorage.getItem("Authorization");
             console.log(token);
 
@@ -233,10 +226,8 @@ const store = new Vuex.Store({
                     if (response.status == 200) {
 
                         // 3. success 後把資料丟給 mutation
-
-
                         commit('UPDATE_USER', response.data);
-                        console.log(commit, "資料獲取完成");
+                        // console.log(commit, "資料獲取完成");
                         // commit('auth_success',Authorization, userInfo)
                     }
                 })
