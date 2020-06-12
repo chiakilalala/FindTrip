@@ -40,10 +40,10 @@
                 id="grid-state"
                 name="country"
                 v-model="selected.country"
-                @change="selected.city = ''"
+                @change="list"
               >
                 <option value disabled selected>--請選擇你想要去的國家--</option>
-                <option v-for="item in county" :key="item._id" :value="item">{{item}}</option>
+                <option v-for="item in county" :key="item.id" :value="item.country">{{item.country}}</option>
               </select>
               <div
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 select-arrow"
@@ -60,7 +60,7 @@
               </div>
             </div>
 
-            <div class="relative w-full md:w-2/6 lg:px-3 lg:px-4 px-6 mb-1 lg:mb-6 md:mb-0">
+            <!-- <div class="relative w-full md:w-2/6 lg:px-3 lg:px-4 px-6 mb-1 lg:mb-6 md:mb-0">
               <label
                 class="block tracking-wide text-gray-700 text-md font-bold mb-2"
                 for="grid-state"
@@ -70,10 +70,10 @@
                 id="grid-state"
                 name="city"
                 v-model="selected.city"
-              >
+              > -->
                 <!--   @change="list" -->
-                <option value="  " disabled selected>-- 請選擇 --</option>
-                <option v-for="el in city[0]" :key="el._id" :value="el">{{ el }}</option>
+                <!-- <option value="  " disabled selected>-- 請選擇 --</option>
+                <option v-for="el in city" :key="el.id" :value="el.city">{{ el.city[0] }}</option>
               </select>
               <div
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 select-arrow"
@@ -88,7 +88,7 @@
                   />
                 </svg>
               </div>
-            </div>
+            </div> -->
           </div>
         </div>
       </div>
@@ -112,7 +112,7 @@
       <!-- filter -->
       <div class="container mx-auto max-w-7xl px-4 sm:px-5">
         <div class="py-5 flex">
-          <div class="relative mr-8">
+          <div class="relative mr-8 flex">
             <!-- search 功能 -->
             <input
               type="search"
@@ -136,41 +136,31 @@
                 <line x1="21" y1="21" x2="15" y2="15" />
               </svg>
             </div>
-          </div>
-          <div class="relative">
-            <select
-              class="w-full lg:w-32 min-w-32 appearance-none h-full rounded-md border-solid block appearance-none shadow bg-white border-gray-600 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-blue-200 focus:border-gray-500"
-            >
-              <option>最 多 評 價</option>
-              <option>價 錢 高 低</option>
-            </select>
-            <div
-              class="filter-arrow pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-            >
-              <svg
-                class="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                />
-              </svg>
-            </div>
-          </div>
 
             <button
-            :class="{'text-blue-2 hover:text-blue-3' : sort.name === 'hot'}"
-            @click="sortBy('hot')"
-            class="mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none">
-            熱門
-          </button>
-             <button
-            :class="{'text-blue-2 hover:text-blue-3': !sort.isAsc}"
-            @click="sortBy(null, true)"
-            class="hover:text-gray-900 hover:font-medium focus:outline-none text-lg">
-            ⇅
-          </button>
+              class="flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
+            >
+              <i class="fas fa-search fa-lg"></i>
+            </button>
+            <button
+              class="bg-transparent hover:bg-primary text-primary font-semibold hover:text-white hover:border-transparent cursor-pointer py-2 px-4"
+            >
+              <i class="fas fa-sync-alt fa-lg"></i>
+            </button>
+          </div>
+
+          <button
+            @click="sort('star','asc')"
+            class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
+          >熱 門 評 價</button>
+          <button
+            @click="sort('point','asc')"
+            class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
+          >點數高低</button>
+          <button
+            @click="sort(null, true)"
+            class="hover:text-gray-900 hover:font-medium focus:outline-none text-lg"
+          >⇅</button>
         </div>
         <!-- 類型挑選 -->
         <div class="container mx-auto max-w-7xl px-4 xs:px-4 mb-5">
@@ -197,14 +187,14 @@
               @click="selectTag('shopping')"
               :class="tagDisplay('shopping')"
             >購物</button>
-            <button @click="tags = []" class="toolBtn">清除</button>
+            <button @click="selectTag('all')" class="toolBtn bg-teal-500">全部</button>
+            <button @click="tags = []" class="toolBtn bg-teal-500">清除</button>
           </div>
         </div>
-        <product-card :projects="keywordSearch" />
+        <product-card :projects="projects" />
         <!-- <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2"> -->
         <!-- Column -->
 
-       
         <!-- </div> -->
       </div>
     </section>
@@ -217,7 +207,7 @@
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
 import ProductCard from "@/components/products/ProductCard.vue";
- import _ from 'lodash'
+import _ from "lodash";
 
 import { mapState, mapActions, mapMutations } from "vuex";
 
@@ -236,15 +226,14 @@ export default {
       },
       searchText: "",
       tags: [],
-      sort: {
-        name: 'starTime',
-        isAsc: false,
-      },
-      priceSelect:null
+
+      priceSelect: null,
+      orderBy: "position",
+      orderOption: "asc"
     };
   },
   computed: {
-    ...mapState(["projects"]),
+    ...mapState(["projects"], ["countries"]),
     selectedCountry: {
       get() {
         return this.$store.getters.selectedCountry;
@@ -253,65 +242,60 @@ export default {
         this.$store.commit("SELECTEDCOUNTY", value);
       }
     },
-    countyVX() {
-      return this.$store.getters.countyVX;
-    },
-    updateSearch() {
-      return this.$store.getters.updateSearch;
-    },
 
     county() {
-      return this.projects
-        .map(item => item.country) //篩出國家
-        .filter((item, index, arr) => arr.indexOf(item) === index);
+      //篩出國家
+      return this.$store.state.countries
+      // .map(item => item.country) 
+      // .filter((item, index, arr) => arr.indexOf(item) === index);
     },
     city() {
-      return this.projects //篩出城市
-        .filter(item => item.country === this.selected.country)
-        .map(item => item.city)
-        .filter((item, index, arr) => arr.indexOf(item) === index);
+      return this.$store.state.countries //篩出城市
+      .filter(item => item.country === this.selected.country)
+      // .map(item => item.city)
+      // .filter((item, index, arr) => arr.indexOf(item) === index);
     },
     list() {
-      return this.projects.filter(item => {
-        if (!this.selected.city) {
+      return this.$store.state.countries.filter(item => {
+        if (!this.selected.country) {
           return item.country.includes(this.selected.country);
         }
         return (
-          item.country.includes(this.selected.country) ||
-          item.country.includes(this.selected.city)
+          item.country.includes(this.selected.country) 
+          // item.country.includes(this.selected.city)
           // item.country.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1 ||
           //  item.city.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1
         );
       });
     },
-     sortedRod() {
-            return _.orderBy(this.data, this.OrderName, this.Option);
-        },
+    sortedRod() {
+      return _.orderBy(this.list, this.orderBy, this.orderOption);
+    },
+    filterproject() {
+      const tagFilterArr = this.sortedRod.filter(item => {
+        if (
+          this.tags.includes("all") ||
+          this.tags.includes(item.tags) ||
+          !this.tags.length
+        ) {
+          return item;
+        }
+        return false;
+      });
 
-    // list() {
-    //   if (this.selected.city !== "") {
-    //     return this.projects.filter(item => {
-
-    //       return item.country == this.selected.country;
-
-    //     });
-    //   } else {
-    //     return this.projects;
-    //   }
-    // },
+      return tagFilterArr;
+    },
     keywordSearch() {
       if (this.searchText) {
         return this.list.filter(item => {
           //item為變數 存放篩選後資料
           // console.log(item);
           let name = item.name.toLowerCase();
-          // let county = item.county.toLowerCase();
+          // let county = item.county;
           // let city = item.city.toLowerCase();
           let keyword = this.searchText.toLowerCase();
           return (
             name.indexOf(keyword) != -1
-
-            // county.indexOf(keyword) != -1 ||
             // city.indexOf(keyword) != -1
             // item.county.toLowerCase().indexOf(this.searchText.toLowerCase()) !==
             //   -1 ||
@@ -324,28 +308,32 @@ export default {
       }
     },
     tagDisplay() {
-      return (tagName) => {
-        if (this.tags.includes(tagName) || this.tags.includes('all')) {
-          return 'activeTag';
+      return tagName => {
+        if (this.tags.includes(tagName) || this.tags.includes("all")) {
+          return "activeTag";
         }
       };
-    },
- 
+    }
   },
 
   methods: {
     //api 動作
     ...mapActions(["getProjects"]),
-    ...mapMutations(["setProjectInfo"], ["UPDATE_USER"]),
+    ...mapMutations(["setProjectInfo"], ["UPDATE_USER"], ["Setcounty"]),
     handleSearch: _.debounce(function() {
       this.keywordSearch;
     }, 500),
     selectTag(tagName) {
-      if (tagName === 'all') {
-        this.tags = ['food', 'culture', 'act', 'shopping',
-          'religion', 'secret', ];
+      if (tagName === "all") {
+        this.tags = [
+          "Food",
+          "Culture",
+          "Act",
+          "Shopping",
+          "Religion",
+          "Secret"
+        ];
         return;
-  
       }
       if (!this.tags.includes(tagName)) {
         this.tags.push(tagName);
@@ -355,13 +343,25 @@ export default {
     },
     sortBy(sortName, isAsc) {
       if (sortName) {
-        this.sort.name = this.sort.name === sortName ? '' : sortName;
+        this.sort.name = this.sort.name === sortName ? "" : sortName;
         this.sort.isAsc = true;
       }
       if (isAsc) {
         this.sort.isAsc = this.sort.isAsc !== true;
       }
     },
+    sort: function(by, option) {
+      if (this.orderBy == by) {
+        if (this.orderOption == "asc") {
+          this.orderOption = "desc";
+        } else if (this.orderOption == "desc") {
+          this.orderOption = "asc";
+        }
+      } else {
+        this.orderOption = option;
+        this.orderBy = by;
+      }
+    }
     // searchp() {
     //   if (this.search.trim() !== "") {
     //     this.projects.filter(item => {
@@ -393,7 +393,7 @@ export default {
     // return this.projects.filter(item => item.)
   },
   mounted() {
-    this.getProjects() // 曲德api
+    this.getProjects(); // 曲德api
   }
 };
 </script>
@@ -421,5 +421,11 @@ export default {
   top: 24%;
   width: 80%;
   height: 80%;
+}
+.activeTag {
+  background-color: #90cdf4;
+}
+.activeTag:hover {
+  background-color: #bee3f8;
 }
 </style>

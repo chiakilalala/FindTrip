@@ -136,9 +136,9 @@ new Vue({
 router.beforeEach((to, from, next) => {
     // 如果 router 轉跳的頁面需要驗證 requiresAuth: true
     //導航守衛
-    console.log('to=', to.fullPath, '| from=', from.fullPath);
+    // console.log('to=', to.fullPath, '| from=', from.fullPath);
     if (to.matched.some(record => {
-            console.log(record.name, record.meta.requiresAuth);
+            // console.log(record.name, record.meta.requiresAuth);
             return record.meta.requiresAuth;
         })) {
         // 如果沒有 token 

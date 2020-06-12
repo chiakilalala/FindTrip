@@ -138,7 +138,7 @@ export default {
       console.log("組建獲取完成");
   },
   beforeUpdate() {
-    console.log("beforeUpdate");
+    console.log("更新食用ㄚ");
   },
 };
 </script>
@@ -164,7 +164,7 @@ export default {
     color: #8c939d;
     width: 100%;
     height: 178px;
-    line-height: 178px;
+    line-height: 17px;
     text-align: center;
   }
   .avatar {

@@ -175,39 +175,47 @@ export default {
   },
   data() {
     return {
-      order: {
-        user: {}
-      },
-      OrderId: this.$route.params.id
+      order: {},
+      OrderId: ""
     };
   },
   methods: {
     //api 動作
-    
-    ...mapActions(["getOneUser"],["getProjects"]),
-    ...mapMutations(["setProjectInfo"],["changeLogin"], ["loginStart"], ["UPDATE_USER"]),
 
-    getOrder(){
-        const vm = this;
-        // http://localhost:3000/posts/${vm.OrderId}
-        let api =`http://localhost:3000/posts/`;
-        this.$http.get(api).then(res=>{
-           console.log(res);
-           vm.order = res.data;
+    ...mapActions(["getOneUser"], ["getProjects"], ["checkOrder"]),
+    ...mapMutations(
+      ["setProjectInfo"],
+      ["changeLogin"],
+      ["loginStart"],
+      ["UPDATE_USER"],
+      ["GETORDER"]
+    ),
 
-        })
-
-    },
-    
+    getOrder() {//單一訂單
+      let token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+      const vm = this;
+      // http://localhost:3000/posts/${vm.OrderId}
+        vm.orderId = this.$route.params.id;
+      let api = `http://findtrip.rocket-coding.com/api/order/loadsingle/`;
+      this.$http.get(api, { headers }).then(res => {
+        //  vm.order = res.data;
+        if (res.data.success) {
+          console.log(res);
+        }
+      });
+    }
   },
   computed: {
-    ...mapState(["userInfo"]),
-     ...mapState(["projects"]),
+    ...mapState(["projects"], ["orders"], ["userInfo"],)
   },
   created() {
-       this.getOrder();
-        this.getOneUser();
-     
-  },
+    this.orderId = this.$route.params.id;
+    console.log(this.orderId);
+    this.getOrder();
+    this.getOneUser();
+  }
 };
 </script>

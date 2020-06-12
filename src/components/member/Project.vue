@@ -17,14 +17,19 @@
     <div
       class="flex-1 text-gray-700 text-left bg-white py-5 my-2 rounded-lg shadow-lg mb-5"
       v-for="item   in plans"
-      :key="item._id"
+      :key="item.id"
     >
       <div class="lg:flex">
         <div class="lg:flex-shrink-0 relative">
+          <!-- {{  item}} -->
           <div
             class="lg:mx-5 mx-4 h-48 lg:w-70 w-52 md:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l overflow-hidden"
-            :style="{backgroundImage:`url(${item.Cpicture})`}"
+            :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}"
           ></div>
+
+
+<!-- :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}" -->
+
         </div>
         <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
           <div class="px-4 mt-8 lg:px-0 lg:mt-0 h-full flex flex-col justify-between">
@@ -38,14 +43,16 @@
               class="block lg:mb-4 lg:text-lg mt-0 text-base leading-tight font-semibold text-gray-900"
             >
               區域 ：
-              <span class="text-md">{{item.city.join( ',')}}</span>
+              <!--item.city.join( ',' -->
+              <span class="text-md">{{item.city}}</span>
             </p>
             <p
               class="block lg:mb-4 lg:text-lg mt-0 text-base leading-tight font-semibold text-gray-900"
             >
               上架日期 ：
-              <span class="text-md font-thin">{{item.CreateOn.substring(0,10)}}</span>
+              <span class="text-md font-thin">{{item.CreateOn}}</span>
             </p>
+            <!-- item.CreateOn.substring(0,10) -->
             <div class="mt-0 lg:flex justify-between">
               <div>
                 <span
@@ -76,7 +83,7 @@
               <div class="lg:flex-0 flex justify-between items-center">
                 <el-button
                   @click="deleteDialogModal(item)"
-                  class="bg-red-500 hover:bg-red-400 hover:shadow-xl text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
+                  class="bg-red-500 hover:bg-red-400 hover:shadow-xl text-white font-thin py-3 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                 >刪除</el-button>
                 <button
                   @click="openModel(false, item)"
@@ -102,18 +109,8 @@
             class="text-xl text-gray-600 font-medium mb-3 border-l-4 border-transparent border-blue-400 pl-3"
           >上傳背景圖</div>
           <div class="relative lg:p-4 p-6 lg:flex-shrink-0 w-full">
-            <el-upload
-              class="relative rounded w-full md:h-48 py-16 px-0 text-center bg-gray-300 opacity-50 md:border-solid md:border-2 md:border-gray-400 avatar-uploader"
-              action="uploadActionUrl"
-              name="file-to-upload"
-              :http-request="uploadImg"
-              :show-file-list="false"
-              :on-success="handleAvatarSuccess"
-              :before-upload="beforeAvatarUpload"
-              ref="files"
-            >
-              <div class="py-4">Add Cover Art</div>
-              <!-- <svg
+            <div class="py-4">Add Cover Art</div>
+            <!-- <svg
                 class="mx-auto feather feather-image"
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
@@ -128,20 +125,21 @@
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21 15 16 10 5 21" />
-              </svg>-->
-              <img v-if="imageUrl" :src="imageUrl" class="avatar" />
-              <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-            </el-upload>
+            </svg>-->
+            <!-- <img  :src="templans.TPBGImg"  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80" class="avatar" /> -->
+            <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
+
             <div class="flex justify-center mt-2">
-              <el-upload action="uploadActionUrl">
-                <el-button
-                  class="bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-6 rounded-full lg:ml-4 ml-0 mt-0 text-sm shadow-md"
-                  @click="uploadImg"
-                >
-                  上傳圖片
-                  <i class="fa fa-upload"></i>
-                </el-button>
-              </el-upload>
+              <input
+                type="file"
+                name="file-to-upload"
+                id="customFile"
+                class="form-control bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-6 rounded-full lg:ml-4 ml-0 mt-0 text-sm shadow-md"
+                ref="files"
+                @change="uploadImg"
+              />
+              <!-- 上傳圖片
+              <i class="fa fa-upload"></i>-->
             </div>
             <p class="lg:visible hidden text-xs leading-normal">上傳背景圖</p>
           </div>
@@ -248,7 +246,8 @@
                   id=" empty-cover-art"
                   class="rounded w-full lg:h-64 h-auto py-16 px-0 text-center bg-gray-300 opacity-50 md:border-solid md:border-2 md:border-gray-400"
                 >
-                  <svg
+                 <img :src="temPlans.Cpicture" alt="" class="absolute inset-y-0" >
+                  <!-- <svg
                     class="mx-auto feather feather-image"
                     xmlns="http://www.w3.org/2000/svg"
                     width="40"
@@ -263,77 +262,112 @@
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                     <circle cx="8.5" cy="8.5" r="1.5" />
                     <polyline points="21 15 16 10 5 21" />
-                  </svg>
+                  </svg> -->
                   <div class="py-4">Add Cover Art</div>
+                 
                 </div>
               </div>
               <div class="lg:mt-4 mt-0 flex items-center mt-4 lg:flex-0 justify-center">
                 <p class="lg:visible hidden text-xs leading-normal">上傳圖片</p>
-
+                <label for="image">輸入圖片網址</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="image"
+                  v-model="temPlans.Cpicture"
+                  placeholder="請輸入圖片連結"
+                />
+                <!-- 
                 <button
                   class="mt-0 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-4 rounded-full lg:ml-4 ml-0 text-sm shadow-md"
                 >
                   上 傳
                   <i class="fa fa-upload"></i>
-                </button>
+                </button>-->
+                <!-- <img
+                  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80"
+                  class="img-fluid"
+                  alt
+                  :src="temPlans.Cpicture"
+                /> -->
+                <input type="file" name="pic-to-upload" ref="files" @change="uploadPic" class="mt-0 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-4 rounded-full lg:ml-4 ml-0 text-sm shadow-md" />
               </div>
             </div>
             <div class="ml-0 lg:ml-10 w-full lg:w-1/2 text-xl text-gray-800 leading-normal">
               <label class="block mb-6">
                 <div class="text-md text-gray-600 font-medium mb-3">
-                  國家
+                  國家 :
                   <span class="text-gray-500 text-md font-mono">{{temPlans.country}}</span>
                 </div>
 
-                <div class="relative inline-block w-full lg:w-48" v-if="isNew">
-                  <select
-                    class="block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                <div class="relative inline-block w-full lg:w-48">
+                  <input
+                    v-model="temPlans.country"
+                    type="text"
+                    class="max-w-6xl block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  />
+                  <!-- <select
+                    class="max-w-6xl block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
+                    v-model="selectedCountry"
+                    name="country"
+                    @change="selectedCity = null"
                   >
-                    <option>Filter</option>
-                    <option>Filter</option>
-                    <option>Filter</option>
+                    <option v-for="(item,index)   in county" :key="index" :value="item">{{item}}</option>
                   </select>
                   <div
                     class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500"
                   >
-                    <i class="fas fa-angle-down text-blue-500"></i>
-                  </div>
+                  <i class="fas fa-angle-down text-blue-500"></i>-->
+                  <!-- </div> -->
                 </div>
               </label>
 
               <label class="block mb-6">
-                <div class="text-md text-gray-600 font-medium mb-3">城市 (最多可選4個)</div>
-                <span class="text-gray-500 text-md font-mono">{{temPlans.city.join(',')}}</span>
-                <div class="relative inline-block w-full lg:w-48" v-if="isNew">
-                  <select
+                <div class="text-md text-gray-600 font-medium mb-3">
+                  城市
+                  <span class="text-gray-500 text-md font-mono">{{temPlans.city}} {{temPlans.id}}</span>
+                </div>
+
+                <div class="relative inline-block w-full lg:w-48">
+                  <input
+                    v-model="temPlans.city"
+                    type="text"
+                    class="max-w-6xl block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  />
+                  <!-- <select
                     class="block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                     id="grid-state"
+                  >-->
+                  <!-- <select
+                    v-model="selectedCity"
+                    placeholder="请选择"
+                    name="city"
+                    class="max-w-6xl block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   >
-                    <option>Filter</option>
-                    <option>Filter</option>
-                    <option>Filter</option>
-                  </select>
-                  <div
+                    <option v-for="(item,index) in city[0]" :key="index" :value="item">{{item}}</option>
+                  </select>-->
+
+                  <!-- </select> -->
+                  <!-- <div
                     class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-4 text-gray-500"
                   >
                     <i class="fas fa-angle-down text-blue-500"></i>
-                  </div>
+                  </div>-->
                 </div>
               </label>
               <!-- 旅遊類型 -->
               <div class="mb-3">
                 <fieldset class="border-0">
                   <legend class="text-gray-600 mb-3 font-bold">制定行程擅長類型 （可多選）</legend>
-                
+
                   <label class="mr-1 text-gray-600 mb-2 inline-flex items-center">
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
                       name="group"
-                      v-model="temPlans.tags['Act']"
-                       value="冒險"
-                      checked
+                      v-model="temPlans['Act']"
+                      value="冒險"
                     />
                     <span class="text-base">冒險</span>
                   </label>
@@ -341,9 +375,8 @@
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
-                      v-model="temPlans.tags['Secret']"
-                   value="秘境"
-                      checked
+                      v-model="temPlans['Secret']"
+                      value="秘境"
                       name="group"
                     />
                     <span class="text-base">秘境</span>
@@ -351,10 +384,9 @@
                   <label class="text-gray-600 mb-2 inline-flex items-center">
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
-                      v-model="temPlans.tags['Culture']"
-                     value="文化"
+                      v-model="temPlans['Culture']"
+                      value="文化"
                       type="checkbox"
-                      checked
                       name="group"
                     />
                     <span class="text-sm">文化</span>
@@ -362,9 +394,7 @@
                   <label class="text-gray-600 mb-2 inline-flex items-center">
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
-                      v-model="temPlans.tags['Food']"
-                     
-                      checked
+                      v-model="temPlans['Food']"
                       type="checkbox"
                       name="group"
                     />
@@ -373,10 +403,9 @@
                   <label class="text-gray-600 mb-2 inline-flex items-center">
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
-                      v-model="temPlans.tags['Shopping']"
-                    value="購物"
+                      v-model="temPlans['Shopping']"
+                      value="購物"
                       type="checkbox"
-                      checked
                       name="group"
                     />
                     <span class="text-base">購物</span>
@@ -385,9 +414,8 @@
                     <input
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
-                      v-model="temPlans.tags['Religion']"
-                  value="宗教"
-                      checked
+                      v-model="temPlans['Religion']"
+                      value="宗教"
                       name="group"
                     />
                     <span class="text-base">宗教</span>
@@ -433,27 +461,27 @@ export default {
     return {
       dialogVisible: false,
       deleteModal: false,
-      imageUrl: "",
+
       plans: [],
       temPlans: {
-        _id: null,
-        guid: null,
-        TPPrice: 0,
-        TPExperience: "",
-        TravelPlanIntro: "<h2>hello ! 你好嗎 </h2>",
-        country: "",
-        city: [],
-        tags: {
-          Religion: false,
-          Secret: true,
-          Act: false,
-          Food: false,
-          Culture: false,
-          Shopping: false
-        }
+        points: 1999,
+        TPExperience: "djdljdl",
+        TravelPlanIntro: "<p>hello ! 你好嗎 </p>",
+        country: "日本",
+        city: "giui",
+        Cpicture: "",
+        TPBGImg: "",
+        Religion: false,
+        Secret: false,
+        Act: false,
+        Food: false,
+        Culture: false,
+        Shopping: false
       },
       isNew: false,
       content: null,
+      selectedCountry: "",
+      selectedCity: null,
       editorOption: {
         modules: {
           toolbar: [
@@ -476,21 +504,30 @@ export default {
       this.deleteModal = false;
       done();
     },
-    handleAvatarSuccess(res, file) {
-      this.imageUrl = URL.createObjectURL(file.raw);
+    onEditorBlur() {
+      //失去焦點事件
     },
-    beforeAvatarUpload(file) {
-      const isJPG = file.type === "image/jpeg";
-      const isLt2M = file.size / 1024 / 1024 < 2;
+    onEditorFocus() {
+      //獲得焦點事件
+    },
+    onEditorChange() {
+      //內容改變事件
+    },
+    // handleAvatarSuccess(res, file) {
+    //   this.imageUrl = URL.createObjectURL(file.raw);
+    // },
+    // beforeAvatarUpload(file) {
+    //   const isJPG = file.type === "image/jpeg";
+    //   const isLt2M = file.size / 1024 / 1024 < 2;
 
-      if (!isJPG) {
-        this.$message.error("上传头像图片只能是 JPG 格式!");
-      }
-      if (!isLt2M) {
-        this.$message.error("上传头像图片大小不能超过 2MB!");
-      }
-      return isJPG && isLt2M;
-    },
+    //   if (!isJPG) {
+    //     this.$message.error("上传头像图片只能是 JPG 格式!");
+    //   }
+    //   if (!isLt2M) {
+    //     this.$message.error("上传头像图片大小不能超过 2MB!");
+    //   }
+    //   return isJPG && isLt2M;
+    // },
     getPlans() {
       let token = localStorage.getItem("token");
       const headers = {
@@ -499,15 +536,15 @@ export default {
 
       let api = `${process.env.VUE_APP_APIPATH}/plan/loadsingle`;
 
-      console.log(api);
+      // console.log(api);
       const vm = this;
       // vm.isLoading = true;
-      this.axios
+      this.$http
         .get(api, { headers })
         .then(response => {
           // vm.isLoading = false;
           vm.plans = response.data.result;
-          console.log(vm.plans);
+          console.log(response);
         })
         .catch(err => {
           console.log(err.message);
@@ -518,6 +555,7 @@ export default {
       const vm = this;
 
       if (isNew) {
+        vm.temPlans = {};
         vm.isNew = true;
       } else {
         vm.temPlans = Object.assign({}, item); //資料傳參特性
@@ -535,56 +573,67 @@ export default {
       const headers = {
         Authorization: `Bearer ${token}`
       };
-      let api = `${process.env.VUE_APP_APIPATH}/plan/create/`;
-      let httpMethod = "post";
-      console.log(api);
+      let api = `${process.env.VUE_APP_APIPATH}plan/create`;
+
+      // let httpMethod = "post";
+      // let data = vm.temPlans;
       const vm = this;
-      //  let httpMethod = "post";
-      // vm.isLoading = true;
+
+      let httpMethod = "post";
+      vm.isLoading = true;
       if (!vm.isNew) {
         //假設產品不是新的
-        api = `${process.env.VUE_APP_APIPATH}/plan/update/${vm.temPlans._id}`;
-
-        httpMethod = "put";
+        api = `${process.env.VUE_APP_APIPATH}plan/update/${vm.temPlans.id}`;
+        httpMethod = "patch";
       }
       console.log(api, "update");
 
-      this.$http[httpMethod](api, { data: vm.temPlans }, { headers }).then(
-        response => {
-          console.log(response.data);
-          if (response.data.success) {
-            this.dialogVisible = false; //新增成功的話就會關掉視窗並取得遠端的內容
-            vm.getPlans(); //重新取得資料一次
-          } else {
-            this.dialogVisible = false;
-            vm.getPlans(); //重新取得資料一次
-            console.log("failure");
-          }
-          // vm.isLoading = false;
-          // vm.plans = response.data.result;
+      this.$http[httpMethod](
+        api,
+        {
+          country: this.temPlans.country,
+          city: this.temPlans.city,
+          points: this.temPlans.points,
+          TPExperience: this.temPlans.TPExperience,
+          TravelPlanIntro: this.temPlans.TravelPlanIntro,
+          TPBGImg: this.temPlans.TPBGImg,
+          Cpicture: this.temPlans.Cpicture,
+          Religion: this.temPlans.Religion,
+          Secret: this.temPlans.Secret,
+          Act: this.temPlans.Act,
+          Food: this.temPlans.Food,
+          Culture: this.temPlans.Culture,
+          Shopping: this.temPlans.Shopping
+        },
+        { headers }
+      ).then(response => {
+        // console.log(vm.temPlans);
+        if (response.data.success) {
+          this.dialogVisible = false; //新增成功的話就會關掉視窗並取得遠端的內容
+          vm.getPlans(); //重新取得資料一次
+
+          // console.log(this.getPlans);
+        } else {
+          this.dialogVisible = false;
+          vm.getPlans(); //重新取得資料一次
+          console.log("failure");
         }
-      );
-      //  this.$store.dispatch('getApi');
+        // vm.isLoading = false;
+        // vm.plans = response.data.result;
+      });
     },
-    onEditorBlur() {
-      //失去焦点事件
-    },
-    onEditorFocus() {
-      //获得焦点事件
-    },
-    onEditorChange() {
-      //内容改变事件
-    },
-    uploadImg() {
+    uploadPic() {
+      //上傳國家片
       let token = localStorage.getItem("token");
       console.log(this);
-      const uploadedFile = this.$refs.files.uploadFiles[0]; //這是檔案上傳物件
+      const uploadedPic = this.$refs.files.files[0]; //這是檔案上傳物件
       const vm = this;
       const formData = new FormData(); //新增新物件可以
-      formData.append("file-to-upload", uploadedFile); //新增物件
-      const url = `${process.env.VUE_APP_APIPATH}/plan/bgimg/${vm.temPlans._id}`;
+      formData.append("pic-to-upload", uploadedPic); //新增物件
+      let url = `${process.env.VUE_APP_APIPATH}plan/cyimg`;
+
       // vm.status.fileUploading =true;//接受到之後就圖片打開
-      vm.axios
+      this.$http
         .post(url, formData, {
           headers: {
             "Content-Type": "multipart/form-data",
@@ -592,18 +641,47 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
           // vm.status.fileUploading =false;//接受到之後就圖片隱藏
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
             console.log("成功了！");
-            // this.$swal({
-            //     icon: "success",
-            //     title: "上傳成功"
-            //   });
+            // vm.temPlans.Cpicture = response.data.Cpicture;
+            console.log(response.data);
+            vm.$set(vm.temPlans, "Cpicture", response.data.Cpicture);
             console.log(vm.temPlans);
-            // vm.$set(vm.tempProduct, "imageUrl", response.data.imageUrl);
-            //   this.changeLogin({ Authorization: this.userToken });
+          } else {
+            // this.$bus.$emit('message:push',response.data.message,'danger');
+            console.log("失敗");
+          }
+        });
+    },
+
+    uploadImg() {
+      let token = localStorage.getItem("token");
+      console.log(this);
+      const uploadedFile = this.$refs.files.files[0]; //這是檔案上傳物件
+      const vm = this;
+      const formData = new FormData(); //新增新物件可以
+      formData.append("file-to-upload", uploadedFile); //新增物件
+      let url = `${process.env.VUE_APP_APIPATH}plan/bgimg`;
+
+      // vm.status.fileUploading =true;//接受到之後就圖片打開
+      this.$http
+        .post(url, formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+            Authorization: `Bearer ${token}`
+          }
+        })
+        .then(response => {
+          // vm.status.fileUploading =false;//接受到之後就圖片隱藏
+          if (response.data.success) {
+            // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
+            console.log("成功了！");
+            // vm.temPlans.TPBGImg = response.data.TPBGImg;
+
+            vm.$set(vm.temPlans, "TPBGImg", response.data.TPBGImg);
+            console.log(vm.temPlans);
             // console.log(vm.tempProduct);
           } else {
             // this.$bus.$emit('message:push',response.data.message,'danger');
@@ -617,13 +695,14 @@ export default {
         Authorization: `Bearer ${token}`
       };
       const vm = this;
-      const url = `${process.env.VUE_APP_APIPATH}/plan/delete/${vm.temPlans._id}`;
+      const url = `${process.env.VUE_APP_APIPATH}/plan/delete/${vm.temPlans.id}`;
       console.log(url);
-      vm.axios.delete(url,{headers}).then(response => {
+      vm.axios.delete(url, { headers }).then(response => {
         console.log(response);
         if (response.data.success) {
           vm.deleteModal = false;
           vm.getPlans();
+          console.log("刪除成功");
         } else {
           vm.deleteModal = false;
           vm.getPlans();
@@ -633,11 +712,23 @@ export default {
     }
   },
   computed: {
-    ...mapState(["userInfo"])
+    ...mapState(["userInfo"], ["projects"]),
+    county() {
+      return this.$store.state.projects
+        .map(item => item.country) //篩出國家
+        .filter((item, index, arr) => arr.indexOf(item) === index);
+    },
+    city() {
+      return this.$store.state.projects //篩出城市
+        .filter(item => item.city === this.selectedCountry)
+        .map(item => item.city)
+        .filter((item, index, arr) => arr.indexOf(item) === index);
+    }
   },
   created() {
     this.getPlans();
     this.getProjects();
+    // console.log(this.$store.state);
   }
 };
 </script>

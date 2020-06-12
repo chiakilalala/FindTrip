@@ -60,12 +60,12 @@
               
               <router-link to="/product" class="inline-block py-2 px-4 text-black no-underline">尋找旅行規劃師</router-link>
             </li>
-            <li class="mr-3">
+            <!-- <li class="mr-3">
               <a
                 class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
                 href="#"
               >進入許願池</a>
-            </li>
+            </li> -->
           </ul>
           <button
             id="navAction"

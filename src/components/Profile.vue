@@ -1,12 +1,11 @@
 <template>
   <div>
-     <div class="w-full " v-for="user in userInfo"
-        :key="user.id" >
+     <div class="w-full " >
       <div
         class="pt-32 lg:px-5 p-6 flex container max-w-7xl mx-auto member flex flex-wrap items-center justify-around"
         
       >
-        <div
+        <div  v-for="user in userInfo"  :key="user.id"
           class="lg:py-0 py-5 flex-col lg:flex-row container max-w-7xl  bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
         >
           <div class="w-full lg:w-1/5 flex-1 flex justify-center">

@@ -225,6 +225,7 @@ export default {
             //將使用者token儲存到vuex中
               // this.changeLogin({ Authorization: this.userToken });重複使用undefined
                this.changeLogin({token: this.token });
+               this.$store.state.isVisble = false;
                     console.log(this.$store.state);
             }
           })

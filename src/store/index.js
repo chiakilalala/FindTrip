@@ -17,6 +17,8 @@ const store = new Vuex.Store({
         isLogin: false,
         // 5. state 改變，通知 UI 更新
         userInfo: {},
+        orders: [], //全部訂單
+        order: {},
         loginUser: {},
 
         Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
@@ -31,6 +33,7 @@ const store = new Vuex.Store({
         token: localStorage.getItem('token') ? localStorage.getItem('token') : '',
         searchData: [],
 
+        countries: [],
         selectedCountry: "",
         selectedCity: null,
         form: {
@@ -62,20 +65,20 @@ const store = new Vuex.Store({
         selectedCountry: (state) => state.selectedCountry,
         selectedCity: (state) => state.selectedCity,
 
-        county: (state) => {
-            return state.projects
-                .map(item => item.country) //篩出國家
-                .filter((item, index, arr) => arr.indexOf(item) === index);
-        },
-        city: (state) => {
-            const cities = [];
-            state.projects.forEach((value) => {
-                if (!value.city) return;
-                cities.add(value.city);
+        // county: (state) => {
+        //     return state.projects
+        //         .map(item => item.country) //篩出國家
+        //         .filter((item, index, arr) => arr.indexOf(item) === index);
+        // },
+        // city: (state) => {
+        //     const cities = [];
+        //     state.projects.forEach((value) => {
+        //         if (!value.city) return;
+        //         cities.add(value.city);
 
-            });
-            return Array.from(cities);
-        },
+        //     });
+        //     return Array.from(cities);
+        // },
         filterCountyData: (state, getters) => {
             return state.projects.filter((value) => {
                 console.log(value);
@@ -105,7 +108,7 @@ const store = new Vuex.Store({
     mutations: {
         //修改token 並將token 存入localStoreage
         changeLogin(state, user) { //這裡的state 對應上面的state
-            console.log(user);
+            // console.log(user);
             // state.Authorization = user.Authorization;
             state.token = user.token;
             // localStorage.setItem('Authorization', user.Authorization);
@@ -115,15 +118,12 @@ const store = new Vuex.Store({
         // 4. 收到資料改變 state
         UPDATE_USER(state, userInfo) {
             state.userInfo = userInfo;
-            console.log(userInfo);
+            // console.log(userInfo);
         },
 
         loginStart: state => state.isLogin = true,
-        loginStop: (state, errorMessage) => {
-            state.isLogin = false;
-            state.loginError = errorMessage;
-            state.loginSuccessful = !errorMessage;
-        },
+        loginStop: state => state.isLogin = false,
+
         logout(state) {
 
             state.token = "";
@@ -136,6 +136,19 @@ const store = new Vuex.Store({
 
             state.projects = val;
             // console.log(val);
+        },
+        Setcounty(state, val) { //拿到全部國家
+
+            state.countries = val;
+            // console.log(val);
+        },
+        GETORDER(state, val) {
+            state.orders = val;
+            console.log(val);
+        },
+        GETONEORDER(state, val) {
+            state.order = val;
+            console.log(val);
         },
         // SELECTEDCOUNTY(state, payload) { //拿到全部國家
         //     state.selectedCountry = payload;
@@ -187,22 +200,37 @@ const store = new Vuex.Store({
                 commit('logout');
                 // console.log('logout');
                 commit('UPDATE_USER', {});
+                commit("loginStop", false);
                 localStorage.removeItem("token");
                 resolve();
             })
         },
         getProjects({ commit }) {
             // 取得所有card
+            let token = localStorage.getItem("token");
             const headers = {
-                "Content-Type": "application/json",
-                "secret-key": "$2b$10$ij0rh9TWxI4z.evx9S/zbOCfgrMFiekyJWwKEQLQMpsclSLWw8Zsu"
+                'Authorization': `Bearer ${token}`
             };
-            const api = 'https://api.jsonbin.io/b/5ed8097279382f568bd297dd'
-            Axios.get(api, { headers }).then(res => {
-                commit('setProjectInfo', res.data);
+            let url = `${process.env.VUE_APP_APIPATH}plan/index`; //不用token
+            if (!this.isLogin) {
+                Axios.get(url).then(res => {
+                    console.log(res.data.allPlans);
+                    commit('setProjectInfo', res.data.allPlans);
+                    commit('Setcounty', res.data.countries);
 
-                console.log(res.data);
-            })
+
+                })
+            } else {
+                url = `${process.env.VUE_APP_APIPATH}/plan/member/index`;
+                Axios.get(url, { headers }).then(res => {
+                    console.log(res.data);
+                    commit('setProjectInfo', res.data.allPlans);
+                    commit('Setcounty', res.data.countries);
+
+
+                })
+            }
+
         },
         getOneUser({ commit }) { //拿到會員資料
             let token = localStorage.getItem("token");
@@ -214,18 +242,19 @@ const store = new Vuex.Store({
             const api = `${process.env.VUE_APP_APIPATH}/Login/Load`;
             //http://findtrip.rocket-coding.com/api/Login/Load
             // let token = localStorage.getItem("Authorization");
-            console.log(token);
+            // console.log(token);
 
             Axios
                 .get(api, { headers })
                 .then(response => {
-                    // console.log(response.data);
-                    if (response.status == 200) {
+                    // console.log(response);
+                    if (response.data.success) {
 
                         // 3. success 後把資料丟給 mutation
-                        commit('UPDATE_USER', response.data);
+                        commit('loginStart');
+                        commit('UPDATE_USER', response.data.result);
                         // console.log(commit, "資料獲取完成");
-                        // commit('auth_success',Authorization, userInfo)
+                        // commit('auth_success', token, response.data.result)
                     }
                 })
                 .catch(err => {
@@ -256,6 +285,66 @@ const store = new Vuex.Store({
                 }
             });
         },
+        checkOrder({ commit }) {
+            let token = localStorage.getItem("token");
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+
+            let api = `${process.env.VUE_APP_APIPATH}/order/load`;
+
+            console.log(api);
+            // const vm = this;
+            // vm.isLoading = true;
+            Axios
+                .get(api, { headers })
+                .then(res => {
+                    // vm.isLoading = false;
+                    if (res.data.success) {
+                        console.log(res.data)
+                        commit('loginStart');
+                        commit('GETORDER', res.data.result);
+
+                    }
+
+                })
+                .catch(err => {
+                    console.log(err.message);
+                });
+            //  this.$store.dispatch('getApi');
+        },
+        getOrder({ commit }) {
+            let token = localStorage.getItem("token");
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+            // const vm = this;
+            // http://localhost:3000/posts/${vm.OrderId}
+            let api = `http://findtrip.rocket-coding.com/api/order/loadsingle/${this.state.orders.id}`;
+            this.$http.get(api, { headers }).then(res => {
+                console.log(res);
+
+                commit('GETONEORDER', res.data.result);
+            });
+        }
+        // CheckOrder({ commit }) { //拿到單ㄧ會員資料
+
+        //     let token = localStorage.getItem("token");
+        //     const headers = {
+        //         Authorization: `Bearer ${token}`
+        //     };
+        //     const vm = this;
+        //     // http://localhost:3000/posts/${vm.OrderId}
+        //     let api = `http://findtrip.rocket-coding.com/api/order/load/${vm.id}`;
+        //     this.$http.get(api, { headers }).then(res => {
+        //         console.log(res);
+
+
+
+        //     })
+
+        // },
+
         // getPlan({ commit }, obj) {
 
         //     let token = localStorage.getItem("Authorization");

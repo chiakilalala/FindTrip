@@ -182,7 +182,7 @@
               class="leading-tight text-base text-center tracking-widest text-gray-700 relative heading-sub"
             >熱門規劃師</p>
           </div>
-          <Travel-card :project="recommends" />
+          <Travel-card :project="recommends" v-scroll-reveal.reset="{ delay: 250 }" />
         </div>
       </section>
 
@@ -479,7 +479,7 @@ export default {
     recommends() {
       const project = [...this.projects];
       // console.log(project);
-      return project.sort(() => Math.random() - 0.5).splice(0, 3);//取亂數
+      return project.slice(0,3)//取亂數
     },
   
   },
