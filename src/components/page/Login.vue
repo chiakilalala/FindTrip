@@ -140,7 +140,7 @@
                         <div class="text-sm text-gray-600 mb-2 flex justify-between">
                           <span>尚未設立帳戶？<router-link to="/sign" class="text-right text-blue-500">在此註冊</router-link></span>
                           <!-- <p class="text-right">免費登入</p> -->
-                          <p class="text-right">忘記密碼？</p>
+                          <!-- <p class="text-right">忘記密碼？</p> -->
                         </div>
 
                         <!-- barcode -->
@@ -189,7 +189,9 @@ export default {
         Password: ""
       },
       userToken: "",
-      token:''
+      token:'',
+      Permission:''
+  
       // rules: {
       //   Email: [{ required: true, message: " 請輸入使用者名稱" }],
       //   Password: [{ required: true, message: " 請輸入密碼" }]
@@ -200,7 +202,7 @@ export default {
     ...mapState(["isLogin", "loginError", "loginSuccessful"])
   },
   methods: {
-    ...mapMutations(["changeLogin"], ["loginStart"],['UPDATE_USER']),
+    ...mapMutations(["changeLogin"], ["loginStart"],['UPDATE_USER'],['PREMISSION']),
 
     signin() {
 
@@ -220,13 +222,18 @@ export default {
               vm.$router.push("/home"); //登入成功轉到首頁
               this.userToken = `Bearer  ${res.data.token}`;
               this.token =res.data.token;
+              this.Permission =res.data.Permission;
+              console.log(this.Permission);
+              // this.$store.commit('Permission',res.data.Permission);
               this.$store.commit("loginStart", true);
               this.$store.commit("UPDATE_USER", res.data);// 可以更新會員資料
             //將使用者token儲存到vuex中
               // this.changeLogin({ Authorization: this.userToken });重複使用undefined
                this.changeLogin({token: this.token });
+             
+                this.$store.commit("setPREMISSION", res.data.Permission);
                this.$store.state.isVisble = false;
-                    console.log(this.$store.state);
+                    // console.log(this.$store.state);
             }
           })
           .catch(err => {

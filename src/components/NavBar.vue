@@ -40,13 +40,21 @@
             id="nav-toggle"
             class="cursor-pointer flex items-center px-3 py-2 text-gray-500 hover:text-blue-100 hover:text-gray-800 appearance-none focus:outline-none"
           >
-            <svg
+
+             <slot>
+      <button type="button" class="burger-button" title="Menu">
+        <span class="burger-bar burger-bar--1"></span>
+        <span class="burger-bar burger-bar--2"></span>
+        <span class="burger-bar burger-bar--3"></span>
+      </button>
+    </slot>
+            <!-- <svg
               class="fill-current h-3 w-3"
               viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg"
             >
               <path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z" />
-            </svg>
+            </svg> -->
           </button>
         </div>
         <!-- desktop -->
@@ -60,12 +68,12 @@
               
               <router-link to="/product" class="inline-block py-2 px-4 text-black no-underline">尋找旅行規劃師</router-link>
             </li>
-            <!-- <li class="mr-3">
-              <a
+            <li class="mr-3">
+              <router-link to="/wish"
                 class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                href="#"
-              >進入許願池</a>
-            </li> -->
+                
+              >進入許願池</router-link>
+            </li>
           </ul>
           <button
             id="navAction"
@@ -130,12 +138,12 @@
                         <i class="text-gray-500 hover:text-blue-500 pr-3 fas fa-cog"></i> 帳戶設定
                       </router-link>
 
-                       <router-link
+                       <!-- <router-link
                         to="/member/point"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-coins"></i>儲值點數
-                       </router-link>
+                       </router-link> -->
 
                       <router-link
                         to="/member/order"
@@ -144,25 +152,25 @@
                         <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-list-alt"></i>訂單記錄
                       </router-link>
 
-                      <router-link
+                      <router-link   v-if=" $store.state.Permission == '02' "
                         to="/member/project"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-100 pr-3 far fa-clipboard"></i>旅行計劃
                       </router-link>
 
-                      <router-link
+                      <!-- <router-link
                         to="/member/message"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-comment"></i>訊息記錄
-                      </router-link>
+                      </router-link> -->
 
                       <a
                         href="#"
                         class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                         @click.prevent="logout"
-                      >登出</a>
+                      ><i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-sign-out"></i>登出</a>
                     </div>
                   </div>
                 </div>
@@ -303,4 +311,84 @@ export default {
   font-weight: 700;
   color: white;
 }
+
+button:focus {
+  outline: 0;
+}
+
+.burger-button {
+  position: relative;
+  height: 30px;
+  width: 32px;
+  display: block;
+  z-index: 999;
+  border: 0;
+  border-radius: 0;
+  background-color: transparent;
+  pointer-events: all;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.burger-bar {
+  background-color: #130f40;
+  position: absolute;
+  top: 50%;
+  right: 6px;
+  left: 6px;
+  height: 2px;
+  width: auto;
+  margin-top: -1px;
+  transition: transform 0.6s cubic-bezier(0.165, 0.84, 0.44, 1),
+    opacity 0.3s cubic-bezier(0.165, 0.84, 0.44, 1),
+    background-color 0.6s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+
+.burger-bar--1 {
+  -webkit-transform: translateY(-6px);
+  transform: translateY(-6px);
+}
+
+.burger-bar--2 {
+  transform-origin: 100% 50%;
+  transform: scaleX(0.8);
+}
+
+.burger-button:hover .burger-bar--2 {
+  transform: scaleX(1);
+}
+
+.no-touchevents .burger-bar--2:hover {
+  transform: scaleX(1);
+}
+
+.burger-bar--3 {
+  transform: translateY(6px);
+}
+
+#burger.active .burger-button {
+  transform: rotate(-180deg);
+}
+
+#burger.active .burger-bar {
+  background-color: #fff;
+}
+
+#burger.active .burger-bar--1 {
+  transform: rotate(45deg);
+}
+
+#burger.active .burger-bar--2 {
+  opacity: 0;
+}
+
+#burger.active .burger-bar--3 {
+  transform: rotate(-45deg);
+}
+
+@media screen and (min-width: 768px) {
+  #burger {
+    display: none;
+  }
+}
 </style>
+

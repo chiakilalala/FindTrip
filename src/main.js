@@ -3,10 +3,15 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App from './App.vue'
 
-import { Button, Select, Dialog, Rate, InputNumber, Message, Upload, MessageBox } from 'element-ui';
+import { Button, Select, Dialog, Rate, InputNumber, Message, Upload, MessageBox, DatePicker, Alert, Notification } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css' //樣式一定要引入
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
+Vue.prototype.$confirm = MessageBox.confirm;
+Vue.prototype.$alert = MessageBox.alert;
+Vue.prototype.$message = Message;
+Vue.prototype.$notify = Notification;
+
 
 Vue.component(Button.name, Button);
 Vue.component(Select.name, Select);
@@ -16,7 +21,9 @@ Vue.component(InputNumber.name, InputNumber);
 Vue.component(Message.name, Message);
 Vue.component(Upload.name, Upload);
 Vue.component(MessageBox.name, MessageBox);
-
+Vue.component(DatePicker.name, DatePicker);
+Vue.component(Alert.name, Alert);
+Vue.component(Notification.name, Notification);
 import router from './router'
 import store from './store'
 
@@ -121,6 +128,48 @@ Vue.filter('category', (value) => {
             return '購物';
         case 'religion':
             return '宗教';
+    }
+});
+
+Vue.filter('status', (val) => {
+    switch (val) {
+        case 1:
+            return '接受訂單';
+        case 2:
+            return '訂單進行中';
+        case 3:
+            return '訂單完成';
+
+    }
+})
+
+
+Vue.filter('month', (val) => {
+    switch (val) {
+        case '01':
+            return 'JAN';
+        case '02':
+            return 'FEB';
+        case '03':
+            return 'MARCH';
+        case '04':
+            return 'APR';
+        case '05':
+            return 'MAY';
+        case '06':
+            return 'JUNE';
+        case '07':
+            return 'JULY';
+        case '08':
+            return 'AUG';
+        case '09':
+            return 'SEP';
+        case '10':
+            return 'OCT';
+        case '11':
+            return 'NOV';
+        case '12':
+            return 'DEC';
     }
 });
 

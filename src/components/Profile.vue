@@ -5,14 +5,15 @@
         class="pt-32 lg:px-5 p-6 flex container max-w-7xl mx-auto member flex flex-wrap items-center justify-around"
         
       >
-        <div  v-for="user in userInfo"  :key="user.id"
+      <!-- v-for="user in userInfo"  :key="user.id" -->
+        <div  
           class="lg:py-0 py-5 flex-col lg:flex-row container max-w-7xl  bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
         >
           <div class="w-full lg:w-1/5 flex-1 flex justify-center">
             <div
               class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0 mx-auto sm:m-0 bg-white"
             >
-              <img :src="user.manpic" class="w-40 h-40 p-5" alt />
+              <img :src="userInfo.manpic" class="w-40 h-40 rounded-full" alt />
             </div>
           </div>
           <div class="w-full lg:w-4/5">
@@ -25,11 +26,11 @@
                 >
                   <h2
                     class="lg:text-left text-center text-2xl w-full mb-3 mt-4 sm:mt-0"
-                  >{{user.name}}</h2>
+                  >{{ userInfo.name}}</h2>
                   <div
                     class="flex sm:w-auto sm:mt-0 mb-0 lg:mb-3 w-full justify-center items-center"
                   >
-                    <a :href="user.PlannerSocial1" class="text-blue-500 mr-3 hover:text-blue-500">
+                    <a :href="userInfo.PlannerSocial1" class="text-blue-500 mr-3 hover:text-blue-500">
                       <svg
                         class="w-5 h-5 fill-current"
                         xmlns="http://www.w3.org/2000/svg"
@@ -54,13 +55,13 @@
                   </div>
                   <div class="flex sm:w-auto w-full mb-0 lg:mb-3 justify-center items-center">
                     <div class="lg:text-white lg:mr-4 mr-0 tracking-wider flex items-center">
-                      <span class="text-gray-500">點數：{{user.points}}</span>
+                      <span class="text-gray-500">點數：{{userInfo.points}}</span>
                       <img src="../assets/img/coin.png" class="w-8 h-8 mr-2" alt srcset />
                     </div>
                   </div>
                   <p
                     class="lg:text-gray-500 text-center leading-normal px-4 sm:px-0"
-                  >{{user.MemberIntro}}</p>
+                  >{{userInfo.MemberIntro}}</p>
                 </div>
               </div>
             </div>

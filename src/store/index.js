@@ -13,15 +13,16 @@ const store = new Vuex.Store({
 
     state: {
         projects: [],
-
+        onePlan: {}, //檢視旅行家個人檔案
+        SearchPlans: [], //搜尋資料
         isLogin: false,
         // 5. state 改變，通知 UI 更新
         userInfo: {},
         orders: [], //全部訂單
+        sellOrders: [], //規劃師全部訂單
         order: {},
         loginUser: {},
-
-        Authorization: localStorage.getItem('Authorization') ? localStorage.getItem('Authorization') : '',
+        Permission: localStorage.getItem('Permission') ? localStorage.getItem('Permission') : '',
         user: {
             Email: "",
             Password: ""
@@ -36,26 +37,7 @@ const store = new Vuex.Store({
         countries: [],
         selectedCountry: "",
         selectedCity: null,
-        form: {
-            Rid: "a01",
-            county: "日本",
-            city: ["大阪", "關西", "神戶", "京都"],
-            data: "2020.6.22 ~2020.7.8",
-            money: "",
-            type: {
-                //checkbox
-                act: false,
-                secrect: false,
-                culture: false,
-                fun: false,
-                food: false,
-                shopping: false,
-                religion: false
-            },
-            adult: 1,
-            child: 0,
-            messages: "沒有啦啦啦啊啊啊啊"
-        }
+        wishList: [] //許願板東西
 
 
 
@@ -64,6 +46,13 @@ const store = new Vuex.Store({
         getUserList: (state) => state.userInfo,
         selectedCountry: (state) => state.selectedCountry,
         selectedCity: (state) => state.selectedCity,
+        getStorage: function(state) {
+            if (!state.Permission) {
+                state.Permission = JSON.parse(localStorage.getItem('Permission'))
+            }
+            return state.Permission;
+        },
+        SearchProjects: (state) => state.SearchPlans,
 
         // county: (state) => {
         //     return state.projects
@@ -104,6 +93,7 @@ const store = new Vuex.Store({
             return filterData;
         },
 
+
     },
     mutations: {
         //修改token 並將token 存入localStoreage
@@ -120,13 +110,18 @@ const store = new Vuex.Store({
             state.userInfo = userInfo;
             // console.log(userInfo);
         },
-
+        PREMISSION(state, val) {
+            state.Permission = val;
+            localStorage.setItem('Permission', val);
+            console.log(val);
+        },
         loginStart: state => state.isLogin = true,
         loginStop: state => state.isLogin = false,
 
         logout(state) {
 
             state.token = "";
+            state.Permission = "";
         },
         auth_success(state, token, userInfo) {
             state.token = token;
@@ -135,7 +130,17 @@ const store = new Vuex.Store({
         setProjectInfo(state, val) { //拿到全部計畫
 
             state.projects = val;
-            // console.log(val);
+            console.log(val);
+        },
+        setPREMISSION(state, val) { //拿到全部計畫
+
+            state.Permission = val;
+            localStorage.setItem('Permission', val)
+                // console.log(val);
+        },
+        searchProjects(state, val) { //search 資料
+
+            state.SearchPlans = val;
         },
         Setcounty(state, val) { //拿到全部國家
 
@@ -144,22 +149,24 @@ const store = new Vuex.Store({
         },
         GETORDER(state, val) {
             state.orders = val;
-            console.log(val);
+            // console.log(val);
+        },
+        SELLORDER(state, val) {
+            state.sellOrders = val;
         },
         GETONEORDER(state, val) {
             state.order = val;
+            // console.log(val);
+        },
+        LOOKPLAN(state, val) {
+            state.onePlan = val;
             console.log(val);
         },
-        // SELECTEDCOUNTY(state, payload) { //拿到全部國家
-        //     state.selectedCountry = payload;
-        //     console.log(payload);
-        // },
-        // SELECTEDCITY(state, payload) { //拿到全部城市
-        //     state.selectedCity = payload;
-        // },
-        // SEARCHDATA(state, payload) {
-        //     state.searchData = payload;
-        // },
+        WISHMESSAGE(state, val) {
+            state.wishList = val;
+            // console.log(val);
+        },
+
         setORDERDate(state, val) {
             console.log('setORDERDate', val);
             if (val.Rid) state.form.Rid = val.Rid;
@@ -202,34 +209,28 @@ const store = new Vuex.Store({
                 commit('UPDATE_USER', {});
                 commit("loginStop", false);
                 localStorage.removeItem("token");
+                localStorage.removeItem("Permission");
                 resolve();
             })
         },
         getProjects({ commit }) {
             // 取得所有card
-            let token = localStorage.getItem("token");
-            const headers = {
-                'Authorization': `Bearer ${token}`
-            };
+            // let token = localStorage.getItem("token");
+            // const headers = {
+            //     'Authorization': `Bearer ${token}`
+            // };
             let url = `${process.env.VUE_APP_APIPATH}plan/index`; //不用token
-            if (!this.isLogin) {
-                Axios.get(url).then(res => {
-                    console.log(res.data.allPlans);
-                    commit('setProjectInfo', res.data.allPlans);
-                    commit('Setcounty', res.data.countries);
+
+            Axios.get(url).then(res => {
+                // console.log(res.data);
+                // console.log(res.data.allPlans); //全部旅行計劃
+                commit('setProjectInfo', res.data.allPlans);
+                commit('WISHMESSAGE', res.data.wishboard);
+                // commit('Setcounty', res.data.countries);
 
 
-                })
-            } else {
-                url = `${process.env.VUE_APP_APIPATH}/plan/member/index`;
-                Axios.get(url, { headers }).then(res => {
-                    console.log(res.data);
-                    commit('setProjectInfo', res.data.allPlans);
-                    commit('Setcounty', res.data.countries);
+            })
 
-
-                })
-            }
 
         },
         getOneUser({ commit }) { //拿到會員資料
@@ -252,7 +253,7 @@ const store = new Vuex.Store({
 
                         // 3. success 後把資料丟給 mutation
                         commit('loginStart');
-                        commit('UPDATE_USER', response.data.result);
+                        commit('UPDATE_USER', response.data.result[0]);
                         // console.log(commit, "資料獲取完成");
                         // commit('auth_success', token, response.data.result)
                     }
@@ -261,31 +262,8 @@ const store = new Vuex.Store({
                     console.log(err.message);
                 });
         },
-        orderBooking({ commit }, obj) {
-            const vm = this;
-            const headers = {
-                "Content-Type": "application/json"
-            };
-            const order = vm.form;
-            Axios.request({
-                url: 'http://localhost:3000/posts',
-                method: 'post',
-                headers: headers,
-                data: {
-                    order
-                }
-            }).then(res => {
-                console.log(res)
-                if (res.data) {
-                    commit('setReservationDate', obj);
-                }
-            }).catch(err => {
-                if (err.response) {
-                    alert("err")
-                }
-            });
-        },
-        checkOrder({ commit }) {
+
+        checkOrder({ commit }) { //旅行家拿到自己全部訂單
             let token = localStorage.getItem("token");
             const headers = {
                 Authorization: `Bearer ${token}`
@@ -313,119 +291,54 @@ const store = new Vuex.Store({
                 });
             //  this.$store.dispatch('getApi');
         },
-        getOrder({ commit }) {
+        sellerOrder({ commit }) { //規劃師拿到自己all訂單
+
+            let token = localStorage.getItem("token");
+            const headers = {
+                Authorization: `Bearer ${token}`
+            };
+
+            let api = `${process.env.VUE_APP_APIPATH}order/seller`;
+
+            // console.log(api);
+            // const vm = this;
+            // vm.isLoading = true;
+            Axios
+                .get(api, { headers })
+                .then(res => {
+                    // vm.isLoading = false;
+                    if (res.data.success) {
+                        // console.log(res.data.result)
+                        commit('loginStart');
+                        commit('SELLORDER', res.data.result);
+
+                    } else {
+                        console.log('失敗')
+                    }
+
+                })
+                .catch(err => {
+                    console.log(err.message);
+                });
+
+        },
+        getOrder({ commit }) { //單一訂單
             let token = localStorage.getItem("token");
             const headers = {
                 Authorization: `Bearer ${token}`
             };
             // const vm = this;
             // http://localhost:3000/posts/${vm.OrderId}
-            let api = `http://findtrip.rocket-coding.com/api/order/loadsingle/${this.state.orders.id}`;
+            let api = `${process.env.VUE_APP_APIPATH}order/loadsingle/${this.state.orders.id}`;
             this.$http.get(api, { headers }).then(res => {
                 console.log(res);
 
                 commit('GETONEORDER', res.data.result);
             });
-        }
-        // CheckOrder({ commit }) { //拿到單ㄧ會員資料
-
-        //     let token = localStorage.getItem("token");
-        //     const headers = {
-        //         Authorization: `Bearer ${token}`
-        //     };
-        //     const vm = this;
-        //     // http://localhost:3000/posts/${vm.OrderId}
-        //     let api = `http://findtrip.rocket-coding.com/api/order/load/${vm.id}`;
-        //     this.$http.get(api, { headers }).then(res => {
-        //         console.log(res);
+        },
 
 
 
-        //     })
-
-        // },
-
-        // getPlan({ commit }, obj) {
-
-        //     let token = localStorage.getItem("Authorization");
-        //     const headers = {
-        //         'Authorization': token
-        //     };
-        //     const api = `http://findtrip.rocket-coding.com/api/plan/loadsingle/${obj}`;
-        //     console.log(api);
-        //     this.axios.get(api, { headers }).then(response => {
-        //         console.log(response.data);
-
-        //         // vm.isLoading = false;
-        //         // vm.plans = response.data.products;
-        //     });
-        //     // 儲存
-        //     // commit('setORDERDate', obj);
-        // }
-        // postProject({ commit }, obj) {
-
-        //     let token = localStorage.getItem("Authorization");
-        //     const headers = {
-        //         'Authorization': token
-        //     };
-        //     const api = `http://localhost:3000/posts`;
-
-        //     // this.$http.post(url,{data:order}).then((response)=>{
-        //     //     console.log('訂單建立',response.data)
-
-        //     // })
-        //     Axios.request({
-        //         url: api,
-        //         method: 'post',
-        //         headers,
-        //         data: {
-        //             city: '',
-        //             county: '',
-        //             data: '',
-        //             tag: { //checkbox
-        //                 act: false,
-        //                 secrect: false,
-        //                 cultue: false,
-        //                 fun: false,
-        //                 food: false,
-        //                 shopping: false,
-        //                 religion: false
-        //             },
-        //             adult: 0,
-        //             child: 0,
-        //             message: ''
-        //         }
-        //     }).then(res => {
-        //         console.log(res);
-        //         if (res.data) {
-        //             commit
-        //         }
-        //     })
-
-        // }
-
-        // register({ commit }, user) {
-        //     return new Promise((resolve, reject) => {
-        //         axios({
-        //             url: 'http://findtrip.rocket-coding.com/api/Login/Register',
-        //             data: user,
-        //             method: 'POST'
-        //         }).then(res => {
-        //             console.log(res);
-        //             const token = res.data.token;
-        //             const user = res.data.user;
-        //             localStorage.setItem("token", token);
-        //             axios.defaults.headers.common["Authorization"] = token; //
-        //             commit("auth_success", token, user);
-        //             console.log("succes")
-        //             resolve(res);
-
-        //         }).catch(err => {
-        //             localStorage.removeItem("token");
-        //             reject(err);
-        //         })
-        //     })
-        // }
     }
 
 });

@@ -18,9 +18,9 @@
         </div>
       </div>
 
-      <div class="flex container max-w-6xl mx-auto">
+      <div class="flex container max-w-6xl mx-auto " v-for="item in orderInfo" :key="item.id">
         <div class="w-full flex flex-col flex-wrap justify-center">
-          <h1 class="text-center text-2xl mb-3">這是妳的訂單喔喔喔喔</h1>
+          <h1 class="text-center text-2xl mb-3">這是{{item.name}}的訂單喔喔喔喔</h1>
           <div class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative">
             <div
               class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head"
@@ -41,7 +41,7 @@
                   >會員姓名:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >阿里巴巴ㄚ</p>
+                  >{{item.name}}</p>
                   <!--<div class="text-sm text-red-600">Error message</div>-->
                   <!--<div class="text-xs text-gray-600">Help text</div>-->
                 </div>
@@ -51,7 +51,7 @@
                   >電子信箱:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >chikilalal@gmail.com</p>
+                  >{{item.Email}}</p>
                 </div>
               </div>
 
@@ -60,15 +60,15 @@
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">國家:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >日本</p>
-                  <!--<div class="text-sm text-red-600">Error message</div>-->
-                  <!--<div class="text-xs text-gray-600">Help text</div>-->
+                  >{{item.country}}</p>
+                  <!-- <div class="text-sm text-red-600">Error message</div> -->
+                  <!-- <div class="text-xs text-gray-600">Help text</div>  -->
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">區域:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >京都 大阪 神戶</p>
+                  >{{item.city}}</p>
                 </div>
               </div>
 
@@ -80,15 +80,14 @@
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
                   >
-                    2020.12.11
-                    <span>~</span>2020.12.17
+                    {{item.DepartureTime1}} ~  {{item.DepartureTime2}}
                   </p>
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">預算:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >NT$4,5000 ~ NT$6,0000</p>
+                  > {{item.Budget}}</p>
                 </div>
               </div>
 
@@ -98,13 +97,13 @@
                   <div
                     class="people_wrap mt-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center"
                   >
-                    <button class="bg-blue-500">冒險</button>
-                    <button class="bg-blue-500">秘境</button>
-                    <button class="bg-blue-500">文化</button>
-                    <button class="bg-blue-600">吃貨</button>
-                    <button class="bg-blue-600">宗教</button>
-                    <button class="bg-blue-600">購物</button>
-                    <button class="bg-blue-600">吃貨</button>
+                    <button class="bg-blue-500"   :class="{'hidden' : !item['Act']}">冒險</button>
+                    <button class="bg-blue-500" :class="{'hidden' : !item['Secret']}">秘境</button>
+                    <button class="bg-blue-500" :class="{'hidden' : !item['Culture']}">文化</button>
+                    <button class="bg-blue-600" :class="{'hidden' : !item['Food']}">吃貨</button>
+                    <button class="bg-blue-600" :class="{'hidden' : !item['Religion']}">宗教</button>
+                    <button class="bg-blue-600" :class="{'hidden' : !item['Shopping']}">購物</button>
+                
                   </div>
 
                   <!--<div class="text-sm text-red-600">Error message</div>-->
@@ -117,20 +116,20 @@
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">大人:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >3 人</p>
+                  >{{item.Adult}} 人</p>
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">小孩:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >0 人</p>
+                  >{{item.Children}} 人</p>
                 </div>
               </div>
 
               <div class="mb-6">
                 <label class="block text-gray-700 text-base s font-bold mb-2">備註 :</label>
                 <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
-                  <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">大人體力不好，無法一直走路希望能休閒一點</p>
+                  <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">{{item.Remark}}</p>
                 </div>
               </div>
 
@@ -143,10 +142,10 @@
               </p>
               <div class="mb-8">
                 <div class="flex justify-around">
-                  <button
+                  <button @click.prevent="goback"
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-4"
                   >上一步</button>
-                  <button
+                  <button  @click="totalOrder"
                     class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-4"
                   >完成訂單</button>
                 </div>
@@ -175,7 +174,9 @@ export default {
   },
   data() {
     return {
-      order: {},
+      orderInfo: {
+
+      },
       OrderId: ""
     };
   },
@@ -190,6 +191,13 @@ export default {
       ["UPDATE_USER"],
       ["GETORDER"]
     ),
+    goback(){
+        this.$router.back()
+    },
+    totalOrder(){
+      
+        this.$router.push(`/member/order`);
+    },
 
     getOrder() {//單一訂單
       let token = localStorage.getItem("token");
@@ -197,13 +205,17 @@ export default {
         Authorization: `Bearer ${token}`
       };
       const vm = this;
-      // http://localhost:3000/posts/${vm.OrderId}
+     
         vm.orderId = this.$route.params.id;
-      let api = `http://findtrip.rocket-coding.com/api/order/loadsingle/`;
+      let api = `http://findtrip.rocket-coding.com/api/order/loadsingle/${vm.orderId}`;
       this.$http.get(api, { headers }).then(res => {
         //  vm.order = res.data;
         if (res.data.success) {
-          console.log(res);
+          
+          vm.orderInfo = res.data.result;
+          console.log(vm.orderInfo);
+         
+
         }
       });
     }
@@ -216,6 +228,7 @@ export default {
     console.log(this.orderId);
     this.getOrder();
     this.getOneUser();
+    
   }
 };
 </script>

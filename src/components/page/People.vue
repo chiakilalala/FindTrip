@@ -1,57 +1,52 @@
 <template>
   <div>
-    <!-- NavBar Component -->
+    <!-- NavBar Component v-for="item in traveler" :key="item.id" -->
     <NavBar />
 
     <!-- banner -->
     <div class="hero h-64 bg-cover h-112 overflow-hidden">
       <div class="container mx-auto flex max-w-5xl flex-col items-center"></div>
     </div>
-
-    <div class="my-2 lg:ml-10 ml-2">
-      <div class="container flex max-w-7xl mx-auto">
-        <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
-          <ul class="list-inline inline-flex hover:underlines">
-            <li class>
-              <i class="fa fa-home">/</i>
-            </li>
-            <li>旅行規劃師 /</li>
-            <li>名字 個人資訊</li>
-          </ul>
+    <div >
+      <div class="my-2 lg:ml-10 ml-2">
+        <div class="container flex max-w-7xl mx-auto">
+          <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
+            <ul class="list-inline inline-flex hover:underlines">
+              <li class>
+                <i class="fa fa-home">/</i>
+              </li>
+              <li>旅行規劃師 /</li>
+              <li>{{traveler.PlannerName}} 旅行規劃師</li>
+            </ul>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class>
-      <div class="flex container max-w-7xl mx-auto">
+     <div class="flex container max-w-7xl mx-auto">
         <div class="w-full flex flex-row flex-wrap justify-center">
           <div class="w-full md:w-3/4 lg:w-3/5">
             <div class="py-2">
               <div class="flex rounded-lg bg-white shadow-sm -my-2">
-                <!-- 右邊資訊 -->
-                <div class="max-w-3xl px-8 lg:px10">
+                 <!--右邊資訊 max-w-3xl-->
+              <div class="w-full      px-8 lg:px10">
                   <div class="flex items-center text-xs my-5">
                     <div class="icon icon001"></div>
                     <h3 class="text-xl text-blue-500 font-medium">簡介</h3>
                   </div>
                   <div class>
                     <ul class="list-inside font-base text-gray-600 leading-5 ml-1">
-                      <li class="mb-2">暱稱：警長先生</li>
-                      <li class="mb-2">服務經驗：10年</li>
-                      <li class="mb-2">常駐城市：台灣</li>
-                      <li class="mb-3">服務語言：中文、英語</li>
+                      <li class="mb-2" v-html='traveler.TPExperience'></li>
+                 
                     </ul>
                   </div>
-                  <hr class="border-grey-light border-t my-6" />
+                  <hr class="border-grey-light border-t my-6" /> 
                   <!-- step2 -->
                   <div class="flex items-center text-xs my-5">
                     <div class="icon icon002"></div>
                     <h3 class="text-xl text-blue-500 font-medium">經歷</h3>
                   </div>
 
-                  <p
-                    class="font-base text-gray-700 leading-6 ml-1"
-                  >旅遊專業畢業，曾從事導遊、領隊、OP、銷售等行業內各種工作，累計超過8年專業服務經驗，善於理解用戶需求，並提供對應解決方案。 以自由行、包車自駕等形式在東南亞、北美等地近20個國家深度旅行，旅行經驗豐富。多次為家庭出遊、親朋好友以及地產公司、科技公司、科研院所等機構提供定制旅行服務。</p>
+                  <p class="font-base text-gray-700 leading-6 ml-1" v-html='traveler.TravelPlanIntro'></p>
 
                   <hr class="border-grey-light border-t my-6" />
 
@@ -63,25 +58,27 @@
                     <div class="flex flex-wrap -mx-3 ml-1">
                       <div
                         class="w-full lg:w-1/2 bg-cover h-48"
-                        style="background-image: url('../../assets/img/jp001.jpg')"
+                        :style="{backgroundImage:`url(${traveler.Cpicture ? traveler.Cpicture : 'https://picsum.photos/600/400?random=1' })`}"
                       ></div>
 
                       <div class="w-full lg:w-1/2 px-0 lg:px-4 flex flex-col justify-between">
                         <h3 class="text-xl text-blue-500 font-medium my-2 px:0 lg:px-2">
                           國家：
-                          <span class="text-gray-500 text-base font-mono">日本</span>
+                          <span class="text-gray-500 text-base font-mono">{{ traveler.country}}</span>
                         </h3>
                         <h3 class="text-xl text-blue-500 font-medium my-2 px:0 lg:px-2">
-                          區域：
-                          <span class="text-gray-500 text-base font-mono">大阪 神戶 京都 名古屋</span>
+                          城市：
+                          <span class="text-gray-500 text-base font-mono">{{ traveler.city}}</span>
                         </h3>
                         <div
                           class="people_wrap mt-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center"
                         >
-                          <button class="bg-blue-500">冒險</button>
-                          <button class="bg-blue-500">景點</button>
-                          <button class="bg-blue-500">文化</button>
-                          <button class="bg-blue-600">吃貨</button>
+                          <button class="bg-blue-500" :class="{'hidden' : !traveler['Act']}">冒險</button>
+                          <button class="bg-blue-500" :class="{'hidden' : !traveler['Secret']}">秘境</button>
+                          <button class="bg-blue-500" :class="{'hidden' : !traveler['Culture']}">文化</button>
+                          <button class="bg-blue-600" :class="{'hidden' : !traveler['Food']}">吃貨</button>
+                          <button class="bg-blue-500" :class="{'hidden' :!traveler['Religion']}">宗教</button>
+                          <button class="bg-blue-600" :class="{'hidden' : !traveler['Shopping']}">購物</button>
                         </div>
                       </div>
                     </div>
@@ -92,12 +89,18 @@
                     <div class="icon icon004"></div>
                     <h3 class="text-xl text-blue-500 font-medium">旅行家評價</h3>
                   </div>
-                  <div class="mb-8 px-2">
-                    <div class="flex flex-wrap -mx-3">
+                  <div class="mb-8 px-2" v-if="traveler.rating.length == 0">尚無其他評價</div>
+                  <div class="mb-8 px-2" v-else>
+                    <div
+                      class="flex flex-wrap -mx-3"
+                      v-for="(el,index) in  traveler.rating"  :key='index'
+                    >
+                         <!--v-for="(el,index) in  traveler.rating"
+                      :key="index" -->
                       <div class="md:1/6 lg:w-1/12">
-                        <div class="w-12 h-12 rounded-full bg-blue-500 p-1 mb-3 ml-1">
+                        <div class="w-12 h-12 rounded-full bg-white p-1 mb-3 ml-1">
                           <img
-                            src="../../assets/img/user001.png"
+                            :src="el.buyerPic"
                             alt
                             class="mx-auto object-cover w-10 h-10 rounded-full"
                           />
@@ -105,64 +108,30 @@
                       </div>
 
                       <div class="text-sm md:4/6 lg:w-10/12 ml-2">
-                        <p class="text-gray-900 leading-none text-base">
-                          圈圈人
-                          <span class="star text-yellow-500 text-xs">
-                            <i class="fa fa-star text-orange-500"></i>
-                            <i class="fa fa-star text-orange-500"></i>
-                            <i class="fa fa-star text-orange-500"></i>
-                            <i class="fa fa-star text-orange-500"></i>
-                            <i class="fa fa-star text-orange-500"></i>
-                          </span>
-                        </p>
+                        <!-- <p class="text-gray-900 leading-none text-base">
+                          {{el.buyerName}}
+                          <el-rate
+                            v-model="el.star"
+                            disabled
+                            text-color="#ff9900"
+                            score-template="{{el.star}}"
+                            class="inline-block"
+                          ></el-rate>
+                        </p> -->
 
                         <div class="mt-2 mb-8 py-2 text-gray-700">
                           <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
                             <p class="text-sm leading-relaxed px-5 pt-5">
-                              這是第一次到日本遊玩，並在FindTrip訂購烤肉行程，還有規劃師幫忙行程真的太好了， 餐廳超級很好吃喔！下次還會預定喔！
+                              {{ el.RatingContent}}   
                               <span
                                 class="text-xs text-gray-500 px-5 pt-5"
-                              >2020.6.4 評價</span>
+                              > {{ el.CreateOn.slice(0,10) }}     評價</span>
                             </p>
                           </div>
                         </div>
                       </div>
                     </div>
-                    <div class="flex flex-wrap -mx-2">
-                      <div class="md:1/6 lg:w-1/12">
-                        <div class="w-12 h-12 rounded-full bg-blue-500 p-1 mb-3 ml-1">
-                          <img
-                            src="../../assets/img/man002.svg"
-                            alt
-                            class="mx-auto object-cover w-10 h-10 rounded-full"
-                          />
-                        </div>
-                      </div>
-
-                      <div class="text-sm md:4/6 lg:w-10/12 ml-2">
-                        <p class="text-gray-900 leading-none text-base">
-                          名偵探
-                          <span class="star text-yellow-500 text-xs">
-                            <i class="fa fa-star text-orange-500"></i>
-                            <i class="fa fa-star text-orange-500"></i>
-                            <i class="fa fa-star text-orange-500"></i>
-                            <i class="fa fa-star text-orange-500"></i>
-                            <i class="fa fa-star text-orange-500"></i>
-                          </span>
-                        </p>
-
-                        <div class="mt-2 mb-8 py-2 text-gray-700">
-                          <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
-                            <p class="text-sm leading-relaxed px-5 pt-5">
-                              這是第一次到日本遊玩，並在FindTrip訂購烤肉行程，還有規劃師幫忙行程真的太好了， 餐廳超級很好吃喔！下次還會預定喔！
-                              <span
-                                class="text-xs text-gray-500 px-5 pt-5"
-                              >2020.6.4 評價</span>
-                            </p>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                
                   </div>
                 </div>
               </div>
@@ -176,7 +145,7 @@
                     <div class="flex items-center justify-center">
                       <h2
                         class="text-center font-semibold text-gray-700 text-xl text-blue-500 mt-10 my-5"
-                      >關於規劃師 Jack Smith</h2>
+                      >關於規劃師 {{traveler.PlannerName}}</h2>
                       <ul class="list-none">
                         <li class="w-1 h-2">
                           <i class="ml-2 far fa-heart text-2xl align-items"></i>
@@ -185,35 +154,39 @@
                     </div>
                     <div class="mx-auto relative flex justify-center">
                       <img
-                        src="../../assets/img/user001.png"
+                        :src="traveler.manpic"
                         alt
                         srcset
-                        class="bg-blue-500 p-2 w-48 h-48 object-contain rounded-full overflow-hidden"
-                      />
+                      class="border-2 border-blue-200 bg-white  w-48 h-48 rounded-full overflow-hidden">
                     </div>
                     <div class="mx-auto flex justify-center my-5">
-                      <img src="../../assets/img/ic-facebook.svg" alt srcset class="w-6 b-6 mr-3" />
-                      <img class="w-6 b-6" src="../../assets/img/ic-line@.svg" alt srcset />
+                      <a :href="traveler.PlannerSocial1" :title="traveler.PlannerSocial3">
+                        <img src="../../assets/img/ic-facebook.svg" alt srcset class="w-6 b-6 mr-3" />
+                      </a>
+                        <a :href="traveler.PlannerSocial2 " :title="traveler.PlannerSocial4 ">
+                          <img class="w-6 b-6" src="../../assets/img/ic-line@.svg" alt srcset />
+                        </a>
                     </div>
                     <div class="flex justify-center my-3">
-                      <p class="text-sm pr-2">評價 (1 )</p>
+                      <span class="text-sm pr-2">評價 ({{traveler.ratings}} )</span>
                       <span class="star text-xl">
-                        <i class="fa fa-star text-orange-500"></i>
-                        <i class="fa fa-star text-orange-500"></i>
-                        <i class="fa fa-star text-orange-500"></i>
-                        <i class="fa fa-star text-orange-500"></i>
-                        <i class="fa fa-star text-orange-500"></i>
+                                    <!-- <el-rate
+              v-model="traveler.stars"
+              disabled
+             
+              text-color="#ff9900"
+              score-template="{value}"
+              class="inline-block text-lg"></el-rate> -->
+                   
                       </span>
                     </div>
-                    <p
-                      class="font-normal mb-3 text-sm leading-6 px-12"
-                    >熱愛旅遊，認為「工作要拼，玩樂也要對得起自己」。 在馬來西亞居住超過十年，目前去過十多個國家，於印度、尼泊爾、土耳其深度旅遊超過一個月，並曾經爬上喜馬拉雅山基地營。</p>
+                    <p class="font-normal mb-3 text-sm leading-6 px-12">{{traveler.PlannerIntro}}</p>
                     <div class="px-12">
                       <h2 class="font-semibold text-gray-700 text-xl mb-3">服務售價</h2>
                     </div>
                     <div class="flex px-10 justify-start mb-10">
                       <img src="../../assets/img/coin.png" alt class="w-12 h-12 mr-2" />
-                      <span class="text-3xl text-gray-700 font-extrabold">300</span>
+                      <span class="text-3xl text-gray-700 font-extrabold">{{traveler.points}}</span>
                       <span
                         class="ml-1 text-sm text-gray-700 font-semibold transform translate-y-4"
                       >Point</span>
@@ -268,7 +241,7 @@
                       <select
                         class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                         id="grid-state"
-                        v-model="form.county"
+                        v-model="form.country"
                       >
                         <option disabled>-請選擇國家-</option>
                         <option value="日本">日本</option>
@@ -334,26 +307,29 @@
                     type="date"
                     />-->
                     <div class="calendar">
-                      <HotelDatePicker
-                        format="DD/MM/YYYY"
-                        :i18n="messages"
-                        :maxNights="10"
-                        :startDate="tomorrow"
-                        :endDate="endDate"
-                        :enableCheckout="true"
-                      ></HotelDatePicker>
+                      <el-date-picker
+                        v-model="startTime"
+                        type="daterange"
+                        range-separator="至"
+                        start-placeholder="开始日期"
+                        end-placeholder="结束日期"
+                        format="yyyy 年 MM 月 dd 日"
+                        value-format="yyyy-MM-dd"
+                        class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
+                      ></el-date-picker>
+
                       <!--  :disabledDates="getBooking" -->
                     </div>
                   </div>
                   <div class="md:flex-1 md:pl-3">
                     <label
                       class="block uppercase tracking-wide text-gray-700 text-md font-bold"
-                    >預算 :</label>
+                    >預算 : {{form.DepartureTime1}}</label>
                     <div class="relative">
                       <select
                         class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                         id="grid-state"
-                        v-model="form.money"
+                        v-model="form.Budget"
                       >
                         <option disabled>-預算範圍-</option>
                         <option value="＄10,000~＄30,000">＄10,000~＄30,000</option>
@@ -387,7 +363,7 @@
                       <input
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
-                        v-model="form.type['act']"
+                        v-model="form['Act']"
                         value="冒險"
                         :true-value="1"
                         :false-value="0"
@@ -400,7 +376,7 @@
                         class="text-indigo-600 mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
                         name="type"
-                        v-model="form.type['secrect']"
+                        v-model="form['Secret']"
                         :true-value="1"
                         :false-value="0"
                         value="秘境"
@@ -412,7 +388,7 @@
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
                         name="type"
-                        v-model="form.type['culture']"
+                        v-model="form['Culture']"
                         value="文化"
                         :true-value="1"
                         :false-value="0"
@@ -424,7 +400,7 @@
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
                         name="type"
-                        v-model="form.type['food']"
+                        v-model="form['Food']"
                         value="吃貨"
                         :true-value="1"
                         :false-value="0"
@@ -435,7 +411,7 @@
                       <input
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
-                        v-model="form.type['shopping']"
+                        v-model="form['Shopping']"
                         name="type"
                         value="購物"
                         :true-value="1"
@@ -447,7 +423,7 @@
                       <input
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
-                        v-model="form.type['religion']"
+                        v-model="form['Religion']"
                         name="type"
                         value="宗教"
                         :true-value="1"
@@ -489,12 +465,7 @@
                       :max="10"
                       label="小孩人數"
                     ></el-input-number>
-                    <!-- <input
-                    class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
-                    type="text"
-                    name="address_number"
-                    placeholder="#3"
-                    />-->
+                  
                     <!--<div class="text-sm text-red-600">Error message</div>-->
                     <!--<div class="text-xs text-gray-600">Help text</div>-->
                   </div>
@@ -507,7 +478,7 @@
                       class="h-32 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                       type="input"
                       row="5"
-                      v-model="form.messages"
+                      v-model="form.Remark"
                     ></textarea>
                   </label>
                   <!--<div class="text-sm text-red-600">Error message</div>-->
@@ -516,9 +487,9 @@
 
                 <p class="text-right text-base text-gray-700 font-semibold mb-8">
                   本次將扣除
-                  <span class="text-xl text-blue-500">300</span>
+                  <span class="text-xl text-blue-500">{{traveler.points}}</span>
                   <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-1">點數</span> 購買後將剩餘
-                  <span class="text-xl text-blue-500">700</span>
+                  <span class="text-xl text-blue-500">{{$store.state.userInfo - traveler.points}}</span>
                   <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-4">點數</span>
                 </p>
                 <div class="mb-8">
@@ -559,7 +530,7 @@
 <script>
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
-import HotelDatePicker from "vue-hotel-datepicker";
+// import HotelDatePicker from "vue-hotel-datepicker";
 // import Order from "@/components/peopleorder.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
 
@@ -568,12 +539,16 @@ export default {
 
   components: {
     NavBar,
-    Footer,
-    HotelDatePicker
+    Footer
+    // HotelDatePicker
   },
   data() {
     return {
       dialogVisible: false,
+      startTime: "",
+      rating: [],
+      traveler: {}, //旅行家個人資料
+      checkOrder: {},
       messages: {
         "day-names": ["日", "一", "二", "三", "四", "五", "六"],
         "month-names": [
@@ -599,33 +574,46 @@ export default {
       num: 0,
       bignum: 0,
       form: {
-        MemberId: 1,
-        county: "日本",
+        Budget: 0,
+        county: "",
         city: "",
-        data: "2020.6.22 ~2020.7.8",
-        money: "",
-        type: {
+        DepartureTime1: null,
+        // DepartureTime2: null,
+        tags: {
           //checkbox
-          act: false,
-          secrect: false,
-          culture: false,
-          fun: false,
-          food: false,
-          shopping: false,
-          religion: false
+          Act: false,
+          Secrect: false,
+          Culture: false,
+          Food: false,
+          Shopping: false,
+          Religion: false
         },
-        Adult: 1,
+        Adult: 0,
         Children: 0,
-        messages: "沒有啦啦啦啊啊啊啊"
+        Remark: ""
       }
     };
   },
   methods: {
+ 
+    selectTime(val) {
+      this.startTime = val;
+      console.log(val);
+    },
     //api 動作
-    ...mapActions(["getProjects"]),
-    ...mapMutations(["setProjectInfo"]),
+    ...mapActions(["getProjects"], ["LookPlan"]),
+    ...mapMutations(["setProjectInfo"], ["LOOKPLAN"], ["GETORDER"]),
     getOrder() {
-      this.dialogVisible = true;
+      if (!this.$store.state.token) {
+        this.$notify.info({
+          title: "提醒",
+          message: "請先登入或是註冊會員"
+        });
+        this.dialogVisible = false;
+      }else{
+           this.dialogVisible = true;
+      }
+     
     },
 
     handleChange(value) {
@@ -634,35 +622,110 @@ export default {
     close() {
       this.dialogVisible = true;
     },
+
+    checkPlan() {
+      //
+      let token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+
+      let api = `${process.env.VUE_APP_APIPATH}order/load`;
+
+      console.log(api);
+      // const vm = this;
+      // vm.isLoading = true;
+      this.$http
+        .get(api, { headers })
+        .then(res => {
+          // vm.isLoading = false;
+          if (res.data.success) {
+            console.log(res.data);
+            this.$store.commit("loginStart");
+            this.$store.commit("GETORDER", res.data.result);
+          }
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+      //  this.$store.dispatch('getApi');
+    },
     createdOrder() {
       const vm = this;
+
       let token = localStorage.getItem("token");
       const headers = {
         Authorization: `Bearer ${token}`
       };
       const api = `http://findtrip.rocket-coding.com/api/order/create`;
-      const order = vm.form;
+
       this.$http
-        .post(api, { data: order }, { headers: headers })
-        .then(response => {
-          if (response.data.success) {
-            console.log("訂單建立", response);
+        .post(
+          api,
+          {
+            Budget: vm.form.Budget,
+
+            country: vm.form.country,
+            city: vm.form.city,
+            DepartureTime1: vm.startTime[0],
+            DepartureTime2: vm.startTime[1],
+            Adult: vm.form.Adult,
+            Children: vm.form.Children,
+            Remark: vm.form.Remark,
+            Act: vm.form["Act"],
+            Culture: vm.form["Culture"],
+            Food: vm.form["Food"],
+            Shopping: vm.form["Shopping"],
+            Secret: vm.form[" Secret"],
+            Religion: vm.form["Religion"],
+            TravelPlan_id: this.$route.params.id
+          },
+          { headers: headers }
+        )
+        .then(res => {
+          console.log(res);
+
+          if (res.data.success) {
+            console.log("訂單建立", res.data.result);
             this.dialogVisible = false;
-            this.$swal({
-              icon: "success",
-              title: "確定接受這個訂單喔"
-            });
-            this.$router.push({
-              name: "orderlist",
-              params: { id: this.OrderId }
-            });
+            // this.$swal({
+            //   icon: "success",
+            //   title: "確定接受這個訂單喔"
+            // });
+            vm.checkOrder = res.data.result;
+            console.log(vm.checkOrder);
+            vm.checkPlan();
+            vm.$router.push(`/order/${res.data.result[0].id}`);
+            //跳到訂單頁面
+          } else {
+            console.log("失敗");
+            vm.checkPlan();
           }
         });
+    },
+    LookPlan() {
+      //檢視旅行家內頁
+
+      // let token = localStorage.getItem("token");
+      // const headers = {
+      //     Authorization: `Bearer ${token}`
+      // };
+
+      const vm = this;
+      let api = `http://findtrip.rocket-coding.com/api/plan/inner/${this.$route.params.id}`;
+      this.$http.get(api).then(res => {
+        if (res.data.success) {
+          vm.traveler = res.data.result;
+          vm.rating = res.data.result.rating;
+
+          console.log(vm.traveler);
+        }
+      });
     }
   },
   computed: {
     ...mapState(["projects"]),
-    // ...mapGetters(["city"], ["county"]),
+
     tomorrow() {
       const dt = new Date();
       return new Date(dt.getTime() + 1000 * 60 * 60 * 24);
@@ -671,9 +734,18 @@ export default {
       const dt = new Date();
       return new Date(dt.getTime() + 1000 * 60 * 60 * 24 * 90);
     }
+    // bookingDate(){
+    //    let arr = []
+    //    retrun {
+    //      arr = this.DepartureTime1 + this.DepartureTime2
+    //    }
+    // }
   },
   created() {
     this.getProjects();
+    this.LookPlan();
+    this.checkPlan();
+    console.log(this.$store.state.token);
   }
 };
 </script>

@@ -104,14 +104,21 @@
                     type="date"
                   />-->
                   <div class="calendar">
-                    <HotelDatePicker
+                        <!-- <el-date-picker
+      v-model="value1"
+      type="daterange"
+      range-separator="至"
+      start-placeholder="开始日期"
+      end-placeholder="结束日期">
+    </el-date-picker> -->
+                    <!-- <HotelDatePicker
                       format="DD/MM/YYYY"
                       :i18n="messages"
                       :maxNights="10"
                       :startDate="tomorrow"
                       :endDate="endDate"
                       :enableCheckout="true"
-                    ></HotelDatePicker>
+                    ></HotelDatePicker> -->
                     <!--  :disabledDates="getBooking" -->
                   </div>
                 </div>
@@ -306,14 +313,14 @@
   </div>
 </template>
 <script>
-import HotelDatePicker from "vue-hotel-datepicker";
+// import HotelDatePicker from "vue-hotel-datepicker";
 // import store from "@/store";
 
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   components: {
-    HotelDatePicker
+    // HotelDatePicker
   },
   data() {
     return {
@@ -386,27 +393,27 @@ export default {
     close(){
         this.dialogVisible = true;
     },
-    createdOrder() {
-      const vm = this;
-      const headers = {
-        "Content-Type": "application/json"
-      };
-      const api = `http://localhost:3000/posts`;
-      const order = vm.form;
-      this.$http
-        .post(api, { data: order }, { headers: headers })
-        .then(response => {
-          if (response.status == 201) {
-            console.log("訂單建立", response);
-            this.dialogVisible = false;
-            this.$swal({
-              icon: "success",
-              title: "確定接受這個訂單喔"
-            });
-            this.$router.push({ name: "orderlist", params: { id: this.OrderId } });
-          }
-        });
-    },
+    // createdOrder() {
+    //   const vm = this;
+    //   const headers = {
+    //     "Content-Type": "application/json"
+    //   };
+    //   const api = `http://localhost:3000/posts`;
+    //   const order = vm.form;
+    //   this.$http
+    //     .post(api, { data: order }, { headers: headers })
+    //     .then(response => {
+    //       if (response.status == 201) {
+    //         console.log("訂單建立", response);
+    //         this.dialogVisible = false;
+    //         this.$swal({
+    //           icon: "success",
+    //           title: "確定接受這個訂單喔"
+    //         });
+    //         this.$router.push({ name: "orderlist", params: { id: this.OrderId } });
+    //       }
+    //     });
+    // },
    
   },
   created() {

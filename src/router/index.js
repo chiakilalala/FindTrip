@@ -34,6 +34,15 @@ const routes = [
         meta: { requiresAuth: false }, //不需要驗證
     },
     {
+        path: '/homeTest',
+        /* 首頁*/
+        name: 'homeTest',
+
+        component: () =>
+            import ('@/components/HomeTest'),
+        meta: { requiresAuth: false }, //不需要驗證
+    },
+    {
         path: '/product',
         name: 'Product',
         component: () =>
@@ -68,7 +77,7 @@ const routes = [
         path: '/wish',
         name: 'wish',
         component: () =>
-            import ('@/components/page/Wish'),
+            import ('@/components/page/Wish.vue'),
         meta: { requiresAuth: false }, //不需要驗證
     },
     {
@@ -112,6 +121,24 @@ const routes = [
                 path: 'favorite', // url= /member/favorite
                 component: () =>
                     import ('@/components/member/Favorite'),
+                meta: { requiresAuth: true },
+            },
+            // {
+            //     path: 'traveler', // url= /member/traveler
+            //     component: () =>
+            //         import ('@/components/member/Traveler'),
+            //     meta: { requiresAuth: true },
+            // },
+            {
+                path: 'traveler', // url= /member/traveler
+                component: () =>
+                    import ('@/components/member/TravelTest'),
+                meta: { requiresAuth: true },
+            },
+            {
+                path: 'travelerProfile', // url= /member/travelerProfile
+                component: () =>
+                    import ('@/components/member/travelerProfile'),
                 meta: { requiresAuth: true },
             },
         ]

@@ -27,9 +27,7 @@
             :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}"
           ></div>
 
-
-<!-- :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}" -->
-
+          <!-- :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}" -->
         </div>
         <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
           <div class="px-4 mt-8 lg:px-0 lg:mt-0 h-full flex flex-col justify-between">
@@ -50,7 +48,7 @@
               class="block lg:mb-4 lg:text-lg mt-0 text-base leading-tight font-semibold text-gray-900"
             >
               上架日期 ：
-              <span class="text-md font-thin">{{item.CreateOn}}</span>
+              <span class="text-md font-thin">{{item.CreateOn.slice(0,10)}}</span>
             </p>
             <!-- item.CreateOn.substring(0,10) -->
             <div class="mt-0 lg:flex justify-between">
@@ -110,7 +108,7 @@
           >上傳背景圖</div>
           <div class="relative lg:p-4 p-6 lg:flex-shrink-0 w-full">
             <div class="py-4">Add Cover Art</div>
-            <!-- <svg
+            <svg
                 class="mx-auto feather feather-image"
                 xmlns="http://www.w3.org/2000/svg"
                 width="40"
@@ -125,17 +123,17 @@
                 <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                 <circle cx="8.5" cy="8.5" r="1.5" />
                 <polyline points="21 15 16 10 5 21" />
-            </svg>-->
-            <!-- <img  :src="templans.TPBGImg"  img="https://images.unsplash.com/photo-1483985988355-763728e1935b?ixlib=rb-0.3.5&ixid=eyJhcHBfaWQiOjEyMDd9&s=828346ed697837ce808cae68d3ddc3cf&auto=format&fit=crop&w=1350&q=80" class="avatar" /> -->
+            </svg>
+            <!-- <img  :src="templans.TPBGImg ? templans.TPBGImg : 'https://picsum.photos/600/400/?random' " /> -->
             <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
 
             <div class="flex justify-center mt-2">
               <input
                 type="file"
-                name="file-to-upload"
-                id="customFile"
+                name="fileupload-c"
+                
                 class="form-control bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-6 rounded-full lg:ml-4 ml-0 mt-0 text-sm shadow-md"
-                ref="files"
+                ref="fileupload"
                 @change="uploadImg"
               />
               <!-- 上傳圖片
@@ -143,6 +141,7 @@
             </div>
             <p class="lg:visible hidden text-xs leading-normal">上傳背景圖</p>
           </div>
+           <img  :src="temPlans.TPBGImg ? temPlans.TPBGImg : 'https://picsum.photos/600/400/?random' " />  
           <!-- <div class="lg:p-4 p-6 lg:flex-shrink-0 w-full">
             <div
               id="lg:px-16 empty-cover-art"
@@ -199,10 +198,7 @@
                 @change="onEditorChange($event)"
               ></quill-editor>
 
-              <!-- <textarea
-                class="border border-gray-400 w-full rounded px-2 py-1 resize-none"
-                rows="4"  v-model="temPlans.TravelPlanIntro"
-              ></textarea>-->
+       
             </label>
 
             <label class="block mb-6">
@@ -244,9 +240,9 @@
               <div class="lg:flex-shrink-0 w-full">
                 <div
                   id=" empty-cover-art"
-                  class="rounded w-full lg:h-64 h-auto py-16 px-0 text-center bg-gray-300 opacity-50 md:border-solid md:border-2 md:border-gray-400"
+                  class="relative rounded w-full lg:h-64 h-auto py-16 px-0 text-center bg-gray-300 opacity-50 md:border-solid md:border-2 md:border-gray-400"
                 >
-                 <img :src="temPlans.Cpicture" alt="" class="absolute inset-y-0" >
+                  <img :src="temPlans.Cpicture" alt class="absolute inset-y-0" />
                   <!-- <svg
                     class="mx-auto feather feather-image"
                     xmlns="http://www.w3.org/2000/svg"
@@ -262,21 +258,14 @@
                     <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
                     <circle cx="8.5" cy="8.5" r="1.5" />
                     <polyline points="21 15 16 10 5 21" />
-                  </svg> -->
+                  </svg>-->
                   <div class="py-4">Add Cover Art</div>
-                 
                 </div>
               </div>
               <div class="lg:mt-4 mt-0 flex items-center mt-4 lg:flex-0 justify-center">
                 <p class="lg:visible hidden text-xs leading-normal">上傳圖片</p>
-                <label for="image">輸入圖片網址</label>
-                <input
-                  type="text"
-                  class="form-control"
-                  id="image"
-                  v-model="temPlans.Cpicture"
-                  placeholder="請輸入圖片連結"
-                />
+             
+             
                 <!-- 
                 <button
                   class="mt-0 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-4 rounded-full lg:ml-4 ml-0 text-sm shadow-md"
@@ -289,8 +278,14 @@
                   class="img-fluid"
                   alt
                   :src="temPlans.Cpicture"
-                /> -->
-                <input type="file" name="pic-to-upload" ref="files" @change="uploadPic" class="mt-0 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-4 rounded-full lg:ml-4 ml-0 text-sm shadow-md" />
+                />-->
+                <input
+                  type="file"
+                  name="pic-to-upload"
+                  ref="files"
+                  @change="uploadPic"
+                  class="mt-0 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-4 rounded-full lg:ml-4 ml-0 text-sm shadow-md"
+                />
               </div>
             </div>
             <div class="ml-0 lg:ml-10 w-full lg:w-1/2 text-xl text-gray-800 leading-normal">
@@ -434,7 +429,7 @@
           <el-button
             @click="dialogVisible = false"
             class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full mx-4"
-          >上一步</el-button>
+          >取消</el-button>
           <el-button
             @click="updatePlan"
             class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded-full mx-4"
@@ -465,12 +460,12 @@ export default {
       plans: [],
       temPlans: {
         points: 1999,
-        TPExperience: "djdljdl",
+        TPExperience: '<p>hello ! 你好嗎</p>',
         TravelPlanIntro: "<p>hello ! 你好嗎 </p>",
         country: "日本",
         city: "giui",
-        Cpicture: "",
-        TPBGImg: "",
+        Cpicture: null,
+        TPBGImg: null,
         Religion: false,
         Secret: false,
         Act: false,
@@ -485,8 +480,14 @@ export default {
       editorOption: {
         modules: {
           toolbar: [
-            ["bold", "italic", "underline", "strike"], // toggled buttons
-            ["blockquote", "code-block"]
+            [{ size: ["small", false, "large", "huge"] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ indent: "-1" }, { indent: "+1" }],
+            [{ color: [] }, { background: [] }],
+            [{ align: [] }],
+            ["clean"],
+            ["link"]
           ]
         }
       },
@@ -513,21 +514,7 @@ export default {
     onEditorChange() {
       //內容改變事件
     },
-    // handleAvatarSuccess(res, file) {
-    //   this.imageUrl = URL.createObjectURL(file.raw);
-    // },
-    // beforeAvatarUpload(file) {
-    //   const isJPG = file.type === "image/jpeg";
-    //   const isLt2M = file.size / 1024 / 1024 < 2;
 
-    //   if (!isJPG) {
-    //     this.$message.error("上传头像图片只能是 JPG 格式!");
-    //   }
-    //   if (!isLt2M) {
-    //     this.$message.error("上传头像图片大小不能超过 2MB!");
-    //   }
-    //   return isJPG && isLt2M;
-    // },
     getPlans() {
       let token = localStorage.getItem("token");
       const headers = {
@@ -544,7 +531,7 @@ export default {
         .then(response => {
           // vm.isLoading = false;
           vm.plans = response.data.result;
-          console.log(response);
+          // console.log(response);
         })
         .catch(err => {
           console.log(err.message);
@@ -586,7 +573,7 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}plan/update/${vm.temPlans.id}`;
         httpMethod = "patch";
       }
-      console.log(api, "update");
+      // console.log(api, "update");
 
       this.$http[httpMethod](
         api,
@@ -609,12 +596,14 @@ export default {
       ).then(response => {
         // console.log(vm.temPlans);
         if (response.data.success) {
+
           this.dialogVisible = false; //新增成功的話就會關掉視窗並取得遠端的內容
           vm.getPlans(); //重新取得資料一次
+          this.$message('更新成功');
 
           // console.log(this.getPlans);
         } else {
-          this.dialogVisible = false;
+          this.$message('更新失敗');
           vm.getPlans(); //重新取得資料一次
           console.log("failure");
         }
@@ -648,10 +637,12 @@ export default {
             // vm.temPlans.Cpicture = response.data.Cpicture;
             console.log(response.data);
             vm.$set(vm.temPlans, "Cpicture", response.data.Cpicture);
+            vm.getPlans();
             console.log(vm.temPlans);
           } else {
             // this.$bus.$emit('message:push',response.data.message,'danger');
             console.log("失敗");
+            vm.getPlans();
           }
         });
     },
@@ -659,15 +650,15 @@ export default {
     uploadImg() {
       let token = localStorage.getItem("token");
       console.log(this);
-      const uploadedFile = this.$refs.files.files[0]; //這是檔案上傳物件
+      const uploadedFile = this.$refs.fileupload.files[0]; //這是檔案上傳物件
       const vm = this;
-      const formData = new FormData(); //新增新物件可以
-      formData.append("file-to-upload", uploadedFile); //新增物件
+      const picData = new FormData(); //新增新物件可以
+      picData.append("fileupload", uploadedFile); //新增物件
       let url = `${process.env.VUE_APP_APIPATH}plan/bgimg`;
 
       // vm.status.fileUploading =true;//接受到之後就圖片打開
       this.$http
-        .post(url, formData, {
+        .post(url, picData, {
           headers: {
             "Content-Type": "multipart/form-data",
             Authorization: `Bearer ${token}`
@@ -678,14 +669,23 @@ export default {
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
             console.log("成功了！");
+                        console.log(response.data);
             // vm.temPlans.TPBGImg = response.data.TPBGImg;
 
             vm.$set(vm.temPlans, "TPBGImg", response.data.TPBGImg);
-            console.log(vm.temPlans);
+           
+            vm.getPlans();
+             console.log(vm.temPlans);
             // console.log(vm.tempProduct);
           } else {
             // this.$bus.$emit('message:push',response.data.message,'danger');
+             this.$notify({
+          title: '警告',
+          message: '檔案格式不對',
+          type: 'warning'
+        });
             console.log("失敗");
+            vm.getPlans();
           }
         });
     },
@@ -698,7 +698,7 @@ export default {
       const url = `${process.env.VUE_APP_APIPATH}/plan/delete/${vm.temPlans.id}`;
       console.log(url);
       vm.axios.delete(url, { headers }).then(response => {
-        console.log(response);
+        // console.log(response);
         if (response.data.success) {
           vm.deleteModal = false;
           vm.getPlans();
@@ -728,6 +728,7 @@ export default {
   created() {
     this.getPlans();
     this.getProjects();
+
     // console.log(this.$store.state);
   }
 };

@@ -24,47 +24,50 @@
       <ul class="list-reset">
         <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
           <router-link
-            to="/member/account"
-            class="block align-middle lg:text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:border-blue-500 lg:hover:border-blue-500"
+            to="/member/account" @click.native="actClass='account'" :class="{'activeleft':actClass == 'account'}" 
+            class=" block align-middle lg:text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent  lg:hover:border-blue-500"
           >
-            <span class="pb-1 md:pb-0 text-base text-gray-900 font-bold">
+            <span class="pb-1 md:pb-0 text-base text-gray-900 ">
               <i class="text-gray-500 hover:text-blue-500 pr-3 fas fa-cog"></i>帳戶設定
             </span>
           </router-link>
         </li>
-        <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-            <router-link
-              to="/member/point"
+        <!-- <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
+          <router-link
+            to="/member/point" @click.native="actClass='point'" :class="{'activeleft':actClass == 'point'}" 
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
               <i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-coins"></i>儲值點數
             </span>
           </router-link>
-        </li>
+        </li> -->
         <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-            <router-link
-              to="/member/order"
+          <router-link
+            to="/member/order" @click.native="actClass='order'"  :class="{'activeleft' :actClass == 'order' }" 
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
               <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-list-alt"></i>訂單記錄
             </span>
-           </router-link>
+          </router-link>
         </li>
-        <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-         <router-link
-              to="/member/message"
+        <!-- <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
+          <router-link
+            to="/member/message"  @click.native="actClass='message'"  :class="{'activeleft':actClass == 'message'}" 
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
               <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-comment"></i>訊息記錄
             </span>
           </router-link>
-        </li>
-        <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-           <router-link
-              to="/member/project"
+        </li> -->
+        <li
+          class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent"
+          v-if=" $store.state.Permission == '02' "
+        >
+          <router-link
+            to="/member/project"  @click.native="actClass='project'"  :class="{'activeleft':actClass == 'project'}" 
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
@@ -73,8 +76,8 @@
           </router-link>
         </li>
         <li class="py-2 md:my-0 text-center hover:bg-blue-400 lg:hover:bg-transparent">
-            <router-link
-              to="/member/favorite"
+          <router-link
+            to="/member/favorite"  @click.native="actClass='favorite'"  :class="{'activeleft':actClass == 'favorite'}" 
             class="block align-middle text-gray-700 no-underline hover:text-blue-500 border-l-4 border-transparent lg:hover:border-gray-400"
           >
             <span class="pb-1 md:pb-0 text-base">
@@ -85,9 +88,24 @@
       </ul>
     </div>
   </div>
-
-
 </template>
 <script>
-export default {};
+export default {
+  data() {
+    return {
+        actClass:'account',
+    };
+  }
+};
 </script>
+<style >
+  
+.activeleft{
+  /* lg:border-blue-500  font-bold*/
+  border-left:4px solid #007ace;
+  font-weight: bold;
+}
+
+
+
+</style>

@@ -6,146 +6,90 @@
         <li class="-mb-px mr-1">
           <router-link
             to="/member/Order"
-            class="border-b-2 border-teal-400 font-semibold inline-block py-2 px-4 text-teal-400 font-normal hover:text-blue-800"
+            class="inline-block py-2 px-4 text-gray-500 hover:text-blue-800"
+            href="#"
           >旅行家</router-link>
         </li>
         <li class="mr-1">
           <router-link
             to="/member/traveler"
-            class="inline-block py-2 px-4 text-gray-500 font-normal hover:text-blue-800"
+            class="border-b-2 border-teal-400 font-semibold inline-block py-2 px-4 text-teal-400 font-normal hover:text-blue-800"
+            href="#"
           >規劃師</router-link>
         </li>
       </ul>
     </div>
-    <div
-      class="flex-1 text-gray-700 text-left bg-white py-5 my-2 rounded-lg shadow-lg mb-5 hover:shadow-sm"
-      v-for="item in  orders"
-      :key="item.id "
-    >
-      <!-- $router.push({ name: 'orderlist', params: { id: item.id } }) -->
+
+    <!--   v-for="item in  sellOrders"
+    :key="item.id "@click="getOrder(item.id)"$router.push({ name: 'orderlist', params: { id: item.id } })-->
+    <!-- 訂單資料 -->
+    <div class="flex-1 text-gray-700 text-left mb-20">
       <div class="lg:flex">
-        <div class="lg:flex-shrink-0 relative">
-          <img
-            :src="$store.state.projects[0].manpic"
-            alt
-            srcset
-            class="object-cover ml-8 -mt-3 border-2 border-white w-12 h-12 rounded-full absolute top-0 left-0 bg-blue-500"
-          />
-          <div
-            class="lg:mx-5 mx-4 h-48 lg:w-70 w-52 md:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l overflow-hidden"
-            :style="{backgroundImage:`url(${item.PlanPic[0]? item.PlanPic[0].Cpicture : 'https://picsum.photos/300/200?random=1' })`}"
-          ></div>
-          <p
-            v-if="item.Status === 3"
-            class="cursor-pointer ml-5 mt-2 text-blue-400 font-sm"
-            @click="openComment(item)"
-          >
-            <i class="fas fa-edit"></i>撰寫評論
-          </p>
-        </div>
-        <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
-          <div class="flex relative">
-            <!-- 三種現象 -->
-            <span
-              v-if="item.Status === 1"
-              class="bg-gray-500 tracking-wide text-xs text-gray-100 font-bold py-1 px-2 mx-4 lg:ml-0"
-            >訂單確認中</span>
-            <span
-              v-else-if="item.Status === 2"
-              class="bg-teal-600 tracking-wide text-xs text-gray-100 font-bold py-1 px-2 mx-4 lg:ml-0"
-            >訂單委託中</span>
-            <span
-              v-else-if="item.Status === 3"
-              class="bg-blue-100 text-blue-500 tracking-wide text-xs text-gray-100 font-bold py-1 px-2 mx-4 lg:ml-0"
-            >已完成</span>
+        <!-- 書籤 -->
+        <div class="min-w-full shadow-md rounded-lg block w-full overflow-x-auto">
+          <table class="border-collapse table-auto w-full leading-normal text-left">
+            <thead>
+              <tr class="whitespace-no-wrap">
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-300 bg-gray-300 text-left text-base font-semibold text-gray-700 tracking-wider"
+                >編號</th>
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-base font-semibold text-gray-700 tracking-wider"
+                >客戶名字</th>
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-base font-semibold text-gray-700 tracking-wider"
+                >國家</th>
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-base font-semibold text-gray-700 tracking-wider"
+                >訂購時間</th>
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-base font-semibold text-gray-700 tracking-wider"
+                >訂單狀態</th>
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-base font-semibold text-gray-700 tracking-wider"
+                >詳細內容</th>
+                <th
+                  class="px-5 py-3 border-b-2 border-gray-200 bg-gray-300 text-left text-base font-semibold text-gray-700 tracking-wider"
+                ></th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr class="whitespace-no-wrap" v-for="item in  sellOrders" :key="item.id ">
+                <td class="px-5 py-3 border-b border-gray-200 bg-white text-base">{{item.id}}</td>
+                <td class="px-5 py-3 border-b border-gray-200 bg-white text-baitemse">{{item.name}}</td>
+                <td class="px-5 py-3 border-b border-gray-200 bg-white text-base">{{item.country}}</td>
 
-            <span
-              @click="getOrder(item.id)"
-              class="cursor-pointer bg-blue-400 hover:bg-blue-200 text-blue-100 tracking-wide text-xs text-gray-100 font-bold py-1 px-2 ml-4 lg:ml-0"
-            >
-              <i class="far fa-file"></i> 查看訂單
-            </span>
-
-            <div
-              class="min-w-15 bg-white min-h-16 p-0 mb-0 font-medium absolute top-0 right-0 lg:mr-0 mr-5 lg:mt-0 -mt-12"
-            >
-              <div
-                class="w-16 flex-none rounded-t lg:rounded-t-none lg:rounded-l text-center shadow"
-              >
-                <!-- <div class="block rounded-t overflow-hidden text-center">
-                  <div class="bg-gray-200 text-gray-500 hover:text-blue-100 py-1">{{item.CreateOn.slice(5,7) | month }}</div>
-                  <div class="pt-1 bg-gray-200">
+                <td
+                  class="px-5 py-3 border-b border-gray-200 bg-white text-base"
+                >{{item.CreateOn.slice(0,10)}}</td>
+                <!-- 創建日期 -->
+                <td
+                  class="px-5 py-3 border-b border-gray-200 bg-white text-base"
+                  :class="[
+                    item.Status == 1
+                    ? 'text-teal-600' : item.Status === 2 
+                    ? 'text-blue-500' : item.Status === 3
+                    ? 'text-gray-500 ' : 'text-blue-500'
+                    ]"
+                >{{item.Status | status }}</td>
+                <!-- 單子狀態 -->
+                <td class="px-5 py-3 border-b border-gray-200 bg-white text-base">
+                  <span
+                    class="cursor-pointer text-blue-100 relative inline-block px-4 py-1 font-normal text-white leading-tight"
+                    @click="sellOrder(item.id)"
+                  >
                     <span
-                      class="text-3xl font-bold text-gray-500 hover:text-blue-100 leading-tight"
-                    >{{item.CreateOn.slice(8,10) }}</span>
-                  </div>
-                </div>-->
-              </div>
-            </div>
-          </div>
-          <div class="px-4 mt-8 lg:px-0 lg:mt-0">
-            <p
-              class="block lg:mt-4 lg:text-lg mt-2 text-base leading-tight font-semibold text-gray-900"
-            >
-              旅行規劃師
-              <span class="text-sm font-thin">— {{item.PlannerName[0].PlannerName}}</span>
-            </p>
-            <p
-              class="block lg:mt-4 lg:text-lg mt-2 text-base leading-tight font-semibold text-gray-900"
-            >
-              國家 ：
-              <span class="text-sm font-thin">{{item.country}}</span>
-            </p>
-            <p
-              class="block lg:mt-4 lg:text-lg mt-2 text-base leading-tight font-semibold text-gray-900"
-            >
-              區域 ：
-              <span class="text-sm font-thin">{{item.city}}</span>
-            </p>
-            <div class="mt-4 lg:flex justify-between">
-              <div>
-                <span
-                  :class="{'hidden' : !item['Culture']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >文化</span>
-                <span
-                  :class="{'hidden' : !item['Religion']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >宗教</span>
-                <span
-                  :class="{'hidden' : !item['Secret']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >秘境</span>
-                <span
-                  :class="{'hidden' : !item['Shopping']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >購物</span>
-                <span
-                  :class="{'hidden' : !item['Act']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >冒險</span>
-                <span
-                  :class="{'hidden' : !item['Food']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >吃貨</span>
-              </div>
-
-              <div class="flex justify-between">
-                <button
-                  v-if="item.Status === 2"
-                  class="bg-transparent border border-blue-500 hover:bg-blue-500 hover:shadow-xl hover:text-white text-blue-500 font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
-                >完成訂單</button>
-                <button
-                  v-else-if="item.Status === 3"
-                  class="cursor-not-allowed opacity-50 bg-gray-600 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm"
-                >已完成</button>
-
-                <button
-                  class="bg-blue-500 border border-blue-500 hover:bg-transparent hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
-                >訊息聯絡</button>
-              </div>
-            </div>
-          </div>
+                      class="shadow absolute inset-0 bg-blue-500 hover:bg-blue-200 rounded-full"
+                    ></span>
+                    <span class="relative">查看</span>
+                  </span>
+                </td>
+                <td class="cursor-pointer px-5 py-3 border-b border-gray-200 bg-white text-base">
+                  <i class="fas fa-trash-alt text-lg" title="刪除" @click="opende(item.id)"></i>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </div>
     </div>
@@ -164,7 +108,7 @@
             <span class="tracking-normal">--&gt;</span> SEA
           </p>
         </div>
-        <div class="p-12 px-22" v-for="item in Oneorders" :key="item.id">
+        <div class="p-12 px-22" v-for="(item) in OneTraveler" :key="item.id">
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">會員姓名:</label>
@@ -187,8 +131,6 @@
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
               >{{item.Tel}}</p>
-              <!--<div class="text-sm text-red-600">Error message</div>-->
-              <!--<div class="text-xs text-gray-600">Help text</div>-->
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">創建日期:</label>
@@ -204,8 +146,6 @@
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
               >{{item.country}}</p>
-              <!--<div class="text-sm text-red-600">Error message</div>-->
-              <!--<div class="text-xs text-gray-600">Help text</div>-->
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">區域:</label>
@@ -222,10 +162,7 @@
               >行程的日期 範圍 :</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >
-                {{item.DepartureTime1}} ~ {{item.DepartureTime2}}
-             
-              </p>
+              >{{item.DepartureTime1}} ~ {{item.DepartureTime2}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">預算:</label>
@@ -274,27 +211,42 @@
             </div>
           </div>
 
-          <p class="text-right text-base text-gray-700 font-semibold mb-8">
-            本次將扣除
-            <span class="text-xl text-blue-500">300</span>
-            <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-1">點數</span> 購買後將剩餘
-            <span class="text-xl text-blue-500">700</span>
-            <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-4">點數</span>
-          </p>
-          <!-- <div class="mb-8">
+          <div class="mb-8">
             <div class="flex justify-center">
+              <!-- <el-button
+                
+               @click="changeState(item.id)"
+           
+              >確認點擊訂單 {{count}}</el-button>-->
               <el-button
-                class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-4"
-              >完成訂單</el-button>
+                @click="switchState(item.id)"
+                :class="[
+                    item.Status == 1
+                    ? 'bg-teal-600' : item.Status === 2 
+                    ? 'bg-blue-500' : item.Status === 3
+                    ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-500'
+                    ]"
+                class="hover:opacity-75 text-white font-bold py-2 px-4 rounded-full mx-4"
+              >{{ item.Status | status }}</el-button>
+              <!-- <el-button
+                @click="switchState2(item.id)"
+                v-if="item.Status === 2"
+                class="bg-gray-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-4"
+              >完成訂單 {{ item.Status }}</el-button>
+
+              <el-button
+              
+                class="cursor-not-allowed bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-4"
+              >訂單完成 {{ item.Status }}</el-button>-->
             </div>
-          </div>-->
+          </div>
         </div>
       </div>
     </el-dialog>
 
     <!-- comment dialog -->
 
-    <el-dialog :visible="commentVisible" :before-close="beforeClose" width='30%'>
+    <el-dialog :visible="commentVisible" :before-close="beforeClose">
       <!-- 下面是留言格式 -->
 
       <div class="flex container max-w-4xl mx-auto">
@@ -306,12 +258,12 @@
                   <div class="w-full flex items-center">
                     <div class="w-16 h-16 rounded-full bg-blue-500 p-1 mb-3 ml-1">
                       <img
-                        :src=" $store.state.userInfo.manpic ? $store.state.userInfo.manpic : '../../assets/img/user001.png'"
+                        src="../../assets/img/user001.png"
                         alt
                         class="mx-auto object-cover w-18 h-18 rounded-full"
                       />
                     </div>
-                    <span class="text-lg pl-2">{{$store.state.userInfo.name}}</span>
+                    <span class="text-lg pl-2">chiakilalal</span>
                   </div>
                 </div>
               </div>
@@ -319,13 +271,13 @@
                 <h1 class="text-xl text-gray-400 font-bold">請給這次體驗打個分數吧！(最高5顆星)</h1>
                 <el-rate
                   class="my-3"
-                  v-model="comment.star"
+                  v-model="comment.rating"
                   :colors="colors"
                   score-template="{value}"
                 ></el-rate>
                 <input
                   placeholder="評分"
-                  v-model="comment.rating"
+                  v-model="comment.star"
                   class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                   type="input"
                 />
@@ -365,8 +317,12 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      value2: null,
-      Oneorders: {}, //model資料
+      value: 3,
+      count: 1,
+      OneTraveler: {
+        Status: 1
+      }, //model資料
+      state: {},
       dialogVisible: false,
       commentVisible: false,
       isTraveler: "all",
@@ -386,21 +342,77 @@ export default {
       console.log(this.comment);
     },
     beforeClose(done) {
-      //dialog關掉的xx
       this.dialogVisible = false;
       this.commentVisible = false;
       done();
     },
-    ...mapActions(["checkOrder"], ["getOrder"], ["getProjects"]),
+
+    switchState(item) {
+      this.$forceUpdate();
+      if (this.OneTraveler[0].Status == 0) {
+        this.$alert('訂單狀態', '标题名称', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `訂單狀態修改成功: ${ action }`
+            });
+          }
+        })
+        this.$set(this.OneTraveler, "Status", 1);
+            
+        console.log(this.OneTraveler.Status);
+      } else if (this.OneTraveler[0].Status == 1) {
+           this.$alert('確定訂接受此訂單', '訂單狀態', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `訂單狀態修改成功: ${ action }`
+            });
+          }
+        })
+        this.$set(this.OneTraveler, "Status", 2);
+        console.log(this.OneTraveler.Status);
+      } else if (this.OneTraveler[0].Status == 2) {
+
+         this.$alert('確定訂單已經完成了', '訂單狀態', {
+          confirmButtonText: '确定',
+          callback: action => {
+            this.$message({
+              type: 'info',
+              message: `訂單狀態修改成功: ${ action }`
+            });
+          }
+        })
+
+        this.$set(this.OneTraveler, "Status", 3);
+        console.log(this.OneTraveler.Status);
+      }
+
+      console.log(item); //看id
+      this.travelOrder(item); //更新api
+
+      //單筆訂單整理
+    },
+    switchState2(item) {
+      this.$set(this.OneTraveler[0], "Status", 3);
+      console.log(this.OneTraveler[0].Status);
+
+      this.travelOrder(item);
+      //單筆訂單整理
+    },
+
+    ...mapActions(["sellerOrder"], ["getOrder"], ["getProjects"]),
     ...mapMutations(
-      ["GETORDER"],
+      ["SELLORDER"],
       ["UPDATE_USER"],
       ["changeLogin"],
       ["setProjectInfo"]
     ),
 
-    getOrder(id) {
-      //旅行家觀看單一訂單
+    sellOrder(id) {
+      //規劃師是單一訂單
       let token = localStorage.getItem("token");
       const headers = {
         Authorization: `Bearer ${token}`
@@ -408,14 +420,47 @@ export default {
       const vm = this;
 
       vm.orderId = this.$route.params.id;
-      let api = `${process.env.VUE_APP_APIPATH}/order/loadsingle/${id}`;
+      let api = `${process.env.VUE_APP_APIPATH}order/sellersingle/${id}`;
       this.$http.get(api, { headers }).then(res => {
         if (res.data.success) {
-          vm.Oneorders = res.data.result;
+          vm.OneTraveler = res.data.result;
+          console.log(vm.OneTraveler);
           vm.dialogVisible = true;
-          console.log(vm.Oneorders);
         }
       });
+    },
+    travelOrder(id) {
+      //修改單一訂單
+      let token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+      const vm = this;
+      // let httpMethod = "patch";
+
+      let api = `${process.env.VUE_APP_APIPATH}order/update/${id}`;
+      // console.log(this.count);
+      this.$http
+        .patch(
+          api,
+          {
+            Status: vm.OneTraveler.Status
+          },
+          { headers }
+        )
+        .then(res => {
+          if (res.data.success) {
+            console.log(res.data.message);
+            console.log(vm.sellerOrder());
+            vm.sellerOrder(); //重新全部取得資料一次
+          } else {
+            console.log("更新失敗");
+            vm.sellerOrder(); //重新全部取得資料一次
+          }
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
     },
     singleRating(id) {
       //傳送評論
@@ -424,7 +469,7 @@ export default {
         Authorization: `Bearer ${token}`
       };
       const vm = this;
-      const api = `${process.env.VUE_APP_APIPATH}rating/single/${id}`;
+      const api = `${process.env.VUE_APP_APIPATH}/rating/single/${id}`;
       // const vm = this;
       const Info = {
         rating: this.comment.rating,
@@ -444,34 +489,57 @@ export default {
         .catch(err => {
           console.log(err);
         });
-    }
+    },
+    opende(id) {
+      let token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+      const vm = this;
+      const api = `${process.env.VUE_APP_APIPATH}order/delete/${id}`;
+      console.log(api, "deleteOrder");
+      this.$confirm("不得擅自取消，請確定已經跟客戶告知原因, 如已執行 才可繼續", "取消訂單", {
+            confirmButtonText: "確定",
+            cancelButtonText: "",
+            type: "warning"
+          })
+      vm.axios.delete(api, { headers }).then(response => {
+        // console.log(response);
+        if (response.data.success) {
+                this.$message({
+                type: "success",
+                message: "删除成功!"
+              });
+              vm.sellerOrder();
+      }else{
+              this.$message({
+              type: 'error',
+              message: '删除失败!'
+            }); 
+            }  
+        })
+            .catch((response) => {
+              console.log(response)
+              this.$message({
+                type: "info",
+                message: "已取消删除"
+              });
+            });
+        
+  
+    },
+  
   },
   computed: {
-    ...mapState(["orders"], ["userInfo"], ["projects"])
-    // filterOrder() {
-    //   if (this.isTraveler == "all") {
-    //     let newOrders = [];
-    //     this.orders.forEach(item => {
-    //       if (item.name == this.$store.state.userInfo.name) {
-    //         newOrders.push(item);
-    //       }
-    //     });
-    //     return newOrders;
-    //   } else {
-    //     let newOrders = [];
-    //     this.orders.forEach(item => {
-    //       if (item.name != this.$store.state.userInfo.name) {
-    //         newOrders.push(item);
-    //       }
-    //     });
-
-    //     return newOrders;
-    //   }
-    // }
+    ...mapState(["sellOrders"], ["userInfo"], ["projects"])
+  },
+  updated() {
+    // 讓我們可以知道組件有被更新
+    console.log("view updated");
   },
   created() {
     this.$store.dispatch("getProjects");
-    this.checkOrder();
+    this.sellerOrder();
   }
 };
 </script>
@@ -481,5 +549,8 @@ a.active {
   border-bottom: 2px solid #4fd1c5;
   font-weight: 700;
   color: #4fd1c5;
+}
+.liBackground {
+  background: darkcyan;
 }
 </style>

@@ -19,7 +19,7 @@
             <div class="lg:px-8 px-6 w-full lg:w-3/4 mt-0 lg:mt-0 text-gray-900 leading-normal">
               <div class="my-2 mt-10">
                 <!-- 麵包屑 -->
-                <div class="flex max-w-6xl mx-auto">
+                <!-- <div class="flex max-w-6xl mx-auto">
                   <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
                     <ul class="list-inline inline-flex hover:underlines">
                       <li class>
@@ -29,7 +29,7 @@
                       <li>旅行計劃</li>
                     </ul>
                   </div>
-                </div>
+                </div> -->
 
                 <!-- 書籤表示旅行家和規劃師 -->
                 <!-- status :false 不存在書籤 -->
@@ -107,7 +107,7 @@ export default {
   methods: {
     //api 動作
     ...mapActions(["getOneUser"]),
-    ...mapMutations(["changeLogin"], ["loginStart"]),
+    ...mapMutations(["changeLogin"], ["loginStart"],['setPREMISSION']),
   
     // getUser() {
     //   const api = "http://findtrip.rocket-coding.com/api/Login/Load";
@@ -135,10 +135,10 @@ export default {
     // this.getUser();
     //1.呼叫api action
     this.getOneUser();
-      console.log("組建獲取完成");
+    
   },
   beforeUpdate() {
-    console.log("更新食用ㄚ");
+ 
   },
 };
 </script>

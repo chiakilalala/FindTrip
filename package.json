@@ -36,6 +36,7 @@
         "vue-scroll-reveal": "^1.0.11",
         "vue-sweetalert2": "^3.0.5",
         "vuex": "^3.4.0",
+        "vuex-persistedstate": "^3.0.1",
         "webpack-dev-server": "^3.11.0"
     },
     "devDependencies": {

@@ -1,10 +1,10 @@
 <template>
   <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2  cursor-pointer">
-    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="(item) in projects" :key="item._id" @click="$router.push({ name: 'people', params: { id: item.id } })">
+    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="(item) in projects.slice(0,6)" :key="item.id" @click="$router.push({ name: 'people', params: { id: item.id } })">
       <!-- Article -->
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
         <a href="#">
-          <img alt="Placeholder" class="block h-auto w-full hover:opacity-50" :src="item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' "  />
+          <img alt="Placeholder" class="block h-auto w-full hover:opacity-50" :src="item.TPBGImg ? item.TPBGImg : 'https://picsum.photos/300/200?random=1' "  />
         </a>
         <div class="flex justify-content-end relative people">
           <img
@@ -17,13 +17,13 @@
           <!-- start star -->
           <span class="star text-yellow-500 text-xs">
             <el-rate
-              v-model="item.rating"
+              v-model="item.star"
               disabled
              
               text-color="#ff9900"
               score-template="{value}"
               class="inline-block"></el-rate>
-            <span class="tracking-wider text-xs text-gray-500">({{item.star}})</span>
+            <span class="tracking-wider text-xs text-gray-500">({{item.rating}})</span>
           </span>
           <div class="text-lg text-gray-800 font-semibold mt-2 mb-3">{{item.country}}</div>
           <p class="text-gray-600 text-sm mt-2">{{ item.city}}</p>

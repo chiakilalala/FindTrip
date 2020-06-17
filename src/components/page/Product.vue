@@ -5,12 +5,12 @@
     <!-- banner -->
     <div class="hero bg-cover h-112 overflow-hidden"></div>
     <!--search  -->
-    <!--search  -->
+
     <div
-      class="search-box container mx-auto max-w-7xl flex flex-col items-center h-112 lg:h-64 h-auto my-2 px-2 lg:px-0"
+      class="search-box container mx-auto max-w-5xl flex flex-col items-center h-112 lg:h-64 h-auto my-2 px-2 lg:px-0"
     >
       <div
-        class="shadow-lg flex flex-wrap w-full lg:w-1/2 h-112 lg:h-64 bg-white rounded-lg z-30 relative search-box_inner"
+        class="shadow-lg flex flex-wrap w-full max-w-5xl  h-112 lg:h-64 bg-white rounded-lg z-30 relative search-box_inner"
       >
         <div class="pt-0 bg-blue-prod h-1 0 px-5 py-12 w-full rounded-t-lg">
           <div class="flex justify-between lg:mt-2 mt-4 text-gray-200">
@@ -29,22 +29,24 @@
           </div>
         </div>
         <div class="w-full md:w-3/4 h-auto ticket">
-          <div class="flex flex-wrap -mx-3 lg:mb-2 mb-0">
-            <div class="relative w-full md:w-3/6 lg:px-4 px-6 mb-1 lg:mb-6 md:mb-0">
+          <div class="flex flex-wrap  lg:mb-2 mb-0">
+            <div class="relative w-full   px-6 mb-1 lg:mb-6 md:mb-0">
               <label
                 class="block tracking-wide text-gray-700 text-md font-bold mb-2"
                 for="grid-state"
-              >國家</label>
+              >帶你深入探索有趣又獨特的旅遊體驗行程</label>
               <select
                 class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
                 name="country"
-                v-model="selected.country"
-                @change="list"
+                v-model="filter"
+              
               >
                 <option value disabled selected>--請選擇你想要去的國家--</option>
-                <option v-for="item in county" :key="item.id" :value="item.country">{{item.country}}</option>
+                 <option value="all">全部國家</option>
+                <option v-for="item in county" :key="item.id" :value="item">{{item}}</option>
               </select>
+           
               <div
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 select-arrow"
               >
@@ -138,7 +140,7 @@
             </div>
 
             <button
-              class="flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
+              class="items-center   flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
             >
               <i class="fas fa-search fa-lg"></i>
             </button>
@@ -154,7 +156,7 @@
             class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
           >熱 門 評 價</button>
           <button
-            @click="sort('point','asc')"
+            @click="sort('points','asc')"
             class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
           >點數高低</button>
           <button
@@ -191,7 +193,7 @@
             <button @click="tags = []" class="toolBtn bg-teal-500">清除</button>
           </div>
         </div>
-        <product-card :projects="projects" />
+        <product-card :projects="filterData" />
         <!-- <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2"> -->
         <!-- Column -->
 
@@ -220,11 +222,9 @@ export default {
   },
   data() {
     return {
-      selected: {
-        country: "",
-        city: null
-      },
-      searchText: "",
+    
+      filter:'all',
+      searchText: '',
       tags: [],
 
       priceSelect: null,
@@ -233,43 +233,48 @@ export default {
     };
   },
   computed: {
-    ...mapState(["projects"], ["countries"]),
-    selectedCountry: {
-      get() {
-        return this.$store.getters.selectedCountry;
-      },
-      set(value) {
-        this.$store.commit("SELECTEDCOUNTY", value);
-      }
-    },
+    ...mapState(["projects"], ["countries"],['SearchPlans']),
+
 
     county() {
       //篩出國家
-      return this.$store.state.countries
-      // .map(item => item.country) 
-      // .filter((item, index, arr) => arr.indexOf(item) === index);
+      return this.projects
+      .map(item => item.country) 
+      .filter((item, index, arr) => arr.indexOf(item) === index);
     },
-    city() {
-      return this.$store.state.countries //篩出城市
-      .filter(item => item.country === this.selected.country)
-      // .map(item => item.city)
-      // .filter((item, index, arr) => arr.indexOf(item) === index);
-    },
-    list() {
-      return this.$store.state.countries.filter(item => {
-        if (!this.selected.country) {
-          return item.country.includes(this.selected.country);
-        }
-        return (
-          item.country.includes(this.selected.country) 
-          // item.country.includes(this.selected.city)
-          // item.country.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1 ||
-          //  item.city.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1
-        );
-      });
+    // city() {
+    //   return this.$store.state.countries //篩出城市
+    //   .filter(item => item.country === this.selected.country)
+    //   // .map(item => item.city)
+    //   // .filter((item, index, arr) => arr.indexOf(item) === index);
+    // },
+    filterData() {
+       if(this.filter == 'all'){
+         return this.projects;
+       }    
+       
+       return this.projects.filter((item) => item.country === this.filter);
+      //  if(this.$route.query.search){
+      //    return this.$store.state.SearchPlans
+      //  }
+      // return this.projects.filter(item => {
+      //         return item.country.includes(this.selected.country);
+
+      // })
+      // return this.projects.filter(item => {
+      //   if (this.selected. country) {
+      //     return item.country.includes(this.selected.country);
+      //   }
+        // return (
+        //   item.country.includes(this.selected.country) 
+        //   // item.country.includes(this.selected.city)
+        //   // item.country.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1 ||
+        //   //  item.city.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1
+        // );
+      // });
     },
     sortedRod() {
-      return _.orderBy(this.list, this.orderBy, this.orderOption);
+      return _.orderBy(this.projects, this.orderBy, this.orderOption);
     },
     filterproject() {
       const tagFilterArr = this.sortedRod.filter(item => {
@@ -287,7 +292,7 @@ export default {
     },
     keywordSearch() {
       if (this.searchText) {
-        return this.list.filter(item => {
+        return this.filterData.filter(item => {
           //item為變數 存放篩選後資料
           // console.log(item);
           let name = item.name.toLowerCase();
@@ -296,15 +301,11 @@ export default {
           let keyword = this.searchText.toLowerCase();
           return (
             name.indexOf(keyword) != -1
-            // city.indexOf(keyword) != -1
-            // item.county.toLowerCase().indexOf(this.searchText.toLowerCase()) !==
-            //   -1 ||
-            // item.name.toLowerCase().indexOf(this.searchText.toLowerCase()) !==
-            //   -1
+        
           );
         });
       } else {
-        return this.list;
+        return this.filterData;
       }
     },
     tagDisplay() {
@@ -361,7 +362,25 @@ export default {
         this.orderOption = option;
         this.orderBy = by;
       }
+    },
+    searchData(query) {
+      let api = `${process.env.VUE_APP_APIPATH}plan/search?search=${query}`;
+      this.$http.get(api).then(res => {
+        console.log(res);
+        if(res.data.success){
+          //  this.porjects = res.data.result;
+          
+          this.$store.commit('setProjectInfo', res.data.result);
+          console.log(res.data.result);
+          
+        }
+        
+        // this.projects = 
+      }).catch(err=>{
+        console.log(err)
+      })
     }
+
     // searchp() {
     //   if (this.search.trim() !== "") {
     //     this.projects.filter(item => {
@@ -393,17 +412,34 @@ export default {
     // return this.projects.filter(item => item.)
   },
   mounted() {
-    this.getProjects(); // 曲德api
+   
+  },
+  created(){
+      const  query = this.$route.query.search;
+      console.log(query);
+      if(!query ){
+        this.getProjects();
+      }else{
+        this.searchData(query)
+      }
+      // 取得api
+      console.log(this.$store.state.SearchPlans);
+    
   }
 };
 </script>
 
 <style>
+.barcode {
+   
+     top: 7px; 
+ 
+}
 .search-box {
   position: relative;
   top: -121px;
-  height: 13rem;
-  margin-bottom: -126px;
+      height: 18rem;
+  /* margin-bottom: -126px; */
   margin: 0 auto;
   margin-top: -79px;
 }
@@ -427,5 +463,14 @@ export default {
 }
 .activeTag:hover {
   background-color: #bee3f8;
+}
+.barcode img{
+  max-width: 200px;
+  object-fit: fill;
+}
+.ticket:before {
+ 
+   height: 16rem;
+   
 }
 </style>
