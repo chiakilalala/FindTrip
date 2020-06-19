@@ -1,6 +1,7 @@
 /* index.html */
 
 body {
+    font-size: 16px;
     font-family: 'ヒラギノ丸ゴ W6 JIS2004', 'ヒラギノ丸ゴ Std W6', 'Hiragino Maru Gothic Std W6', sans-serif;
     font-family: 'Noto Sans TC', 'Source Sans Pro', 'Hiragino Maru Gothic Std W6', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }

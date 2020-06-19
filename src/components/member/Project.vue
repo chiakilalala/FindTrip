@@ -171,8 +171,9 @@
                 v-model="temPlans.TravelPlanIntro"
                 ref='quillEditorA'
                 :options="editorOption"
-              
+                 id='fir'
               ></quill-editor>
+         
             </label>
 
             <label class="block mb-6">
@@ -182,7 +183,8 @@
               <quill-editor
                 v-model="temPlans.TPExperience"
                  ref='quillEditorB'
-                :options="editorOption"
+                 id='qq'
+                :options="editorOption02"
               
               ></quill-editor>
             </label>
@@ -395,6 +397,7 @@
 <script>
 import { mapState, mapMutations, mapActions } from "vuex";
 import { quillEditor } from "vue-quill-editor";
+
 export default {
   data() {
     return {
@@ -424,6 +427,29 @@ export default {
       editorOption: {
         placeholder: '請輸入旅行規劃師簡介',
         modules: {
+          clipboard: {
+            // 粘贴版，处理粘贴时候的自带样式
+            matchers: [[Node.ELEMENT_NODE, this.HandleCustomMatcher]],
+          },
+          toolbar: [
+            [{ size: ["small", false, "large", "huge"] }],
+            ["bold", "italic", "underline", "strike"],
+            [{ list: "ordered" }, { list: "bullet" }],
+            [{ indent: "-1" }, { indent: "+1" }],
+            [{ color: [] }, { background: [] }],
+            [{ align: [] }],
+            ["clean"],
+            ["link"]
+          ]
+        }
+      },
+      editorOption02: {
+        placeholder: '請輸入旅行規劃師經歷',
+        modules: {
+            clipboard: {
+            // 粘贴版，处理粘贴时候的自带样式
+            matchers: [[Node.ELEMENT_NODE, this.HandleCustomMatcher]],
+          },
           toolbar: [
             [{ size: ["small", false, "large", "huge"] }],
             ["bold", "italic", "underline", "strike"],
@@ -437,7 +463,8 @@ export default {
         }
       },
       components: {
-        quillEditor
+        quillEditor,
+       
       }
     };
   },
@@ -450,7 +477,19 @@ export default {
       this.deleteModal = false;
       done();
     },
-  
+    HandleCustomMatcher(node, Delta) {
+      // 文字、图片等，从别处复制而来，清除自带样式，转为纯文本
+      let ops = []
+      Delta.ops.forEach(op => {
+        if (op.insert && typeof op.insert === 'string') {
+          ops.push({
+            insert: op.insert,
+          })
+        }
+      })
+      Delta.ops = ops
+      return Delta
+    },
   
 
     getPlans() {

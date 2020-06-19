@@ -279,7 +279,7 @@
             :key="item.id"
           >
             <div
-              class="overflow-hidden bg-white round-xll shadow sample hover:shadow-md hover:translateY-2px transition"
+              class="min-h-180 overflow-hidden bg-white round-xll shadow sample hover:shadow-md hover:translateY-2px transition"
             >
               <div class="p-6 flex flex-col justify-between">
                 <div class="flex items-center">
@@ -630,6 +630,9 @@ export default {
 };
 </script>
 <style scoped>
+.min-h-180{
+  min-height: 180px;
+}
 .form-head:before, .form-head:after {
     background-color: #fff;
   
