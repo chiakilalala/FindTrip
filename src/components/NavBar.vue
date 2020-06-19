@@ -85,8 +85,8 @@
           </button>
           <!-- 登入化緣狀態 -->
           <div class="flex items-center text-blue-700" v-else>
-            <span class="mx-4 fas fa-comment text-2xl" style></span>
-            <span class="mx-3 fas fa-bell text-2xl" style></span>
+            <!-- <span class="mx-4 fas fa-comment text-2xl" style></span> -->
+            <!-- <span class="mx-3 fas fa-bell text-2xl" style></span> -->
             <div
               class="dropdown relative items-center"
               @mouseover="$store.state.isVisble = true"

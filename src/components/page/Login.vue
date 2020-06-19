@@ -217,23 +217,23 @@ export default {
         this.$http
           .post(api, vm.user)
           .then(res => {
-            console.log(res.data);
+            // console.log(res.data);
             if (res.data.success) {
               vm.$router.push("/home"); //登入成功轉到首頁
               this.userToken = `Bearer  ${res.data.token}`;
               this.token =res.data.token;
               this.Permission =res.data.Permission;
-              console.log(this.Permission);
-              // this.$store.commit('Permission',res.data.Permission);
-              this.$store.commit("loginStart", true);
-              this.$store.commit("UPDATE_USER", res.data);// 可以更新會員資料
-            //將使用者token儲存到vuex中
+              // console.log(this.Permission);
+         
+            
+              this.$store.commit("LOGIN_USER", res.data);// 可以更新會員資料
+              //將使用者token儲存到vuex中
               // this.changeLogin({ Authorization: this.userToken });重複使用undefined
                this.changeLogin({token: this.token });
              
-                this.$store.commit("setPREMISSION", res.data.Permission);
+               this.$store.commit("setPREMISSION", res.data.Permission);
                this.$store.state.isVisble = false;
-                    // console.log(this.$store.state);
+               // console.log(this.$store.state);
             }
           })
           .catch(err => {

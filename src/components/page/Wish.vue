@@ -176,11 +176,18 @@
       <div class="flex container max-w-4xl mx-auto">
         <div class="w-full flex flex-col flex-wrap justify-center px-6 lg:px-0">
           <div class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative">
-            <div class="p-12 px-10">
+            <div
+              class="bg-blue-500 bg-cover bg-center h-20 p-4 flex justify-end items-center form-head"
+            >
+              <h3 class="lg:text-2xl text-gray-100 text-md font-extrabold">
+                <i class="fas fa-plane text-md pr-2 text-gray-100"></i>BOARDING PASS
+              </h3>
+            </div>
+            <div class="p-12 px-10 bg-gray-200">
               <div class="mb-3">
                 <div class="w-full flex flex-wrap">
                   <div class="w-full flex items-center">
-                    <div class="w-16 h-16 rounded-full bg-blue-500  mb-3 ml-1">
+                    <div class="w-16 h-16 rounded-full bg-blue-500 mb-3 ml-1">
                       <img
                         :src=" wishMessage.manpic ?  wishMessage.manpic : '../../assets/img/user001.png'"
                         alt
@@ -188,12 +195,17 @@
                       />
                     </div>
                     <span class="text-lg pl-2">{{ wishMessage.name}}</span>
-                    <div class="text-sm pl-2 text-right">{{ wishMessage.CreateOn}}</div>
+
+                    <div class="text-sm pl-2 flex items-end">
+                      <div>{{ wishMessage.CreateOn}}</div>
+                    </div>
                   </div>
                 </div>
               </div>
               <div class="mb-3">
-                <p class="text-lg text-gray-500 leading-loose">我想去 {{wishMessage.Comment1}} 希望可以 {{wishMessage.Comment2}}！</p>
+                <p
+                  class="text-lg text-gray-500 leading-loose"
+                >我想去 {{wishMessage.Comment1}} 希望可以 {{wishMessage.Comment2}}！</p>
                 <!-- <img src="../../assets/img/jp001.jpg" alt="w-full h-auto mt-15" srcset /> -->
               </div>
 
@@ -231,8 +243,8 @@
                 </div>
               </div>
 
-              <div class="w-full flex items-center" v-if='$store.state.token'>
-                <div class="w-16 h-16 rounded-full bg-blue-500 ">
+              <div class="w-full flex items-center" v-if="$store.state.token">
+                <div class="w-16 h-16 rounded-full bg-blue-500">
                   <img
                     :src=" $store.state.userInfo.manpic ?  $store.state.userInfo.manpic : '../../assets/img/man001.svg'"
                     alt
@@ -260,8 +272,12 @@
                   >留言</button>
                 </div>
               </div>
-              <div class="mb-8 w-full flex items-center relative" v-for=" item in wishMessage.wishReply" :key='item.id' >
-                <div class="w-16 h-16 rounded-full bg-blue-500  absolute">
+              <div
+                class="mb-8 w-full flex items-center relative"
+                v-for=" item in wishMessage.wishReply"
+                :key="item.id"
+              >
+                <div class="w-16 h-16 rounded-full bg-blue-500 absolute">
                   <img
                     :src="item.manpic ? item.manpic : '../../assets/img/man002.svg'"
                     alt
@@ -283,8 +299,10 @@
             </div>
 
             <div
-              class="bg-blue-800 bg-cover bg-center h-20 p-4 flex justify-end items-center form-head"
-            ></div>
+              class="relative bg-blue-500 bg-cover bg-center h-20 p-4 flex justify-end items-center form-head"
+            >
+              <div class="sbarcode"></div>
+            </div>
           </div>
 
           <!-- </div> -->
@@ -394,12 +412,12 @@ export default {
       },
       rely: {
         NewComment: ""
-      }
+      },
+      isLike: false
     };
   },
   computed: {
-    ...mapState(["userInfo"], ["wishList"], ["projects"]),
-  
+    ...mapState(["userInfo"], ["wishList"], ["projects"])
   },
   methods: {
     ...mapActions(["getOneUser"], ["getProjects"]),
@@ -416,19 +434,17 @@ export default {
       this.commentVisible = false;
       done();
     },
-    wishModel(){
-          if (!this.$store.state.token) {
+    wishModel() {
+      if (!this.$store.state.token) {
         this.$notify.info({
           title: "提醒",
           message: "請先登入或是註冊會員"
         });
         this.wishVisble = false;
-      }else{
-           this.wishVisble = true;
+      } else {
+        this.wishVisble = true;
       }
-     
     },
-    
 
     openMidel(id) {
       console.log(id);
@@ -457,8 +473,8 @@ export default {
             this.message = res.data.result;
             console.log(this.message);
             this.$message("留言成功");
-           vm.getllWish();
-          
+            vm.getllWish();
+
             vm.wishVisbl = false;
           }
         })
@@ -471,51 +487,46 @@ export default {
         });
     },
     relyWish(id) {
-        let token = localStorage.getItem("token");
+      let token = localStorage.getItem("token");
       const headers = {
         Authorization: `Bearer ${token}`
       };
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}wish/reply/`;
 
-       // const vm = this;
+      // const vm = this;
       const message = {
         NewComment: this.rely.NewComment,
-        Rid:id
+        Rid: id
       };
       console.log(message);
 
-      if (!this.$store.state.token){
-         this.$notify.info({
+      if (!this.$store.state.token) {
+        this.$notify.info({
           title: "提醒",
           message: "請先登入或是註冊會員"
         });
-      }else{
-         this.$http
-        .post(api, message, { headers })
-        .then(res => {
-          if (res.data.success) {
-            console.log(res.data);
-            // this.relyMessage = res.data.result;
-            // console.log(this.relyMessage);
-            // this.$message("留言成功");
-            // vm.relyWish(id);
-            vm.commentVisible = false;
-          }
-        })
-        .catch(err => {
-          console.log(err);
-          this.$message({
-            message: "留言失敗",
-            type: "warning"
+      } else {
+        this.$http
+          .post(api, message, { headers })
+          .then(res => {
+            if (res.data.success) {
+              console.log(res.data);
+              // this.relyMessage = res.data.result;
+              // console.log(this.relyMessage);
+              this.$message("留言成功");
+              vm.relyWish(id);
+              vm.commentVisible = false;
+            }
+          })
+          .catch(err => {
+            console.log(err);
+            this.$message({
+              message: "留言失敗",
+              type: "warning"
+            });
           });
-        });
       }
-    
-     
-      
-
-     
     },
 
     getWish(id) {
@@ -526,23 +537,20 @@ export default {
       let api = `${process.env.VUE_APP_APIPATH}wish/inner/${id}`;
       this.$http.get(api).then(res => {
         if (res.data.success) {
-          
           vm.wishMessage = res.data.result;
           vm.commentVisible = true;
-          console.log(vm.wishMessage);
+          // console.log(vm.wishMessage);
         }
       });
     },
-    getllWish(){
-
+    getllWish() {
       let api = `${process.env.VUE_APP_APIPATH}/wish/all`;
 
-   
       const vm = this;
       // vm.isLoading = true;
-      console.log(api)
+      console.log(api);
       this.$http
-        .get(api )
+        .get(api)
         .then(response => {
           // vm.isLoading = false;
           vm.wishBoard = response.data.result;
@@ -561,4 +569,11 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.form-head:before,
+.form-head:after {
+  background-color: #fff;
+}
+</style>
 

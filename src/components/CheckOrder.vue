@@ -1,26 +1,30 @@
 <template>
   <div>
-    <!-- NavBar Component -->
+    <!-- NavBar Component  v-for="item in orderInfo" :key="item.id" rderInfo.PlannerName !=undefined  &&   &&-->
     <NavBar />
-    <div class="main pt-12 md:pt-16 bg-blue-200">
-      <div class="my-2 lg:ml-10 ml-2">
-        <div class="flex max-w-6xl mx-auto">
-          <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
+    <div class="main pt-12 md:pt-16 bg-blue-200" v-if=' orderInfo.PlannerName !=undefined && orderInfo.PlannerName.length >= 1'>
+      <div class="">
+        <div class="container flex w-full mx-auto">
+          <div class="ml-6 py-4 lg:px-0  text-gray-600 text-sm">
             <ul class="list-inline inline-flex hover:underlines">
-              <li class>
-                <i class="fa fa-home">/</i>
+               <li class="pr-2">
+                  <router-link to="/home">
+                <i class="fa fa-home"></i>
+                   </router-link>
+                    <span class="mx-1">/</span>
               </li>
-              <li>旅行規劃師 /</li>
-              <li>名字 個人資訊/</li>
-              <li>訂單資料</li>
+              <li class="pr-2"> <router-link to="/product" class="hover:text-blue-500">旅行規劃師 </router-link> 
+              <span class="mx-1">/</span></li>
+              <li class="pr-2"> <router-link :to="{ name: 'people', params: { id: orderInfo.TravelPlan_id }}" class="hover:text-blue-500">{{ orderInfo.PlannerName[0].PlannerName}}旅行規劃師資訊</router-link>  <span class="mx-1">/</span></li>
+             <li class="pr-2">訂單資料</li>
             </ul>
           </div>
         </div>
       </div>
 
-      <div class="flex container max-w-6xl mx-auto " v-for="item in orderInfo" :key="item.id">
+      <div class="flex container max-w-6xl mx-auto " >
         <div class="w-full flex flex-col flex-wrap justify-center">
-          <h1 class="text-center text-2xl mb-3">這是{{item.name}}的訂單喔喔喔喔</h1>
+          <h1 class="text-center text-2xl mb-3">這是{{ orderInfo.name}}的訂單喔</h1>
           <div class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative">
             <div
               class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head"
@@ -41,9 +45,8 @@
                   >會員姓名:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >{{item.name}}</p>
-                  <!--<div class="text-sm text-red-600">Error message</div>-->
-                  <!--<div class="text-xs text-gray-600">Help text</div>-->
+                  >{{orderInfo.name}}</p>
+               
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label
@@ -51,7 +54,7 @@
                   >電子信箱:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >{{item.Email}}</p>
+                  >{{orderInfo.Email}}</p>
                 </div>
               </div>
 
@@ -60,15 +63,14 @@
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">國家:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >{{item.country}}</p>
-                  <!-- <div class="text-sm text-red-600">Error message</div> -->
-                  <!-- <div class="text-xs text-gray-600">Help text</div>  -->
+                  >{{orderInfo.country}}</p>
+               
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">區域:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >{{item.city}}</p>
+                  >{{orderInfo.city}}</p>
                 </div>
               </div>
 
@@ -80,14 +82,14 @@
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
                   >
-                    {{item.DepartureTime1}} ~  {{item.DepartureTime2}}
+                    {{orderInfo.DepartureTime1}} ~  {{orderInfo.DepartureTime2}}
                   </p>
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">預算:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  > {{item.Budget}}</p>
+                  > {{orderInfo.Budget}}</p>
                 </div>
               </div>
 
@@ -97,17 +99,16 @@
                   <div
                     class="people_wrap mt-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center"
                   >
-                    <button class="bg-blue-500"   :class="{'hidden' : !item['Act']}">冒險</button>
-                    <button class="bg-blue-500" :class="{'hidden' : !item['Secret']}">秘境</button>
-                    <button class="bg-blue-500" :class="{'hidden' : !item['Culture']}">文化</button>
-                    <button class="bg-blue-600" :class="{'hidden' : !item['Food']}">吃貨</button>
-                    <button class="bg-blue-600" :class="{'hidden' : !item['Religion']}">宗教</button>
-                    <button class="bg-blue-600" :class="{'hidden' : !item['Shopping']}">購物</button>
+                    <button class="bg-blue-500"   :class="{'hidden' : !orderInfo['Act']}">冒險</button>
+                    <button class="bg-blue-500" :class="{'hidden' : !orderInfo['Secret']}">秘境</button>
+                    <button class="bg-blue-500" :class="{'hidden' : !orderInfo['Culture']}">文化</button>
+                    <button class="bg-blue-600" :class="{'hidden' : !orderInfo['Food']}">吃貨</button>
+                    <button class="bg-blue-600" :class="{'hidden' : !orderInfo['Religion']}">宗教</button>
+                    <button class="bg-blue-600" :class="{'hidden' : !orderInfo['Shopping']}">購物</button>
                 
                   </div>
 
-                  <!--<div class="text-sm text-red-600">Error message</div>-->
-                  <!--<div class="text-xs text-gray-600">Help text</div>-->
+           
                 </fieldset>
               </div>
 
@@ -116,28 +117,28 @@
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">大人:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >{{item.Adult}} 人</p>
+                  >{{orderInfo.Adult}} 人</p>
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">小孩:</label>
                   <p
                     class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-                  >{{item.Children}} 人</p>
+                  >{{orderInfo.Children}} 人</p>
                 </div>
               </div>
 
               <div class="mb-6">
                 <label class="block text-gray-700 text-base s font-bold mb-2">備註 :</label>
                 <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
-                  <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">{{item.Remark}}</p>
+                  <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">{{orderInfo.Remark}}</p>
                 </div>
               </div>
 
               <p class="text-right text-base text-gray-700 font-semibold mb-8">
                 本次將扣除
-                <span class="text-xl text-blue-500">300</span>
+                <span class="text-xl text-blue-500">{{orderInfo.PlannerName[0].points}}</span>
                 <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-1">點數</span> 購買後將剩餘
-                <span class="text-xl text-blue-500">700</span>
+                <span class="text-xl text-blue-500">{{this.$store.state.userInfo.points}}</span>
                 <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-4">點數</span>
               </p>
               <div class="mb-8">
@@ -151,6 +152,10 @@
                 </div>
               </div>
             </div>
+               <div
+              class="bg-blue-800 bg-cover bg-right h-20 p-4 flex justify-end items-center form-head"
+                  style="background-image: url(https://images.unsplash.com/photo-1545922016-87c93aaca2ce?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ)"
+            ></div>
           </div>
 
           <!-- </div> -->
@@ -207,12 +212,12 @@ export default {
       const vm = this;
      
         vm.orderId = this.$route.params.id;
-      let api = `http://findtrip.rocket-coding.com/api/order/loadsingle/${vm.orderId}`;
+      let api = `${process.env.VUE_APP_APIPATH}order/loadsingle/${vm.orderId}`;
       this.$http.get(api, { headers }).then(res => {
         //  vm.order = res.data;
         if (res.data.success) {
           
-          vm.orderInfo = res.data.result;
+          vm.orderInfo = res.data.result[0];
           console.log(vm.orderInfo);
          
 
@@ -221,14 +226,30 @@ export default {
     }
   },
   computed: {
-    ...mapState(["projects"], ["orders"], ["userInfo"],)
+    ...mapState(["projects"], ["orders"], ["userInfo"]),
+    //   price() {
+     
+    //   if(this.$store.state.userInfo.point < this.orderInfo.PlannerName[0].points){
+    //      return '無法購買還請儲值'
+    //   }else if(this.$store.state.userInfo.point >= this.orderInfo.PlannerName[0].points){
+    //       return this.$store.state.userInfo.points - this.orderInfo.PlannerName[0].points ;
+    //   }
+    //     return this.$store.state.userInfo.points - this.orderInfo.PlannerName[0].points 
+    // }
   },
   created() {
     this.orderId = this.$route.params.id;
-    console.log(this.orderId);
+    console.log(this.$store.state.userInfo.points);
     this.getOrder();
     this.getOneUser();
+
     
   }
 };
 </script>
+<style scoped>
+.form-head:before, .form-head:after {
+    background-color: #bee3f8;
+  
+}
+</style>

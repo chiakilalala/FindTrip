@@ -99,10 +99,13 @@
     <div class="my-2 lg:ml-10 ml-2">
       <div class="container flex max-w-7xl mx-auto -mt-32">
         <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
-          <ul class="list-inline inline-flex hover:underlines">
-            <li class>
-              <i class="fa fa-home">/</i>
-            </li>
+         <ul class="list-inline inline-flex hover:underlines">
+              <li class="pr-2">
+                  <router-link to="/home">
+                <i class="fa fa-home"></i>
+                   </router-link>
+                    <span class="mx-1">/</span>
+              </li>
             <li>旅行規劃師</li>
           </ul>
         </div>
@@ -423,7 +426,7 @@ export default {
         this.searchData(query)
       }
       // 取得api
-      console.log(this.$store.state.SearchPlans);
+      // console.log(this.$store.state.SearchPlans);
     
   }
 };

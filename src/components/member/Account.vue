@@ -3,11 +3,14 @@
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
-          <li class>
-            <i class="fa fa-home">/</i>
-          </li>
+             <li class="pr-2">
+                  <router-link to="/home" class="hover:text-blue-500">
+                <i class="fa fa-home"></i>
+                   </router-link>
+                    <span class="mx-1">/</span>
+              </li>
 
-          <li>帳號設定</li>
+          <li class="pr-2">帳號設定</li>
         </ul>
       </div>
     </div>
@@ -25,7 +28,7 @@
           <router-link
             to="/member/travelerProfile"
             class="inline-block py-2 px-4 text-gray-500 font-normal hover:text-blue-800"
-            href="#"
+         
           >規劃師</router-link>
         </li>
       </ul>
@@ -181,7 +184,7 @@ export default {
       },
 
       isNew: false,
-      active_tab: 1
+    
     };
   },
   computed: {
@@ -261,36 +264,13 @@ export default {
         // vm.products = response.data.products;
       });
     },
-    getAOneUser() {
-      //拿到會員資料
-      let token = localStorage.getItem("token");
-      const headers = {
-        Authorization: `Bearer ${token}`
-      };
-      // 2. action 發出 ajax
-      //取得會員資料
-      const api = `${process.env.VUE_APP_APIPATH}/Login/Load`;
-
-      const vm = this;
-      this.$http
-        .get(api, { headers })
-        .then(response => {
-          // console.log(response);
-          if (response.data.success) {
-            vm.getUser = response.data.result;
-            console.log(vm.getUser);
-          }
-        })
-        .catch(err => {
-          console.log(err.message);
-        });
-    }
+  
   },
   created() {
     // this.getUser();
     //1.呼叫api action
     this.getOneUser();
-    this.getAOneUser();
+   
   }
 };
 </script>

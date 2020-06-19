@@ -169,8 +169,7 @@
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
               >{{item.name}}</p>
-              <!--<div class="text-sm text-red-600">Error message</div>-->
-              <!--<div class="text-xs text-gray-600">Help text</div>-->
+           
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">電子信箱:</label>
@@ -409,13 +408,13 @@ export default {
 
       //單筆訂單整理
     },
-    switchState2(item) {
-      this.$set(this.OneTraveler[0], "Status", 3);
-      console.log(this.OneTraveler[0].Status);
+    // switchState2(item) {
+    //   this.$set(this.OneTraveler[0], "Status", 3);
+    //   console.log(this.OneTraveler[0].Status);
 
-      this.travelOrder(item);
-      //單筆訂單整理
-    },
+    //   this.travelOrder(item);
+    //   //單筆訂單整理
+    // },
 
     ...mapActions(["sellerOrder"], ["getOrder"], ["getProjects"]),
     ...mapMutations(
@@ -465,7 +464,7 @@ export default {
         .then(res => {
           if (res.data.success) {
             console.log(res.data.message);
-            console.log(vm.sellerOrder());
+            // console.log(vm.sellerOrder());
             vm.sellerOrder(); //重新全部取得資料一次
           } else {
             console.log("更新失敗");

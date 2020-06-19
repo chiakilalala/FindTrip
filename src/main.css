@@ -28,6 +28,14 @@ html {
     @apply text-red-500 text-xs tracking-wide absolute left-0 top-0 mt-10 ml-3;
 }
 
+.is-invalid .el-input__inner {
+    @apply border-red-500;
+}
+
+.is-valid .el-input__inner {
+    @apply border-blue-500;
+}
+
 .banScroll {
     max-height: 100vh;
     overflow: hidden;
@@ -39,6 +47,13 @@ body.swal2-toast-shown .swal2-container.swal2-top-right {
     right: 0;
     bottom: auto;
     left: auto;
+}
+
+
+/*標籤 button*/
+
+.tag_wrap {
+    @apply inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider
 }
 
 

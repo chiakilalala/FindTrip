@@ -5,9 +5,10 @@
       class="my-4 px-6 w-full lg:w-1/3 ml-0"
       v-for="item in project"
       :key="item.id"
-      @click="$router.push({ name: 'people', params: { id: item.id } })"
+  
     >
-      <!-- Article -->
+      <!-- Article  @click="$router.push({ name: 'people', params: { id: item.id } })-->
+       <router-link :to="{ name: 'people', params:{ id: item.id }}">
       <article class="overflow-hidden rounded-lg shadow-lg bg-white">
         <a href="#">
           <img
@@ -79,12 +80,13 @@
           </span>
         </footer>
       </article>
+       </router-link>
       <!-- END Article -->
     </div>
   </div>
 </template>
 <script>
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 
 // import { Rate } from 'element-ui';
 export default {
@@ -105,8 +107,8 @@ export default {
       // value:4.5
     };
   },
-  computed: {
-    ...mapState(["projects"])
-  }
+  // computed: {
+  //   ...mapState(["projects"])
+  // }
 };
 </script>

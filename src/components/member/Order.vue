@@ -1,7 +1,21 @@
 <template>
   <div>
+    <div class="flex max-w-6xl mx-auto">
+      <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
+        <ul class="list-inline inline-flex hover:underlines">
+          <li class="pr-2">
+            <router-link to="/home" class="hover:text-blue-500">
+              <i class="fa fa-home"></i>
+            </router-link>
+            <span class="mx-1">/</span>
+          </li>
+
+          <li class="pr-2">訂單記錄</li>
+        </ul>
+      </div>
+    </div>
     <!-- 書籤表示旅行家和規劃師 -->
-    <div class="mb-10">
+    <div class="mb-10 flex justify-between">
       <ul class="flex border-b" v-if=" $store.state.Permission == '02' ">
         <li class="-mb-px mr-1">
           <router-link
@@ -16,9 +30,15 @@
           >規劃師</router-link>
         </li>
       </ul>
+      <el-button @click=" QAisVisble  = true" class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Ｑ＆Ａ</el-button>
     </div>
+
+   <!-- Q&A跳窗 -->
+
+      <QAModel v-if="QAisVisble"  :QAModel="QAisVisble" @dialog-cancel="closeManage" ></QAModel>
+
     <div
-      class="flex-1 text-gray-700 text-left bg-white py-5 my-2 rounded-lg shadow-lg mb-5 hover:shadow-sm"
+      class="flex-1 text-gray-700 text-left bg-white py-5 my-2 rounded-lg shadow-lg mb-5 hover:shadow-sm hover:bg-gray-100"
       v-for="item in  orders"
       :key="item.id "
     >
@@ -72,77 +92,57 @@
               <div
                 class="w-16 flex-none rounded-t lg:rounded-t-none lg:rounded-l text-center shadow"
               >
-                <!-- <div class="block rounded-t overflow-hidden text-center">
-                  <div class="bg-gray-200 text-gray-500 hover:text-blue-100 py-1">{{item.CreateOn.slice(5,7) | month }}</div>
+                <div class="block rounded-t overflow-hidden text-center">
+                  <div class="bg-gray-200 text-gray-500 py-1">{{item.CreateOn.slice(5,7) | month }}</div>
                   <div class="pt-1 bg-gray-200">
                     <span
-                      class="text-3xl font-bold text-gray-500 hover:text-blue-100 leading-tight"
+                      class="text-3xl font-bold text-gray-500 leading-tight"
                     >{{item.CreateOn.slice(8,10) }}</span>
                   </div>
-                </div>-->
+                </div>
               </div>
             </div>
           </div>
           <div class="px-4 mt-8 lg:px-0 lg:mt-0">
-            <p
-              class="block lg:mt-4 lg:text-lg mt-2 text-base leading-tight font-semibold text-gray-900"
-            >
+            <p class="block lg:mt-4 text-base mt-2 leading-tight font-semibold text-gray-900">
               旅行規劃師
               <span class="text-sm font-thin">— {{item.PlannerName[0].PlannerName}}</span>
             </p>
-            <p
-              class="block lg:mt-4 lg:text-lg mt-2 text-base leading-tight font-semibold text-gray-900"
-            >
+            <p class="block lg:mt-4 text-base mt-2 leading-tight font-semibold text-gray-900">
               國家 ：
               <span class="text-sm font-thin">{{item.country}}</span>
             </p>
-            <p
-              class="block lg:mt-4 lg:text-lg mt-2 text-base leading-tight font-semibold text-gray-900"
-            >
-              區域 ：
+            <p class="block lg:mt-4 mt-2 text-base leading-tight font-semibold text-gray-900">
+              城市 ：
               <span class="text-sm font-thin">{{item.city}}</span>
             </p>
             <div class="mt-4 lg:flex justify-between">
               <div>
-                <span
-                  :class="{'hidden' : !item['Culture']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >文化</span>
-                <span
-                  :class="{'hidden' : !item['Religion']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >宗教</span>
-                <span
-                  :class="{'hidden' : !item['Secret']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >秘境</span>
-                <span
-                  :class="{'hidden' : !item['Shopping']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >購物</span>
-                <span
-                  :class="{'hidden' : !item['Act']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >冒險</span>
-                <span
-                  :class="{'hidden' : !item['Food']}"
-                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
-                >吃貨</span>
+                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Culture']}" >文化</span>
+                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Religion']}" >宗教</span>
+                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Secret']}" >秘境</span>
+                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Shopping']}" >購物</span>
+                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Act']}" >冒險</span>
+                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Food']}" >吃貨</span>
               </div>
 
-              <div class="flex justify-between">
+              <div class="flex justify-between items-baseline">
                 <button
                   v-if="item.Status === 2"
+                  @click="totalCahange(item.id)"
                   class="bg-transparent border border-blue-500 hover:bg-blue-500 hover:shadow-xl hover:text-white text-blue-500 font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                 >完成訂單</button>
                 <button
                   v-else-if="item.Status === 3"
                   class="cursor-not-allowed opacity-50 bg-gray-600 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm"
                 >已完成</button>
-
-                <button
-                  class="bg-blue-500 border border-blue-500 hover:bg-transparent hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
-                >訊息聯絡</button>
+                <div v-if="item.PlannerEmail !=undefined && item.PlannerEmail.length >= 1">
+                  <a
+                    target="_blank"
+                    :href="`mailto:${item.PlannerEmail[0].Email}`"
+                    class="cursor-pointer bg-blue-500 border border-blue-500 hover:bg-transparent hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
+                  >訊息聯絡</a>
+                </div>
               </div>
             </div>
           </div>
@@ -150,12 +150,33 @@
       </div>
     </div>
 
+    <!-- 訂單完成 -->
+
+    <el-dialog :visible="centerVisibl" :before-close="beforeClose" width="50%" center>
+      <!-- 下面是留言格式 -->
+
+      <div class="flex container max-w-4xl mx-auto">
+        <div class="w-full flex flex-col flex-wrap justify-center px-6 lg:px-0">
+          <div class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative">
+            <h3 class="text-center font-bold text-gray-600">確定 已經收到了 規劃師 的 行程書</h3>
+          </div>
+          <div slot="footer" class="dialog-footer">
+            <el-button @click=" centerVisibl  = false">取 消</el-button>
+            <el-button type="primary" @click="switchState(travelerId)">送出</el-button>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+    </el-dialog>
+
+    <!-- 訂單  check  dialog -->
     <el-dialog :visible.sync="dialogVisible" width="80%">
       <div
-        class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative border-gray-500 border"
+        class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative shadow-lg"
       >
         <div
           class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head bg-blue-300"
+          style="background-image: url(https://upload.cc/i1/2020/06/18/XT05If.jpg)"
         >
           <p
             class="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg"
@@ -164,21 +185,20 @@
             <span class="tracking-normal">--&gt;</span> SEA
           </p>
         </div>
-        <div class="p-12 px-22" v-for="item in Oneorders" :key="item.id">
+        <!-- v-for="item in Oneorders" :key="item.id" -->
+        <div class="p-12 px-22">
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">會員姓名:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.name}}</p>
-              <!--<div class="text-sm text-red-600">Error message</div>-->
-              <!--<div class="text-xs text-gray-600">Help text</div>-->
+              >{{ Oneorders.name}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">電子信箱:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.Email}}</p>
+              >{{Oneorders.Email}}</p>
             </div>
           </div>
           <div class="md:flex mb-8">
@@ -186,15 +206,13 @@
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">聯絡電話:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.Tel}}</p>
-              <!--<div class="text-sm text-red-600">Error message</div>-->
-              <!--<div class="text-xs text-gray-600">Help text</div>-->
+              >{{Oneorders.Tel}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">創建日期:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.DepartureTime1}} ~ {{item.DepartureTime2}}</p>
+              >{{Oneorders.DepartureTime1}} ~ {{Oneorders.DepartureTime2}}</p>
             </div>
           </div>
 
@@ -203,15 +221,13 @@
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">國家:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.country}}</p>
-              <!--<div class="text-sm text-red-600">Error message</div>-->
-              <!--<div class="text-xs text-gray-600">Help text</div>-->
+              >{{Oneorders.country}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">區域:</label>
+              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">城市:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.city}}</p>
+              >{{Oneorders.city}}</p>
             </div>
           </div>
 
@@ -222,16 +238,13 @@
               >行程的日期 範圍 :</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >
-                {{item.DepartureTime1}} ~ {{item.DepartureTime2}}
-             
-              </p>
+              >{{Oneorders.DepartureTime1}} ~ {{Oneorders.DepartureTime2}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">預算:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.Budget}}</p>
+              >{{Oneorders.Budget}}</p>
             </div>
           </div>
 
@@ -241,13 +254,13 @@
               <div
                 class="people_wrap mt-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center"
               >
-                <button class="bg-blue-500" :class="{'hidden' : !item['Act']}">冒險</button>
-                <button class="bg-blue-500" :class="{'hidden' : !item['Secret']}">秘境</button>
-                <button class="bg-blue-500" :class="{'hidden' : !item['Culture']}">文化</button>
+                <button class="bg-blue-500" :class="{'hidden' : !Oneorders['Act']}">冒險</button>
+                <button class="bg-blue-500" :class="{'hidden' : !Oneorders['Secret']}">秘境</button>
+                <button class="bg-blue-500" :class="{'hidden' : !Oneorders['Culture']}">文化</button>
 
-                <button class="bg-blue-600" :class="{'hidden' : !item['Religion']}">宗教</button>
-                <button class="bg-blue-600" :class="{'hidden' : !item['Shopping']}">購物</button>
-                <button class="bg-blue-600" :class="{'hidden' : !item['Food']}">吃貨</button>
+                <button class="bg-blue-600" :class="{'hidden' : !Oneorders['Religion']}">宗教</button>
+                <button class="bg-blue-600" :class="{'hidden' : !Oneorders['Shopping']}">購物</button>
+                <button class="bg-blue-600" :class="{'hidden' : !Oneorders['Food']}">吃貨</button>
               </div>
             </fieldset>
           </div>
@@ -257,44 +270,46 @@
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">大人:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.Adult}} 人</p>
+              >{{Oneorders.Adult}} 人</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">小孩:</label>
               <p
                 class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{item.Children}} 人</p>
+              >{{Oneorders.Children}} 人</p>
             </div>
           </div>
 
           <div class="mb-6">
             <label class="block text-gray-700 text-base s font-bold mb-2">備註 :</label>
             <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
-              <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">{{item.Remark}}</p>
+              <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">{{Oneorders.Remark}}</p>
             </div>
           </div>
 
-          <p class="text-right text-base text-gray-700 font-semibold mb-8">
+          <p
+            class="text-right text-base text-gray-700 font-semibold mb-8"
+            v-if=" Oneorders.PlannerName !=undefined && Oneorders.PlannerName.length >= 1"
+          >
             本次將扣除
-            <span class="text-xl text-blue-500">300</span>
-            <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-1">點數</span> 購買後將剩餘
-            <span class="text-xl text-blue-500">700</span>
+            <span class="text-xl text-blue-500">{{Oneorders.PlannerName[0].points}}</span>
+            <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-1">點數</span>
+            購買後將剩餘
+            <span class="text-xl text-blue-500">{{price}}</span>
             <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-4">點數</span>
           </p>
-          <!-- <div class="mb-8">
-            <div class="flex justify-center">
-              <el-button
-                class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-4"
-              >完成訂單</el-button>
-            </div>
-          </div>-->
         </div>
+
+        <div
+          class="bg-blue-800 bg-cover bg-right h-20 p-4 flex justify-end items-center form-head"
+          style="background-image: url(https://upload.cc/i1/2020/06/18/XT05If.jpg)"
+        ></div>
       </div>
     </el-dialog>
 
     <!-- comment dialog -->
 
-    <el-dialog :visible="commentVisible" :before-close="beforeClose" width='30%'>
+    <el-dialog :visible="commentVisible" :before-close="beforeClose" width="50%">
       <!-- 下面是留言格式 -->
 
       <div class="flex container max-w-4xl mx-auto">
@@ -304,51 +319,59 @@
               <div class="mb-3">
                 <div class="w-full flex flex-wrap">
                   <div class="w-full flex items-center">
-                    <div class="w-16 h-16 rounded-full bg-blue-500 p-1 mb-3 ml-1">
+                    <div class="w-16 h-16 rounded-full bg-blue-500 mb-3 ml-1">
                       <img
                         :src=" $store.state.userInfo.manpic ? $store.state.userInfo.manpic : '../../assets/img/user001.png'"
                         alt
-                        class="mx-auto object-cover w-18 h-18 rounded-full"
+                        class="mx-auto w-16 h-16 rounded-full"
                       />
                     </div>
                     <span class="text-lg pl-2">{{$store.state.userInfo.name}}</span>
                   </div>
                 </div>
               </div>
-              <div class="mb-5">
-                <h1 class="text-xl text-gray-400 font-bold">請給這次體驗打個分數吧！(最高5顆星)</h1>
-                <el-rate
-                  class="my-3"
-                  v-model="comment.star"
-                  :colors="colors"
-                  score-template="{value}"
-                ></el-rate>
-                <input
-                  placeholder="評分"
-                  v-model="comment.rating"
-                  class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
-                  type="input"
-                />
-              </div>
-              <div class="mb-5">
-                <div class="md:flex-1">
-                  <label
-                    class="border-3 block tracking-wide text-gray-700 text-lg font-bold"
-                  >告訴我們你的想法:</label>
-                  <textarea
-                    placeholder="你覺得這次體驗如何請告訴我們"
-                    v-model="comment.RatingContent"
-                    class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
-                    type="input"
-                  ></textarea>
-
-                  <!--<div class="text-xs text-gray-600">Help text</div>-->
+              <ValidationObserver>
+                <div class="mb-5">
+                  <h1 class="text-xl text-gray-600 font-bold">請給這次體驗打個分數吧！(最高5顆星)</h1>
+                  <ValidationProvider rules="required" v-slot="{ errors }" name="星星評分">
+                    <el-rate class="my-3" v-model="comment.star" :colors="colors" name="星星評分"></el-rate>
+                    <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
+                  </ValidationProvider>
+                  <ValidationProvider rules="required" v-slot="{ errors,classes }" name="評分">
+                    <input
+                      placeholder="評分"
+                      name="評分"
+                      :class="classes"
+                      v-model="comment.rating"
+                      class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
+                      type="input"
+                    />
+                    <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
+                  </ValidationProvider>
                 </div>
-              </div>
-              <div slot="footer" class="dialog-footer">
-                <el-button @click=" commentVisible = false">取 消</el-button>
-                <el-button type="primary" @click="singleRating(comment.id)">送出</el-button>
-              </div>
+                <div class="mb-5">
+                  <div class="md:flex-1">
+                    <label
+                      class="border-3 block tracking-wide text-gray-700 text-lg font-bold"
+                    >告訴我們你的想法:</label>
+                    <ValidationProvider rules="required" v-slot="{ errors,classes }" name="體驗評論">
+                      <textarea
+                        placeholder="你覺得這次體驗如何請告訴我們"
+                        v-model="comment.RatingContent"
+                        :class="classes"
+                        class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
+                        type="input"
+                        name="體驗評論"
+                      ></textarea>
+                      <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
+                    </ValidationProvider>
+                  </div>
+                  <div slot="footer" class="dialog-footer">
+                    <el-button @click=" commentVisible = false">取 消</el-button>
+                    <el-button type="primary" @click="singleRating(comment.id)">送出</el-button>
+                  </div>
+                </div>
+              </ValidationObserver>
             </div>
           </div>
 
@@ -360,6 +383,7 @@
 </template>
 
 <script>
+import QAModel from "@/components/QAModel.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
@@ -369,17 +393,82 @@ export default {
       Oneorders: {}, //model資料
       dialogVisible: false,
       commentVisible: false,
+      centerVisibl: false, //旅行家的button
+      QAisVisble:false,
       isTraveler: "all",
       comment: {
         rating: null,
         star: null,
         RatingContent: ""
       },
-      colors: ["#99A9BF", "#F7BA2A", "#FF9900"]
+      colors: ["#99A9BF", "#F7BA2A", "#FF9900"],
+      travelerId: null
     };
+  },
+  components: {
+    QAModel
   },
 
   methods: {
+
+  closeManage() { 
+      this.QAisVisble = false
+    },
+    totalCahange(id) {
+      //旅行家確定規劃師已經完成訂單後 按下訂單完成按鈕
+      //  this.$emit('totalCahange', this.centerVisib);
+
+      this.travelerId = id;
+      console.log(this.travelerId);
+      //呼叫單筆api
+      this.centerVisibl = true;
+    },
+    switchState(id) {
+      // if( this.Oneorders.Status == 2) {
+      this.$set(this.Oneorders, "Status", 3);
+
+      console.log(this.Oneorders.Status);
+
+      console.log(id); //看id
+      // this.travelOrder(id);//更新api
+      this.centerVisibl = false;
+
+      //單筆訂單整理
+    },
+    travelOrder(id) {
+      //修改單一訂單
+      let token = localStorage.getItem("token");
+      const headers = {
+        Authorization: `Bearer ${token}`
+      };
+      const vm = this;
+      // let httpMethod = "patch";
+
+      let api = `${process.env.VUE_APP_APIPATH}order/update/${id}`;
+      // console.log(this.count);
+      this.$http
+        .patch(
+          api,
+          {
+            Status: vm.Oneorder.Status
+          },
+          { headers }
+        )
+        .then(res => {
+          if (res.data.success) {
+            console.log(res.data.message);
+            // console.log(vm.checkOrder());
+            vm.checkOrder(); //重新全部取得資料一次
+          } else {
+            console.log("更新失敗");
+            vm.checkOrder(); //重新全部取得資料一次
+          }
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+    },
+
     openComment(item) {
       this.commentVisible = true;
       this.comment = Object.assign({}, item); //資料傳餐特性
@@ -389,6 +478,8 @@ export default {
       //dialog關掉的xx
       this.dialogVisible = false;
       this.commentVisible = false;
+      this.centerVisibl = false;
+
       done();
     },
     ...mapActions(["checkOrder"], ["getOrder"], ["getProjects"]),
@@ -411,9 +502,9 @@ export default {
       let api = `${process.env.VUE_APP_APIPATH}/order/loadsingle/${id}`;
       this.$http.get(api, { headers }).then(res => {
         if (res.data.success) {
-          vm.Oneorders = res.data.result;
+          vm.Oneorders = res.data.result[0];
           vm.dialogVisible = true;
-          console.log(vm.Oneorders);
+          // console.log(vm.Oneorders);
         }
       });
     },
@@ -431,55 +522,68 @@ export default {
         star: this.comment.star,
         RatingContent: this.comment.RatingContent
       };
-      console.log(Info);
-      console.log(id);
+      // console.log(Info);
+      // console.log(id);
       this.$http
         .post(api, Info, { headers })
         .then(res => {
           if (res.data.success) {
-            console.log(res.data);
+            this.$notify({
+              title: "成功",
+              message: "順利評論",
+              type: "success"
+            });
+            // console.log(res.data);
             vm.commentVisible = false;
           }
         })
         .catch(err => {
           console.log(err);
+          this.$notify({
+            title: "可惜",
+            message: "評論失敗",
+            type: "warning"
+          });
         });
     }
   },
   computed: {
-    ...mapState(["orders"], ["userInfo"], ["projects"])
-    // filterOrder() {
-    //   if (this.isTraveler == "all") {
-    //     let newOrders = [];
-    //     this.orders.forEach(item => {
-    //       if (item.name == this.$store.state.userInfo.name) {
-    //         newOrders.push(item);
-    //       }
-    //     });
-    //     return newOrders;
-    //   } else {
-    //     let newOrders = [];
-    //     this.orders.forEach(item => {
-    //       if (item.name != this.$store.state.userInfo.name) {
-    //         newOrders.push(item);
-    //       }
-    //     });
-
-    //     return newOrders;
-    //   }
-    // }
+    ...mapState(["orders"], ["userInfo"], ["projects"]),
+    ordersa() {
+      return this.$store.state.orders;
+    },
+    price() {
+      return (
+        this.$store.state.userInfo.points - this.Oneorders.PlannerName[0].points
+      );
+      //   if(this.$store.state.userInfo.point < this.Oneorders.PlannerName[0].points){
+      //      return '無法購買還請儲值'
+      //   }else if(this.$store.state.userInfo.point >= this.Oneorders.PlannerName[0].points){
+      //       return this.$store.state.userInfo.points - this.Oneorders.PlannerName[0].points ;
+      //   }
+      //     return this.$store.state.userInfo.points - this.Oneorders.PlannerName[0].points
+    }
   },
+  mounted() {},
   created() {
     this.$store.dispatch("getProjects");
+
     this.checkOrder();
   }
 };
 </script>
-<style>
+<style scoped>
 /*  border-b-2 border-teal-400 font-semibold #4fd1c5;*/
 a.active {
   border-bottom: 2px solid #4fd1c5;
   font-weight: 700;
   color: #4fd1c5;
+}
+.el-dialog__wrapper .el-dialog {
+  background-color: #ebf8ff;
+}
+.form-head:before,
+.form-head:after {
+  background-color: #fff;
 }
 </style>

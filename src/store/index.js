@@ -110,10 +110,13 @@ const store = new Vuex.Store({
             state.userInfo = userInfo;
             // console.log(userInfo);
         },
+        LOGIN_USER(state, loginUser) {
+            state.loginUser = loginUser;
+        },
         PREMISSION(state, val) {
             state.Permission = val;
             localStorage.setItem('Permission', val);
-            console.log(val);
+            // console.log(val);
         },
         loginStart: state => state.isLogin = true,
         loginStop: state => state.isLogin = false,
@@ -130,7 +133,7 @@ const store = new Vuex.Store({
         setProjectInfo(state, val) { //拿到全部計畫
 
             state.projects = val;
-            console.log(val);
+            // console.log(val);
         },
         setPREMISSION(state, val) { //拿到全部計畫
 
@@ -160,7 +163,7 @@ const store = new Vuex.Store({
         },
         LOOKPLAN(state, val) {
             state.onePlan = val;
-            console.log(val);
+            // console.log(val);
         },
         WISHMESSAGE(state, val) {
             state.wishList = val;
@@ -241,9 +244,6 @@ const store = new Vuex.Store({
             // 2. action 發出 ajax
             //取得會員資料
             const api = `${process.env.VUE_APP_APIPATH}/Login/Load`;
-            //http://findtrip.rocket-coding.com/api/Login/Load
-            // let token = localStorage.getItem("Authorization");
-            // console.log(token);
 
             Axios
                 .get(api, { headers })
@@ -269,9 +269,9 @@ const store = new Vuex.Store({
                 Authorization: `Bearer ${token}`
             };
 
-            let api = `${process.env.VUE_APP_APIPATH}/order/load`;
+            let api = `${process.env.VUE_APP_APIPATH}order/load`;
 
-            console.log(api);
+            // console.log(api);
             // const vm = this;
             // vm.isLoading = true;
             Axios
@@ -279,9 +279,10 @@ const store = new Vuex.Store({
                 .then(res => {
                     // vm.isLoading = false;
                     if (res.data.success) {
-                        console.log(res.data)
+
                         commit('loginStart');
                         commit('GETORDER', res.data.result);
+                        // console.log(res.data.result)
 
                     }
 
@@ -331,7 +332,7 @@ const store = new Vuex.Store({
             // http://localhost:3000/posts/${vm.OrderId}
             let api = `${process.env.VUE_APP_APIPATH}order/loadsingle/${this.state.orders.id}`;
             this.$http.get(api, { headers }).then(res => {
-                console.log(res);
+                // console.log(res);
 
                 commit('GETONEORDER', res.data.result);
             });

@@ -1,12 +1,12 @@
 <template>
   <div id="wrapper">
-    <div>
-      <div class="flex container max-w-4xl mx-auto">
-        <div class="w-full flex flex-col flex-wrap justify-center px-6 lg:px-0">
-          <div class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative">
+   
+      <div class="flex container max-w-xl mx-auto">
+       <div class="w-full flex flex-col flex-wrap justify-center px-6 lg:px-0 my-10">
+       <div class="mt-6 container mx-auto  round-xll overflow-hidden bg-white relative my-10 max-w-450 shadow-md">
             <div
               class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head"
-              style="background-image: url(https://content.api.news/v3/images/bin/11990db1d540d5c13ea8ca3e01f2083c)"
+              style="background-image: url(https://upload.cc/i1/2020/06/18/XT05If.jpg)"
             >
               <p
                 class="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg"
@@ -15,16 +15,16 @@
                 <span class="tracking-normal">--&gt;</span> SEA
               </p>
             </div>
-            <div class="p-12 px-10 lg:px-20">
+             <div class="p-0 px-10 ">
               <div class="mb-3">
                 <div class="w-full flex flex-wrap">
-                  <div class="w-full flex-1 mt-8">
-                    <h3 class="text-center text-2xl text-blue-700 mb-3 tracking-widest">會 員 註 冊</h3>
-                    <div
-                      class="flex md:flex-1 tracking-widestflex flex-col lg:flex-row items-center lg:justify-around justify-center"
+                  <div class="w-full flex-1 ">
+                    <h3 class="text-center text-2xl text-blue-700 my-5 tracking-widest">會 員 註 冊</h3>
+                   <div
+                      class="flex md:flex-1 tracking-widestflex flex-col  items-center lg:justify-around justify-center"
                     >
-                      <button
-                        class="mr-2 lg:mb-0 mb-4 w-full lg:w-1/2 font-semibold shadow-sm rounded-lg py-3 bg-indigo-300 hover:bg-indigo-200 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                    <!-- <button
+                        class="mr-2  mb-4 w-full  font-semibold shadow-sm rounded-lg py-3 bg-blue-300 hover:bg-blue-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
                         <div class="bg-white p-2 rounded-full">
                           <svg class="w-4" viewBox="0 0 533.5 544.3">
@@ -47,10 +47,10 @@
                           </svg>
                         </div>
                         <span class="ml-4">Sign Up with Google</span>
-                      </button>
+                      </button> -->
 
-                      <button
-                        class="mr-2 lg:mb-0 mb-4 w-full lg:w-1/2 font-semibold shadow-sm rounded-lg py-3 bg-indigo-300 hover:bg-indigo-200 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
+                     <!-- <button
+                        class="mr-2 lg:mb-0 mb-4 w-full  font-semibold shadow-sm rounded-lg py-3 bg-blue-300 hover:bg-blue-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
                         <div class="bg-white p-2 rounded-full">
                           <svg
@@ -64,10 +64,10 @@
                           </svg>
                         </div>
                         <span class="ml-1">Sign Up with Facebook</span>
-                      </button>
+                      </button> -->
                     </div>
 
-                    <div class="my-12 border-b text-center">
+                    <div class="mb-5  border-b-2 text-center  ">
                       <div
                         class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
                       >Or sign up with e-mail</div>
@@ -175,8 +175,8 @@
                           <span class="ml-3">Sign Up</span>
                         </button>
                         <div class="text-md text-gray-600 mb-2 flex justify-between">
-                          <router-link to="/login" class="text-right">登入</router-link>
-                          <p class="text-right">忘記密碼？</p>
+                          <router-link to="/login" class="text-right hover:text-blue-300">快速登入</router-link>
+                          <!-- <p class="text-right">忘記密碼？</p> -->
                         </div>
 
                         <!-- barcode -->
@@ -189,15 +189,17 @@
             </div>
 
             <div
-              class="bg-blue-800 bg-cover bg-center h-20 p-4 flex justify-end items-center form-head"
+              class="bg-blue-800 bg-cover bg-right h-20 p-4 flex justify-end items-center form-head"
+                  style="background-image: url(https://upload.cc/i1/2020/06/18/XT05If.jpg)"
             ></div>
           </div>
 
           <!-- </div> -->
-        </div>
+       
+      </div>
       </div>
       <Footer />
-    </div>
+    
   </div>
 </template>
 
@@ -305,9 +307,17 @@ export default {
 </script>
 <style scoped>
 #wrapper {
+ 
+    background-size: cover;
+    background: bottom;
+ 
+    background-repeat: no-repeat;
   background-color: #ebf8ff;
+      background-image: url(https://images.unsplash.com/photo-1428908728789-d2de25dbd4e2?q=80&fm=jpg&s=fa68c48…);
 }
-
+.max-w-450{
+  max-width: 450px;
+}
 .is-invalid{
   color: #EB0600;
 }
@@ -320,7 +330,10 @@ export default {
 .is-valid input {
   border: 1px solid green
 }
-
+.form-head:before, .form-head:after {
+   display: none;
+  
+}
 
 </style>
 
