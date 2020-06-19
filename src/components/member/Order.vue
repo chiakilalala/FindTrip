@@ -104,7 +104,8 @@
             </div>
           </div>
           <div class="px-4 mt-8 lg:px-0 lg:mt-0">
-            <p class="block lg:mt-4 text-base mt-2 leading-tight font-semibold text-gray-900">
+            <!-- !=undefined && orderInfo.PlannerName.length >= 1 -->
+            <p class="block lg:mt-4 text-base mt-2 leading-tight font-semibold text-gray-900" v-if='item.PlannerName!=undefined && item.PlannerName.length >= 1'>
               旅行規劃師
               <span class="text-sm font-thin">— {{item.PlannerName[0].PlannerName}}</span>
             </p>
@@ -379,6 +380,9 @@
         </div>
       </div>
     </el-dialog>
+  
+
+  
   </div>
 </template>
 
@@ -395,6 +399,7 @@ export default {
       commentVisible: false,
       centerVisibl: false, //旅行家的button
       QAisVisble:false,
+      deleteModal:false,//刪除訂單
       isTraveler: "all",
       comment: {
         rating: null,
@@ -410,6 +415,7 @@ export default {
   },
 
   methods: {
+
 
   closeManage() { 
       this.QAisVisble = false
@@ -479,6 +485,7 @@ export default {
       this.dialogVisible = false;
       this.commentVisible = false;
       this.centerVisibl = false;
+      this.deleteModal = false;
 
       done();
     },
@@ -545,7 +552,12 @@ export default {
             type: "warning"
           });
         });
-    }
+    },
+    deleteDialogModal(item) {
+      const vm = this;
+      vm.temPlans = item;
+      vm.deleteModal = true;
+    },
   },
   computed: {
     ...mapState(["orders"], ["userInfo"], ["projects"]),

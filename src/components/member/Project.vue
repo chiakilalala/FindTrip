@@ -169,11 +169,9 @@
 
               <quill-editor
                 v-model="temPlans.TravelPlanIntro"
-                ref="myQuillEditor"
+             
                 :options="editorOption"
-                @blur="onEditorBlur($event)"
-                @focus="onEditorFocus($event)"
-                @change="onEditorChange($event)"
+              
               ></quill-editor>
             </label>
 
@@ -183,11 +181,9 @@
               >經歷</div>
               <quill-editor
                 v-model="temPlans.TPExperience"
-                ref="myQuillEditor"
+               
                 :options="editorOption"
-                @blur="onEditorBlur($event)"
-                @focus="onEditorFocus($event)"
-                @change="onEditorChange($event)"
+              
               ></quill-editor>
             </label>
             <label class="block mb-6">
@@ -407,11 +403,11 @@ export default {
 
       plans: [],
       temPlans: {
-        points: 1999,
-        TPExperience: "<p>hello ! 你好嗎</p>",
-        TravelPlanIntro: "<p>hello ! 你好嗎 </p>",
-        country: "日本",
-        city: "giui",
+        points: 0,
+        TPExperience: '',
+        TravelPlanIntro: '',
+        country: '',
+        city: '',
         Cpicture: null,
         TPBGImg: null,
         Religion: false,
@@ -426,6 +422,7 @@ export default {
       selectedCountry: "",
       selectedCity: null,
       editorOption: {
+        placeholder: '請輸入旅行規劃師簡介',
         modules: {
           toolbar: [
             [{ size: ["small", false, "large", "huge"] }],
@@ -453,15 +450,8 @@ export default {
       this.deleteModal = false;
       done();
     },
-    onEditorBlur() {
-      //失去焦點事件
-    },
-    onEditorFocus() {
-      //獲得焦點事件
-    },
-    onEditorChange() {
-      //內容改變事件
-    },
+  
+  
 
     getPlans() {
       let token = localStorage.getItem("token");

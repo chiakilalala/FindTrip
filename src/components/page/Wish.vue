@@ -511,7 +511,7 @@ export default {
           .post(api, message, { headers })
           .then(res => {
             if (res.data.success) {
-              console.log(res.data);
+              // console.log(res.data);
               // this.relyMessage = res.data.result;
               // console.log(this.relyMessage);
               this.$message("留言成功");
@@ -548,13 +548,13 @@ export default {
 
       const vm = this;
       // vm.isLoading = true;
-      console.log(api);
+      // console.log(api);
       this.$http
         .get(api)
         .then(response => {
           // vm.isLoading = false;
           vm.wishBoard = response.data.result;
-          console.log(vm.wishBoard);
+          // console.log(vm.wishBoard);
         })
         .catch(err => {
           console.log(err.message);
