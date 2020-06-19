@@ -169,7 +169,7 @@
 
               <quill-editor
                 v-model="temPlans.TravelPlanIntro"
-             
+                ref='quillEditorA'
                 :options="editorOption"
               
               ></quill-editor>
@@ -181,7 +181,7 @@
               >經歷</div>
               <quill-editor
                 v-model="temPlans.TPExperience"
-               
+                 ref='quillEditorB'
                 :options="editorOption"
               
               ></quill-editor>
