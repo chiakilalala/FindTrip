@@ -1,5 +1,19 @@
 <template>
   <div>
+      <div class="flex max-w-6xl mx-auto">
+      <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
+        <ul class="list-inline inline-flex hover:underlines">
+          <li class="pr-2">
+            <router-link to="/home" class="hover:text-blue-500">
+              <i class="fa fa-home"></i>
+            </router-link>
+            <span class="mx-1">/</span>
+          </li>
+
+          <li class="pr-2">訂單記錄</li>
+        </ul>
+      </div>
+    </div>
     <!-- 書籤表示旅行家和規劃師 -->
     <div class="mb-10">
       <ul class="flex border-b" v-if=" $store.state.Permission == '02' ">

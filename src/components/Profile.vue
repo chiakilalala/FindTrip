@@ -13,7 +13,7 @@
             <div
               class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0 mx-auto sm:m-0 bg-white"
             >
-              <img :src="userInfo.manpic" class="w-40 h-40 rounded-full" alt />
+              <img :src="userInfo.manpic" class="w-40 h-40 rounded-full object-cover" alt='user' />
             </div>
           </div>
           <div class="w-full lg:w-4/5">

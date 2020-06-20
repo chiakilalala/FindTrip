@@ -1,13 +1,27 @@
 <template>
   <div>
-    <!-- left-col -->
+    
+      <div class="flex max-w-6xl mx-auto">
+      <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
+        <ul class="list-inline inline-flex hover:underlines">
+          <li class="pr-2">
+            <router-link to="/home" class="hover:text-blue-500">
+              <i class="fa fa-home"></i>
+            </router-link>
+            <span class="mx-1">/</span>
+          </li>
+
+          <li class="pr-2">旅行計劃</li>
+        </ul>
+      </div>
+    </div>
 
     <!-- 新增按鈕 -->
     <div class="mt-1 mb-3 flex justify-end">
       <el-button
         type="primary"
         @click="openModel(true)"
-        class="bg-teal-600 rounded px-5 py-3 text-white hover:bg-teal-400 cursor-pointer"
+        class="bg-teal-600 text-lg rounded px-5 py-3 text-white hover:bg-teal-400 cursor-pointer"
       >
         新增計畫
         <i class="fa fa-plus"></i>
@@ -40,7 +54,7 @@
             <p
               class="block lg:mb-4 lg:text-lg mt-0 text-base leading-tight font-semibold text-gray-900"
             >
-              區域 ：
+              城市區域 ：
               <!--item.city.join( ',' -->
               <span class="text-md">{{item.city}}</span>
             </p>
@@ -109,12 +123,12 @@
           <div class="relative lg:p-4 p-6 lg:flex-shrink-0 w-full">
 
              <div class="lg:flex-shrink-0 w-full">  
-            <!-- <div class="lg:p-4 p-6 lg:flex-shrink-0 w-full"> -->
+       
               <div
                   id=" empty-cover-art"
                   class="relative rounded w-full  h-auto py-16 px-0 text-center bg-gray-300  md:border-solid md:border-2 md:border-gray-400"
                 >
-                <img  class="absolute inset-y-0  w-full max-h-full" :src="temPlans.TPBGImg ? temPlans.TPBGImg : '' "  /> 
+                <img  class="absolute inset-y-0  w-full max-h-full object-cover" :src="temPlans.TPBGImg"  /> 
                 
                
                 <svg
@@ -207,7 +221,7 @@
       <div
         class="lg:px-10 pt-3 pb-5 px-6 flex-1 text-gray-700 text-left bg-white rounded-lg shadow-lg mb-10"
       >
-        <p class="pt-5 text-gray-500 leading-normal">以上資料可以幫助旅行家更了解你的規劃內容</p>
+        <p class="pt-5 text-gray-600 leading-normal text-lg">以上資料可以幫助旅行家更了解你的規劃內容</p>
         <div class="lg:flex flex-col">
           <div class="lg:flex-shrink-0 py-4 w-full lg:flex">
             <div class="w-full lg:w-1/2 text-xl text-gray-800 leading-normal flex-1">
@@ -422,13 +436,11 @@ export default {
       },
       isNew: false,
       content: null,
-      selectedCountry: "",
-      selectedCity: null,
       editorOption: {
         placeholder: '請輸入旅行規劃師簡介',
         modules: {
           clipboard: {
-            // 粘贴版，处理粘贴时候的自带样式
+            // 複製時候幫處理清理複製帶來的格式
             matchers: [[Node.ELEMENT_NODE, this.HandleCustomMatcher]],
           },
           toolbar: [
@@ -447,7 +459,7 @@ export default {
         placeholder: '請輸入旅行規劃師經歷',
         modules: {
             clipboard: {
-            // 粘贴版，处理粘贴时候的自带样式
+            // 複製時候幫處理格式
             matchers: [[Node.ELEMENT_NODE, this.HandleCustomMatcher]],
           },
           toolbar: [
@@ -478,7 +490,7 @@ export default {
       done();
     },
     HandleCustomMatcher(node, Delta) {
-      // 文字、图片等，从别处复制而来，清除自带样式，转为纯文本
+      //複製 文字圖片清除格式轉為字串
       let ops = []
       Delta.ops.forEach(op => {
         if (op.insert && typeof op.insert === 'string') {
@@ -508,12 +520,12 @@ export default {
         .then(response => {
           // vm.isLoading = false;
           vm.plans = response.data.result;
-          // console.log(response);
+    
         })
         .catch(err => {
           console.log(err.message);
         });
-      //  this.$store.dispatch('getApi');
+   
     },
     openModel(isNew, item) {
       const vm = this;
@@ -532,7 +544,7 @@ export default {
       vm.temPlans = item;
       vm.deleteModal = true;
     },
-    updatePlan() {
+    updatePlan() { //更新旅行計劃
       let token = localStorage.getItem("token");
       const headers = {
         Authorization: `Bearer ${token}`
@@ -599,7 +611,7 @@ export default {
       });
     },
     uploadPic() {
-      //上傳國家片
+      //上傳國家背景圖
       let token = localStorage.getItem("token");
       // console.log(this);
       const uploadedPic = this.$refs.files.files[0]; //這是檔案上傳物件
@@ -608,7 +620,6 @@ export default {
       formData.append("pic-to-upload", uploadedPic); //新增物件
       let url = `${process.env.VUE_APP_APIPATH}plan/cyimg`;
 
-      // vm.status.fileUploading =true;//接受到之後就圖片打開
       this.$http
         .post(url, formData, {
           headers: {
@@ -617,7 +628,7 @@ export default {
           }
         })
         .then(response => {
-          // vm.status.fileUploading =false;//接受到之後就圖片隱藏
+
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
               this.$notify({
@@ -625,8 +636,7 @@ export default {
               message: "上傳圖片成功",
               type: "success"
             });
-            
-            // console.log(response.data);
+
             vm.$set(vm.temPlans, "Cpicture", response.data.Cpicture);
             vm.getPlans();
             // console.log(vm.temPlans);
@@ -636,7 +646,7 @@ export default {
               message: "檔案格式不對 ＆ 圖片大小不可超過2MB",
               type: "warning"
             });
-            // this.$bus.$emit('message:push',response.data.message,'danger');
+      
             console.log("失敗");
             vm.getPlans();
           }
@@ -645,7 +655,6 @@ export default {
 
     uploadImg() {
       let token = localStorage.getItem("token");
-      // console.log(this);
       const uploadedFile = this.$refs.fileupload.files[0]; //這是檔案上傳物件
       const vm = this;
       const picData = new FormData(); //新增新物件可以
@@ -664,9 +673,7 @@ export default {
           // vm.status.fileUploading =false;//接受到之後就圖片隱藏
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
-            // console.log("成功了！");
-            
-            // vm.temPlans.TPBGImg = response.data.TPBGImg;
+
             this.$notify({
               title: "成功",
               message: "上傳檔案成功",
@@ -675,10 +682,11 @@ export default {
             vm.$set(vm.temPlans, "TPBGImg", response.data.TPBGImg);
 
             vm.getPlans();
-            //  console.log(vm.temPlans);
-            // console.log(vm.tempProduct);
+         
+              //  console.log(vm.plans);
+      
           } else {
-            // this.$bus.$emit('message:push',response.data.message,'danger');
+
             this.$notify({
               title: "警告",
               message: "檔案格式不對 ＆ 圖片大小不可超過2MB",
@@ -738,8 +746,6 @@ export default {
   created() {
     this.getPlans();
     this.getProjects();
-
-    // console.log(this.$store.state);
   }
 };
 </script>

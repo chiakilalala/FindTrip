@@ -43,10 +43,10 @@
       :key="item.id "
     >
       <!-- $router.push({ name: 'orderlist', params: { id: item.id } }) -->
-      <div class="lg:flex">
+      <div class="lg:flex" >
         <div class="lg:flex-shrink-0 relative">
           <img
-            :src="$store.state.projects[0].manpic"
+            :src="item.PlannerPic[0].manpic"
             alt
             srcset
             class="object-cover ml-8 -mt-3 border-2 border-white w-12 h-12 rounded-full absolute top-0 left-0 bg-blue-500"
@@ -57,10 +57,10 @@
           ></div>
           <p
             v-if="item.Status === 3"
-            class="cursor-pointer ml-5 mt-2 text-blue-400 font-sm"
+            class="cursor-pointer ml-5 mt-2 text-blue-400 hover:text-blue-700 font-sm"
             @click="openComment(item)"
           >
-            <i class="fas fa-edit"></i>撰寫評論
+            <i class="fas fa-edit "></i>撰寫評論
           </p>
         </div>
         <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
@@ -90,11 +90,12 @@
               class="min-w-15 bg-white min-h-16 p-0 mb-0 font-medium absolute top-0 right-0 lg:mr-0 mr-5 lg:mt-0 -mt-12"
             >
               <div
-                class="w-16 flex-none rounded-t lg:rounded-t-none lg:rounded-l text-center shadow"
+                class="w-20 flex-none rounded-t lg:rounded-t-none lg:rounded-l text-center shadow"
               >
                 <div class="block rounded-t overflow-hidden text-center">
-                  <div class="bg-gray-200 text-gray-500 py-1">{{item.CreateOn.slice(5,7) | month }}</div>
-                  <div class="pt-1 bg-gray-200">
+                   <div class="bg-blue-200 text-gray-500 py-1">{{item.CreateOn.slice(0,4) }}</div>
+                  <div class="bg-gray-200 text-gray-500 ">{{item.CreateOn.slice(5,7) | month }}</div>
+                  <div class=" bg-gray-200">
                     <span
                       class="text-3xl font-bold text-gray-500 leading-tight"
                     >{{item.CreateOn.slice(8,10) }}</span>
@@ -117,8 +118,8 @@
               城市 ：
               <span class="text-sm font-thin">{{item.city}}</span>
             </p>
-            <div class="mt-4 lg:flex justify-between">
-              <div>
+            <div class="mt-8 lg:flex justify-between">
+              <div class="flex items-center">
                 <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Culture']}" >文化</span>
                 <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Religion']}" >宗教</span>
                 <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Secret']}" >秘境</span>
@@ -131,11 +132,11 @@
                 <button
                   v-if="item.Status === 2"
                   @click="totalCahange(item.id)"
-                  class="bg-transparent border border-blue-500 hover:bg-blue-500 hover:shadow-xl hover:text-white text-blue-500 font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
+                  class="bg-transparent border border-blue-500 hover:bg-blue-500 hover:shadow-xl hover:text-white text-blue-500 font-thin py-2 px-4 rounded xl:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                 >完成訂單</button>
                 <button
                   v-else-if="item.Status === 3"
-                  class="cursor-not-allowed opacity-50 bg-gray-600 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm"
+                  class="cursor-not-allowed opacity-50 bg-gray-600 text-white font-thin py-2 px-4 rounded  ml-0 lg:mt-0 mt-8 text-sm"
                 >已完成</button>
                 <div v-if="item.PlannerEmail !=undefined && item.PlannerEmail.length >= 1">
                   <a
@@ -190,44 +191,45 @@
         <div class="p-12 px-22">
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">會員姓名:</label>
+              <label class="order_title">會員姓名:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{ Oneorders.name}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">電子信箱:</label>
+              <label class="order_title">電子信箱:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{Oneorders.Email}}</p>
             </div>
           </div>
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">聯絡電話:</label>
+              <label class="order_title">聯絡電話:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{Oneorders.Tel}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">創建日期:</label>
+              <label class="order_title">創建日期:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
-              >{{Oneorders.DepartureTime1}} ~ {{Oneorders.DepartureTime2}}</p>
+                v-if="Oneorders.CreateOn !=undefined && Oneorders.CreateOn.length >= 1"
+                class="order_text"
+              >{{Oneorders.CreateOn.slice(0,10)}} {{Oneorders.CreateOn.slice(14,19)}}(GTM+8)</p>
             </div>
           </div>
 
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">國家:</label>
+              <label class="order_title">國家:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{Oneorders.country}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">城市:</label>
+              <label class="order_title">城市:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{Oneorders.city}}</p>
             </div>
           </div>
@@ -235,16 +237,16 @@
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label
-                class="block uppercase tracking-wide text-gray-700 text-base font-bold"
+                class="order_title"
               >行程的日期 範圍 :</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{Oneorders.DepartureTime1}} ~ {{Oneorders.DepartureTime2}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">預算:</label>
+              <label class="order_title">預算:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{Oneorders.Budget}}</p>
             </div>
           </div>
@@ -268,21 +270,21 @@
 
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">大人:</label>
+              <label class="order_title">大人:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{Oneorders.Adult}} 人</p>
             </div>
             <div class="md:flex-1 md:pl-3">
-              <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">小孩:</label>
+              <label class="order_title">小孩:</label>
               <p
-                class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                class="order_text"
               >{{Oneorders.Children}} 人</p>
             </div>
           </div>
 
           <div class="mb-6">
-            <label class="block text-gray-700 text-base s font-bold mb-2">備註 :</label>
+            <label class="block text-gray-700 text-xl  font-bold mb-2">備註 :</label>
             <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
               <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">{{Oneorders.Remark}}</p>
             </div>
@@ -292,10 +294,10 @@
             class="text-right text-base text-gray-700 font-semibold mb-8"
             v-if=" Oneorders.PlannerName !=undefined && Oneorders.PlannerName.length >= 1"
           >
-            本次將扣除
+            本次扣除
             <span class="text-xl text-blue-500">{{Oneorders.PlannerName[0].points}}</span>
             <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-1">點數</span>
-            購買後將剩餘
+            購買後剩餘
             <span class="text-xl text-blue-500">{{price}}</span>
             <span class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-4">點數</span>
           </p>
@@ -418,29 +420,29 @@ export default {
 
 
   closeManage() { 
-      this.QAisVisble = false
+      this.QAisVisble = false //QA-Dialog
     },
     totalCahange(id) {
       //旅行家確定規劃師已經完成訂單後 按下訂單完成按鈕
       //  this.$emit('totalCahange', this.centerVisib);
 
       this.travelerId = id;
-      console.log(this.travelerId);
+      // console.log(this.travelerId);
       //呼叫單筆api
       this.centerVisibl = true;
     },
-    switchState(id) {
-      // if( this.Oneorders.Status == 2) {
-      this.$set(this.Oneorders, "Status", 3);
+    // switchState(id) {
+    //   // if( this.Oneorders.Status == 2) {
+    //   this.$set(this.Oneorders, "Status", 3);
 
-      console.log(this.Oneorders.Status);
+    //   console.log(this.Oneorders.Status);
 
-      console.log(id); //看id
-      // this.travelOrder(id);//更新api
-      this.centerVisibl = false;
+    //   // console.log(id); //看id
+    //   // this.travelOrder(id);//更新api
+    //   this.centerVisibl = false;
 
-      //單筆訂單整理
-    },
+    //   //單筆訂單整理
+    // },
     travelOrder(id) {
       //修改單一訂單
       let token = localStorage.getItem("token");
@@ -511,7 +513,7 @@ export default {
         if (res.data.success) {
           vm.Oneorders = res.data.result[0];
           vm.dialogVisible = true;
-          // console.log(vm.Oneorders);
+          console.log(vm.Oneorders);
         }
       });
     },
@@ -565,9 +567,8 @@ export default {
       return this.$store.state.orders;
     },
     price() {
-      return (
-        this.$store.state.userInfo.points - this.Oneorders.PlannerName[0].points
-      );
+      return   this.$store.state.userInfo.points 
+       
       //   if(this.$store.state.userInfo.point < this.Oneorders.PlannerName[0].points){
       //      return '無法購買還請儲值'
       //   }else if(this.$store.state.userInfo.point >= this.Oneorders.PlannerName[0].points){

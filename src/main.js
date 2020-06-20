@@ -51,6 +51,11 @@ import 'quill/dist/quill.core.css' // import styles
 import 'quill/dist/quill.snow.css' // for snow theme
 import 'quill/dist/quill.bubble.css' // for bubble theme
 
+
+import MQuillEditor from 'vue-m-quill-editor'
+
+Vue.use(MQuillEditor)
+
 localize('zh_TW', zh_TW);
 
 configure({

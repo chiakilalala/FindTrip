@@ -38,19 +38,29 @@
       <div class="lg:flex px-8" >
         <div class="w-full lg:w-1/5 flex-1 flex flex-col justify-center items-center">
           <div
-            class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0 mx-auto sm:m-0"
+            class="border-solid border-2 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0  sm:m-0"
           >
-            <img :src="userInfo.manpic" class="w-40 h-40 rounded-full" alt />
+            <img :src="userInfo.manpic ? userInfo.manpic : userInfo.imageUrl" class="w-40 h-40 rounded-full object-cover" alt='個人大頭照' />
           </div>
 
-          <input
-            type="file"
-            name="file-to-upload"
-            id="customFile"
+          <!-- <input
+           
+           
+            
             class="w-full my-4 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-1 px-3 rounded-full lg:ml-4 ml-0 text-sm shadow-md"
-            ref="files"
-            @change="uploadFile"
-          />
+            
+           
+          /> -->
+
+          <div class="flex   items-center  justify-center border-blue-500 mt-2">
+    <label class="w-28 flex items-end py-1 px-3   rounded-full shadow-md  bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white cursor-pointer">
+        <svg class="w-6 h-6 pr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+        </svg>
+        <span class="mt-2 text-sm leading-normal ">上傳大頭照</span>
+        <input   type="file" name="file-to-upload" id="customFile" ref="files" class="hidden"   @change="uploadFile"/>
+    </label>
+</div>
           <!-- 更換 -->
           <!-- <i class="fa fa-upload"></i> -->
         </div>
@@ -59,7 +69,7 @@
             <div class="mx-auto max-w-xl">
               <div class="flex flex-wrap md:w-auto w-full mb-0 lg:flex-col justify-center">
                  <div class="md:w-full mb-8">
-                  <label class="block tracking-wide text-grey-darker text-base font-bold mb-2">名字：</label>
+                  <label class="block tracking-wide text-grey-darker text-lg font-bold mb-2">名字：</label>
                   <input
                     class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
                     type="text"
@@ -67,16 +77,16 @@
                   />
                 </div>
                  <div class="md:w-full mb-8">
-                  <label class="block tracking-wide text-grey-darker text-base font-bold mb-2">密碼：</label>
+                  <label class="block tracking-wide text-grey-darker text-lg font-bold mb-2">密碼：</label>
                   <input
                     type="password"
-                    class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
+                    class="cursor-not-allowed disabled bg-blue-100 text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
                     placeholder="******"
                   />
                 </div>
                  <div class="md:w-full mb-8">
                   <label
-                    class="block tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block tracking-wide text-grey-darker text-lg font-bold mb-2"
                   >FB 帳號網址：</label>
                   <input
                     class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
@@ -85,7 +95,7 @@
                 </div>
                  <div class="md:w-full mb-8">
                   <label
-                    class="block tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block tracking-wide text-grey-darker text-lg font-bold mb-2"
                   >推特 帳號網址：</label>
                   <input
                     class="text-md block px-3 py-2 rounded-lg w-full bg-white border border-gray-400 placeholder-gray-600 shadow-xs focus:placeholder-gray-500 focus:bg-white focus:border-gray-600 focus:outline-none"
@@ -95,7 +105,7 @@
 
                  <div class="md:w-full mb-8">
                   <label
-                    class="block uppercase tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block uppercase tracking-wide text-grey-darker text-lg font-bold mb-2"
                     for="grid-first-name"
                   >E-mail 網址：</label>
                   <input
@@ -109,7 +119,7 @@
 
                  <div class="md:w-full mb-8">
                   <label
-                    class="block uppercase tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block uppercase tracking-wide text-grey-darker text-lg font-bold mb-2"
                     for="grid-first-name"
                   >聯絡電話：</label>
                   <input
@@ -121,7 +131,7 @@
 
                  <div class="md:w-full mb-8">
                   <label
-                    class="block tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block tracking-wide text-grey-darker text-lg font-bold mb-2"
                     for="grid-first-name"
                   >一句話的介紹自己:</label>
                   <input
@@ -201,7 +211,7 @@ export default {
       const formData = new FormData(); //新增新物件可以
       formData.append("file-to-upload", uploadedFile); //新增物件
       let url = `${process.env.VUE_APP_APIPATH}/Login/userimg`;
-      // vm.status.fileUploading =true;//接受到之後就圖片打開
+      
       vm.axios
         .post(url, formData, {
           headers: {
@@ -211,20 +221,21 @@ export default {
         })
         .then(response => {
           console.log(response.data);
-          // vm.status.fileUploading =false;//接受到之後就圖片隱藏
+          
           if (response.data.success) {
-            // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
-            console.log("成功了！");
+         
+            // console.log("成功了！");
             this.$swal({
               icon: "success",
               title: "上傳成功"
             });
-            console.log(vm.user);
-            vm.$set(vm.user, "manpic", response.data.manpic);
-            // this.changeLogin({ Authorization: this.userToken });
-            console.log(vm.user);
+           
+            vm.$set(vm.userInfo, "manpic", response.data.imageUrl);
+            //  console.log(vm.userInfo);
+         
+         
           } else {
-            // this.$bus.$emit('message:push',response.data.message,'danger');
+         
             console.log("失敗");
           }
         });
@@ -249,8 +260,8 @@ export default {
       const vm = this;
       this.$http.patch(api, jsonData, { headers }).then(response => {
         if (response.data.success) {
-          console.log(response.data.message);
-          console.log(response.data.result);
+          // console.log(response.data.message);
+          // console.log(response.data.result);
           this.$message({
             message: "恭喜你，更新成功",
             type: "success"

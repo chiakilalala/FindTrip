@@ -16,7 +16,7 @@
             <!-- </div> -->
 
             <!-- left-col -->
-            <div class="lg:px-8 px-6 w-full lg:w-3/4 mt-0 lg:mt-0 text-gray-900 leading-normal">
+            <div class=" px-6 w-full lg:w-3/4 mt-0 lg:mt-0 text-gray-900 leading-normal">
               <div class="my-2 mt-10">
                 <!-- 麵包屑 -->
                 <!-- <div class="flex max-w-6xl mx-auto">
@@ -33,22 +33,7 @@
 
                 <!-- 書籤表示旅行家和規劃師 -->
                 <!-- status :false 不存在書籤 -->
-                <div class="my-2 mb-3" v-if="this.$store.state.status">
-                  <ul class="flex border-b">
-                    <li class="-mb-px mr-1">
-                      <a
-                        class="inline-block border-b-2 border-teal-400 py-2 px-4 text-teal-700 font-semibold"
-                        href="#"
-                      >旅行家</a>
-                    </li>
-                    <li class="mr-1">
-                      <a
-                        class="inline-block py-2 px-4 text-blue-500 hover:text-blue-800 font-normal"
-                        href="#"
-                      >規劃師</a>
-                    </li>
-                  </ul>
-                </div>
+               
                 <div id="member">
                   <router-view></router-view>
                 </div>
@@ -71,7 +56,7 @@
 /* eslint-disable */
 
 import { mapState, mapActions, mapMutations } from "vuex";
-// import { mapState, mapActions, mapMutations } from "vuex";
+
 
 import Footer from "@/components/Footer.vue";
 import NavBar from "@/components/NavBar.vue";
@@ -82,16 +67,7 @@ import Profile from '@/components/Profile.vue';
   const headers = {
     'Authorization': `Bearer ${token}`
   };
-//     const $axios = axios.create({
-// baseURL: 'http://findtrip.rocket-coding.com/api',
-// timeout: 1000,
-// headers: {
-// 'Content-Type': 'application/x-www-form-urlencoded',
-//   'Authorization': token
 
-// }
-
-// });
 
 export default {
   data() {
@@ -109,24 +85,7 @@ export default {
     ...mapActions(["getOneUser"]),
     ...mapMutations(["changeLogin"], ["loginStart"],['setPREMISSION']),
   
-    // getUser() {
-    //   const api = "http://findtrip.rocket-coding.com/api/Login/Load";
-    //   // let token = localStorage.getItem("Authorization");
-    //   console.log(token);
 
-    //   this.axios
-    //     .get(api, { headers })
-    //     .then(response => {
-    //       console.log(response.data);
-    //       if(response.status == 200){
-    //         this.userInfo = response.data;
-    //         console.log(this.userInfo,"ssss");
-    //       }
-    //     })
-    //     .catch(err => {
-    //       console.log(err.message);
-    //     });
-    // }
   },
   computed: {
     ...mapState(["userInfo"])

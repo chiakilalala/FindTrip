@@ -73,8 +73,7 @@
                       <div
                         class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
                       >Or sign up with e-mail</div>
-                      <p v-if="loginError">{{ loginError }}</p>
-                      <p v-if="loginSuccessful">Login Successful</p>
+                 
                     </div>
                     <ValidationObserver>
                       <form class="mx-auto max-w-xl" @submit.prevent="signin">

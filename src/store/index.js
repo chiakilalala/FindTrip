@@ -170,18 +170,6 @@ const store = new Vuex.Store({
             // console.log(val);
         },
 
-        setORDERDate(state, val) {
-            console.log('setORDERDate', val);
-            if (val.Rid) state.form.Rid = val.Rid;
-            if (val.county) state.form.county = val.county;
-            if (val.city) state.form.city = val.city;
-            if (val.date && val.data.length > 1) state.form.date = val.date;
-            if (val.money) state.form.money = val.money;
-            if (val.messages) state.form.messages = val.messages;
-            if (val.adult) state.form.adult = val.adult;
-            if (val.child) state.form.child = val.child;
-
-        }
 
     },
     actions: {
