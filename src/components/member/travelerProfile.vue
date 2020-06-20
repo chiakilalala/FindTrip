@@ -37,21 +37,28 @@
         <!-- 規劃師上傳圖片 -->
         <div class="w-full lg:w-1/5 flex-1 flex flex-col justify-center items-center">
           <div
-            class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0 mx-auto sm:m-0"
+            class="border-solid border-4 border-gray-600 w-40 h-40 rounded-full overflow-hidden flex-shrink-0  "
           >
-            <img :src="userInfo.manpic" class="w-40 h-40 rounded-full" alt />
+            <img :src="userInfo.manpic" class="w-40 h-40 rounded-cover object-cover" alt />
           </div>
-          <input
+          <!-- <input
             type="file"
             name="pic-to-upload"
             id="customFile"
             class="w-full my-4 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-1 px-3 rounded-full lg:ml-4 ml-0 text-sm shadow-md"
             ref="files"
             @change="uploadFile"
-          />
+          /> -->
 
-          <!-- <button class="my-4 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin  py-1 px-3 rounded-full lg:ml-4 ml-0  text-sm shadow-md">更換
-          <i class="fa fa-upload"></i></button>-->
+                  <div class="flex   items-center  justify-center border-blue-500 mt-2">
+    <label class="w-28 flex items-end py-1 px-3   rounded-full shadow-md  bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white cursor-pointer">
+        <svg class="w-6 h-6 pr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
+            <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
+        </svg>
+        <span class="mt-2 text-sm leading-normal ">上傳大頭照</span>
+        <input type="file"  name="pic-to-upload" id="customFiles" ref="files" class="hidden"    @change="uploadFile"/>
+    </label>
+</div>
         </div>
         <div class="w-full lg:w-4/5">
           <div class="sm:pl-6 sm:pt-4 flex-1 text-gray-800">
@@ -59,7 +66,7 @@
               <div class="flex flex-wrap md:w-auto w-full mb-0 flex-row lg:flex-col justify-center">
                 <div class="mb-8">
                   <label
-                    class="block tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block tracking-wide text-grey-darker text-lg font-bold mb-2"
                   >規劃師 姓名：</label>
                   <input
                     v-model="userInfo.PlannerName"
@@ -70,7 +77,7 @@
                 </div>
                 <div class="md:w-full mb-8">
                   <label
-                    class="block tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block tracking-wide text-grey-darker text-lg font-bold mb-2"
                   >FB 帳號網址：</label>
                   <input
                     v-model="userInfo.PlannerSocial3"
@@ -80,7 +87,7 @@
                 </div>
                 <div class="md:w-full mb-8">
                   <label
-                    class="block tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block tracking-wide text-grey-darker text-lg font-bold mb-2"
                   >推特 帳號網址：</label>
                   <input
                     v-model="userInfo.PlannerSocial4"
@@ -91,7 +98,7 @@
 
                 <div class="md:w-full mb-3">
                   <label
-                    class="block uppercase tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block uppercase tracking-wide text-grey-darker text-lg font-bold mb-2"
                     for="grid-first-name"
                   >聯絡電話：</label>
                   <input
@@ -104,7 +111,7 @@
 
                 <div class="md:w-full mb-3">
                   <label
-                    class="block tracking-wide text-grey-darker text-base font-bold mb-2"
+                    class="block tracking-wide text-grey-darker text-lg font-bold mb-2"
                   >關於自己的一段介紹:</label>
                   <textarea
                     v-model="userInfo.PlannerIntro"
@@ -159,13 +166,13 @@ export default {
       this.active_tab = tab;
     },
     uploadFile() {
-      console.log(this);
+      
       const uploadedFile2 = this.$refs.files.files[0]; //這是檔案上傳物件
       const vm = this;
       const formData = new FormData(); //新增新物件可以
       formData.append("pic-to-upload", uploadedFile2); //新增物件
       let url = `${process.env.VUE_APP_APIPATH}/Login/userimg`;
-      // vm.status.fileUploading =true;//接受到之後就圖片打開
+    
       vm.axios
         .post(url, formData, {
           headers: {
@@ -174,21 +181,25 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
-          // vm.status.fileUploading =false;//接受到之後就圖片隱藏
+          // console.log(response.data);
+ 
           if (response.data.success) {
-            // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
-            console.log("成功了！");
-            this.$swal({
-              icon: "success",
-              title: "上傳成功"
+           
+           this.$notify({
+              title: "成功",
+              message: "上傳圖片成功",
+              type: "success"
             });
-            console.log(vm.user);
-            vm.$set(vm.user, "imageUrl", response.data.imageUrl);
-            // this.changeLogin({ Authorization: this.userToken });
-            console.log(vm.user);
+          
+            vm.$set(vm.userInfo, "manpic", response.data.imageUrl);
+         
+           
           } else {
-            // this.$bus.$emit('message:push',response.data.message,'danger');
+           this.$notify({
+              title: "失敗",
+              message: "上傳檔案格式或圖片超過2MB",
+              type: "warning"
+            });
             console.log("失敗");
           }
         });
@@ -209,22 +220,27 @@ export default {
         PlannerSocial4: this.userInfo.PlannerSocial4
       };
       // const o3 = Object.assign({ Info }, this.userInfo)
-      const jsonData = JSON.stringify(Info);
-      console.log(jsonData);
+      const jsonDataS = JSON.stringify(Info);
+      // console.log(Info);
       // const vm = this;
-      this.$http.patch(api, jsonData, { headers }).then(response => {
+      this.$http.patch(api, jsonDataS, { headers }).then(response => {
         if (response.data.success) {
-          console.log(response.data.message);
-          console.log(response.data.result);
-          this.$message({
-            message: "恭喜你，更新成功",
-            type: "success"
-          });
+     
+          // console.log(response.data.result);
+        this.$notify({
+              title: "成功",
+              message: "檔案修改成功",
+              type: "success"
+            });
 
-          this.getOneUser(); //重新取得資料一次
+          // this.getOneUser(); //重新取得資料一次
         } else {
-          this.$message.error("错了哦，这是一条错误消息");
-          this.getOneUser();
+             this.$notify({
+              title: "失敗",
+              message: "檔案修改失敗",
+              type: "warning"
+            });
+          // this.getOneUser();
           console.log("failure");
         }
         //檔案建立成功

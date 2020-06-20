@@ -16,15 +16,15 @@
                 <span class="tracking-normal">--&gt;</span> SEA
               </p>
             </div>
-            <div class="p-12 px-10 ">
+            <div class="p-0 px-10 ">
               <div class="mb-3">
                 <div class="w-full flex flex-wrap">
-                  <div class="w-full flex-1 mt-5">
-                    <h3 class="text-center text-2xl text-blue-700 mb-3 tracking-widest">會 員 登入</h3>
+               <div class="w-full flex-1 ">
+                   <h3 class="text-center text-2xl text-blue-700 my-5 tracking-widest">會 員 登入</h3>
                     <div
                       class="flex md:flex-1 tracking-widestflex flex-col  items-center lg:justify-around justify-center"
                     >
-                      <button
+                      <!-- <button
                         class="mr-2  mb-4 w-full  font-semibold shadow-sm rounded-lg py-3 bg-blue-300 hover:bg-blue-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
                         <div class="bg-white p-2 rounded-full">
@@ -48,9 +48,9 @@
                           </svg>
                         </div>
                         <span class="ml-4">Sign Up with Google</span>
-                      </button>
+                      </button> -->
 
-                      <button
+                      <!-- <button
                         class="mr-2 lg:mb-0 mb-4 w-full  font-semibold shadow-sm rounded-lg py-3 bg-blue-300 hover:bg-blue-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
                         <div class="bg-white p-2 rounded-full">
@@ -66,10 +66,10 @@
                         </div>
                         <span class="ml-1">Sign Up with Facebook</span>
                     
-                      </button>
+                      </button> -->
                     </div>
 
-                    <div class="my-10  border-b-2 text-center  ">
+                  <div class="mb-5  border-b-2 text-center  ">
                       <div
                         class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
                       >Or sign up with e-mail</div>
@@ -218,13 +218,13 @@ export default {
           .then(res => {
             // console.log(res.data);
             if (res.data.success) {
+
+
+
               vm.$router.push("/home"); //登入成功轉到首頁
               this.userToken = `Bearer  ${res.data.token}`;
               this.token =res.data.token;
               this.Permission =res.data.Permission;
-              // console.log(this.Permission);
-         
-            
               this.$store.commit("LOGIN_USER", res.data);// 可以更新會員資料
               //將使用者token儲存到vuex中
               // this.changeLogin({ Authorization: this.userToken });重複使用undefined
@@ -244,33 +244,7 @@ export default {
           });
       }
     },
- 
-    
-    // login() {
-    //   // const data = { Email: this.user.Email, Password: this.user.Password };
 
-    //   // console.log(qs.stringify(data));
-    //   // console.log(data);
-    //   this.axios({
-    //     method: "post",
-    //     url: "http://findtrip.rocket-coding.com/api/login/memberlogin",
-    //     data: {
-    //       Email: this.user.Email,
-    //       Password: this.user.Password
-    //     },
-    //     headers: {
-    //       "Content-Type": "application/x-www-form-urlencoded"
-    //     }
-    //   })
-    //     .then(res => {
-    //       console.log(res);
-    //       this.$router.push("/home"); //登入成功轉到首頁
-    //       this.changeLogin({ Authorization: this.userToken });
-    //     })
-    //     .catch(err => {
-    //       console.log(err);
-    //     });
-    // }
   }
 };
 </script>
@@ -286,6 +260,10 @@ export default {
 }
 .max-w-450{
   max-width: 450px;
+}
+.form-head:before, .form-head:after {
+display: none;
+  
 }
 </style>
 

@@ -9,11 +9,11 @@
     >
       <!-- Article  @click="$router.push({ name: 'people', params: { id: item.id } })-->
        <router-link :to="{ name: 'people', params:{ id: item.id }}">
-      <article class="overflow-hidden rounded-lg shadow-lg bg-white">
+      <article class=" min-cardHeight  overflow-hidden rounded-lg shadow-lg bg-white">
         <a href="#">
           <img
             alt="Placeholder"
-            class="block h-auto w-full hover:opacity-50"
+            class="block object-cover min-h-180 w-full hover:opacity-50"
             :src="item.TPBGImg ? item.TPBGImg : 'https://picsum.photos/300/200?random=1' "
           />
         </a>
@@ -112,3 +112,14 @@ export default {
   // }
 };
 </script>
+<style scoped>
+
+.min-cardHeight{
+  min-height:400px
+}
+.min-h-180{
+  max-height: 180px;
+}
+
+
+</style>

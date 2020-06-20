@@ -2,6 +2,12 @@ import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App from './App.vue'
+import Loading from 'vue-loading-overlay' //component
+
+import 'vue-loading-overlay/dist/vue-loading.css' //style
+
+
+Vue.component('Loading', Loading); //loading 元件
 
 import { Button, Select, Dialog, Rate, InputNumber, Message, Upload, MessageBox, DatePicker, Alert, Notification } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css' //樣式一定要引入

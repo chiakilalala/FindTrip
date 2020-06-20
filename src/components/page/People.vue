@@ -40,7 +40,7 @@
                     <h3 class="text-xl text-blue-500 font-medium">簡介</h3>
                   </div>
 
-                  <div class="list-inside font-base text-gray-600 leading-5 ml-1">
+                  <div class="text-lg text-gray-700 ml-1 leading-8">
                     <div class="mb-2" v-html="traveler.TPExperience"></div>
                   </div>
 
@@ -51,10 +51,7 @@
                     <h3 class="text-xl text-blue-500 font-medium">經歷</h3>
                   </div>
 
-                  <p
-                    class="font-base text-gray-700 leading-6 ml-1"
-                    v-html="traveler.TravelPlanIntro"
-                  ></p>
+                  <p class="text-lg text-gray-700 leading-8 ml-1" v-html="traveler.TravelPlanIntro"></p>
 
                   <hr class="border-grey-light border-t my-6" />
 
@@ -153,7 +150,12 @@
                       >關於規劃師 {{traveler.PlannerName}}</h2>
                       <ul class="list-none">
                         <li class="w-1 h-2">
-                          <i class="ml-2 far fa-heart text-2xl align-items"></i>
+                          <a href="#" @click.prevent="toggleHeart">
+                            <i
+                              class="ml-2 far fa-heart text-2xl align-items"
+                              :class="{ 'text-red-500  fas' : isStar, '' : !isStar}"
+                            ></i>
+                          </a>
                         </li>
                       </ul>
                     </div>
@@ -199,7 +201,8 @@
                     <div class="flex px-12">
                       <!-- :href="`mailto:${item.PlannerEmail[0].Email}`" -->
                       <a
-                        href="https://m.facebook.com/messages/thread/230134660393770" target='_blank'
+                        href="https://m.facebook.com/messages/thread/230134660393770"
+                        target="_blank"
                         class="text-center cursor-pointer bg-blue-500 hover:bg-blue-400 text-white rounded-lg mt-3 w-full py-2 font-medium text-lg tracking-wider shadow font-huninn"
                       >聯絡諮詢</a>
                     </div>
@@ -221,9 +224,9 @@
     <!-- dialog -->
     <el-dialog :visible.sync="dialogVisible" top="8vh" width="65%">
       <div class>
-        <div class="flex container max-w-7xl mx-auto">
+        <div class="flex container max-w-7xl mx-auto ">
           <div class="w-full flex flex-row flex-wrap justify-center">
-            <div class="container mx-auto max-w-3xl round-xll overflow-hidden bg-white relative">
+            <div class="container mx-auto max-w-3xl round-xll overflow-hidden bg-white relative shadow-lgㄒ">
               <div
                 class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head"
                 style="background-image: url(https://content.api.news/v3/images/bin/11990db1d540d5c13ea8ca3e01f2083c)"
@@ -240,12 +243,8 @@
                   <div class="md:flex mb-8">
                     <div class="md:flex-1 md:pr-3">
                       <div class="md:flex-1 md:pr-3">
-                        <label
-                          class="block uppercase tracking-wide text-gray-700 text-base font-bold"
-                        >規劃國家:</label>
-                        <p
-                          class="border-b border-gray-300 py-2 px-0 text-base leading-normal"
-                        >{{traveler.country}}</p>
+                        <label class="order_title">規劃國家:</label>
+                        <p class="order_text">{{traveler.country}}</p>
                         <input v-model="form.country" />
                       </div>
                       <!-- <label
@@ -285,12 +284,8 @@
                       <!--<div class="text-xs text-gray-600">Help text</div>-->
                     </div>
                     <div class="md:flex-1 md:pl-3">
-                      <label
-                        class="block uppercase tracking-wide text-gray-700 text-base font-bold"
-                      >規劃城市旅遊 :</label>
-                      <p
-                        class="border-b border-gray-300 py-2 px-0 text-base leading-normal"
-                      >{{traveler.city}}</p>
+                      <label class="order_title">規劃城市旅遊 :</label>
+                      <p class="order_text">{{traveler.city}}</p>
                       <input v-model="form.city" />
                       <!-- <div class="relative">
                       <select
@@ -324,13 +319,14 @@
                     <div class="md:flex-1 md:pr-3">
                       <ValidationProvider v-slot="{ errors, classes }" name="行程日期" rules="required">
                         <label
-                          class="uppercase tracking-wide text-gray-700 text-base font-bold"
+                          class="order_title"
                         >行程的日期 範圍 :</label>
                         <div :class="classes" class="calerdar">
                           <el-date-picker
                             v-model="startTime"
                             name="行程日期"
                             type="daterange"
+                            :picker-options="pickerOptions"
                             range-separator="至"
                             start-placeholder="開始日期"
                             end-placeholder="结束日期"
@@ -344,9 +340,7 @@
                     </div>
                     <div class="md:flex-1 md:pl-3">
                       <ValidationProvider v-slot="{ errors, classes }" name="預算" rules="required">
-                        <label
-                          class="block uppercase tracking-wide text-gray-700 text-base font-bold"
-                        >預算 :</label>
+                        <label class="order_title">預算 :</label>
                         <div class="relative">
                           <select
                             class="text-base focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
@@ -382,14 +376,13 @@
 
                   <div class="mb-8">
                     <fieldset class="border-0">
-                      <legend class="text-gray-700 mb-2 font-bold">旅行喜好類型 （可多選）</legend>
+                      <legend class="order_title mb-2">旅行喜好類型 （可多選）</legend>
                       <label class="mr-1 text-gray-700 font-bold mb-2 inline-flex items-center">
                         <input
                           class="mr-1 leading-tight form-checkbox h-6 w-6"
                           type="checkbox"
                           v-model="form['Act']"
                           value="冒險"
-                        
                           name="type"
                         />
                         <span class="text-sm mx-4">冒險</span>
@@ -400,7 +393,6 @@
                           type="checkbox"
                           name="type"
                           v-model="form['Secret']"
-                       
                           value="秘境"
                         />
                         <span class="text-sm mx-4">秘境</span>
@@ -412,7 +404,6 @@
                           name="type"
                           v-model="form['Culture']"
                           value="文化"
-                       
                         />
                         <span class="text-sm mx-4">文化</span>
                       </label>
@@ -423,7 +414,6 @@
                           name="type"
                           v-model="form['Food']"
                           value="吃貨"
-                     
                         />
                         <span class="text-sm mx-4">吃貨</span>
                       </label>
@@ -434,7 +424,6 @@
                           v-model="form['Shopping']"
                           name="type"
                           value="購物"
-                       
                         />
                         <span class="text-sm mx-4">購物</span>
                       </label>
@@ -445,34 +434,24 @@
                           v-model="form['Religion']"
                           name="type"
                           value="宗教"
-                      
                         />
                         <span class="text-sm mx-4">宗教</span>
                       </label>
-
                     </fieldset>
                   </div>
 
                   <div class="md:flex mb-8">
                     <div class="md:flex-1 md:pr-3">
-                      <label class="block mb-2 tracking-wide text-gray-700 text-base font-bold">大人 :</label>
-                      <el-input-number
-                        class
-                        v-model="form.Adult"
-                        @change="handleChange"
-                        :min="0"
-                        :max="10"
-                        label="大人人數"
-                      ></el-input-number>
+                      <label class="block mb-2 tracking-wide text-gray-700 text-md font-bold">大人 :</label>
+                      <el-input-number class v-model="form.Adult" :min="0" :max="10" label="大人人數"></el-input-number>
                       <div class="text-sm text-red-600" v-if="isVaild">人數都不可為零</div>
                       <!--<div class="text-xs text-gray-600">Help text</div>-->
                     </div>
                     <div class="md:flex-1 md:pl-3">
-                      <label class="block mb-2 tracking-wide text-gray-700 text-base font-bold">小孩 :</label>
+                      <label class="block mb-2 tracking-wide text-gray-700 text-md font-bold">小孩 :</label>
 
                       <el-input-number
                         v-model="form.Children"
-                        @change="handleChange"
                         :min="0"
                         :max="10"
                         name="小孩人數"
@@ -560,6 +539,7 @@ export default {
   },
   data() {
     return {
+      isStar: false,
       dialogVisible: false,
       startTime: "",
       rating: [],
@@ -589,10 +569,33 @@ export default {
         Remark: ""
       },
       isVaild: false,
-      isBudget: false
+      isBudget: false,
+      pickerOptions : { 
+        // disabledDate是一個函數,參數是當前選中的日期值,這個函數需要返回一個Boolean值,
+        disabledDate : ( time ) => {   
+          // 如果函數處理比較簡單,可以直接在這裡寫邏輯方法
+          // return time.getTime() < Date.now() - 8.64e7
+ 
+          // 如果函數里處理的數據比較麻煩,也可以單獨放在一個函數里,避免data數據太臃腫
+          return this . dealDisabledDate ( time ) 
+        }
+      }, //日期設置對象 
     };
   },
   methods: {
+     dealDisabledDate ( time ) { 
+      // time.getTime是把選中的時間轉化成自1970年1月1日00:00:00 UTC到當前時間的毫秒數
+      // Date.now()是把今天的時間轉化成自1970年1月1日00:00:00 UTC到當前時間的毫秒數,這樣比較好比較
+      // return的值,true是不可以操作選擇,false可以操作選擇,比如下面這個判斷就只能選擇今天之後的時間
+      return time . getTime () < Date . now ()  
+ 
+      // 這裡減8.64e7的作用是,讓今天的日期可以選擇,如果不減的話,今天的日期就不可以選擇,判斷中寫<= 也是沒用的,一天的毫秒數就是8.64e7
+      // return time.getTime() <= Date.now()
+      // return time.getTime() < Date.now() - 8.64e7
+    },
+    toggleHeart() {
+      this.isStar = !this.isStar;
+    },
     selectTime(val) {
       this.startTime = val;
       console.log(val);
@@ -626,14 +629,15 @@ export default {
       }
     },
 
-    handleChange(value) {
-      console.log(value);
-    },
+    // handleChange(value) {
+    //   // console.log(value);
+    // },
     close() {
       this.dialogVisible = true;
     },
 
-    createdOrder() { //創建訂單
+    createdOrder() {
+      //創建訂單
       if (
         this.form.Children == 0 &&
         this.form.Adult == 0 &&
@@ -739,14 +743,14 @@ export default {
   created() {
     this.getProjects();
     this.LookPlan();
-
-    this.$store.dispatch("getOneUser");
-    // console.log(this.$store.state);
-    // this.checkPlan();
   }
 };
 </script>
 <style scoped>
+.form-head:before, .form-head:after {
+display: none;
+  
+}
 .el-dialog {
   background-color: #ebf8ff;
 }

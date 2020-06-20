@@ -208,7 +208,7 @@
           </div>
 
           <div class="mt-12 sm:flex items-start justify-between sm:-mx-2">
-            <div class="w-full bg-white rounded-lg shadow-lg py-8 px-4 sm:w-1/3 sm:mx-2 lg:mx-6">
+            <div class="max-h-350 w-full bg-white rounded-lg shadow-lg py-8 px-4 sm:w-1/3 sm:mx-2 lg:mx-6">
               <div class="h-24">
                 <img src="../assets/img/icon_home-01.png" alt class="w-32 mx-auto" />
               </div>
@@ -549,6 +549,8 @@ import TravelCard from "@/components/TravelCard.vue";
 import WishBoard from "@/components/WishBoard.vue";
 import ZDialog from "@/components/ZDialog.vue";
 
+import Loading from '@/components/Loading.vue';
+
 import { mapState, mapActions, mapMutations } from "vuex";
 //
 export default {
@@ -622,6 +624,7 @@ export default {
       ["WISHMESSAGE"]
     )
   },
+
   created() {
     this.getProjects();
      this.$store.dispatch("getOneUser");
@@ -632,6 +635,9 @@ export default {
 <style scoped>
 .min-h-180{
   min-height: 180px;
+}
+.max-h-350{
+  max-height: 350px;
 }
 .form-head:before, .form-head:after {
     background-color: #fff;

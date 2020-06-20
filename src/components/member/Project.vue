@@ -1,6 +1,8 @@
 <template>
   <div>
-    
+    <loading loader="bars" 
+        :active.sync="isLoading" 
+       ></loading>
       <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
@@ -29,7 +31,7 @@
     </div>
     <!-- 訂單目錄 -->
     <div
-      class="flex-1 text-gray-700 text-left bg-white py-5 my-2 rounded-lg shadow-lg mb-5"
+      class="py-0 flex-1 text-gray-700 text-left bg-white sm:py-0 md:py-5 my-2 rounded-lg shadow-lg mb-5"
       v-for="item   in plans"
       :key="item.id"
     >
@@ -37,32 +39,32 @@
         <div class="lg:flex-shrink-0 relative">
           <!-- {{  item}} -->
           <div
-            class="lg:mx-5 mx-4 h-48 lg:w-70 w-52 md:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l overflow-hidden"
+            class="mx-0 my-0 lg:mx-5 md:mx-0  h-48 lg:w-64 w-full  flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l overflow-hidde"
             :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}"
           ></div>
 
           <!-- :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}" -->
         </div>
         <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
-          <div class="px-4 mt-8 lg:px-0 lg:mt-0 h-full flex flex-col justify-between">
+          <div class="px-4 mt-8 lg:px-0 lg:mt-0 h-full flex   sm:flex-row lg:flex-col  justify-between">
             <p
-              class="block lg:mb-4 lg:text-lg mt-0 text-base leading-tight font-semibold text-gray-900"
+              class="block lg:mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               國家 ：
-              <span class="text-md">{{item.country}}</span>
+              <span class="text-md font-light">{{item.country}}</span>
             </p>
             <p
-              class="block lg:mb-4 lg:text-lg mt-0 text-base leading-tight font-semibold text-gray-900"
+              class="block lg:mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               城市區域 ：
               <!--item.city.join( ',' -->
-              <span class="text-md">{{item.city}}</span>
+              <span class="text-md font-light">{{item.city}}</span>
             </p>
             <p
-              class="block lg:mb-4 lg:text-lg mt-0 text-base leading-tight font-semibold text-gray-900"
+              class="block lg:mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               上架日期 ：
-              <span class="text-md font-thin">{{item.CreateOn.slice(0,10)}}</span>
+              <span class="text-md font-light">{{item.CreateOn.slice(0,10)}}</span>
             </p>
             <!-- item.CreateOn.substring(0,10) -->
             <div class="mt-0 lg:flex justify-between">
@@ -415,6 +417,7 @@ import { quillEditor } from "vue-quill-editor";
 export default {
   data() {
     return {
+       isLoading:false,
       dialogVisible: false,
       deleteModal: false,
 
@@ -509,15 +512,16 @@ export default {
       const headers = {
         Authorization: `Bearer ${token}`
       };
-
+      
       let api = `${process.env.VUE_APP_APIPATH}/plan/loadsingle`;
 
       // console.log(api);
       const vm = this;
-      // vm.isLoading = true;
+       vm.isLoading = true
       this.$http
         .get(api, { headers })
         .then(response => {
+           vm.isLoading = false
           // vm.isLoading = false;
           vm.plans = response.data.result;
     
@@ -585,7 +589,7 @@ export default {
       ).then(response => {
         // console.log(vm.temPlans);
         if (response.data.success) {
-
+  vm.isLoading = false
              this.$notify({
               title: "成功",
               message: "修改成功",

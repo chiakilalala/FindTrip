@@ -43,14 +43,7 @@
             <img :src="userInfo.manpic ? userInfo.manpic : userInfo.imageUrl" class="w-40 h-40 rounded-full object-cover" alt='個人大頭照' />
           </div>
 
-          <!-- <input
-           
-           
-            
-            class="w-full my-4 bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-1 px-3 rounded-full lg:ml-4 ml-0 text-sm shadow-md"
-            
-           
-          /> -->
+     
 
           <div class="flex   items-center  justify-center border-blue-500 mt-2">
     <label class="w-28 flex items-end py-1 px-3   rounded-full shadow-md  bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white cursor-pointer">
@@ -205,7 +198,7 @@ export default {
     ...mapMutations(["changeLogin"], ["Permission"]),
 
     uploadFile() {
-      console.log(this);
+     
       const uploadedFile = this.$refs.files.files[0]; //這是檔案上傳物件
       const vm = this;
       const formData = new FormData(); //新增新物件可以
@@ -220,7 +213,7 @@ export default {
           }
         })
         .then(response => {
-          console.log(response.data);
+          // console.log(response.data);
           
           if (response.data.success) {
          
@@ -247,7 +240,7 @@ export default {
         'Content-Type':'application/json'
       };
       let api = `${process.env.VUE_APP_APIPATH}login/update/test`;
-      const Info = {
+      const Infos = {
         name: this.userInfo.name,
         MemberIntro: this.userInfo.MemberIntro,
         Tel: this.userInfo.Tel,
@@ -255,20 +248,25 @@ export default {
         PlannerSocial1: this.userInfo.PlannerSocial1,
         PlannerSocial2: this.userInfo.PlannerSocial2
       };
-      const jsonData = JSON.stringify(Info);
-      console.log(Info);
-      const vm = this;
+      const jsonData = JSON.stringify(Infos);
+      // console.log(Infos);
+      // const vm = this;
       this.$http.patch(api, jsonData, { headers }).then(response => {
         if (response.data.success) {
           // console.log(response.data.message);
           // console.log(response.data.result);
-          this.$message({
-            message: "恭喜你，更新成功",
-            type: "success"
-          });
-          vm.getOneUser(); //重新取得資料一次
+           this.$notify({
+              title: "成功",
+              message: "檔案修改成功",
+              type: "success"
+            });
+          // vm.getOneUser(); //重新取得資料一次
         } else {
-          vm.getOneUser();
+             this.$notify({
+              title: "失敗",
+              message: "檔案修改失敗",
+              type: "warning"
+            });
           console.log("failure");
         }
         //檔案建立成功

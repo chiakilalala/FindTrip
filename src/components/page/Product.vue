@@ -10,7 +10,7 @@
       class="search-box container mx-auto max-w-5xl flex flex-col items-center h-112 lg:h-64 h-auto my-2 px-2 lg:px-0"
     >
       <div
-        class="shadow-lg flex flex-wrap w-full max-w-5xl  h-112 lg:h-64 bg-white rounded-lg z-30 relative search-box_inner"
+        class="shadow-lg flex flex-wrap w-full max-w-5xl h-112 lg:h-64 bg-white rounded-lg z-30 relative search-box_inner"
       >
         <div class="pt-0 bg-blue-prod h-1 0 px-5 py-12 w-full rounded-t-lg">
           <div class="flex justify-between lg:mt-2 mt-4 text-gray-200">
@@ -29,8 +29,8 @@
           </div>
         </div>
         <div class="w-full md:w-3/4 h-auto ticket">
-          <div class="flex flex-wrap  lg:mb-2 mb-0">
-            <div class="relative w-full   px-6 mb-1 lg:mb-6 md:mb-0">
+          <div class="flex flex-wrap lg:mb-2 mb-0">
+            <div class="relative w-full px-6 mb-1 lg:mb-6 md:mb-0">
               <label
                 class="block tracking-wide text-gray-700 text-md font-bold mb-2"
                 for="grid-state"
@@ -40,13 +40,12 @@
                 id="grid-state"
                 name="country"
                 v-model="filter"
-              
               >
                 <option value disabled selected>--請選擇你想要去的國家--</option>
-                 <option value="all">全部國家</option>
+                <option value="all">全部國家</option>
                 <option v-for="item in county" :key="item.id" :value="item">{{item}}</option>
               </select>
-           
+
               <div
                 class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700 select-arrow"
               >
@@ -72,9 +71,9 @@
                 id="grid-state"
                 name="city"
                 v-model="selected.city"
-              > -->
-                <!--   @change="list" -->
-                <!-- <option value="  " disabled selected>-- 請選擇 --</option>
+            >-->
+            <!--   @change="list" -->
+            <!-- <option value="  " disabled selected>-- 請選擇 --</option>
                 <option v-for="el in city" :key="el.id" :value="el.city">{{ el.city[0] }}</option>
               </select>
               <div
@@ -90,7 +89,7 @@
                   />
                 </svg>
               </div>
-            </div> -->
+            </div>-->
           </div>
         </div>
       </div>
@@ -99,13 +98,13 @@
     <div class="my-2 lg:ml-10 ml-2">
       <div class="container flex max-w-7xl mx-auto -mt-32">
         <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
-         <ul class="list-inline inline-flex hover:underlines">
-              <li class="pr-2">
-                  <router-link to="/home">
+          <ul class="list-inline inline-flex hover:underlines">
+            <li class="pr-2">
+              <router-link to="/home">
                 <i class="fa fa-home"></i>
-                   </router-link>
-                    <span class="mx-1">/</span>
-              </li>
+              </router-link>
+              <span class="mx-1">/</span>
+            </li>
             <li>旅行規劃師</li>
           </ul>
         </div>
@@ -124,6 +123,7 @@
               class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
               placeholder="請輸入關鍵字..."
               v-model.trim="searchText"
+              @keyup.enter="KeysearchData"
             />
             <div class="absolute top-0 left-0 inline-flex items-center p-2">
               <svg
@@ -143,7 +143,8 @@
             </div>
 
             <button
-              class="items-center   flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
+              @click="KeysearchData"
+              class="items-center flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
             >
               <i class="fas fa-search fa-lg"></i>
             </button>
@@ -225,9 +226,8 @@ export default {
   },
   data() {
     return {
-    
-      filter:'all',
-      searchText: '',
+      filter: "all",
+      searchText: "",
       tags: [],
 
       priceSelect: null,
@@ -236,15 +236,15 @@ export default {
     };
   },
   computed: {
-    ...mapState(["projects"], ["countries"],['SearchPlans']),
-
+    ...mapState(["projects"], ["countries"], ["SearchPlans"]),
 
     county() {
       //篩出國家
       return this.projects
-      .map(item => item.country) 
-      .filter((item, index, arr) => arr.indexOf(item) === index);
+        .map(item => item.country)
+        .filter((item, index, arr) => arr.indexOf(item) === index);
     },
+
     // city() {
     //   return this.$store.state.countries //篩出城市
     //   .filter(item => item.country === this.selected.country)
@@ -252,29 +252,12 @@ export default {
     //   // .filter((item, index, arr) => arr.indexOf(item) === index);
     // },
     filterData() {
-       if(this.filter == 'all'){
-         return this.projects;
-       }    
-       
-       return this.projects.filter((item) => item.country === this.filter);
-      //  if(this.$route.query.search){
-      //    return this.$store.state.SearchPlans
-      //  }
-      // return this.projects.filter(item => {
-      //         return item.country.includes(this.selected.country);
+      if (this.filter == "all") {
+        return this.projects;
+      }
 
-      // })
-      // return this.projects.filter(item => {
-      //   if (this.selected. country) {
-      //     return item.country.includes(this.selected.country);
-      //   }
-        // return (
-        //   item.country.includes(this.selected.country) 
-        //   // item.country.includes(this.selected.city)
-        //   // item.country.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1 ||
-        //   //  item.city.toLowerCase().indexOf(this.searchWord.toLowerCase())!== -1
-        // );
-      // });
+      return this.projects.filter(item => item.country === this.filter);
+ 
     },
     sortedRod() {
       return _.orderBy(this.projects, this.orderBy, this.orderOption);
@@ -293,31 +276,29 @@ export default {
 
       return tagFilterArr;
     },
-    keywordSearch() {
-      if (this.searchText) {
-        return this.filterData.filter(item => {
-          //item為變數 存放篩選後資料
-          // console.log(item);
-          let name = item.name.toLowerCase();
-          // let county = item.county;
-          // let city = item.city.toLowerCase();
-          let keyword = this.searchText.toLowerCase();
-          return (
-            name.indexOf(keyword) != -1
-        
-          );
-        });
-      } else {
-        return this.filterData;
-      }
-    },
+    // keywordSearch() {
+    //   if (this.searchText) {
+    //     return this.filterData.filter(item => {
+    //       //item為變數 存放篩選後資料
+    //       // console.log(item);
+    //       let name = item.name.toLowerCase();
+    //       // let county = item.county;
+    //       // let city = item.city.toLowerCase();
+    //       let keyword = this.searchText.toLowerCase();
+    //       return name.indexOf(keyword) != -1;
+    //     });
+    //   } else {
+    //     return this.filterData;
+    //   }
+    // },
     tagDisplay() {
       return tagName => {
         if (this.tags.includes(tagName) || this.tags.includes("all")) {
           return "activeTag";
         }
       };
-    }
+    },
+  
   },
 
   methods: {
@@ -368,80 +349,63 @@ export default {
     },
     searchData(query) {
       let api = `${process.env.VUE_APP_APIPATH}plan/search?search=${query}`;
-      this.$http.get(api).then(res => {
-        console.log(res);
-        if(res.data.success){
-          //  this.porjects = res.data.result;
+      this.$http
+        .get(api)
+        .then(res => {
+          console.log(res);
+          if (res.data.success) {
+            //  this.porjects = res.data.result;
+
+            this.$store.commit("setProjectInfo", res.data.result);
+            console.log(res.data.result);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
+    },
+    KeysearchData() {
+      let api = `${process.env.VUE_APP_APIPATH}plan/search?search=${this.searchText}`;
+      this.$http
+        .get(api)
+        .then(res => {
+          // console.log(res);
+          if (res.data.success) {
+           this.porjects = res.data.result;
           
-          this.$store.commit('setProjectInfo', res.data.result);
-          console.log(res.data.result);
-          
-        }
-        
-        // this.projects = 
-      }).catch(err=>{
-        console.log(err)
-      })
+            // this.$store.commit('setProjectInfo', res.data.result);
+          }
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
-
-    // searchp() {
-    //   if (this.search.trim() !== "") {
-    //     this.projects.filter(item => {
-    //       console.log(item);
-    //       return (
-    //         item.name.toLowerCase().indexOf(this.search.toLowerCase()) !== -1
-    //       );
-    //     });
-    //   } else {
-    //     return this.projects;
-    //   }
-    // }
-
-    // searchProject() {
-    //         let vm = this;
-
-    // let api = `https://next.json-generator.com/api/json/get/4y_gTejsO?search=${this.search}`;
-    // if (this.search === "") {
-    //   api = "https://next.json-generator.com/api/json/get/4y_gTejsO";
-    // } else {
-    //   fetch(api)
-    //     .then(rs => rs.json())
-    //     .then(data => {
-    //       this.projects = data;
-    //     });
-    // }
-    // const { data }  = await this.axios.get(api);
-    // console.log(data)
-    // return this.projects.filter(item => item.)
-  },
-  mounted() {
    
   },
-  created(){
-      const  query = this.$route.query.search;
-      console.log(query);
-      if(!query ){
-        this.getProjects();
-      }else{
-        this.searchData(query)
-      }
-      // 取得api
-      // console.log(this.$store.state.SearchPlans);
-    
+  mounted() {},
+  created() {
+    const query = this.$route.query.search;
+    // console.log(query);
+    if (!query) {
+      this.getProjects();
+    } else {
+      this.searchData(query);
+    }
+    // 取得api
+    console.log(this.projects)
+
   }
 };
 </script>
 
 <style>
 .barcode {
-   
-     top: 7px; 
- 
+  top: 7px;
 }
 .search-box {
   position: relative;
   top: -121px;
-      height: 18rem;
+  height: 18rem;
   /* margin-bottom: -126px; */
   margin: 0 auto;
   margin-top: -79px;
@@ -467,13 +431,11 @@ export default {
 .activeTag:hover {
   background-color: #bee3f8;
 }
-.barcode img{
+.barcode img {
   max-width: 200px;
   object-fit: fill;
 }
 .ticket:before {
- 
-   height: 16rem;
-   
+  height: 16rem;
 }
 </style>

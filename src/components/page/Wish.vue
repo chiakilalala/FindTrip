@@ -102,7 +102,7 @@
               <p class="inline-flex items-center py-2 lg:w-52 w-full">
                 <span class="ellipsis ext-gray-600 text-sm leading-loose">{{item.Comment2}}</span>
               </p>
-              <div class="py-2">
+              <!-- <div class="py-2">
                 <a href="#">
                   <img
                     alt="Placeholder"
@@ -110,7 +110,7 @@
                     src="https://picsum.photos/600/400/?random"
                   />
                 </a>
-              </div>
+              </div> -->
 
               <div class="flex items-center justify-end py-2">
                 <div class="text-gray-600 flex hover:text-blue-500 items-center mr-2">

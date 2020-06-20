@@ -1,5 +1,8 @@
 <template>
   <div>
+   <loading loader="bars" 
+        :active.sync="isLoading" 
+       ></loading>
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
@@ -15,7 +18,7 @@
       </div>
     </div>
     <!-- 書籤表示旅行家和規劃師 -->
-    <div class="mb-10 flex justify-between">
+    <div class="mb-10 flex justify-between" >
       <ul class="flex border-b" v-if=" $store.state.Permission == '02' ">
         <li class="-mb-px mr-1">
           <router-link
@@ -44,7 +47,7 @@
     >
       <!-- $router.push({ name: 'orderlist', params: { id: item.id } }) -->
       <div class="lg:flex" >
-        <div class="lg:flex-shrink-0 relative">
+        <div class="lg:flex-shrink-0 relative" v-if=' item.PlannerPic !=undefined && item.PlannerPic.length >= 1'>
           <img
             :src="item.PlannerPic[0].manpic"
             alt
@@ -152,6 +155,9 @@
       </div>
     </div>
 
+
+  
+  
     <!-- 訂單完成 -->
 
     <el-dialog :visible="centerVisibl" :before-close="beforeClose" width="50%" center>
@@ -383,18 +389,23 @@
       </div>
     </el-dialog>
   
+</div>
 
   
-  </div>
+ 
+
+  
 </template>
 
 <script>
 import QAModel from "@/components/QAModel.vue";
+
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   data() {
     return {
+      isLoading:false,
       value2: null,
       Oneorders: {}, //model資料
       dialogVisible: false,
@@ -413,7 +424,8 @@ export default {
     };
   },
   components: {
-    QAModel
+    QAModel,
+  
   },
 
   methods: {
@@ -431,15 +443,7 @@ export default {
       //呼叫單筆api
       this.centerVisibl = true;
     },
-    // switchState(id) {
-    //   // if( this.Oneorders.Status == 2) {
-    //   this.$set(this.Oneorders, "Status", 3);
-
-    //   console.log(this.Oneorders.Status);
-
-    //   // console.log(id); //看id
-    //   // this.travelOrder(id);//更新api
-    //   this.centerVisibl = false;
+  
 
     //   //單筆訂單整理
     // },
@@ -508,12 +512,18 @@ export default {
       const vm = this;
 
       vm.orderId = this.$route.params.id;
+      
       let api = `${process.env.VUE_APP_APIPATH}/order/loadsingle/${id}`;
+
+      vm.isLoading = true
       this.$http.get(api, { headers }).then(res => {
+        vm.isLoading = false
         if (res.data.success) {
+        
           vm.Oneorders = res.data.result[0];
           vm.dialogVisible = true;
           console.log(vm.Oneorders);
+        
         }
       });
     },
@@ -579,6 +589,7 @@ export default {
   },
   mounted() {},
   created() {
+   
     this.$store.dispatch("getProjects");
 
     this.checkOrder();

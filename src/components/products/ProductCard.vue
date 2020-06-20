@@ -1,12 +1,12 @@
 <template>
   <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2  cursor-pointer">
     
-    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="(item) in projects.slice(0,6)" :key="item.id" >
+    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="item in projects.slice(0,6)" :key="item.id" >
       <!-- Article @click="$router.push({ name: 'people', params: { id: item.id } }) -->
       <router-link :to="{ name: 'people', params:{ id: item.id }}">
-      <article class="overflow-hidden rounded-lg shadow-lg bg-white">
+      <article class=" min-cardHeight overflow-hidden rounded-lg shadow-lg bg-white">
         <a href="#">
-          <img alt="Placeholder" class="block h-auto w-full hover:opacity-50" :src="item.TPBGImg ? item.TPBGImg : 'https://picsum.photos/300/200?random=1' "  />
+          <img alt="Placeholder" class="min-h-180 object-cover block h-auto w-full hover:opacity-50" :src="item.TPBGImg ? item.TPBGImg : 'https://picsum.photos/300/200?random=1' "  />
         </a>
         <div class="flex justify-content-end relative people">
           <img
@@ -97,3 +97,12 @@ export default {
   }
 };
 </script>
+<style>
+.min-cardHeight{
+  min-height:400px
+}
+.min-h-180{
+  max-height: 180px;
+}
+
+</style>
