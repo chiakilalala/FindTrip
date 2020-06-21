@@ -1,5 +1,6 @@
 <template>
   <div>
+      <loading loader="bars" :active.sync="isLoading"></loading>
       <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
@@ -10,7 +11,7 @@
             <span class="mx-1">/</span>
           </li>
 
-          <li class="pr-2">訂單記錄</li>
+          <li class="pr-2"> 訂單記錄</li>
         </ul>
       </div>
     </div>
@@ -374,6 +375,7 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
+       isLoading: false,
       value:3,
       count: 1,
       OneTraveler: {
@@ -397,7 +399,7 @@ export default {
     openComment(item){
      this.commentVisible = true;
      this.comment = Object.assign({}, item); //資料傳餐特性
-     console.log(this.comment)
+    //  console.log(this.comment)
     },
     beforeClose(done) {
       this.dialogVisible = false;
@@ -408,27 +410,21 @@ export default {
     switchState(item) {
       if (this.OneTraveler[0].Status == 0) {
         this.$set(this.OneTraveler, "Status", 1);
-        console.log(this.OneTraveler.Status);
+        // console.log(this.OneTraveler.Status);
       } else if (this.OneTraveler[0].Status == 1) {
         this.$set(this.OneTraveler, "Status", 2);
-        console.log(this.OneTraveler.Status);
+      
       } else if (this.OneTraveler[0].Status == 2) {
         this.$set(this.OneTraveler, "Status", 3);
-        console.log(this.OneTraveler.Status);
+ 
       }
 
-      console.log(item); //看id
+      // console.log(item); //看id
       this.travelOrder(item);//更新api
 
       //單筆訂單整理
     },
-    // switchState2(item) {
-    //   this.$set(this.OneTraveler[0], "Status", 3);
-    //   console.log(this.OneTraveler[0].Status);
-
-    //   this.travelOrder(item);
-    //   //單筆訂單整理
-    // },
+¥
 
     ...mapActions(["sellerOrder"], ["getOrder"], ["getProjects"]),
     ...mapMutations(
@@ -448,10 +444,12 @@ export default {
 
       vm.orderId = this.$route.params.id;
       let api = `${process.env.VUE_APP_APIPATH}order/sellersingle/${id}`;
+       vm.isLoading = true;
       this.$http.get(api, { headers }).then(res => {
         if (res.data.success) {
+           vm.isLoading = false;
           vm.OneTraveler = res.data.result;
-          console.log(vm.OneTraveler);
+          // console.log(vm.OneTraveler);
           vm.dialogVisible = true;
         }
       });
@@ -477,7 +475,7 @@ export default {
         )
         .then(res => {
           if (res.data.success) {
-            console.log(res.data.message);
+            // console.log(res.data.message);
             // console.log(vm.sellerOrder());
             vm.sellerOrder(); //重新全部取得資料一次
           } else {
@@ -503,14 +501,14 @@ export default {
         star:this.comment.star,
         RatingContent: this.comment.RatingContent,
       };
-      console.log(Info)
-      console.log(id)
+      // console.log(Info)
+      // console.log(id)
       this.$http
           .post(api,Info ,{headers})
           .then(res => {
             
             if (res.data.success) {
-             console.log(res.data);
+            //  console.log(res.data);
              vm.commentVisible = false;
          
 

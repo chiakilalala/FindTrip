@@ -1,7 +1,7 @@
 <template>
   <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2  cursor-pointer">
     
-    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="item in projects.slice(0,6)" :key="item.id" >
+    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="item in randomProject" :key="item.id" >
       <!-- Article @click="$router.push({ name: 'people', params: { id: item.id } }) -->
       <router-link :to="{ name: 'people', params:{ id: item.id }}">
       <article class=" min-cardHeight overflow-hidden rounded-lg shadow-lg bg-white">
@@ -90,7 +90,11 @@ export default {
   },
  
   computed: {
-   
+     randomProject(){
+      const projects = [...this.projects]
+      return projects.sort(() => Math.random() - 0.5).splice(0, 6)
+      // return rooms.sort((a, b) => b.holidayPrice - a.holidayPrice).splice(0, 3)
+     }
     // 使用展開運算符將 mapGetters 混合到外部物件中
 
 

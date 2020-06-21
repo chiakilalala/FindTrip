@@ -116,14 +116,13 @@
 
     <el-dialog title="編輯旅行計劃" :visible.sync="dialogVisible" width="70%">
       <ValidationObserver ref="form">
-      
-        
-  
         <div
           class="lg:px-10 pt-3 pb-5 px-2 flex-1 text-gray-700 text-left bg-white rounded-lg shadow-lg mb-10"
         >
           <div class="lg:flex flex-col">
-              <span class="text-right text-red-200 text-md ">*</span>為必填項目
+            <span class="text-right">
+              <span class="text-red-500 text-lg">*</span>為必填項目
+            </span>
             <div
               class="text-xl text-gray-600 font-medium mb-3 border-l-4 border-transparent border-blue-400 pl-3"
             >上傳背景圖</div>
@@ -238,7 +237,7 @@
                   <div
                     class="text-xl text-gray-600 font-medium mb-3 border-l-4 border-transparent border-blue-400 pl-3"
                   >
-                    <span class="text-red-200 text-xs">*</span>點數設定
+                    <span class="text-red-500 text-md">*</span>點數設定
                   </div>
                   <div :class="classes">
                     <input
@@ -328,7 +327,7 @@
               <div class="ml-0 lg:ml-10 w-full lg:w-1/2 text-xl text-gray-800 leading-normal">
                 <label class="block mb-6">
                   <div class="text-md text-gray-600 font-medium mb-3">
-                    <span class="text-red-200 text-xs">*</span>國家 :
+                    <span class="text-red-500 text-md">*</span>國家 :
                     <span class="text-gray-500 text-md font-mono">{{temPlans.country}}</span>
                   </div>
                   <ValidationProvider rules="required" v-slot="{ errors, classes }" name="國家">
@@ -347,7 +346,7 @@
                 <label class="block mb-6">
                   <ValidationProvider rules="required" v-slot="{ errors, classes }" name="城市">
                     <div class="text-md text-gray-600 font-medium mb-3">
-                      <span class="text-red-200 text-xs">*</span>城市
+                      <span class="text-red-500 text-md">*</span>城市
                       <span class="text-gray-500 text-md font-mono">{{temPlans.city}}</span>
                     </div>
 
@@ -606,7 +605,7 @@ export default {
       const vm = this;
 
       let httpMethod = "post";
-      vm.isLoading = true;
+     
       if (!vm.isNew) {
         //假設產品不是新的
         api = `${process.env.VUE_APP_APIPATH}plan/update/${vm.temPlans.id}`;
@@ -614,50 +613,61 @@ export default {
       }
       // console.log(api, "update");
 
-      this.$http[httpMethod](
-        api,
-        {
-          country: this.temPlans.country,
-          city: this.temPlans.city,
-          points: this.temPlans.points,
-          TPExperience: this.temPlans.TPExperience,
-          TravelPlanIntro: this.temPlans.TravelPlanIntro,
-          TPBGImg: this.temPlans.TPBGImg,
-          Cpicture: this.temPlans.Cpicture,
-          Religion: this.temPlans.Religion,
-          Secret: this.temPlans.Secret,
-          Act: this.temPlans.Act,
-          Food: this.temPlans.Food,
-          Culture: this.temPlans.Culture,
-          Shopping: this.temPlans.Shopping
-        },
-        { headers }
-      ).then(response => {
-        vm.isLoading = false;
-        // console.log(vm.temPlans);
-        if (response.data.success) {
-          this.$notify({
-            title: "成功",
-            message: "修改成功",
-            type: "success"
-          });
+      if (
+        this.temPlans.country == "" &&
+        this.temPlans.city == "" 
+      ) {
+        this.$swal({
+          icon: "error",
+          title: "帳號密碼不得為空"
+        });
+      } else {
+       
+        this.$http[httpMethod](
+          api,
+          {
+            country: this.temPlans.country,
+            city: this.temPlans.city,
+            points: this.temPlans.points,
+            TPExperience: this.temPlans.TPExperience,
+            TravelPlanIntro: this.temPlans.TravelPlanIntro,
+            TPBGImg: this.temPlans.TPBGImg,
+            Cpicture: this.temPlans.Cpicture,
+            Religion: this.temPlans.Religion,
+            Secret: this.temPlans.Secret,
+            Act: this.temPlans.Act,
+            Food: this.temPlans.Food,
+            Culture: this.temPlans.Culture,
+            Shopping: this.temPlans.Shopping
+          },
+          { headers }
+        ).then(response => {
+       
+          // console.log(vm.temPlans);
+          if (response.data.success) {
+            this.$notify({
+              title: "成功",
+              message: "修改成功",
+              type: "success"
+            });
 
-          this.dialogVisible = false; //新增成功的話就會關掉視窗並取得遠端的內容
-          vm.getPlans(); //重新取得資料一次
+            this.dialogVisible = false; //新增成功的話就會關掉視窗並取得遠端的內容
+            vm.getPlans(); //重新取得資料一次
 
-          // console.log(this.getPlans);
-        } else {
-          this.$notify({
-            title: "警告",
-            message: "修改失敗",
-            type: "warning"
-          });
-          vm.getPlans(); //重新取得資料一次
-          console.log("failure");
-        }
-        // vm.isLoading = false;
-        // vm.plans = response.data.result;
-      });
+            // console.log(this.getPlans);
+          } else {
+            this.$notify({
+              title: "警告",
+              message: "修改失敗",
+              type: "warning"
+            });
+            vm.getPlans(); //重新取得資料一次
+            console.log("failure");
+          }
+          // vm.isLoading = false;
+          // vm.plans = response.data.result;
+        });
+      }
     },
     uploadPic() {
       //上傳國家背景圖
@@ -665,6 +675,7 @@ export default {
       // console.log(this);
       const uploadedPic = this.$refs.files.files[0]; //這是檔案上傳物件
       const vm = this;
+      vm.isLoading = true;
       const formData = new FormData(); //新增新物件可以
       formData.append("pic-to-upload", uploadedPic); //新增物件
       let url = `${process.env.VUE_APP_APIPATH}plan/cyimg`;
@@ -678,6 +689,7 @@ export default {
         })
         .then(response => {
           if (response.data.success) {
+            vm.isLoading = false;
             // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定
             this.$notify({
               title: "成功",
@@ -708,8 +720,9 @@ export default {
       const picData = new FormData(); //新增新物件可以
       picData.append("fileupload", uploadedFile); //新增物件
       let url = `${process.env.VUE_APP_APIPATH}plan/bgimg`;
- vm.isLoading = true;
+
       // vm.status.fileUploading =true;//接受到之後就圖片打開
+      vm.isLoading = true;
       this.$http
         .post(url, picData, {
           headers: {
@@ -718,7 +731,7 @@ export default {
           }
         })
         .then(response => {
-           vm.isLoading = false;
+          vm.isLoading = false;
           // vm.status.fileUploading =false;//接受到之後就圖片隱藏
           if (response.data.success) {
             // vm.tempProduct.imageUrl = response.data.imageUrl;// 這樣是沒辦法用vue雙像綁定

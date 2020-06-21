@@ -1,5 +1,6 @@
 <template>
   <div>
+      <loading loader="bars" :active.sync="isLoading"></loading>
     <!-- NavBar Component v-for="item in traveler" :key="item.id" -->
     <NavBar />
 
@@ -239,7 +240,7 @@
                 </p>
               </div>
               <ValidationObserver>
-                <div class="p-10 px-22">
+                <div class="p-10 px-22 border border-gray-500 shadow-xs">
                   <div class="md:flex mb-8">
                     <div class="md:flex-1 md:pr-3">
                       <div class="md:flex-1 md:pr-3">
@@ -247,71 +248,15 @@
                         <p class="order_text">{{traveler.country}}</p>
                         <input v-model="form.country" />
                       </div>
-                      <!-- <label
-                      class="block uppercase tracking-wide text-gray-700 text-md font-bold"
-                      >國家 :</label>-->
-                      <!-- <ValidationProvider 
-                     v-slot="{ errors, classes }"
-                     name="country"  
-                     rules="required" 
-                     class="relative">
-                      <select
-                        class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
-                        id="grid-state" name="country" :class="classes"
-                        v-model="form.country"
-                      >
-                        <option disabled>-請選擇國家-</option>
-                        <option value="日本">日本</option>
-                        <option value="美國">美國</option>
-                        <option value="義大利">義大利</option>
-                      </select>
-                      <div
-                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-                      >
-                        <svg
-                          class="fill-current h-4 w-4"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                          />
-                        </svg>
-                      </div>
-                       <div class="text-sm text-red-600">{{ errors[0] }}</div>
-                      </ValidationProvider>-->
+                    
 
-                      <!--<div class="text-xs text-gray-600">Help text</div>-->
+                 
                     </div>
                     <div class="md:flex-1 md:pl-3">
                       <label class="order_title">規劃城市旅遊 :</label>
                       <p class="order_text">{{traveler.city}}</p>
                       <input v-model="form.city" />
-                      <!-- <div class="relative">
-                      <select
-                        class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
-                        id="grid-state"
-                        v-model="form.city"
-                      >
-                        <option disabled>-請選擇城市-</option>
-                        <option value="大阪">大阪</option>
-                        <option value="京都">京都</option>
-                        <option value="神戶">神戶</option>
-                      </select>
-                      <div
-                        class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-                      >
-                        <svg
-                          class="fill-current h-4 w-4"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 20 20"
-                        >
-                          <path
-                            d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                          />
-                        </svg>
-                      </div>
-                      </div>-->
+                    
                     </div>
                   </div>
 
@@ -539,6 +484,7 @@ export default {
   },
   data() {
     return {
+       isLoading: false,
       isStar: false,
       dialogVisible: false,
       startTime: "",
@@ -602,7 +548,7 @@ export default {
     },
     //api 動作
     ...mapActions(["getProjects"], ["LookPlan"], ["getOneUser"]),
-    ...mapMutations(["setProjectInfo"], ["LOOKPLAN"], ["GETORDER"]),
+    ...mapMutations(["setProjectInfo"], ["LOOKPLAN"], ["GETORDER"],["UPDATE_USER"],),
     getOrder() {
       if (!this.$store.state.token) {
         this.$notify.info({
@@ -668,7 +614,7 @@ export default {
         };
 
         const vm = this;
-
+       vm.isLoading = true;
         const api = `${process.env.VUE_APP_APIPATH}/order/create`;
         this.$http
           .post(
@@ -693,12 +639,13 @@ export default {
             { headers: headers }
           )
           .then(res => {
+           
             if (res.data.success) {
               console.log("訂單建立", res.data.result);
               this.dialogVisible = false;
-
+              vm.isLoading = false;
               vm.checkOrder = res.data.result;
-              console.log(vm.checkOrder);
+              // console.log(vm.checkOrder);
               this.$store.dispatch("checkOrder");
               // vm.checkPlan();
               vm.$router.push(`/order/${res.data.result[0].id}`);
@@ -715,8 +662,11 @@ export default {
       //檢視旅行家內頁
       const vm = this;
       let api = `${process.env.VUE_APP_APIPATH}plan/inner/${this.$route.params.id}`;
+      vm.isLoading = true;
       this.$http.get(api).then(res => {
+
         if (res.data.success) {
+             vm.isLoading = false;
           vm.traveler = res.data.result;
           vm.rating = res.data.result.rating;
 
@@ -743,6 +693,8 @@ export default {
   created() {
     this.getProjects();
     this.LookPlan();
+
+     this.$store.dispatch("getOneUser");
   }
 };
 </script>
@@ -765,7 +717,7 @@ display: none;
 .el-date-editor--daterange.el-input__inner {
   width: 100%;
 }
-.el-date-editor .el-range-separator {
+.calerdar .el-date-editor .el-range-separator {
   line-height: 31px;
   padding: 0;
 }

@@ -41,35 +41,35 @@
               <div class="md:flex mb-8">
                 <div class="md:flex-1 md:pr-3">
                   <label
-                    class="block uppercase tracking-wide text-gray-700 text-base font-bold"
+                    class="order_title"
                   >會員姓名:</label>
                   <p
-                    class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                    class="order_text"
                   >{{orderInfo.name}}</p>
                
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label
-                    class="block uppercase tracking-wide text-gray-700 text-base font-bold"
+                    class="order_title"
                   >電子信箱:</label>
                   <p
-                    class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                    class="order_text"
                   >{{orderInfo.Email}}</p>
                 </div>
               </div>
 
               <div class="md:flex mb-8">
                 <div class="md:flex-1 md:pr-3">
-                  <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">國家:</label>
+                  <label class="order_title">國家:</label>
                   <p
-                    class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                    class="order_text"
                   >{{orderInfo.country}}</p>
                
                 </div>
                 <div class="md:flex-1 md:pl-3">
-                  <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">區域:</label>
+                  <label class="order_title">規劃城市旅遊:</label>
                   <p
-                    class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                    class="order_text"
                   >{{orderInfo.city}}</p>
                 </div>
               </div>
@@ -77,25 +77,25 @@
               <div class="md:flex mb-8">
                 <div class="md:flex-1 md:pr-3">
                   <label
-                    class="block uppercase tracking-wide text-gray-700 text-base font-bold"
+                    class="order_title"
                   >行程的日期 範圍 :</label>
                   <p
-                    class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                    class="order_text"
                   >
                     {{orderInfo.DepartureTime1}} ~  {{orderInfo.DepartureTime2}}
                   </p>
                 </div>
                 <div class="md:flex-1 md:pl-3">
-                  <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">預算:</label>
+                  <label class="order_title">預算:</label>
                   <p
-                    class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                    class="order_text"
                   > {{orderInfo.Budget}}</p>
                 </div>
               </div>
 
               <div class="mb-8">
                 <fieldset class="border-0">
-                  <legend class="text-gray-700 mb-2 font-bold">旅行喜好類型 :</legend>
+                  <legend class="order_title mb-2 ">旅行喜好類型 :</legend>
                   <div
                     class="people_wrap mt-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center"
                   >
@@ -114,15 +114,15 @@
 
               <div class="md:flex mb-8">
                 <div class="md:flex-1 md:pr-3">
-                  <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">大人:</label>
+                  <label class="order_title">大人:</label>
                   <p
-                    class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                    class="order_text"
                   >{{orderInfo.Adult}} 人</p>
                 </div>
                 <div class="md:flex-1 md:pl-3">
-                  <label class="block uppercase tracking-wide text-gray-700 text-base font-bold">小孩:</label>
+                  <label class="order_title">小孩:</label>
                   <p
-                    class="bg-white focus:outline-none border-b border-gray-300 py-2 px-0 mt-2 block w-full appearance-none leading-normal"
+                    class="order_text"
                   >{{orderInfo.Children}} 人</p>
                 </div>
               </div>

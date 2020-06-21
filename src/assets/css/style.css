@@ -295,6 +295,18 @@ body {
     animation: animate calc(10s * var(--i)) linear infinite;
 }
 
+.car {
+    position: absolute;
+    left: 0;
+    bottom: -10px;
+    transform: translateX(-111%);
+}
+
+.car.animated {
+    transform: translateX(48%);
+    transition: 2s ease-out;
+}
+
 @keyframes animate {
     0% {
         transform: translateX(-100%);

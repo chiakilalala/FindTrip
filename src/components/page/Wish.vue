@@ -1,5 +1,6 @@
 <template>
   <div>
+        <loading loader="bars" :active.sync="isLoading"></loading>
     <!-- NavBar Component -->
     <NavBar />
     <!-- banner -->
@@ -8,30 +9,36 @@
       <div
         class="mt-10 lg:px-5 p-6 py-12 flex container max-w-7xl mx-auto member flex flex-wrap items-center justify-around"
       >
+      <div class="post">
         <div
-          class="border border-gray-100 lg:py-0 py-10 flex-col mt-10 container max-w-7xl bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
+          class="  py-10 px-10 border border-gray-100 py-10 flex-col  container max-w-7xl bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
         >
           <h2 class="text-4xl text-teal-900">
             願望成真！
             <i class="fab fa-gratipay"></i>
           </h2>
-          <p class="text-xl">
+          <p class="text-xl text-gray-700">
             如果願望累積到 50個
-            <i class="fas fa-heart text-2xl"></i>，Find Trip 將為大家找知名旅行家大人來設計行程!
+            <i class="fas fa-heart "></i>，Find Trip 將為大家找知名旅行家大人來設計行程!
           </p>
+          </div>
         </div>
       </div>
     </div>
 
     <!-- 麵包屑 -->
     <div class="my-2 lg:ml-10 ml-2">
-      <div class="container flex max-w-7xl mx-auto -mt-32">
+      <div class="container flex max-w-7xl mx-auto ">
         <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
           <ul class="list-inline inline-flex hover:underlines">
-            <li class>
-              <i class="fa fa-home">/</i>
-            </li>
-            <li>許願池</li>
+              <li class="pr-2">
+                <router-link to="/home">
+                  <i class="fa fa-home hover:text-blue-500"></i>
+                </router-link>
+                <span class="mx-1">/</span>
+              </li>
+              
+            <li class="pr-2"> <router-link to="/wish" class="hover:text-blue-500">許願池</router-link></li>
           </ul>
         </div>
       </div>
@@ -80,12 +87,12 @@
           </div>-->
         </div>
         <div
-          class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3"
+          class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3 cursor-pointer"
           @click="getWish(item.id)"
           v-for="item in wishBoard"
           :key="item.id"
         >
-          <div class="overflow-hidden bg-white round-xll shadow sample hover:shadow-xl transition">
+          <div class="overflow-hidden bg-white round-xll shadow sample hover:shadow-md  transition duration-500 ease-in-out  transform hover:bg-gray-200 hover:-translate-y-8">
             <div class="p-6 flex flex-col justify-between">
               <div class="flex items-center">
                 <div class="flex items-center">
@@ -194,10 +201,10 @@
                         class="mx-auto w-16 h-16 rounded-full"
                       />
                     </div>
-                    <span class="text-lg pl-2">{{ wishMessage.name}}</span>
+                    <span class="text-lg pl-2 text-gray-700 ">{{ wishMessage.name}}</span>
 
-                    <div class="text-sm pl-2 flex items-end">
-                      <div>{{ wishMessage.CreateOn}}</div>
+                    <div class="text-sm pl-2 flex items-end" v-if="wishMessage.CreateOn || ''" > 
+                      <div>{{ wishMessage.CreateOn.slice(0,10)}}</div>
                     </div>
                   </div>
                 </div>
@@ -286,7 +293,10 @@
                 </div>
                 <div class="w-full flex flex-col items-stretch text-lg pl-20 text-gray-400">
                   <span class="text-base mb-3">{{item.name}}</span>
+                      <div class="font-medium mb-7 bg-white rounded-lg h-auto p-5">
+
                   <p class="text-lg text-gray-500 leading-loose">{{item.NewComment}}</p>
+                  </div>
                 </div>
               </div>
               <!-- <div class="my-3 border-gray-300 border-t pb-5">
@@ -401,6 +411,7 @@ export default {
   },
   data() {
     return {
+       isLoading: false,
       wishBoard: [],
       relyMessage: {},
       wishMessage: {},
@@ -574,6 +585,21 @@ export default {
 .form-head:before,
 .form-head:after {
   background-color: #fff;
+}
+.post{
+  
+
+  background: repeating-linear-gradient(45deg, #114abc, #114abc 10px, #fff 10px, #fff 20px, #bf2010 20px, #bf2010 30px, #fff 30px, #fff 40px);
+  padding: 20px;
+  border-radius: 6px;
+  box-shadow: 1px 2px 6px 1px rgba(76, 66, 47, 0.75);
+  /* width: calc(100% - 24px);
+  height: calc(100% - 24px); */
+  /* position: absolute;
+  top: -8px;
+  left: -8px;
+  z-index: -1; */
+
 }
 </style>
 

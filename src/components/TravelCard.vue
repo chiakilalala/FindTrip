@@ -107,9 +107,7 @@ export default {
       // value:4.5
     };
   },
-  // computed: {
-  //   ...mapState(["projects"])
-  // }
+ 
 };
 </script>
 <style scoped>

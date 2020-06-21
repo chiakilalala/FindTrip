@@ -3,6 +3,8 @@ import axios from 'axios'
 import VueAxios from 'vue-axios'
 import App from './App.vue'
 import Loading from 'vue-loading-overlay' //component
+import animated from 'animate.css'; //引入animate.css
+Vue.use(animated);
 
 import 'vue-loading-overlay/dist/vue-loading.css' //style
 

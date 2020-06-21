@@ -100,12 +100,12 @@
         <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
           <ul class="list-inline inline-flex hover:underlines">
             <li class="pr-2">
-              <router-link to="/home">
+              <router-link to="/home" class="hover:text-blue-500">
                 <i class="fa fa-home"></i>
               </router-link>
-              <span class="mx-1">/</span>
+             <span class="mx-1">/</span>
             </li>
-            <li>旅行規劃師</li>
+            <li><router-link to="/product" class="hover:text-blue-500">旅行規劃師</router-link></li>
           </ul>
         </div>
       </div>
@@ -236,7 +236,7 @@ export default {
     };
   },
   computed: {
-    ...mapState(["projects"], ["countries"], ["SearchPlans"]),
+    ...mapState(["projects"], ["countries"], ["SearchPlans"],["userInfo"]),
 
     county() {
       //篩出國家
@@ -303,7 +303,7 @@ export default {
 
   methods: {
     //api 動作
-    ...mapActions(["getProjects"]),
+    ...mapActions(["getProjects"],["getOneUser"]),
     ...mapMutations(["setProjectInfo"], ["UPDATE_USER"], ["Setcounty"]),
     handleSearch: _.debounce(function() {
       this.keywordSearch;
@@ -384,6 +384,7 @@ export default {
   },
   mounted() {},
   created() {
+         this.$store.dispatch("getOneUser");
     const query = this.$route.query.search;
     // console.log(query);
     if (!query) {

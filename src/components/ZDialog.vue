@@ -24,7 +24,7 @@
                     </div>
                     <span class="text-lg pl-2">{{ wishMessage.name}}</span>
 
-                    <div class="text-xs text-gray-500 pl-2 flex items-end">
+                    <div class="text-xs text-gray-500 pl-2 flex items-end" v-if=' wishMessage.CreateOn !=undefined '>
                       <div>{{ wishMessage.CreateOn.slice(0,10)}}</div>
                     </div>
                   </div>
@@ -219,6 +219,7 @@ export default {
                 message: "留言順利"
               });
               vm.getWish(id);
+          
             }
           })
           .catch(err => {
@@ -228,11 +229,14 @@ export default {
               type: "warning"
             });
              vm.getWish(id);
+           
           });
       }
     }
   },
-  created() {}
+  created() {
+    this.getProjects();
+  }
 };
 </script>
 
