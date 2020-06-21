@@ -336,10 +336,10 @@ a.changeLogo {
     -webkit-transition: transform .2ms ease, background .3s ease;
 }
 
-#header .w-full.container {
-    /* position: relative;
-  top: 50%;
-  transform: translateY(-50%); */
+#header.active {
+    background: #cde6f6d9;
+    z-index: 999;
+    height: 46vh;
 }
 
 

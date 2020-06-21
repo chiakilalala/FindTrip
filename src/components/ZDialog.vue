@@ -114,7 +114,9 @@
                 </div>
                 <div class="w-full flex flex-col items-stretch text-lg pl-20 text-gray-400">
                   <span class="text-base mb-3">{{item.name}}</span>
+                      <div class="font-medium mb-7 bg-white rounded-lg h-auto p-5">
                   <p class="text-lg text-gray-500 leading-loose">{{item.NewComment}}</p>
+                      </div>
                 </div>
               </div>
               <!-- <div class="my-3 border-gray-300 border-t pb-5">

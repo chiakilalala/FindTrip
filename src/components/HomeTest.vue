@@ -21,75 +21,72 @@
                 class="text-center lg:text-left font-thin leading-normal text-xl mb-4 md:text-gray-600 lg:text-gray-700"
               >專人量身打造行程，滿足您的旅行願望 ，省時旅遊超容易</p>
 
-              <div class="  my-10">
-                <div class="relative  overflow-hidden flex  ">
-  <div
-      class="search-box container mx-auto max-w-6xl flex flex-col items-center h-112 lg:h-64 h-auto my-2 px-2 lg:px-0"
-    >
-      <div
-        class="shadow-lg flex flex-wrap w-full max-w-5xl  h-112 lg:h-64 bg-white rounded-lg z-30 relative search-box_inner"
-      >
-        <div class="pt-0 bg-blue-prod h-1 0 px-5 py-12 w-full rounded-t-lg">
-          <div class="flex justify-between lg:mt-2 mt-4 text-gray-200">
-            <div class="lg:text-xl text-sm lg:tracking-xl md:tracking-normal font-light">Find-Trip</div>
-            <h3 class="lg:text-2xl text-md font-extrabold">
-              <i class="fas fa-plane text-md pr-2 text-gray-300"></i>BOARDING PASS
-            </h3>
-          </div>
-        </div>
-
-        <!--shadow-lg rounded-lg <div class="w-full md:w-1/4 h-auto right-0">
-          <div class="w-full lg:w-4/5">
-            <div class="barcode sm:w-50">
-              <img src="https://www.barcoding.com/wp-content/uploads/2016/09/Picture-111.png" alt />
-            </div>
-          </div>
-        </div>   md:w-3/4-->
-        <div class="w-full h-auto ticket">
-          <div class="flex flex-wrap  lg:mb-2 mb-0">
-            <div class="relative w-full   px-6 mb-1 lg:mb-6 md:mb-0">
-              <label
-                class="block tracking-wide text-gray-700 text-md font-bold mb-2"
-                for="grid-state"
-              >請輸入體驗國家 或城市.. </label>
-            <div class="relative flex w-full">
-                 <input
-                    type="search"
-                    class=" rounded-r-none h-12 w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
-                    placeholder="請輸入國家 或城市..."
-                    v-model="searchText"
-                  />
-                  <div class="absolute top-0 left-0 inline-flex items-center p-2">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      class="w-6 h-6 text-gray-400"
-                      viewBox="0 0 24 24"
-                      stroke-width="2"
-                      stroke="currentColor"
-                      fill="none"
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
+              <div class="my-10">
+                <div class="relative overflow-hidden flex">
+                  <div
+                    class="search-box container mx-auto max-w-6xl flex flex-col items-center h-112 lg:h-64 h-auto my-2 px-2 lg:px-0"
+                  >
+                    <div
+                      class="shadow-lg flex flex-wrap w-full max-w-5xl h-112 lg:h-64 bg-white rounded-lg z-30 relative search-box_inner"
                     >
-                      <rect x="0" y="0" width="24" height="24" stroke="none" />
-                      <circle cx="10" cy="10" r="7" />
-                      <line x1="21" y1="21" x2="15" y2="15" />
-                    </svg>
+                      <div class="pt-0 bg-blue-prod h-1 0 px-5 py-12 w-full rounded-t-lg">
+                        <div class="flex justify-between lg:mt-2 mt-4 text-gray-200">
+                          <div
+                            class="lg:text-xl text-sm lg:tracking-xl md:tracking-normal font-light"
+                          >Find-Trip</div>
+                          <h3 class="lg:text-2xl text-md font-extrabold">
+                            <i class="fas fa-plane text-md pr-2 text-gray-300"></i>BOARDING PASS
+                          </h3>
+                        </div>
+                      </div>
+
+                      <!--shadow-lg rounded-lg <div class="w-full md:w-1/4 h-auto right-0">
+         
+                      </div>   md:w-3/4-->
+                      <div class="w-full h-auto ticket">
+                        <div class="flex flex-wrap lg:mb-2 mb-0">
+                          <div class="relative w-full px-6 mb-1 lg:mb-6 md:mb-0">
+                            <label
+                              class="block tracking-wide text-gray-700 text-md font-bold mb-2"
+                              for="grid-state"
+                            >請輸入體驗國家 或城市..</label>
+                            <div class="relative flex w-full">
+                              <input
+                                type="search"
+                                class="rounded-r-none h-12 w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+                                placeholder="請輸入國家 或城市..."
+                                v-model="searchText"
+                              />
+                              <div class="absolute top-0 left-0 inline-flex items-center p-2">
+                                <svg
+                                  xmlns="http://www.w3.org/2000/svg"
+                                  class="w-6 h-6 text-gray-400"
+                                  viewBox="0 0 24 24"
+                                  stroke-width="2"
+                                  stroke="currentColor"
+                                  fill="none"
+                                  stroke-linecap="round"
+                                  stroke-linejoin="round"
+                                >
+                                  <rect x="0" y="0" width="24" height="24" stroke="none" />
+                                  <circle cx="10" cy="10" r="7" />
+                                  <line x1="21" y1="21" x2="15" y2="15" />
+                                </svg>
+                              </div>
+
+                              <button
+                                @click="searchData"
+                                class="items-center rounded-l-none rounded-lg flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
+                              >
+                                <i class="fas fa-search fa-lg"></i>
+                              </button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
 
-                  <button @click='searchData'
-                    class="items-center     rounded-l-none rounded-lg flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
-                  >
-                    <i class="fas fa-search fa-lg"></i>
-                  </button>
-            </div>
-            </div>
-
-     
-          </div>
-        </div>
-      </div>
-    </div>
-                  
                   <!-- search 功能 -->
                   <!-- <input
                     type="search"
@@ -118,10 +115,7 @@
                     class="flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
                   >
                     <i class="fas fa-search fa-lg"></i>
-                  </button> -->
-
-                  
-                 
+                  </button>-->
                 </div>
               </div>
             </div>
@@ -568,7 +562,7 @@ export default {
   name: "Home",
   data() {
     return {
-      filterData:[],
+      filterData: [],
       searchText: ""
     };
   },
@@ -602,19 +596,23 @@ export default {
 
     searchData() {
       let api = `${process.env.VUE_APP_APIPATH}plan/search?search=${this.searchText}`;
-      this.$http.get(api).then(res => {
-        console.log(res);
-        if(res.data.success){
-          //  this.porjects = res.data.result;
-          
-          // this.$store.commit('setProjectInfo', res.data.result);
-          
-        }
-          this.$router.push({ name:'Product',query: { search: this.searchText}});
-        // this.projects = 
-      }).catch(err=>{
-        console.log(err)
-      })
+      this.$http
+        .get(api)
+        .then(res => {
+          console.log(res);
+          if (res.data.success) {
+            //  this.porjects = res.data.result;
+            // this.$store.commit('setProjectInfo', res.data.result);
+          }
+          this.$router.push({
+            name: "Product",
+            query: { search: this.searchText }
+          });
+          // this.projects =
+        })
+        .catch(err => {
+          console.log(err);
+        });
     }
   },
   created() {
@@ -624,31 +622,29 @@ export default {
 </script>
 <style scoped>
 .search-box {
-    position: relative;
-     top: 0px; 
-    height: 18rem;
-    /* margin-bottom: -126px; */
-    margin: 0 auto;
-    /* margin-top: -79px; */
+  position: relative;
+  top: 0px;
+  height: 18rem;
+  /* margin-bottom: -126px; */
+  margin: 0 auto;
+  /* margin-top: -79px; */
 }
 .search-box_inner:before {
-    content: "";
-    background-image: url(/img/map_bg.1199acf2.png);
-    background-size: cover;
-    background-color: #fff;
-    background-repeat: no-repeat;
-    background-position: bottom center;
-    opacity: 0.3;
-    position: absolute;
-    right: 0;
-    top: 24%;
-    width: 80%;
-    height: 80%;
+  content: "";
+  background-image: url(/img/map_bg.1199acf2.png);
+  background-size: cover;
+  background-color: #fff;
+  background-repeat: no-repeat;
+  background-position: bottom center;
+  opacity: 0.3;
+  position: absolute;
+  right: 0;
+  top: 24%;
+  width: 80%;
+  height: 80%;
 }
 .ticket:before {
- 
   display: none;
-   
 }
 .clouds img {
   max-width: 67%;

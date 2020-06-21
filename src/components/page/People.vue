@@ -124,7 +124,7 @@
                           ></el-rate>
                         </p>
 
-                        <div class="mt-2 mb-8 py-2 text-gray-700">
+                        <div class="mt-2 mb-8 py-2 text-gray-800">
                           <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
                             <p class="text-sm leading-relaxed px-5 pt-5">{{ el.RatingContent}}</p>
                             <p

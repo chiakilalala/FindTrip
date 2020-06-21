@@ -357,7 +357,7 @@ export default {
             //  this.porjects = res.data.result;
 
             this.$store.commit("setProjectInfo", res.data.result);
-            console.log(res.data.result);
+            // console.log(res.data.result);
           }
         })
         .catch(err => {
@@ -392,7 +392,7 @@ export default {
       this.searchData(query);
     }
     // 取得api
-    console.log(this.projects)
+
 
   }
 };

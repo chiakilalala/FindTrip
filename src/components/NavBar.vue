@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--Nav-->
-    <nav id="header" class="md:bg-white fixed w-full z-30 top-0 text-white" @scroll="scrollhandle">
+    <nav id="header" class="md:bg-white fixed w-full z-30 top-0 text-white" @scroll="scrollhandle" :class="{'active': isBurgerActive}">
       <div
         class="w-full container mx-auto flex flex-wrap max-w-7xl items-center justify-between my-2 py-2"
       >
@@ -15,28 +15,10 @@
         </div>
 
         <div class="block lg:hidden pr-4">
-          <!-- <Slide @closeMenu="open = false;" right>
-            <ul class>
-              <li class="mr-3">
-                <a class="inline-block py-2 px-4 text-black no-underline" href="#">尋找旅行規劃師</a>
-              </li>
-              <li class="mr-3">
-                <a
-                  class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
-                  href="#"
-                >進入許願池</a>
-              </li>
-            </ul>
-            <button
-              id="navAction"
-              class="outline-none mx-auto lg:mx-0 hover:shadow-lg bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
-            >
-              <i class="fas fa-user-astronaut pr-3"></i>登入
-            </button>
-          </Slide>-->
+      
           <!-- mobile -->
           <button
-            @click="toggleNav" :class="{'active': isBurgerActive}"
+            @click="toggleNav" 
             id="burger"
             class="cursor-pointer flex items-center px-3 py-2 text-gray-500 hover:text-blue-100 hover:text-gray-800 appearance-none focus:outline-none"
           >
@@ -56,26 +38,95 @@
             </svg>-->
           </button>
         </div>
+
+
+
+
+
+
+
         <!-- desktop -->
         <div
           class="w-full flex-grow lg:flex lg:items-center lg:w-auto mt-2 lg:mt-0 bg-transparent text-black p-4 lg:p-0 z-20"
-          id="nav-content"
+          id="nav-content"  
           :class="isOpen ? 'block' : 'hidden'"
         >
-          <ul class="list-reset lg:flex justify-end flex-1 items-center">
-            <li class="mr-3">
+          <ul class="list-reset text-lg lg:flex justify-end flex-1 items-center" :class="{'active': isBurgerActive}">
+            <li class="mr-3 hover:text-gray-800 hover:text-underline">
               <router-link
                 to="/product"
-                class="inline-block py-2 px-4 text-black no-underline"
+                class="inline-block text-lg py-2 px-4 text-black no-underline"
               >尋找旅行規劃師</router-link>
             </li>
-            <li class="mr-3">
+            <li class="mr-3 text-lg hover:text-gray-800 hover:text-underline">
               <router-link
                 to="/wish"
-                class="inline-block text-black no-underline hover:text-gray-800 hover:text-underline py-2 px-4"
+                class="inline-block text-black no-underline  py-2 px-4"
               >進入許願池</router-link>
             </li>
+
+
           </ul>
+           
+      <div class="p-4 text-center"  :class="isOpen ? 'block' : 'hidden'">
+      <button
+            id="navAction"
+            class="hover:bg-blue-300 text-center outline-none mx-auto lg:mx-0 hover:shadow-lg bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
+            v-if="!$store.state.token"
+            @click="$router.push('/login')"
+          >
+            <i class="fas fa-user-astronaut pr-3"></i>登入
+          </button>
+          <!--     v-if="!$store.state.token" -->
+
+            <div class="relative px-5 border-t-2 border-gray-200" v-else>
+                      <router-link
+                        to="/member/account"
+                        class="block w-full px-4 py-2  text-xl text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >
+                        <i class="text-gray-500 hover:text-blue-500 pr-3 fas fa-cog"></i> 帳戶設定
+                      </router-link>
+
+                      <!-- <router-link
+                        to="/member/point"
+                        class="block w-full px-4 py-2  text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >
+                        <i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-coins"></i>儲值點數
+                      </router-link>-->
+
+                      <router-link
+                        to="/member/order"
+                        class="block w-full px-4 py-2  text-xl text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >
+                        <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-list-alt"></i>訂單記錄
+                      </router-link>
+
+                      <router-link
+                        v-if=" $store.state.Permission == '02' "
+                        to="/member/project"
+                        class="block w-full px-4 py-2  text-xl text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >
+                        <i class="text-gray-500 hover:text-blue-100 pr-3 far fa-clipboard"></i>旅行計劃
+                      </router-link>
+
+                      <!-- <router-link
+                        to="/member/message"
+                        class="block w-full px-4 py-2  text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                      >
+                        <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-comment"></i>訊息記錄
+                      </router-link>-->
+
+                      <a
+                        href="#"
+                        class="block w-full px-4 py-2 text-xl text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                        @click.prevent="logout"
+                      >
+                     <i class="text-gray-500 hover:text-blue-500 pr-3  -ml-8 fas fa-sign-out-alt"></i><span class=''>登&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;出</span>
+                      </a>
+                    </div>
+      
+      </div>
+          <div  class='lg:block sm:hidden'>
           <button
             id="navAction"
             class="outline-none mx-auto lg:mx-0 hover:shadow-lg bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
@@ -99,7 +150,7 @@
                   class="bg-white h-12 w-12 rounded-full overflow-hidden border-2 border-gray-500 focus:outline-none focus:border-white"
                 >
                   <img
-                    src="../assets/img/man002.svg"
+                    :src=" $store.state.userInfo.manpic ? $store.state.userInfo.manpic : './assets/img/man002.svg' "
                     alt
                     srcset
                     class="shadow object-cover h-full w-full"
@@ -134,21 +185,21 @@
                     <div class="relative px-5">
                       <router-link
                         to="/member/account"
-                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 fas fa-cog"></i> 帳戶設定
                       </router-link>
 
                       <!-- <router-link
                         to="/member/point"
-                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-coins"></i>儲值點數
                       </router-link>-->
 
                       <router-link
                         to="/member/order"
-                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-list-alt"></i>訂單記錄
                       </router-link>
@@ -156,30 +207,31 @@
                       <router-link
                         v-if=" $store.state.Permission == '02' "
                         to="/member/project"
-                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-100 pr-3 far fa-clipboard"></i>旅行計劃
                       </router-link>
 
                       <!-- <router-link
                         to="/member/message"
-                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                       >
                         <i class="text-gray-500 hover:text-blue-500 pr-3 far fa-comment"></i>訊息記錄
                       </router-link>-->
 
                       <a
                         href="#"
-                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-100 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
+                        class="block w-full px-4 py-2 font-medium text-gray-700 whitespace-no-wrap hover:bg-gray-200 focus:outline-none hover:text-gray-900 focus:text-gray-900 focus:shadow-outline transition duration-300 ease-in-out"
                         @click.prevent="logout"
                       >
-                        <i class="text-gray-500 hover:text-blue-500 pr-3 fa fa-sign-out"></i>登出
+                        <i class="text-gray-500 hover:text-blue-500 pr-3  fas fa-sign-out-alt"></i>登出
                       </a>
                     </div>
                   </div>
                 </div>
               </transition>
             </div>
+          </div>
           </div>
         </div>
       </div>
@@ -204,6 +256,7 @@ export default {
   methods: {
     toggleNav() {
       this.isOpen = !this.isOpen;
+     
     },
     logout() {
       this.$store.dispatch("logout");
@@ -246,7 +299,16 @@ export default {
 };
 </script>
 
-<style scoped>
+<style >
+#nav-content ul.active{
+    text-align: center;
+    margin: 12px 0px;
+    font-size: 1.3rem;
+
+}
+/* #header.active{
+  background:#fff;
+} */
 .dropdown:hover .dropdown-menu {
   display: block;
 }

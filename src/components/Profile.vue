@@ -7,7 +7,7 @@
       >
       <!-- v-for="user in userInfo"  :key="user.id" -->
         <div  
-          class="lg:py-0 py-5 flex-col lg:flex-row container max-w-7xl  bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
+          class=" profile-card lg:py-0 py-5 flex-col lg:flex-row container max-w-7xl  bg-white flex text-gray-500 rounded-lg shadow-xl items-center"
         >
           <div class="w-full lg:w-1/5 flex-1 flex justify-center">
             <div
@@ -17,7 +17,7 @@
             </div>
           </div>
           <div class="w-full lg:w-4/5">
-            <div class="sm:pl-12 sm:pt-4 flex-1 text-gray-800">
+            <div class="sm:pl-0 sm:pt-4 flex-1 text-gray-800">
               <div
                 class="flex lg:items-start sm:flex-col sm:flex-wrap justify-center flex-wrap lg:mb-6 mb-0"
               >
@@ -32,7 +32,7 @@
                   >
                     <a :href="userInfo.PlannerSocial1" class="text-blue-500 mr-3 hover:text-blue-500">
                       <svg
-                        class="w-5 h-5 fill-current"
+                        class="sm:w-8 sm:h-8   lg:w-6 lg:w-6 fill-current"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 96.124 96.123"
                       >
@@ -43,7 +43,7 @@
                     </a>
                     <a href="user.PlannerSocial2" class="text-blue-500 mr-3 hover:text-blue-500">
                       <svg
-                        class="w-5 h-5 fill-current"
+                        class="sm:w-8 sm:h-8   lg:w-6 lg:w-6 fill-current"
                         xmlns="http://www.w3.org/2000/svg"
                         viewBox="0 0 612 612"
                       >
@@ -55,12 +55,12 @@
                   </div>
                   <div class="flex sm:w-auto w-full mb-0 lg:mb-3 justify-center items-center">
                     <div class="lg:text-white lg:mr-4 mr-0 tracking-wider flex items-center">
-                      <span class="text-gray-500">點數：{{userInfo.points}}</span>
+                      <p class="text-gray-700 ">點數：<span class='text-2xl'>{{userInfo.points}} </span></p>
                       <img src="../assets/img/coin.png" class="w-8 h-8 mr-2" alt srcset />
                     </div>
                   </div>
                   <p
-                    class="lg:text-gray-500 text-center leading-normal px-4 sm:px-0"
+                    class="lg:text-gray-500 text-2xl text-center leading-normal px-3 sm:px-0"
                   >{{userInfo.MemberIntro}}</p>
                 </div>
               </div>
@@ -76,3 +76,15 @@ export default {
 props: ['userInfo'],
 }
 </script>
+<style>
+.profile-card{
+   background-image: url(https://upload.cc/i1/2020/06/20/ncPqrU.png);
+    /* background-size: cover; */
+    background-size: 400px auto;
+    background-repeat : repeat-x;
+    opacity: 0.8;
+    background-position: center;
+}
+   
+
+</style>

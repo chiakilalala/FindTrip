@@ -1,5 +1,6 @@
 <template>
   <div>
+      <loading loader="bars" :active.sync="isLoading"></loading>
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
@@ -187,6 +188,7 @@ export default {
       },
 
       isNew: false,
+      isLoading: false,
     
     };
   },
@@ -204,7 +206,7 @@ export default {
       const formData = new FormData(); //新增新物件可以
       formData.append("file-to-upload", uploadedFile); //新增物件
       let url = `${process.env.VUE_APP_APIPATH}/Login/userimg`;
-      
+       vm.isLoading = true;
       vm.axios
         .post(url, formData, {
           headers: {
@@ -216,7 +218,7 @@ export default {
           // console.log(response.data);
           
           if (response.data.success) {
-         
+          vm.isLoading = false;
             // console.log("成功了！");
             this.$swal({
               icon: "success",
@@ -239,6 +241,7 @@ export default {
         Authorization: `Bearer ${token}`,
         'Content-Type':'application/json'
       };
+      this.isLoading = true;
       let api = `${process.env.VUE_APP_APIPATH}login/update/test`;
       const Infos = {
         name: this.userInfo.name,
@@ -253,6 +256,7 @@ export default {
       // const vm = this;
       this.$http.patch(api, jsonData, { headers }).then(response => {
         if (response.data.success) {
+          this.isLoading = false;
           // console.log(response.data.message);
           // console.log(response.data.result);
            this.$notify({

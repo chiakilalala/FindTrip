@@ -20,9 +20,12 @@
 
             <span class="font-medium text-gray-600 font-bold leading-normal">{{item.name}}</span>
           </div>
+      
+                          <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
           <p class="inline-flex items-center py-4">
-            <span class="text-gray-600 text-sm">{{item.Comment2}}</span>
+            <span class="text-gray-600 text-sm">{{  item.Comment1s }}  {{item.Comment2}}</span>
           </p>
+                          </div>
 
           <div class="flex items-center justify-end py-2">
             <div class="text-gray-600 flex hover:text-blue-500 items-center mr-2">
@@ -42,8 +45,8 @@
             </div>
 
             <div class="text-gray-600 flex hover:text-red-500 items-center mr-2">
-              <a
-                href="#"
+              <span
+              
                 class="w-8 h-8 hover:bg-red-200 rounded-full flex items-center justify-center hover:text-red-500"
               >
                 <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current">
@@ -53,7 +56,7 @@
                     />
                   </g>
                 </svg>
-              </a>
+              </span>
               <span class="ml-1">{{item.CommentTotal}}</span>
             </div>
 
