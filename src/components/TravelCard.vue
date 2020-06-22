@@ -1,8 +1,8 @@
 <template>
-  <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4">
+  <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 ">
     <!-- Column -->
     <div
-      class="my-4 px-6 w-full lg:w-1/3 ml-0"
+      class="my-4 px-6 w-full lg:w-1/3 ml-0 transition duration-500 ease-in-out transform hover:-translate-y-8"
       v-for="item in project"
       :key="item.id"
   
@@ -13,14 +13,14 @@
         <a href="#">
           <img
             alt="Placeholder"
-            class="block object-cover min-h-180 w-full hover:opacity-50"
+            class="block object-cover min-h-180 w-full "
             :src="item.TPBGImg ? item.TPBGImg : 'https://picsum.photos/300/200?random=1' "
           />
         </a>
         <div class="flex justify-content-end relative people ">
           <img
-            alt="Placeholder"
-            class="w-12 h-12 block object-cover rounded-full border-white border-2 shadow"
+            alt="大頭照"
+            class="w-12 h-12 block object-cover rounded-full object-cover bg-gray-100 border-white border-2 shadow"
             :src="item.manpic"
           />
         </div>
@@ -86,9 +86,9 @@
   </div>
 </template>
 <script>
-// import { mapState } from "vuex";
 
-// import { Rate } from 'element-ui';
+
+
 export default {
   props: {
     project: {

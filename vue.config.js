@@ -22,16 +22,3 @@ module.exports = {
     },
 
 };
-
-
-
-// module.exports = {
-//     devServer: {
-//         open: process.platform === 'darwin',
-//         Host: 'localhost',
-//         port: 8080, // CHANGE YOUR PORT HERE!
-//         https: false,
-//         hotOnly: false,
-//         disableHostCheck: true
-//     },
-// }

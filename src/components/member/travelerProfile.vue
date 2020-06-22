@@ -3,11 +3,14 @@
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
-          <li class>
-            <i class="fa fa-home">/</i>
-          </li>
+         <li class="pr-2">
+                  <router-link to="/home" class="hover:text-blue-500">
+                <i class="fa fa-home"></i>
+                   </router-link>
+                    <span class="mx-1">/</span>
+              </li>
 
-          <li>帳號設定</li>
+         <li class="pr-2">帳號設定</li>
         </ul>
       </div>
     </div>

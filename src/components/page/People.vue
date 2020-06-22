@@ -1,6 +1,6 @@
 <template>
   <div>
-      <loading loader="bars" :active.sync="isLoading"></loading>
+    
     <!-- NavBar Component v-for="item in traveler" :key="item.id" -->
     <NavBar />
 
@@ -199,13 +199,15 @@
                       >Point</span>
                     </div>
 
-                    <div class="flex px-12">
+                    <div class="flex px-12 relative">
                       <!-- :href="`mailto:${item.PlannerEmail[0].Email}`" -->
-                      <a
+                     
+                      <a   
                         href="https://m.facebook.com/messages/thread/230134660393770"
-                        target="_blank"
-                        class="text-center cursor-pointer bg-blue-500 hover:bg-blue-400 text-white rounded-lg mt-3 w-full py-2 font-medium text-lg tracking-wider shadow font-huninn"
+                        target="_blank"   data-msg="可跟規劃師FB訊息聯絡"
+                        class="tooltip text-center cursor-pointer bg-blue-500 hover:bg-blue-400 text-white rounded-lg mt-3 w-full py-2 font-medium text-lg tracking-wider shadow font-huninn"
                       >聯絡諮詢</a>
+                      
                     </div>
                     <div class="flex mb-20 px-12 mt-4">
                       <el-button
@@ -484,7 +486,7 @@ export default {
   },
   data() {
     return {
-       isLoading: false,
+   
       isStar: false,
       dialogVisible: false,
       startTime: "",
@@ -614,7 +616,7 @@ export default {
         };
 
         const vm = this;
-       vm.isLoading = true;
+
         const api = `${process.env.VUE_APP_APIPATH}/order/create`;
         this.$http
           .post(
@@ -643,7 +645,7 @@ export default {
             if (res.data.success) {
               console.log("訂單建立", res.data.result);
               this.dialogVisible = false;
-              vm.isLoading = false;
+   
               vm.checkOrder = res.data.result;
               // console.log(vm.checkOrder);
               this.$store.dispatch("checkOrder");
@@ -699,6 +701,7 @@ export default {
 };
 </script>
 <style scoped>
+
 .form-head:before, .form-head:after {
 display: none;
   

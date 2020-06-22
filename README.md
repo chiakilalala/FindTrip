@@ -1,6 +1,6 @@
-#  FIND TRIP 
+#  🖖FIND TRIP 
 
-> 使用 Vuex + .NET 製作的  旅行規劃師平台 哈哈！
+> 使用 Vuex + .NET 製作的  旅行規劃師媒合平台 哈哈噗噗！
 
 
 ## Demo

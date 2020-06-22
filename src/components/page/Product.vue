@@ -331,15 +331,7 @@ export default {
         this.tags.splice(this.tags.indexOf(tagName), 1);
       }
     },
-    sortBy(sortName, isAsc) {
-      if (sortName) {
-        this.sort.name = this.sort.name === sortName ? "" : sortName;
-        this.sort.isAsc = true;
-      }
-      if (isAsc) {
-        this.sort.isAsc = this.sort.isAsc !== true;
-      }
-    },
+
     sort: function(by, option) {
       if (this.orderBy == by) {
         if (this.orderOption == "asc") {

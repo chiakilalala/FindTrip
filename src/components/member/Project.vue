@@ -120,7 +120,7 @@
           class="lg:px-10 pt-3 pb-5 px-2 flex-1 text-gray-700 text-left bg-white rounded-lg shadow-lg mb-10"
         >
           <div class="lg:flex flex-col">
-            <span class="text-right">
+            <span class="text-right text-xl">
               <span class="text-red-500 text-lg">*</span>為必填項目
             </span>
             <div
@@ -268,7 +268,7 @@
                     id=" empty-cover-art"
                     class="relative rounded w-full h-auto py-16 px-0 text-center bg-gray-300 md:border-solid md:border-2 md:border-gray-400"
                   >
-                    <img :src="temPlans.Cpicture" alt class="absolute inset-y-0" />
+                    <img :src="temPlans.Cpicture" alt class="absolute inset-y-0 img_maxHeight" />
                     <svg
                       class="mx-auto feather feather-image"
                       xmlns="http://www.w3.org/2000/svg"
@@ -643,7 +643,7 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}plan/update/${vm.temPlans.id}`;
         httpMethod = "patch";
       }
-      console.log(api, "update");
+      // console.log(api, "update");
 
       this.$http[httpMethod](
         api,
@@ -821,4 +821,7 @@ export default {
 };
 </script>
 <style scoped>
+.img_maxHeight{
+   max-height:100%;
+}
 </style>

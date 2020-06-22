@@ -296,7 +296,7 @@ export default {
         });
         this.$set(this.OneTraveler, "Status", 1);
 
-        console.log(this.OneTraveler.Status);
+        // console.log(this.OneTraveler.Status);
       } else if (this.OneTraveler[0].Status == 1) {
         this.$alert("確定訂接受此訂單", "訂單狀態", {
           confirmButtonText: "确定",
@@ -308,7 +308,7 @@ export default {
           }
         });
         this.$set(this.OneTraveler, "Status", 2);
-        console.log(this.OneTraveler.Status);
+        // console.log(this.OneTraveler.Status);
       } else if (this.OneTraveler[0].Status == 2) {
         this.$alert("確定訂單已經完成了", "訂單狀態", {
           confirmButtonText: "确定",
@@ -321,10 +321,10 @@ export default {
         });
 
         this.$set(this.OneTraveler, "Status", 3);
-        console.log(this.OneTraveler.Status);
+        // console.log(this.OneTraveler.Status);
       }
 
-      console.log(item); //看id
+      // console.log(item); //看id
       this.travelOrder(item); //更新api
 
       //單筆訂單整理
@@ -348,7 +348,7 @@ export default {
         vm.commentVisible = false;
         vm.travelOrder(this.Statuscomment.id);
       }
-      console.log(this.Statuscomment.id); //看id
+      // console.log(this.Statuscomment.id); //看id
        //單筆訂單整理
       //全部訂單跑～
 
@@ -359,7 +359,7 @@ export default {
       //旅行家刪除訂單詢問
       const vm = this;
       vm.state = item;
-      // console.log(vm.state);
+    
       vm.deleteModal = true;
     },
 

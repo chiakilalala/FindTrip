@@ -45,7 +45,7 @@ const store = new Vuex.Store({
 
     },
     getter: {
-        isLoading: (state) => state.isLoading,
+
         getUserList: (state) => state.userInfo,
         selectedCountry: (state) => state.selectedCountry,
         selectedCity: (state) => state.selectedCity,
@@ -88,9 +88,7 @@ const store = new Vuex.Store({
 
     },
     mutations: {
-        ISLOADING(state, status) {
-            state.isLoading = status;
-        },
+
         //修改token 並將token 存入localStoreage
         changeLogin(state, user) { //這裡的state 對應上面的state
             // console.log(user);
@@ -207,14 +205,14 @@ const store = new Vuex.Store({
             //     'Authorization': `Bearer ${token}`
             // };
             let url = `${process.env.VUE_APP_APIPATH}plan/index`; //不用token
-            commit('ISLOADING', true)
+
             Axios.get(url).then(res => {
                 // console.log(res.data);
                 // console.log(res.data.allPlans); //全部旅行計劃
                 commit('setProjectInfo', res.data.allPlans);
                 commit('WISHMESSAGE', res.data.wishboard);
-                commit('ISLOADING', false)
-                    // commit('Setcounty', res.data.countries);
+
+                // commit('Setcounty', res.data.countries);
 
 
             })
@@ -289,7 +287,7 @@ const store = new Vuex.Store({
             // console.log(api);
             // const vm = this;
             // vm.isLoading = true;
-            commit('ISLOADING', true)
+
             Axios
                 .get(api, { headers })
                 .then(res => {
@@ -298,7 +296,7 @@ const store = new Vuex.Store({
                         // console.log(res.data.result)
                         commit('loginStart');
                         commit('SELLORDER', res.data.result);
-                        commit('ISLOADING', false)
+
 
                     } else {
                         console.log('失敗')

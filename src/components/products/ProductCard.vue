@@ -1,18 +1,18 @@
 <template>
   <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2  cursor-pointer" name="fade-list" is="transition-group">
     
-    <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="item in randomProject" :key="item.id" >
+    <div class="my-4 px-4 w-full lg:w-1/3 mb-8 transition duration-500 ease-in-out transform hover:-translate-y-8" v-for="item in randomProject" :key="item.id"  >
       <!-- Article @click="$router.push({ name: 'people', params: { id: item.id } }) -->
       <router-link :to="{ name: 'people', params:{ id: item.id }}">
       <article class=" min-cardHeight overflow-hidden rounded-lg shadow-lg bg-white">
         <a href="#">
-          <img alt="Placeholder" class="min-h-180 object-cover block h-auto w-full hover:opacity-50" :src="item.TPBGImg ? item.TPBGImg : 'https://picsum.photos/300/200?random=1' "  />
+          <img alt="Placeholder" class="min-h-180 object-cover block h-auto w-full"  :src="item.TPBGImg ? item.TPBGImg : 'https://picsum.photos/300/200?random=1' "  />
         </a>
         <div class="flex justify-content-end relative people">
           <img
-            alt="Placeholder"
-            class="w-12 h-12 block rounded-full border-white border-2 shadow"
-            :src="item.manpic"
+          
+            class="w-12 h-12 block rounded-full border-white border-2 shadow object-cover bg-gray-100"
+            :src="item.manpic ? item.manpic : 'https://picsum.photos/600/400/?random'"
           />
         </div>
         <header class="px-6 pb-4 -mt-10">

@@ -928,6 +928,46 @@ div.loadingText span:nth-child(7) {
 }
 
 
+/*  tooltup*/
+
+.tooltip {
+    position: relative;
+    font-size: 1.3rem;
+    cursor: pointer;
+}
+
+.tooltip:hover::before {
+    word-break: keep-all;
+    white-space: nowrap;
+    content: attr(data-msg);
+    position: absolute;
+    padding: 4px 13px;
+    display: block;
+    color: #333;
+    border: 1px solid #333;
+    border-radius: 5px;
+    font-size: 14px;
+    line-height: 20px;
+    top: -43px;
+    z-index: 1;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tooltip:hover::after {
+    content: "﹀";
+    position: absolute;
+    top: -14px;
+    color: #333;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #fff;
+    height: 8px;
+    z-index: 22;
+    line-height: 13px;
+}
+
+
 /* animations */
 
 

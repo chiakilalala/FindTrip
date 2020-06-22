@@ -7,7 +7,7 @@
       <Profile :userInfo ="userInfo"/>
 
       <div class="bg-member">
-        <div class="flex container max-w-7xl mx-auto mt-10">
+        <div class="flex container max-w-7xl mx-auto mt-10 dashborard">
           <div class="w-full flex flex-row flex-wrap justify-around ">
             <!-- <div class="w-full lg:w-1/5 px-2 text-xl text-gray-800 leading-normal"> -->
           
@@ -103,6 +103,9 @@ export default {
 </script>
 
 <style>
+.dashborard{
+  min-height: calc( 100vh - 329px);
+}
 
 .avatar-uploader .el-upload {
     border: 1px dashed #d9d9d9;

@@ -11,7 +11,7 @@ import 'vue-loading-overlay/dist/vue-loading.css' //style
 
 Vue.component('Loading', Loading); //loading 元件
 
-import { Button, Select, Dialog, Rate, InputNumber, Message, Upload, MessageBox, DatePicker, Alert, Notification } from 'element-ui';
+import { Button, Select, Dialog, Rate, InputNumber, Message, MessageBox, DatePicker, Alert, Notification } from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css' //樣式一定要引入
 
 Vue.prototype.$ELEMENT = { size: 'small', zIndex: 3000 };
@@ -27,7 +27,7 @@ Vue.component(Dialog.name, Dialog);
 Vue.component(Rate.name, Rate);
 Vue.component(InputNumber.name, InputNumber);
 Vue.component(Message.name, Message);
-Vue.component(Upload.name, Upload);
+
 Vue.component(MessageBox.name, MessageBox);
 Vue.component(DatePicker.name, DatePicker);
 Vue.component(Alert.name, Alert);
@@ -40,6 +40,7 @@ import "./main.css";
 // 讓瀏覽器的全域環境可以使用到 $
 import jQuery from 'jquery'
 window.$ = window.jQuery = jQuery;
+
 
 // In main.js
 import VueScrollReveal from 'vue-scroll-reveal';

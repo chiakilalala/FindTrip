@@ -65,6 +65,7 @@
           >
             <i class="fas fa-edit "></i>撰寫評論
           </p>
+       
         </div>
         <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
           <div class="flex relative">
@@ -143,9 +144,9 @@
                 >已完成</button>
                 <div v-if="item.PlannerEmail !=undefined && item.PlannerEmail.length >= 1">
                   <a
-                    target="_blank"
+                    target="_blank"   data-msg="Email用來傳遞規劃師行程表"
                     :href="`mailto:${item.PlannerEmail[0].Email}`"
-                    class="cursor-pointer bg-blue-500 border border-blue-500 hover:bg-transparent hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
+                    class="tooltip cursor-pointer bg-blue-500 border border-blue-500 hover:bg-transparent hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                   >訊息聯絡</a>
                 </div>
               </div>
@@ -522,7 +523,7 @@ export default {
         
           vm.Oneorders = res.data.result[0];
           vm.dialogVisible = true;
-          console.log(vm.Oneorders);
+       
         
         }
       });

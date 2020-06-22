@@ -285,7 +285,8 @@ export default {
               });
               this.$store.commit("loginStart", true);
               this.$router.push("/login");
-              this.changeLogin({ Authorization: this.userToken });
+              this.$store.commit("LOGIN_USER", res.data);
+           
             } else {
               this.$swal({
                 icon: "error",

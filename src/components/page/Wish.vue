@@ -49,26 +49,19 @@
       <!-- filter -->
       <div class="flex container mx-auto flex-wrap max-w-7xl px-4 sm:px-5">
         <div class="py-5 flex">
-          <div class="relative">
-            <select
-              class="w-full lg:w-32 min-w-32 appearance-none h-full rounded-md border-solid block appearance-none shadow bg-white border-gray-600 text-gray-700 py-2 px-4 pr-8 leading-tight focus:outline-none focus:border-l focus:border-r focus:bg-blue-200 focus:border-gray-500"
-            >
-              <option>最多愛心</option>
-              <option>最新貼文</option>
-            </select>
-            <div
-              class="filter-arrow pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
-            >
-              <svg
-                class="fill-current h-4 w-4"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 20 20"
-              >
-                <path
-                  d="M9.293 12.95l.707.707L15.657 8l-1.414-1.414L10 10.828 5.757 6.586 4.343 8z"
-                />
-              </svg>
-            </div>
+          <div class="relative people_wrap">
+                <button
+              @click="sort('CommentTotal','asc')"
+            class="bg-blue-500  text-white mr-4 xs:mr-8 hover:bg-blue-700 hover:font-medium focus:outline-none hover:shadow-xs px-4"
+          >回 覆 總 數</button>
+          <button
+            @click="sort('LikeTotal','asc')"
+            class="bg-blue-500 text-white mr-4 xs:mr-8 hover:bg-blue-700 hover:font-medium focus:outline-none hover:shadow-xs px-4"
+          >愛  心  點 讚     </button>
+          <span
+             @click="sort(null, true)"
+            class=" hover:font-medium  text-lg  ml-4"
+          >⇅</span>
           </div>
 
           <div class="mt-1 mb-3 flex justify-end">
@@ -89,7 +82,7 @@
         <div
           class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3 cursor-pointer"
           @click="getWish(item.id)"
-          v-for="item in wishBoard"
+          v-for="item in sortedRod"
           :key="item.id"
         >
           <div class="overflow-hidden bg-white round-xll shadow sample hover:shadow-md  transition duration-500 ease-in-out  transform hover:bg-gray-200 hover:-translate-y-8">
@@ -97,7 +90,7 @@
               <div class="flex items-center">
                 <div class="flex items-center">
                   <img
-                    class="border-gray-500 shadow border-2 w-10 h-10 rounded-full mr-3 flex-1"
+                    class="border-gray-500 bg-white shadow border-2 w-10 h-10 object-cover  rounded-full mr-3 flex-1"
                     :src=" item.manpic ? item.manpic : 'https://picsum.photos/50/50/?people=4'"
                     alt="people"
                   />
@@ -107,7 +100,7 @@
               </div>
 
               <p class="inline-flex items-center py-2 lg:w-52 w-full">
-                <span class="ellipsis ext-gray-600 text-sm leading-loose">{{item.Comment2}}</span>
+                <span class="ellipsis ext-gray-600 text-sm leading-loose">我想去 {{item.Comment1}} 做 {{item.Comment2}}</span>
               </p>
               <!-- <div class="py-2">
                 <a href="#">
@@ -198,7 +191,7 @@
                       <img
                         :src=" wishMessage.manpic ?  wishMessage.manpic : '../../assets/img/user001.png'"
                         alt
-                        class="mx-auto w-16 h-16 rounded-full"
+                        class="mx-auto w-16 h-16 rounded-full  object-cover"
                       />
                     </div>
                     <span class="text-lg pl-2 text-gray-700 ">{{ wishMessage.name}}</span>
@@ -403,6 +396,7 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 import NavBar from "@/components/NavBar.vue";
 import Footer from "@/components/Footer.vue";
+import _ from "lodash";
 export default {
   name: "wish",
   components: {
@@ -424,11 +418,16 @@ export default {
       rely: {
         NewComment: ""
       },
-      isLike: false
+      isLike: false,
+      orderBy: "position",
+      orderOption: "asc"
     };
   },
   computed: {
-    ...mapState(["userInfo"], ["wishList"], ["projects"])
+    ...mapState(["userInfo"], ["wishList"], ["projects"]),
+     sortedRod() {
+      return _.orderBy(this.wishBoard, this.orderBy, this.orderOption);
+    },
   },
   methods: {
     ...mapActions(["getOneUser"], ["getProjects"]),
@@ -439,6 +438,18 @@ export default {
       ["setProjectInfo"],
       ["WISHMESSAGE"]
     ),
+     sort: function(by, option) {
+      if (this.orderBy == by) {
+        if (this.orderOption == "asc") {
+          this.orderOption = "desc";
+        } else if (this.orderOption == "desc") {
+          this.orderOption = "asc";
+        }
+      } else {
+        this.orderOption = option;
+        this.orderBy = by;
+      }
+    },
     beforeClose(done) {
       //dialog關掉的xx
       this.wishVisble = false;
@@ -510,7 +521,7 @@ export default {
         NewComment: this.rely.NewComment,
         Rid: id
       };
-      console.log(message);
+      // console.log(message);
 
       if (!this.$store.state.token) {
         this.$notify.info({
@@ -526,8 +537,10 @@ export default {
               // this.relyMessage = res.data.result;
               // console.log(this.relyMessage);
               this.$message("留言成功");
-              vm.relyWish(id);
-              vm.commentVisible = false;
+              vm.getWish(id);
+                 vm.getllWish();
+                  vm.commentVisible = true;
+      
             }
           })
           .catch(err => {
