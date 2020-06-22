@@ -2,7 +2,32 @@
 /* eslint-disable vue/valid-template-root */
   <!-- 不可以有兩個以上的根節點 -->
 <template>
-  <div id="wrapper"  @scroll="handleScroll">
+  <div id="wrapper" @scroll="handleScroll">
+    <transition name="fade"  v-if="show">
+      <!-- v-if="show" -->
+      <div class="sky" >
+
+    
+        <img src="https://upload.cc/i1/2020/06/22/CX8Hzr.png" class="plane" />
+        <img src="https://i.imgur.com/6tncGeG.png" class="cloud1" />
+        <img src="https://i.imgur.com/6tncGeG.png" class="cloud2" />
+        <img src="https://i.imgur.com/6tncGeG.png" class="cloud3" />
+        <img src="https://i.imgur.com/6tncGeG.png" class="cloud4" />
+        <img src="https://i.imgur.com/6tncGeG.png" class="cloud5" />
+            <div class="loadingText ">
+            <span>L</span>
+            <span>O</span>
+            <span>A</span>
+            <span>D</span>
+            <span>I</span>
+            <span>N</span>
+            <span>G</span>
+        </div>
+
+     
+      </div>
+    </transition>
+
     <div class="text-white">
       <!-- NavBar Component -->
       <NavBar />
@@ -12,16 +37,16 @@
           class="w-full container mx-auto flex flex-wrap max-w-6xl lg:h-screen -mt-1 lg:pt-24"
         >
           <!--Left Col-->
-        <div class="h-12 w-full lg:w-1/2 flex lg:justify-start align-start justify-center mt-32">
+          <div class="h-12 w-full lg:w-1/2 flex lg:justify-start align-start justify-center mt-32">
             <div class="mt-0 max-w-xl px-10 lg:px-6 -ml-3 lg:pr-2 pt-5 lg:pt-0">
               <h1
                 class="my-4 text-5xl text-center lg:text-left font-semibold leading-snug text-gray-700 lg:text-gray-700 mb-4"
               >Travel More Plan Less</h1>
-             <p
+              <p
                 class="text-center lg:text-left font-thin leading-normal text-xl mb-4 md:text-gray-600 lg:text-gray-700"
               >專人量身打造行程，滿足您的旅行願望 ，省時旅遊超容易</p>
 
-                <div class="my-10">
+              <div class="my-10">
                 <div class="relative overflow-hidden flex">
                   <div
                     class="search-box container mx-auto max-w-6xl flex flex-col items-center h-112 lg:h-64 h-auto my-2 px-2 lg:px-0"
@@ -83,14 +108,9 @@
                             </div>
                           </div>
                         </div>
-          
                       </div>
-
-               
                     </div>
                   </div>
-
-                
                 </div>
               </div>
             </div>
@@ -98,7 +118,7 @@
 
           <!--Right Col-->
           <div class="sm:h-20 h-screen w-full lg:h-full lg:w-1/2 relative">
-            <div class="absolute inset-0 lg:mt-5 mt-8 airplane">
+            <div class="absolute inset-0 lg:mt-10 mt-8 airplane">
               <img src="../assets/img/airplane.png" alt class="w-1/4 lg:w-2/5" />
             </div>
           </div>
@@ -279,7 +299,10 @@
           </div>
 
           <div class="mt-12 sm:flex items-start justify-between sm:-mx-2">
-            <div class="max-h-350 w-full bg-white rounded-lg shadow-lg py-8 px-4 sm:w-1/3 sm:mx-2 lg:mx-6" v-scroll-reveal.reset="{ delay: 450 }">
+            <div
+              class="max-h-350 w-full bg-white rounded-lg shadow-lg py-8 px-4 sm:w-1/3 sm:mx-2 lg:mx-6"
+              v-scroll-reveal.reset="{ delay: 450 }"
+            >
               <div class="h-24">
                 <img src="../assets/img/icon_home-01.png" alt class="w-32 mx-auto" />
               </div>
@@ -290,7 +313,8 @@
             </div>
 
             <div
-              class="w-full bg-white rounded-lg shadow-lg py-8 px-4 mt-6 sm:mt-0 sm:w-1/3 sm:mx-2 lg:mx-6" v-scroll-reveal.reset="{ delay: 550 }"
+              class="w-full bg-white rounded-lg shadow-lg py-8 px-4 mt-6 sm:mt-0 sm:w-1/3 sm:mx-2 lg:mx-6"
+              v-scroll-reveal.reset="{ delay: 550 }"
             >
               <div class="h-24">
                 <img src="../assets/img/icon-home-02.png" alt class="w-32 mx-auto" />
@@ -302,7 +326,8 @@
             </div>
 
             <div
-              class="w-full bg-white rounded-lg shadow-lg py-8 px-4 mt-6 sm:mt-0 sm:w-1/3 sm:mx-2 lg:mx-6" v-scroll-reveal.reset="{ delay: 650 }"
+              class="w-full bg-white rounded-lg shadow-lg py-8 px-4 mt-6 sm:mt-0 sm:w-1/3 sm:mx-2 lg:mx-6"
+              v-scroll-reveal.reset="{ delay: 650 }"
             >
               <div class="h-24">
                 <img src="../assets/img/icon-home-03.png" alt class="w-32 mx-auto" />
@@ -344,13 +369,13 @@
           </div>
           <!-- wishboard -->
           <div
-            class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3 cursor-pointer "
+            class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3 cursor-pointer"
             v-for="item in homeWish"
             @click="getWish(item.id)"
             :key="item.id"
           >
             <div
-              class="min-h-180 overflow-hidden bg-white round-xll shadow  hover:shadow-md  transition duration-500 ease-in-out  transform hover:bg-gray-200 hover:-translate-y-8"
+              class="min-h-180 overflow-hidden bg-white round-xll shadow hover:shadow-md transition duration-500 ease-in-out transform hover:bg-gray-200 hover:-translate-y-8"
             >
               <div class="p-6 flex flex-col justify-between">
                 <div class="flex items-center">
@@ -364,19 +389,15 @@
 
                   <span class="font-medium text-gray-600 font-bold leading-normal">{{item.name}}</span>
                 </div>
-               
+
                 <p class="inline-flex items-center py-4">
                   <span class="text-gray-700 text-sm">我想去{{item.Comment1}} 想做 {{item.Comment2}}</span>
                 </p>
-             
 
-
-
-<!-- 評論點數 -->
+                <!-- 評論點數 -->
                 <div class="flex items-center justify-end py-2">
                   <div class="text-gray-600 flex hover:text-blue-500 items-center mr-2">
-                   
-                      <span
+                    <span
                       class="w-8 h-8 hover:bg-blue-200 rounded-full flex items-center justify-center hover:text-blue-500"
                     >
                       <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current">
@@ -392,7 +413,6 @@
 
                   <div class="text-gray-600 flex hover:text-red-500 items-center mr-2">
                     <span
-                    
                       class="w-8 h-8 hover:bg-red-200 rounded-full flex items-center justify-center hover:text-red-500"
                     >
                       <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current">
@@ -403,8 +423,7 @@
                         </g>
                       </svg>
                     </span>
-                        <span class="ml-0">{{item.LikeTotal}}</span>
-                
+                    <span class="ml-0">{{item.LikeTotal}}</span>
                   </div>
 
                   <!-- 收藏功能 -->
@@ -437,7 +456,12 @@
             >更多內容</router-link>
           </div>
 
-              <ZDialog v-if="commentVisible" :ZDialog="commentVisible" @dialog-cancel="closeManage" :wishMessage='wishMessage'></ZDialog>
+          <ZDialog
+            v-if="commentVisible"
+            :ZDialog="commentVisible"
+            @dialog-cancel="closeManage"
+            :wishMessage="wishMessage"
+          ></ZDialog>
         </div>
       </section>
 
@@ -447,9 +471,150 @@
         <div class="flex-col-reverse lg:flex-row container max-w-7xl mx-auto my-8">
           <div class="flex flex-wrap flex-col-reverse lg:flex-row">
             <div class="lg:visible w-full sm:w-1/2 mt-6 relative">
-            <img src="../assets/img/bg_day.svg" alt="bg_day.svg" class='Sday'> 
-            <div class="car ">
-              <svg width="307" height="210" viewBox="0 0 307 210" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><path d="M153.424 201.22c84.677 0 153.424-.013 153.424 4.39 0 4.404-68.747 4.39-153.424 4.39S0 210.044 0 205.61c0-4.433 68.747-4.39 153.424-4.39z" fill="#DDD"></path> <path d="M280.472 182.785c0-2.908-2.49-5.268-5.56-5.268H41.608c-3.068 0-5.559 2.36-5.559 5.268 0 2.907 2.49 5.267 5.559 5.267h233.306c3.069 0 5.559-2.36 5.559-5.267z" fill="#138184"></path> <path d="M208.376 95.871c0-7.268-5.89-13.168-13.144-13.168h-88.013c-7.254 0-13.142 5.9-13.142 13.168 0 7.268 5.888 13.169 13.142 13.169h88.013c7.254 0 13.144-5.9 13.144-13.169z" fill="#FFF"></path> <path d="M242.665 120.453c0-7.268-5.89-13.169-13.142-13.169h-88.014c-7.253 0-13.143 5.901-13.143 13.169 0 7.268 5.89 13.169 13.143 13.169h88.014c7.253 0 13.142-5.901 13.142-13.169z" fill="#FFF"></path> <path d="M192.55 38.366c0-7.51-5.95-13.606-13.279-13.606H95.046c-7.329 0-13.278 6.096-13.278 13.606v2.638c0 7.51 5.949 13.605 13.278 13.605h84.225c7.33 0 13.279-6.096 13.279-13.605v-2.638z" fill="#F0AEA8"></path> <path d="M176.724 11.383c0-6.183-4.974-11.204-11.1-11.204h-57.81c-6.125 0-11.1 5.021-11.1 11.204v2.173c0 6.184 4.975 11.204 11.1 11.204h57.81c6.126 0 11.1-5.02 11.1-11.204v-2.173z" fill="#88D4DA"></path> <path d="M192.55 38.366c0-7.51-5.93-13.606-13.235-13.606h-73.762c-7.305 0-13.235 6.096-13.235 13.606v2.638c0 7.51 5.93 13.605 13.235 13.605h73.762c7.305 0 13.235-6.096 13.235-13.605v-2.638z" fill="#E4968F"></path> <path d="M177.603 11.383C177.603 5.2 172.605.18 166.449.18h-50.668c-6.155 0-11.154 5.021-11.154 11.204v2.173c0 6.184 4.999 11.204 11.154 11.204h50.668c6.156 0 11.154-5.02 11.154-11.204v-2.173z" fill="#65C0C0"></path> <path d="M73.696 45.83c-.398 0-.72.394-.72.879v1.755c0 .485.322.878.72.878H202.38c.397 0 .72-.393.72-.878v-1.755c0-.485-.323-.879-.72-.879H73.696z" fill="#999"></path> <path d="M78.25 58.962c0 .505.493.915 1.1.915h2.198c.607 0 1.099-.41 1.099-.915V49.38c0-.505-.492-.915-1.1-.915H79.35c-.607 0-1.1.41-1.1.915v9.583zM192.55 58.962c0 .505.492.915 1.098.915h2.199c.606 0 1.099-.41 1.099-.915V49.38c0-.505-.493-.915-1.099-.915h-2.199c-.606 0-1.098.41-1.098.915v9.583z" fill="#999"></path> <path d="M280.472 109.024c0-22.53-24.413-55.095-43.9-55.292H79.705c-40.518 0-44.537 17.706-44.537 58.063v40.043c0 18.05 14.708 32.703 32.824 32.703h179.655c18.117 0 32.824-14.654 32.824-32.703v-42.814z" fill="#E9E9E9"></path> <path d="M241.392 125.72c-38.56.005-206.223.044-206.223.044v32.014c0 2.625.465 5.164 1.33 7.562 4.007 11.093 16.599 19.2 31.495 19.2l184.977-.37c10.67 0 16.93-1.265 21.792-7.624 5.567-7.282 5.831-10.56 5.68-26.522-.03-3.23-6.846-12.053-12.835-15.991-5.988-3.939-13.42-8.314-26.216-8.313z" fill="#26BEC9"></path> <path d="M272.838 86.75c-2.86-5.351-7.356-11.922-7.356-11.922l-68.4-.027c-5.414 0-9.808 4.23-9.808 9.438v18.875c0 5.209 4.394 9.438 9.807 9.438l81.61-.019s.161-4.78-.38-8.675c-.92-6.637-2.849-12.198-5.473-17.109zM178.482 85.117c0-5.209-4.204-9.438-9.383-9.438h-48.935c-5.178 0-9.382 4.23-9.382 9.438v18.875c0 5.209 4.204 9.438 9.382 9.438H169.1c5.179 0 9.383-4.23 9.383-9.438V85.117z" fill-opacity=".5" fill="#FFF"></path> <path d="M181.12 85.117c0-5.209-4.204-9.438-9.383-9.438h-48.935c-5.178 0-9.382 4.229-9.382 9.438v18.875c0 5.209 4.204 9.438 9.382 9.438h48.935c5.179 0 9.383-4.23 9.383-9.438V85.117z" fill-opacity=".5" fill="#BCBCBC"></path> <path d="M100.231 85.117c0-5.209-4.247-9.438-9.48-9.438H55.2c-5.232 0-9.48 4.229-9.48 9.438v18.875c0 5.209 4.248 9.438 9.48 9.438h35.553c5.232 0 9.48-4.23 9.48-9.438V85.117z" fill-opacity=".5" fill="#FFF"></path> <path d="M103.748 85.117c0-5.209-4.249-9.438-9.48-9.438H58.716c-5.232 0-9.48 4.23-9.48 9.438v18.875c0 5.209 4.248 9.438 9.48 9.438h35.552c5.231 0 9.48-4.23 9.48-9.438V85.117z" fill-opacity=".5" fill="#BCBCBC"></path> <path d="M51.845 133.622c-.469 0-.85.393-.85.877v1.756c0 .485.381.878.85.878h35.226c.47 0 .851-.393.851-.878V134.5a.865.865 0 0 0-.851-.877H51.845zM51.845 140.645c-.469 0-.85.393-.85.878v1.756c0 .484.381.878.85.878h35.226c.47 0 .851-.394.851-.878v-1.756a.865.865 0 0 0-.851-.878H51.845z" fill-opacity=".404" fill="#FFF"></path> <path d="M274.27 86.903c-2.839-5.348-7.012-11.2-7.012-11.2l-67.603-.024c-5.378 0-9.743 4.226-9.743 9.433v18.868c0 5.207 4.365 9.434 9.743 9.434l80.781.016s.198-4.872-.339-8.767c-.916-6.634-3.22-12.85-5.827-17.76z" fill-opacity=".5" fill="#BCBCBC"></path> <path fill="#C77D76" d="M81.768 40.563H192.55v-2.634H81.768z"></path> <path fill="#C5E5E7" d="M96.714 14.225h80.01v-2.633h-80.01z"></path> <path d="M271.68 145.912c2.912 0 5.275 4.721 5.275 10.535 0 5.815-2.363 10.535-5.275 10.535-2.912 0-5.276-4.72-5.276-10.535 0-5.814 2.364-10.535 5.276-10.535z" fill="#E6C06D"></path> <path d="M276.076 183.663c0-1.938-1.632-3.512-3.641-3.512h-32.283c-2.01 0-3.641 1.574-3.641 3.512s1.63 3.511 3.64 3.511h32.284c2.01 0 3.64-1.573 3.64-3.511zM80.888 182.785c0-1.938-1.599-3.512-3.568-3.512H41.375c-1.97 0-3.568 1.574-3.568 3.512s1.599 3.511 3.568 3.511H77.32c1.97 0 3.568-1.573 3.568-3.511z" fill="#138184"></path> <g id="wheel-1"><path d="M225.52 158.203c12.86 0 23.3 10.425 23.3 23.265s-10.44 23.265-23.3 23.265c-12.858 0-23.299-10.425-23.299-23.265s10.441-23.265 23.3-23.265z" fill="#666"></path> <path d="M226.4 166.982c8.492 0 15.386 6.884 15.386 15.364s-6.894 15.363-15.386 15.363c-8.491 0-15.387-6.884-15.387-15.363 0-8.48 6.896-15.364 15.387-15.364z" fill="#999"></path> <path d="M232.099 185.276c3.145-5.469-4.096-15.586 1.351-12.429 5.447 3.158 7.316 10.161 4.172 15.63-3.146 5.468-10.12 7.345-15.568 4.188-5.447-3.158 6.9-1.92 10.045-7.39z" fill="#B8B7B7"></path></g> <path d="M273.438 147.668c2.426 0 4.396 4.13 4.396 9.218s-1.97 9.218-4.396 9.218-4.396-4.13-4.396-9.218c0-5.087 1.97-9.218 4.396-9.218z" fill="#EDCC86"></path> <path d="M156.501 37.93c0-.97-.766-1.757-1.71-1.757h-34.385c-.945 0-1.711.787-1.711 1.756v3.512c0 .969.766 1.756 1.71 1.756h34.386c.944 0 1.71-.787 1.71-1.756v-3.512z" fill="#C45F56"></path> <path d="M151.226 11.372c0-.847-.66-1.536-1.474-1.536h-25.187c-.814 0-1.474.69-1.474 1.536v3.073c0 .848.66 1.536 1.474 1.536h25.187c.814 0 1.474-.688 1.474-1.536v-3.073z" fill="#5EA1A6"></path> <g id="wheel-2"><path d="M87.482 158.203c12.86 0 23.3 10.425 23.3 23.265s-10.44 23.265-23.3 23.265c-12.859 0-23.299-10.425-23.299-23.265s10.44-23.265 23.3-23.265z" fill="#666"></path> <path d="M87.482 166.982c8.493 0 15.387 6.884 15.387 15.364s-6.894 15.363-15.387 15.363c-8.491 0-15.386-6.884-15.386-15.363 0-8.48 6.895-15.364 15.386-15.364z" fill="#999"></path> <path d="M92.303 185.276c3.145-5.469-4.096-15.586 1.351-12.429 5.447 3.158 7.316 10.161 4.171 15.63-3.145 5.468-10.12 7.345-15.567 4.188-5.447-3.158 6.9-1.92 10.045-7.39z" fill="#B8B7B7"></path></g> <path d="M35.169 144.742c0-.323-.296-.585-.66-.585h-1.318c-.364 0-.66.262-.66.585v14.632c0 .323.296.585.66.585h1.318c.364 0 .66-.262.66-.585v-14.632z" fill="#CCC"></path></g></svg></div>
+              <img src="../assets/img/bg_day.svg" alt="bg_day.svg" class="Sday" />
+              <div class="car">
+                <svg
+                  width="307"
+                  height="210"
+                  viewBox="0 0 307 210"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <g fill="none" fill-rule="evenodd">
+                    <path
+                      d="M153.424 201.22c84.677 0 153.424-.013 153.424 4.39 0 4.404-68.747 4.39-153.424 4.39S0 210.044 0 205.61c0-4.433 68.747-4.39 153.424-4.39z"
+                      fill="#DDD"
+                    />
+                    <path
+                      d="M280.472 182.785c0-2.908-2.49-5.268-5.56-5.268H41.608c-3.068 0-5.559 2.36-5.559 5.268 0 2.907 2.49 5.267 5.559 5.267h233.306c3.069 0 5.559-2.36 5.559-5.267z"
+                      fill="#138184"
+                    />
+                    <path
+                      d="M208.376 95.871c0-7.268-5.89-13.168-13.144-13.168h-88.013c-7.254 0-13.142 5.9-13.142 13.168 0 7.268 5.888 13.169 13.142 13.169h88.013c7.254 0 13.144-5.9 13.144-13.169z"
+                      fill="#FFF"
+                    />
+                    <path
+                      d="M242.665 120.453c0-7.268-5.89-13.169-13.142-13.169h-88.014c-7.253 0-13.143 5.901-13.143 13.169 0 7.268 5.89 13.169 13.143 13.169h88.014c7.253 0 13.142-5.901 13.142-13.169z"
+                      fill="#FFF"
+                    />
+                    <path
+                      d="M192.55 38.366c0-7.51-5.95-13.606-13.279-13.606H95.046c-7.329 0-13.278 6.096-13.278 13.606v2.638c0 7.51 5.949 13.605 13.278 13.605h84.225c7.33 0 13.279-6.096 13.279-13.605v-2.638z"
+                      fill="#F0AEA8"
+                    />
+                    <path
+                      d="M176.724 11.383c0-6.183-4.974-11.204-11.1-11.204h-57.81c-6.125 0-11.1 5.021-11.1 11.204v2.173c0 6.184 4.975 11.204 11.1 11.204h57.81c6.126 0 11.1-5.02 11.1-11.204v-2.173z"
+                      fill="#88D4DA"
+                    />
+                    <path
+                      d="M192.55 38.366c0-7.51-5.93-13.606-13.235-13.606h-73.762c-7.305 0-13.235 6.096-13.235 13.606v2.638c0 7.51 5.93 13.605 13.235 13.605h73.762c7.305 0 13.235-6.096 13.235-13.605v-2.638z"
+                      fill="#E4968F"
+                    />
+                    <path
+                      d="M177.603 11.383C177.603 5.2 172.605.18 166.449.18h-50.668c-6.155 0-11.154 5.021-11.154 11.204v2.173c0 6.184 4.999 11.204 11.154 11.204h50.668c6.156 0 11.154-5.02 11.154-11.204v-2.173z"
+                      fill="#65C0C0"
+                    />
+                    <path
+                      d="M73.696 45.83c-.398 0-.72.394-.72.879v1.755c0 .485.322.878.72.878H202.38c.397 0 .72-.393.72-.878v-1.755c0-.485-.323-.879-.72-.879H73.696z"
+                      fill="#999"
+                    />
+                    <path
+                      d="M78.25 58.962c0 .505.493.915 1.1.915h2.198c.607 0 1.099-.41 1.099-.915V49.38c0-.505-.492-.915-1.1-.915H79.35c-.607 0-1.1.41-1.1.915v9.583zM192.55 58.962c0 .505.492.915 1.098.915h2.199c.606 0 1.099-.41 1.099-.915V49.38c0-.505-.493-.915-1.099-.915h-2.199c-.606 0-1.098.41-1.098.915v9.583z"
+                      fill="#999"
+                    />
+                    <path
+                      d="M280.472 109.024c0-22.53-24.413-55.095-43.9-55.292H79.705c-40.518 0-44.537 17.706-44.537 58.063v40.043c0 18.05 14.708 32.703 32.824 32.703h179.655c18.117 0 32.824-14.654 32.824-32.703v-42.814z"
+                      fill="#E9E9E9"
+                    />
+                    <path
+                      d="M241.392 125.72c-38.56.005-206.223.044-206.223.044v32.014c0 2.625.465 5.164 1.33 7.562 4.007 11.093 16.599 19.2 31.495 19.2l184.977-.37c10.67 0 16.93-1.265 21.792-7.624 5.567-7.282 5.831-10.56 5.68-26.522-.03-3.23-6.846-12.053-12.835-15.991-5.988-3.939-13.42-8.314-26.216-8.313z"
+                      fill="#26BEC9"
+                    />
+                    <path
+                      d="M272.838 86.75c-2.86-5.351-7.356-11.922-7.356-11.922l-68.4-.027c-5.414 0-9.808 4.23-9.808 9.438v18.875c0 5.209 4.394 9.438 9.807 9.438l81.61-.019s.161-4.78-.38-8.675c-.92-6.637-2.849-12.198-5.473-17.109zM178.482 85.117c0-5.209-4.204-9.438-9.383-9.438h-48.935c-5.178 0-9.382 4.23-9.382 9.438v18.875c0 5.209 4.204 9.438 9.382 9.438H169.1c5.179 0 9.383-4.23 9.383-9.438V85.117z"
+                      fill-opacity="0.5"
+                      fill="#FFF"
+                    />
+                    <path
+                      d="M181.12 85.117c0-5.209-4.204-9.438-9.383-9.438h-48.935c-5.178 0-9.382 4.229-9.382 9.438v18.875c0 5.209 4.204 9.438 9.382 9.438h48.935c5.179 0 9.383-4.23 9.383-9.438V85.117z"
+                      fill-opacity="0.5"
+                      fill="#BCBCBC"
+                    />
+                    <path
+                      d="M100.231 85.117c0-5.209-4.247-9.438-9.48-9.438H55.2c-5.232 0-9.48 4.229-9.48 9.438v18.875c0 5.209 4.248 9.438 9.48 9.438h35.553c5.232 0 9.48-4.23 9.48-9.438V85.117z"
+                      fill-opacity="0.5"
+                      fill="#FFF"
+                    />
+                    <path
+                      d="M103.748 85.117c0-5.209-4.249-9.438-9.48-9.438H58.716c-5.232 0-9.48 4.23-9.48 9.438v18.875c0 5.209 4.248 9.438 9.48 9.438h35.552c5.231 0 9.48-4.23 9.48-9.438V85.117z"
+                      fill-opacity="0.5"
+                      fill="#BCBCBC"
+                    />
+                    <path
+                      d="M51.845 133.622c-.469 0-.85.393-.85.877v1.756c0 .485.381.878.85.878h35.226c.47 0 .851-.393.851-.878V134.5a.865.865 0 0 0-.851-.877H51.845zM51.845 140.645c-.469 0-.85.393-.85.878v1.756c0 .484.381.878.85.878h35.226c.47 0 .851-.394.851-.878v-1.756a.865.865 0 0 0-.851-.878H51.845z"
+                      fill-opacity="0.404"
+                      fill="#FFF"
+                    />
+                    <path
+                      d="M274.27 86.903c-2.839-5.348-7.012-11.2-7.012-11.2l-67.603-.024c-5.378 0-9.743 4.226-9.743 9.433v18.868c0 5.207 4.365 9.434 9.743 9.434l80.781.016s.198-4.872-.339-8.767c-.916-6.634-3.22-12.85-5.827-17.76z"
+                      fill-opacity="0.5"
+                      fill="#BCBCBC"
+                    />
+                    <path fill="#C77D76" d="M81.768 40.563H192.55v-2.634H81.768z" />
+                    <path fill="#C5E5E7" d="M96.714 14.225h80.01v-2.633h-80.01z" />
+                    <path
+                      d="M271.68 145.912c2.912 0 5.275 4.721 5.275 10.535 0 5.815-2.363 10.535-5.275 10.535-2.912 0-5.276-4.72-5.276-10.535 0-5.814 2.364-10.535 5.276-10.535z"
+                      fill="#E6C06D"
+                    />
+                    <path
+                      d="M276.076 183.663c0-1.938-1.632-3.512-3.641-3.512h-32.283c-2.01 0-3.641 1.574-3.641 3.512s1.63 3.511 3.64 3.511h32.284c2.01 0 3.64-1.573 3.64-3.511zM80.888 182.785c0-1.938-1.599-3.512-3.568-3.512H41.375c-1.97 0-3.568 1.574-3.568 3.512s1.599 3.511 3.568 3.511H77.32c1.97 0 3.568-1.573 3.568-3.511z"
+                      fill="#138184"
+                    />
+                    <g id="wheel-1">
+                      <path
+                        d="M225.52 158.203c12.86 0 23.3 10.425 23.3 23.265s-10.44 23.265-23.3 23.265c-12.858 0-23.299-10.425-23.299-23.265s10.441-23.265 23.3-23.265z"
+                        fill="#666"
+                      />
+                      <path
+                        d="M226.4 166.982c8.492 0 15.386 6.884 15.386 15.364s-6.894 15.363-15.386 15.363c-8.491 0-15.387-6.884-15.387-15.363 0-8.48 6.896-15.364 15.387-15.364z"
+                        fill="#999"
+                      />
+                      <path
+                        d="M232.099 185.276c3.145-5.469-4.096-15.586 1.351-12.429 5.447 3.158 7.316 10.161 4.172 15.63-3.146 5.468-10.12 7.345-15.568 4.188-5.447-3.158 6.9-1.92 10.045-7.39z"
+                        fill="#B8B7B7"
+                      />
+                    </g>
+                    <path
+                      d="M273.438 147.668c2.426 0 4.396 4.13 4.396 9.218s-1.97 9.218-4.396 9.218-4.396-4.13-4.396-9.218c0-5.087 1.97-9.218 4.396-9.218z"
+                      fill="#EDCC86"
+                    />
+                    <path
+                      d="M156.501 37.93c0-.97-.766-1.757-1.71-1.757h-34.385c-.945 0-1.711.787-1.711 1.756v3.512c0 .969.766 1.756 1.71 1.756h34.386c.944 0 1.71-.787 1.71-1.756v-3.512z"
+                      fill="#C45F56"
+                    />
+                    <path
+                      d="M151.226 11.372c0-.847-.66-1.536-1.474-1.536h-25.187c-.814 0-1.474.69-1.474 1.536v3.073c0 .848.66 1.536 1.474 1.536h25.187c.814 0 1.474-.688 1.474-1.536v-3.073z"
+                      fill="#5EA1A6"
+                    />
+                    <g id="wheel-2">
+                      <path
+                        d="M87.482 158.203c12.86 0 23.3 10.425 23.3 23.265s-10.44 23.265-23.3 23.265c-12.859 0-23.299-10.425-23.299-23.265s10.44-23.265 23.3-23.265z"
+                        fill="#666"
+                      />
+                      <path
+                        d="M87.482 166.982c8.493 0 15.387 6.884 15.387 15.364s-6.894 15.363-15.387 15.363c-8.491 0-15.386-6.884-15.386-15.363 0-8.48 6.895-15.364 15.386-15.364z"
+                        fill="#999"
+                      />
+                      <path
+                        d="M92.303 185.276c3.145-5.469-4.096-15.586 1.351-12.429 5.447 3.158 7.316 10.161 4.171 15.63-3.145 5.468-10.12 7.345-15.567 4.188-5.447-3.158 6.9-1.92 10.045-7.39z"
+                        fill="#B8B7B7"
+                      />
+                    </g>
+                    <path
+                      d="M35.169 144.742c0-.323-.296-.585-.66-.585h-1.318c-.364 0-.66.262-.66.585v14.632c0 .323.296.585.66.585h1.318c.364 0 .66-.262.66-.585v-14.632z"
+                      fill="#CCC"
+                    />
+                  </g>
+                </svg>
+              </div>
             </div>
             <div class="w-full sm:w-1/2 mt-6">
               <div class="ml-10">
@@ -483,7 +648,7 @@ import TravelCard from "@/components/TravelCard.vue";
 import WishBoard from "@/components/WishBoard.vue";
 import ZDialog from "@/components/ZDialog.vue";
 
-import Loading from '@/components/Loading.vue';
+import Loading from "@/components/Loading.vue";
 
 import { mapState, mapActions, mapMutations } from "vuex";
 //
@@ -491,11 +656,12 @@ export default {
   name: "Home",
   data() {
     return {
-       filterData: [],
-       showAnimate:false,
+      show: true,
+      filterData: [],
+      showAnimate: false,
       searchText: "",
-       commentVisible: false,
-       wishMessage: {},
+      commentVisible: false,
+      wishMessage: {}
     };
   },
   components: {
@@ -504,7 +670,6 @@ export default {
     TravelCard,
     WishBoard,
     ZDialog
-    
   },
   computed: {
     ...mapState(["projects"], ["userInfo"], ["Permission"], ["wishList"]),
@@ -515,7 +680,8 @@ export default {
     recommends() {
       const project = [...this.projects];
       // console.log(project);
-      return project.slice(0, 3); //取亂數
+      return project.sort((a, b) => b.star - a.star).splice(0, 3); //取亂數
+      //讓星星最多在上面
     },
     homeWish() {
       const wish = [...this.$store.state.wishList];
@@ -523,26 +689,25 @@ export default {
     }
   },
   methods: {
-     handleScroll: function(){
-  let scrollHeight = $(window).scrollTop(); 
-  //  console.log("重要参考："+scrollHeight);
-    if(scrollHeight > 3500){
-          $(".car").addClass('animated');
-       
-          this.showAnimate = true;
-        }
+    handleScroll: function() {
+      let scrollHeight = $(window).scrollTop();
+      //  console.log("重要参考："+scrollHeight);
+      if (scrollHeight > 3500) {
+        $(".car").addClass("animated");
 
-     },
-        closeManage() {
-      this.commentVisible = false
+        this.showAnimate = true;
+      }
     },
-         beforeClose(done) {
+    closeManage() {
+      this.commentVisible = false;
+    },
+    beforeClose(done) {
       //dialog關掉的xx
-  
+
       this.commentVisible = false;
       done();
     },
-      getWish(id) {
+    getWish(id) {
       //旅行家觀看單一許願板
 
       const vm = this;
@@ -550,7 +715,6 @@ export default {
       let api = `${process.env.VUE_APP_APIPATH}wish/inner/${id}`;
       this.$http.get(api).then(res => {
         if (res.data.success) {
-          
           vm.wishMessage = res.data.result;
           vm.commentVisible = true;
           // console.log(vm.wishMessage);
@@ -560,7 +724,7 @@ export default {
     open() {
       this.show = true;
     },
-     searchData() {
+    searchData() {
       let api = `${process.env.VUE_APP_APIPATH}plan/search?search=${this.searchText}`;
       this.$http
         .get(api)
@@ -590,13 +754,17 @@ export default {
       ["WISHMESSAGE"]
     )
   },
-mounted() {
-   window.addEventListener('scroll', this.handleScroll, true);
-},
+  mounted() {
+    const vm = this;
+    setTimeout(() => {
+      vm.show = false;
+    }, 3500);
+    window.addEventListener("scroll", this.handleScroll, true);
+  },
   created() {
     this.getProjects();
-  
-     this.$store.dispatch("getOneUser");
+
+    this.$store.dispatch("getOneUser");
     // console.log(this.homeWish)
   }
 };
@@ -634,15 +802,15 @@ mounted() {
   height: 79vh;
   background-position: top bottom;
 }
-.min-h-180{
+.min-h-180 {
   max-height: 215px;
 }
-.max-h-350{
+.max-h-350 {
   max-height: 350px;
 }
-.form-head:before, .form-head:after {
-    background-color: #fff;
-  
+.form-head:before,
+.form-head:after {
+  background-color: #fff;
 }
 #wrapper {
   background: linear-gradient(90deg, #0a65c2 0%, #bee3f8 100%);

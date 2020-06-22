@@ -165,7 +165,7 @@
                         :src="traveler.manpic"
                         alt
                         srcset
-                        class="border-2 border-blue-200 bg-white w-48 h-48 rounded-full overflow-hidden"
+                        class="border-2 border-blue-200 bg-white w-48 h-48  object-cover rounded-full overflow-hidden"
                       />
                     </div>
                     <div class="mx-auto flex justify-center my-5">

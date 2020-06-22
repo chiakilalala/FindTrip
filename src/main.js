@@ -62,7 +62,7 @@ import 'quill/dist/quill.bubble.css' // for bubble theme
 
 import MQuillEditor from 'vue-m-quill-editor'
 
-Vue.use(MQuillEditor)
+Vue.use(MQuillEditor);
 
 localize('zh_TW', zh_TW);
 

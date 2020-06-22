@@ -111,6 +111,12 @@ const routes = [
                     import ('@/components/member/Project'),
                 meta: { requiresAuth: true },
             },
+            // {
+            //     path: 'projectest', // url= /member/project
+            //     component: () =>
+            //         import ('@/components/member/projectTest'),
+            //     meta: { requiresAuth: false },
+            // },
             {
                 path: 'message', // url= /member/message
                 component: () =>

@@ -2,6 +2,7 @@
   <div>
     <!-- NavBar Component -->
     <NavBar />
+     <loading loader="bars" :active.sync="isLoading"></loading>
     <!-- banner -->
     <div class="hero bg-cover h-112 overflow-hidden"></div>
     <!--search  -->
@@ -215,7 +216,7 @@ import Footer from "@/components/Footer.vue";
 import ProductCard from "@/components/products/ProductCard.vue";
 import _ from "lodash";
 
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapGetters,mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "Product",
@@ -236,6 +237,7 @@ export default {
     };
   },
   computed: {
+    ...mapGetters(['isLoading']),
     ...mapState(["projects"], ["countries"], ["SearchPlans"],["userInfo"]),
 
     county() {

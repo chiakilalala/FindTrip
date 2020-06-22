@@ -17,10 +17,10 @@
             :src="item.TPBGImg ? item.TPBGImg : 'https://picsum.photos/300/200?random=1' "
           />
         </a>
-        <div class="flex justify-content-end relative people">
+        <div class="flex justify-content-end relative people ">
           <img
             alt="Placeholder"
-            class="w-12 h-12 block rounded-full border-white border-2 shadow"
+            class="w-12 h-12 block object-cover rounded-full border-white border-2 shadow"
             :src="item.manpic"
           />
         </div>
@@ -31,7 +31,7 @@
               v-model="item.star"
               disabled
               text-color="#ff9900"
-              score-template="{value}"
+          
               class="inline-block"
             ></el-rate>
 

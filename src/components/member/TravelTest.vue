@@ -1,5 +1,6 @@
 <template>
   <div>
+   <loading loader="bars" :active.sync="isLoading"></loading>
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
@@ -238,7 +239,7 @@
 </template>
 
 <script>
-import { mapState, mapActions, mapMutations } from "vuex";
+import { mapGetters,mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -471,6 +472,7 @@ export default {
     }
   },
   computed: {
+     ...mapGetters(['isLoading']),
     ...mapState(["sellOrders"], ["userInfo"], ["projects"])
   },
   updated() {

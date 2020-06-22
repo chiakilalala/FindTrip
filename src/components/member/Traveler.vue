@@ -424,7 +424,7 @@ export default {
 
       //單筆訂單整理
     },
-¥
+
 
     ...mapActions(["sellerOrder"], ["getOrder"], ["getProjects"]),
     ...mapMutations(
