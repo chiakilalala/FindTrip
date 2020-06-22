@@ -53,18 +53,20 @@
             class="list-reset text-lg lg:flex justify-end flex-1 items-center"
             :class="{'active': isBurgerActive}"
           >
-            <li class="mr-3 hover:text-gray-800 hover:text-underline ">
+            <li class="mr-3 ">
               <router-link
-                class-active="active" tag="li"
+                class-active="active"
+                tag="li"
                 to="/product"
-                class="inline-block text-lg py-2 px-4 text-black no-underline"
+                class="inline-block text-lg py-2 px-4 text-black no-underline sm:text-xl"
               >尋找旅行規劃師</router-link>
             </li>
-            <li class="mr-3 text-lg hover:text-gray-800 hover:text-underline">
+            <li class="mr-3 ">
               <router-link
-                class-active="active" tag="li"
+                class-active="active"
+                tag="li"
                 to="/wish"
-                class="inline-block text-black no-underline py-2 px-4"
+                class="inline-block text-lg text-black no-underline py-2 px-4 sm:text-xl"
               >進入許願池</router-link>
             </li>
           </ul>
@@ -304,11 +306,10 @@ export default {
 
 <style >
 #nav-content li:hover,
-#nav-content li:active
-{
-  border-bottom:1px solid #ddd;
-   transition: all .35s ease-in-out;
-      cursor: pointer;
+#nav-content li:active {
+  border-bottom: 1px solid #ddd;
+  transition: all 0.35s ease-in-out;
+  cursor: pointer;
 }
 #nav-content ul.active {
   text-align: center;

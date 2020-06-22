@@ -218,7 +218,7 @@ export default {
         if (res.data.success) {
           
           vm.orderInfo = res.data.result[0];
-          console.log(vm.orderInfo);
+          // console.log(vm.orderInfo);
          
 
         }
@@ -239,7 +239,7 @@ export default {
   },
   created() {
     this.orderId = this.$route.params.id;
-    console.log(this.$store.state.userInfo.points);
+   
     this.getOrder();
     this.getOneUser();
 

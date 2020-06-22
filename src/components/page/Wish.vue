@@ -46,9 +46,8 @@
 
     <!-- 熱門規劃師 -->
     <section class="bg-chiaki-blue py-10">
-      <!-- filter -->
-      <div class="flex container mx-auto flex-wrap max-w-7xl px-4 sm:px-5">
-        <div class="py-5 flex">
+      <div class="py-5 flex">
+          <div class="container mx-auto max-w-7xl pr-4 mb-5">
           <div class="relative people_wrap">
                 <button
               @click="sort('CommentTotal','asc')"
@@ -63,11 +62,15 @@
             class=" hover:font-medium  text-lg  ml-4"
           >⇅</span>
           </div>
+          </div>
 
           <div class="mt-1 mb-3 flex justify-end">
             <div class="btnCust eventInsert" @click="wishModel">我要許願</div>
           </div>
         </div>
+      <!-- filter -->
+      <div class="flex container mx-auto flex-wrap max-w-7xl px-4 sm:px-5" name="fade-list" is="transition-group">
+        
         <!-- 類型挑選 -->
         <div class="container mx-auto max-w-7xl pr-4 mb-5">
           <!-- <div class="people_wrap my-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center">
@@ -79,9 +82,10 @@
             <button class="bg-blue-500">購物</button>
           </div>-->
         </div>
+     
         <div
           class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3 cursor-pointer"
-          @click="getWish(item.id)"
+          @click="getWish(item.id)"    
           v-for="item in sortedRod"
           :key="item.id"
         >
@@ -167,7 +171,10 @@
             </div>
           </div>
         </div>
+    
       </div>
+
+      
     </section>
 
     <el-dialog :visible="commentVisible" :before-close="beforeClose">
@@ -613,6 +620,15 @@ export default {
   left: -8px;
   z-index: -1; */
 
+}
+
+.fade-list-move {
+	transition: transform 0.25s ease;
+}
+
+.fade-list-leave-to {
+	transition: all 0.5s ease;
+	opacity: 0.8;
 }
 </style>
 

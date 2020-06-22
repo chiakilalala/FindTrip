@@ -43,7 +43,7 @@
                 class="my-4 text-5xl text-center lg:text-left font-semibold leading-snug text-gray-700 lg:text-gray-700 mb-4"
               >Travel More Plan Less</h1>
               <p
-                class="text-center lg:text-left font-thin leading-normal text-xl mb-4 md:text-gray-600 lg:text-gray-700"
+                class="text-center lg:text-left font-thin leading-normal text-xl mb-4 md:text-gray-200 lg:text-gray-700"
               >專人量身打造行程，滿足您的旅行願望 ，省時旅遊超容易</p>
 
               <div class="my-10">
@@ -55,9 +55,9 @@
                       class="shadow-lg flex flex-wrap w-full max-w-5xl h-112 lg:h-64 bg-white rounded-lg z-30 relative search-box_inner"
                     >
                       <div class="pt-0 bg-blue-prod h-1 0 px-5 py-12 w-full rounded-t-lg">
-                        <div class="flex justify-between lg:mt-2 mt-4 text-gray-200">
+                        <div class="flex justify-between lg:mt-2 sm:mt-2 text-gray-200">
                           <div
-                            class="lg:text-xl text-sm lg:tracking-xl md:tracking-normal font-light"
+                            class="lg:text-xl sm:text-2xl lg:tracking-xl md:tracking-normal font-bold"
                           >Find-Trip</div>
                           <h3 class="lg:text-2xl text-md font-extrabold">
                             <i class="fas fa-plane text-md pr-2 text-gray-300"></i>BOARDING PASS
@@ -68,9 +68,9 @@
                       <!--shadow-lg rounded-lg <div class="w-full md:w-1/4 h-auto right-0">
          
                       </div>   md:w-3/4-->
-                      <div class="w-full h-auto ticket">
+                      <div class="w-full h-auto ticket sm:h-20">
                         <div class="flex flex-wrap lg:mb-2 mb-0">
-                          <div class="relative w-full px-6 mb-1 lg:mb-6 md:mb-0">
+                          <div class="relative w-full px-6 mb-1 lg:mb-6 md:mb-0 ">
                             <label
                               class="block tracking-wide text-gray-700 text-md font-bold mb-2"
                               for="grid-state"

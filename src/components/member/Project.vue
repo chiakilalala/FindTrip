@@ -29,7 +29,7 @@
     </div>
     <!-- 訂單目錄 -->
     <div
-      class="py-0 flex-1 text-gray-700 text-left bg-white sm:py-0 md:py-5 my-2 rounded-lg shadow-lg mb-5"
+      class="py-0 flex-1 text-gray-700 text-left bg-white sm:py-0 md:py-0   lg:py-5 my-2 rounded-lg shadow-lg mb-5"
       v-for="item   in plans"
       :key="item.id"
     >
@@ -45,7 +45,7 @@
         </div>
         <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
           <div
-            class="px-4 mt-8 lg:px-0 lg:mt-0 h-full flex sm:flex-row lg:flex-col justify-between"
+            class="sm:pb-2 px-4 mt-8 lg:px-0 lg:mt-0 h-full flex sm:flex-row lg:flex-col justify-between"
           >
             <p
               class="block lg:mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
@@ -97,7 +97,7 @@
               <div class="lg:flex-0 flex justify-between items-center">
                 <el-button
                   @click="deleteDialogModal(item)"
-                  class="bg-red-500 hover:bg-red-400 hover:shadow-xl text-white font-thin py-3 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
+                  class="sm:mr-3 bg-red-500 hover:bg-red-400 hover:shadow-xl text-white font-thin py-3 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                 >刪除</el-button>
                 <button
                   @click="openModel(false, item)"
@@ -372,7 +372,7 @@
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
                         name="group"
-                        v-model="temPlans['Act']"
+                        v-model="temPlans['Act']" 
                         value="冒險"
                       />
                       <span class="text-base">冒險</span>
@@ -643,7 +643,7 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}plan/update/${vm.temPlans.id}`;
         httpMethod = "patch";
       }
-      // console.log(api, "update");
+      console.log(api, "update");
 
       this.$http[httpMethod](
         api,

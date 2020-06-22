@@ -643,7 +643,7 @@ export default {
           .then(res => {
            
             if (res.data.success) {
-              console.log("訂單建立", res.data.result);
+              // console.log("訂單建立", res.data.result);
               this.dialogVisible = false;
    
               vm.checkOrder = res.data.result;
