@@ -45,7 +45,7 @@ const store = new Vuex.Store({
 
     },
     getter: {
-        isLoading: state => state.isLoading,
+        isLoading: (state) => state.isLoading,
         getUserList: (state) => state.userInfo,
         selectedCountry: (state) => state.selectedCountry,
         selectedCity: (state) => state.selectedCity,
@@ -71,18 +71,7 @@ const store = new Vuex.Store({
         //     });
         //     return Array.from(cities);
         // },
-        filterCountyData: (state, getters) => {
-            return state.projects.filter((value) => {
-                console.log(value);
-                return value.country === getters.selectedCountry;
 
-            });
-        },
-        filterCityData: (state, getters) => {
-            return getters.filterCountyData.filter((value) => {
-                return value.city === getters.selectedCity;
-            });
-        },
         updateSearch: (state, getters) => {
             let filterData = [];
             if (state.searchData.length > 0) {

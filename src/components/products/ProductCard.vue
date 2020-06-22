@@ -1,5 +1,5 @@
 <template>
-  <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2  cursor-pointer">
+  <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2  cursor-pointer" name="fade-list" is="transition-group">
     
     <div class="my-4 px-4 w-full lg:w-1/3 mb-8" v-for="item in randomProject" :key="item.id" >
       <!-- Article @click="$router.push({ name: 'people', params: { id: item.id } }) -->
@@ -101,12 +101,19 @@ export default {
   }
 };
 </script>
-<style>
+<style scoped>
 .min-cardHeight{
   min-height:400px
 }
 .min-h-180{
   max-height: 180px;
 }
+.fade-list-move {
+	transition: transform 0.25s ease;
+}
 
+.fade-list-leave-to {
+	transition: all 0.5s ease;
+	opacity: 0.8;
+}
 </style>

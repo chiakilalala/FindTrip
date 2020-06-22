@@ -2,7 +2,7 @@
   <div>
     <!-- NavBar Component -->
     <NavBar />
-     <loading loader="bars" :active.sync="isLoading"></loading>
+
     <!-- banner -->
     <div class="hero bg-cover h-112 overflow-hidden"></div>
     <!--search  -->
@@ -15,7 +15,7 @@
       >
         <div class="pt-0 bg-blue-prod h-1 0 px-5 py-12 w-full rounded-t-lg">
           <div class="flex justify-between lg:mt-2 mt-4 text-gray-200">
-            <div class="lg:text-xl text-sm lg:tracking-xl md:tracking-normal font-light">Find-Trip</div>
+            <div class="lg:text-lg text-sm lg:tracking-xl md:tracking-normal font-bold">Find-Trip</div>
             <h3 class="lg:text-2xl text-md font-extrabold">
               <i class="fas fa-plane text-md pr-2 text-gray-300"></i>BOARDING PASS
             </h3>
@@ -104,9 +104,11 @@
               <router-link to="/home" class="hover:text-blue-500">
                 <i class="fa fa-home"></i>
               </router-link>
-             <span class="mx-1">/</span>
+              <span class="mx-1">/</span>
             </li>
-            <li><router-link to="/product" class="hover:text-blue-500">旅行規劃師</router-link></li>
+            <li>
+              <router-link to="/product" class="hover:text-blue-500">旅行規劃師</router-link>
+            </li>
           </ul>
         </div>
       </div>
@@ -121,7 +123,7 @@
             <!-- search 功能 -->
             <input
               type="search"
-              class="w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
+              class="rounded-r-none w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
               placeholder="請輸入關鍵字..."
               v-model.trim="searchText"
               @keyup.enter="KeysearchData"
@@ -145,11 +147,12 @@
 
             <button
               @click="KeysearchData"
-              class="items-center flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
+              class="rounded-l-none rounded-lg items-center flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
             >
               <i class="fas fa-search fa-lg"></i>
             </button>
             <button
+              @click="clearText"
               class="bg-transparent hover:bg-primary text-primary font-semibold hover:text-white hover:border-transparent cursor-pointer py-2 px-4"
             >
               <i class="fas fa-sync-alt fa-lg"></i>
@@ -157,13 +160,13 @@
           </div>
 
           <button
-            @click="sort('star','asc')"
+            @click="sort('rating','asc')"
             class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
           >熱 門 評 價</button>
           <button
             @click="sort('points','asc')"
             class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
-          >點數高低</button>
+          >點 數 高 低</button>
           <button
             @click="sort(null, true)"
             class="hover:text-gray-900 hover:font-medium focus:outline-none text-lg"
@@ -198,7 +201,9 @@
             <button @click="tags = []" class="toolBtn bg-teal-500">清除</button>
           </div>
         </div>
+
         <product-card :projects="filterData" />
+
         <!-- <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4 px-2"> -->
         <!-- Column -->
 
@@ -216,7 +221,7 @@ import Footer from "@/components/Footer.vue";
 import ProductCard from "@/components/products/ProductCard.vue";
 import _ from "lodash";
 
-import { mapGetters,mapState, mapActions, mapMutations } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   name: "Product",
@@ -227,6 +232,7 @@ export default {
   },
   data() {
     return {
+      show: true,
       filter: "all",
       searchText: "",
       tags: [],
@@ -237,8 +243,7 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(['isLoading']),
-    ...mapState(["projects"], ["countries"], ["SearchPlans"],["userInfo"]),
+    ...mapState(["projects"], ["countries"], ["SearchPlans"], ["userInfo"]),
 
     county() {
       //篩出國家
@@ -255,11 +260,10 @@ export default {
     // },
     filterData() {
       if (this.filter == "all") {
-        return this.projects;
+        return this.sortedRod;
       }
 
-      return this.projects.filter(item => item.country === this.filter);
- 
+      return this.sortedRod.filter(item => item.country === this.filter);
     },
     sortedRod() {
       return _.orderBy(this.projects, this.orderBy, this.orderOption);
@@ -299,13 +303,12 @@ export default {
           return "activeTag";
         }
       };
-    },
-  
+    }
   },
 
   methods: {
     //api 動作
-    ...mapActions(["getProjects"],["getOneUser"]),
+    ...mapActions(["getProjects"], ["getOneUser"]),
     ...mapMutations(["setProjectInfo"], ["UPDATE_USER"], ["Setcounty"]),
     handleSearch: _.debounce(function() {
       this.keywordSearch;
@@ -367,26 +370,34 @@ export default {
         });
     },
     KeysearchData() {
-      let api = `${process.env.VUE_APP_APIPATH}plan/search?search=${this.searchText}`;
-      this.$http
-        .get(api)
-        .then(res => {
-          // console.log(res);
-          if (res.data.success) {
-           this.porjects = res.data.result;
-          
-            // this.$store.commit('setProjectInfo', res.data.result);
-          }
-        })
-        .catch(err => {
-          console.log(err);
-        });
+      if (this.searchText == "") {
+        this.getProjects();
+      } else {
+        let api = `${process.env.VUE_APP_APIPATH}plan/search?search=${this.searchText}`;
+        this.$http
+          .get(api)
+          .then(res => {
+            // console.log(res);
+            if (res.data.success) {
+              this.$store.commit("setProjectInfo", res.data.result);
+
+              // this.$store.commit('setProjectInfo', res.data.result);
+            }
+          })
+          .catch(err => {
+            console.log(err);
+          });
+      }
+    },
+    clearText() {
+      this.searchText = "";
+      this.filter = "all";
+      this.getProjects();
     }
-   
   },
   mounted() {},
   created() {
-         this.$store.dispatch("getOneUser");
+    this.$store.dispatch("getOneUser");
     const query = this.$route.query.search;
     // console.log(query);
     if (!query) {
@@ -395,15 +406,13 @@ export default {
       this.searchData(query);
     }
     // 取得api
-
-
   }
 };
 </script>
 
 <style>
 .barcode {
-  top: 7px;
+  top: 8px;
 }
 .search-box {
   position: relative;
@@ -435,8 +444,8 @@ export default {
   background-color: #bee3f8;
 }
 .barcode img {
-  max-width: 200px;
-  object-fit: fill;
+  max-width: 190px;
+  object-fit: cover;
 }
 .ticket:before {
   height: 16rem;

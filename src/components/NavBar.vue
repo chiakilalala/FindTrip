@@ -71,7 +71,7 @@
       <div class="p-4 text-center"  :class="isOpen ? 'block' : 'hidden'">
       <button
             id="navAction"
-            class="hover:bg-blue-300 text-center outline-none mx-auto lg:mx-0 hover:shadow-lg bg-white text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
+            class="hover:bg-blue-300 text-center outline-none mx-auto lg:mx-0 hover:shadow-lg bg-blue-100 text-gray-800 font-bold rounded-full mt-4 lg:mt-0 py-2 px-8 shadow opacity-75"
             v-if="!$store.state.token"
             @click="$router.push('/login')"
           >
