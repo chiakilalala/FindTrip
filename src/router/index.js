@@ -33,15 +33,7 @@ const routes = [
             import ('@/components/Home'),
         meta: { requiresAuth: false }, //不需要驗證
     },
-    {
-        path: '/homeTest',
-        /* 首頁*/
-        name: 'homeTest',
 
-        component: () =>
-            import ('@/components/HomeTest'),
-        meta: { requiresAuth: false }, //不需要驗證
-    },
     {
         path: '/product',
         name: 'Product',

@@ -1,17 +1,17 @@
 <template>
   <div class="bg-blue-100">
-<div class="loading">
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
-        <span></span>
+    <div class="loading">
+      <span />
+      <span />
+      <span />
+      <span />
+      <span />
     </div>
   </div>
 </template>
 <script>
 export default {
-  name:'loading'
+  name:'Loading'
 }
 </script>
 

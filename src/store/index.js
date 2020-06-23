@@ -58,33 +58,8 @@ const store = new Vuex.Store({
         },
         SearchProjects: (state) => state.SearchPlans,
 
-        // county: (state) => {
-        //     return state.projects
-        //         .map(item => item.country) //篩出國家
-        //         .filter((item, index, arr) => arr.indexOf(item) === index);
-        // },
-        // city: (state) => {
-        //     const cities = [];
-        //     state.projects.forEach((value) => {
-        //         if (!value.city) return;
-        //         cities.add(value.city);
 
-        //     });
-        //     return Array.from(cities);
-        // },
 
-        updateSearch: (state, getters) => {
-            let filterData = [];
-            if (state.searchData.length > 0) {
-                filterData = state.searchData;
-
-            } else if (getters.selectedCity) {
-                filterData = getters.filterCityData;
-            } else if (getters.selectedCountry) {
-                filterData = getters.filterCountyData;
-            }
-            return filterData;
-        },
 
 
     },
@@ -92,10 +67,10 @@ const store = new Vuex.Store({
 
         //修改token 並將token 存入localStoreage
         changeLogin(state, user) { //這裡的state 對應上面的state
-            // console.log(user);
-            // state.Authorization = user.Authorization;
+
+
             state.token = user.token;
-            // localStorage.setItem('Authorization', user.Authorization);
+
             localStorage.setItem('token', user.token);
 
         },
@@ -142,7 +117,7 @@ const store = new Vuex.Store({
         Setcounty(state, val) { //拿到全部國家
 
             state.countries = val;
-            // console.log(val);
+
         },
         GETORDER(state, val) {
             state.orders = val;
@@ -161,7 +136,7 @@ const store = new Vuex.Store({
         },
         WISHMESSAGE(state, val) {
             state.wishList = val;
-            // console.log(val);
+
         },
         STARED(state, val) {
             state.started = val;
@@ -170,26 +145,7 @@ const store = new Vuex.Store({
 
     },
     actions: {
-        doLogin({ commit }, user) {
 
-
-            axios.post('http://findtrip.rocket-coding.com/api/login/memberlogin', {
-                    Email: user.Email,
-                    Password: user.Password
-                })
-                .then((res) => {
-                    // commit('UPDATE_USER', res.date.user);
-                    if (res.data.success) {
-                        commit('loginStart');
-                        this.$router.push('/home')
-                    }
-
-
-                })
-                .catch(error => {
-                    commit('loginStop', error.data)
-                })
-        },
         logout({ commit }) {
             return new Promise(resolve => {
                 commit('logout');
@@ -203,11 +159,7 @@ const store = new Vuex.Store({
             })
         },
         getProjects({ commit }) {
-            // 取得所有card
-            // let token = localStorage.getItem("token");
-            // const headers = {
-            //     'Authorization': `Bearer ${token}`
-            // };
+
             let url = `${process.env.VUE_APP_APIPATH}plan/index`; //不用token
 
             Axios.get(url).then(res => {
@@ -216,11 +168,7 @@ const store = new Vuex.Store({
                 commit('setProjectInfo', res.data.allPlans);
                 commit('WISHMESSAGE', res.data.wishboard);
 
-                // commit('Setcounty', res.data.countries);
-
-
             })
-
 
         },
         getOneUser({ commit }) { //拿到會員資料
@@ -258,9 +206,6 @@ const store = new Vuex.Store({
 
             let api = `${process.env.VUE_APP_APIPATH}order/load`;
 
-            // console.log(api);
-            // const vm = this;
-            // vm.isLoading = true;
             Axios
                 .get(api, { headers })
                 .then(res => {
@@ -269,7 +214,7 @@ const store = new Vuex.Store({
 
                         commit('loginStart');
                         commit('GETORDER', res.data.result);
-                        // console.log(res.data.result)
+
 
                     }
 
@@ -277,7 +222,7 @@ const store = new Vuex.Store({
                 .catch(err => {
                     console.log(err.message);
                 });
-            //  this.$store.dispatch('getApi');
+
         },
         sellerOrder({ commit }) { //規劃師拿到自己all訂單
 
@@ -288,9 +233,6 @@ const store = new Vuex.Store({
 
             let api = `${process.env.VUE_APP_APIPATH}order/seller`;
 
-            // console.log(api);
-            // const vm = this;
-            // vm.isLoading = true;
 
             Axios
                 .get(api, { headers })
@@ -317,11 +259,10 @@ const store = new Vuex.Store({
             const headers = {
                 Authorization: `Bearer ${token}`
             };
-            // const vm = this;
-            // http://localhost:3000/posts/${vm.OrderId}
+
             let api = `${process.env.VUE_APP_APIPATH}order/loadsingle/${this.state.orders.id}`;
             this.$http.get(api, { headers }).then(res => {
-                // console.log(res);
+
 
                 commit('GETONEORDER', res.data.result);
             });

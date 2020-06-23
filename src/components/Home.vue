@@ -2,29 +2,49 @@
 /* eslint-disable vue/valid-template-root */
   <!-- 不可以有兩個以上的根節點 -->
 <template>
-  <div id="wrapper" @scroll="handleScroll">
-    <transition name="fade"  v-if="show">
+  <div
+    id="wrapper"
+    @scroll="handleScroll"
+  >
+    <transition
+      v-if="show"
+      name="fade"
+    >
       <!-- v-if="show" -->
-      <div class="sky" >
-
-    
-        <img src="https://upload.cc/i1/2020/06/22/CX8Hzr.png" class="plane" />
-        <img src="https://i.imgur.com/6tncGeG.png" class="cloud1" />
-        <img src="https://i.imgur.com/6tncGeG.png" class="cloud2" />
-        <img src="https://i.imgur.com/6tncGeG.png" class="cloud3" />
-        <img src="https://i.imgur.com/6tncGeG.png" class="cloud4" />
-        <img src="https://i.imgur.com/6tncGeG.png" class="cloud5" />
-            <div class="loadingText ">
-            <span>L</span>
-            <span>O</span>
-            <span>A</span>
-            <span>D</span>
-            <span>I</span>
-            <span>N</span>
-            <span>G</span>
+      <div class="sky">
+        <img
+          src="https://upload.cc/i1/2020/06/22/CX8Hzr.png"
+          class="plane"
+        >
+        <img
+          src="https://i.imgur.com/6tncGeG.png"
+          class="cloud1"
+        >
+        <img
+          src="https://i.imgur.com/6tncGeG.png"
+          class="cloud2"
+        >
+        <img
+          src="https://i.imgur.com/6tncGeG.png"
+          class="cloud3"
+        >
+        <img
+          src="https://i.imgur.com/6tncGeG.png"
+          class="cloud4"
+        >
+        <img
+          src="https://i.imgur.com/6tncGeG.png"
+          class="cloud5"
+        >
+        <div class="loadingText">
+          <span>L</span>
+          <span>O</span>
+          <span>A</span>
+          <span>D</span>
+          <span>I</span>
+          <span>N</span>
+          <span>G</span>
         </div>
-
-     
       </div>
     </transition>
 
@@ -37,14 +57,18 @@
           class="w-full container mx-auto flex flex-wrap max-w-6xl lg:h-screen -mt-1 lg:pt-24"
         >
           <!--Left Col-->
-          <div class="h-12 w-full lg:w-1/2 flex lg:justify-start align-start justify-center mt-32">
+          <div class="main-congent h-12 w-full lg:w-1/2 flex lg:justify-start align-start justify-center mt-32 lg:mt-32">
             <div class="mt-0 max-w-xl px-10 lg:px-6 -ml-3 lg:pr-2 pt-5 lg:pt-0">
               <h1
-                class="my-4 text-5xl text-center lg:text-left font-semibold leading-snug text-gray-700 lg:text-gray-700 mb-4"
-              >Travel More Plan Less</h1>
+                class="main-title my-4 text-5xl text-center lg:text-left font-semibold leading-snug text-gray-700 lg:text-gray-700 mb-4"
+              >
+                Travel More Plan Less
+              </h1>
               <p
-                class="text-center lg:text-left font-thin leading-normal text-xl mb-4 md:text-gray-200 lg:text-gray-700"
-              >專人量身打造行程，滿足您的旅行願望 ，省時旅遊超容易</p>
+                class="subtitle text-center lg:text-left font-thin leading-normal text-xl mb-4 md:text-gray-200 lg:text-gray-700"
+              >
+                專人量身打造行程，滿足您的旅行願望 ，省時旅遊超容易
+              </p>
 
               <div class="my-10">
                 <div class="relative overflow-hidden flex">
@@ -58,9 +82,11 @@
                         <div class="flex justify-between lg:mt-2 sm:mt-2 text-gray-200">
                           <div
                             class="lg:text-xl sm:text-2xl lg:tracking-xl md:tracking-normal font-bold"
-                          >Find-Trip</div>
+                          >
+                            Find-Trip
+                          </div>
                           <h3 class="lg:text-2xl text-md font-extrabold">
-                            <i class="fas fa-plane text-md pr-2 text-gray-300"></i>BOARDING PASS
+                            <i class="fas fa-plane text-md pr-2 text-gray-300" />BOARDING PASS
                           </h3>
                         </div>
                       </div>
@@ -70,18 +96,18 @@
                       </div>   md:w-3/4-->
                       <div class="w-full h-auto ticket sm:h-20">
                         <div class="flex flex-wrap lg:mb-2 mb-0">
-                          <div class="relative w-full px-6 mb-1 lg:mb-6 md:mb-0 ">
+                          <div class="relative w-full px-6 mb-1 lg:mb-6 md:mb-0">
                             <label
                               class="block tracking-wide text-gray-700 text-md font-bold mb-2"
                               for="grid-state"
                             >請輸入體驗國家 或城市..</label>
                             <div class="relative flex w-full">
                               <input
+                                v-model="searchText"
                                 type="search"
                                 class="rounded-r-none h-12 w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
                                 placeholder="請輸入國家 或城市..."
-                                v-model="searchText"
-                              />
+                              >
                               <div class="absolute top-0 left-0 inline-flex items-center p-2">
                                 <svg
                                   xmlns="http://www.w3.org/2000/svg"
@@ -93,17 +119,32 @@
                                   stroke-linecap="round"
                                   stroke-linejoin="round"
                                 >
-                                  <rect x="0" y="0" width="24" height="24" stroke="none" />
-                                  <circle cx="10" cy="10" r="7" />
-                                  <line x1="21" y1="21" x2="15" y2="15" />
+                                  <rect
+                                    x="0"
+                                    y="0"
+                                    width="24"
+                                    height="24"
+                                    stroke="none"
+                                  />
+                                  <circle
+                                    cx="10"
+                                    cy="10"
+                                    r="7"
+                                  />
+                                  <line
+                                    x1="21"
+                                    y1="21"
+                                    x2="15"
+                                    y2="15"
+                                  />
                                 </svg>
                               </div>
 
                               <button
-                                @click="searchData"
                                 class="items-center rounded-l-none rounded-lg flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
+                                @click="searchData"
                               >
-                                <i class="fas fa-search fa-lg"></i>
+                                <i class="fas fa-search fa-lg" />
                               </button>
                             </div>
                           </div>
@@ -112,6 +153,10 @@
                     </div>
                   </div>
                 </div>
+
+                <!-- 滑鼠下滑 icon-->
+       
+                <!-- <Mouse /> -->
               </div>
             </div>
           </div>
@@ -119,17 +164,42 @@
           <!--Right Col-->
           <div class="sm:h-20 h-screen w-full lg:h-full lg:w-1/2 relative">
             <div class="absolute inset-0 lg:mt-10 mt-8 airplane">
-              <img src="../assets/img/airplane.png" alt class="w-1/4 lg:w-2/5" />
+              <img
+                src="../assets/img/airplane.png"
+                alt
+                class="w-1/4 lg:w-2/5"
+              >
             </div>
           </div>
         </section>
+     
 
         <div class="clouds">
-          <img src="../assets/img/cloud1.png" alt style="--i:1;" />
-          <img src="../assets/img/cloud2.png" alt style="--i:2;" />
-          <img src="../assets/img/cloud3.png" alt style="--i:3;" />
-          <img src="../assets/img/cloud4.png" alt style="--i:4;" />
-          <img src="../assets/img/cloud5.png" alt style="--i:5;" />
+          <img
+            src="../assets/img/cloud1.png"
+            alt
+            style="--i:1;"
+          >
+          <img
+            src="../assets/img/cloud2.png"
+            alt
+            style="--i:2;"
+          >
+          <img
+            src="../assets/img/cloud3.png"
+            alt
+            style="--i:3;"
+          >
+          <img
+            src="../assets/img/cloud4.png"
+            alt
+            style="--i:4;"
+          >
+          <img
+            src="../assets/img/cloud5.png"
+            alt
+            style="--i:5;"
+          >
         </div>
       </div>
       <div class="relative -mt-0 lg:-mt-1 transform rotate-180">
@@ -140,8 +210,17 @@
           xmlns="http://www.w3.org/2000/svg"
           xmlns:xlink="http://www.w3.org/1999/xlink"
         >
-          <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-            <g transform="translate(-2.000000, 44.000000)" fill="#FFFFFF" fill-rule="nonzero">
+          <g
+            stroke="none"
+            stroke-width="1"
+            fill="none"
+            fill-rule="evenodd"
+          >
+            <g
+              transform="translate(-2.000000, 44.000000)"
+              fill="#FFFFFF"
+              fill-rule="nonzero"
+            >
               <path
                 d="M0,0 C90.7283404,0.927527913 147.912752,27.187927 291.910178,59.9119003 C387.908462,81.7278826 543.605069,89.334785 759,82.7326078 C469.336065,156.254352 216.336065,153.6679 0,74.9732496"
                 opacity="0.100000001"
@@ -151,12 +230,16 @@
                 opacity="0.100000001"
               />
               <path
-                d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
                 id="Path-4"
+                d="M1046,51.6521276 C1130.83045,29.328812 1279.08318,17.607883 1439,40.1656806 L1439,120 C1271.17211,77.9435312 1140.17211,55.1609071 1046,51.6521276 Z"
                 opacity="0.200000003"
               />
             </g>
-            <g transform="translate(-4.000000, 76.000000)" fill="#FFFFFF" fill-rule="nonzero">
+            <g
+              transform="translate(-4.000000, 76.000000)"
+              fill="#FFFFFF"
+              fill-rule="nonzero"
+            >
               <path
                 d="M0.457,34.035 C57.086,53.198 98.208,65.809 123.822,71.865 C181.454,85.495 234.295,90.29 272.033,93.459 C311.355,96.759 396.635,95.801 461.025,91.663 C486.76,90.01 518.727,86.372 556.926,80.752 C595.747,74.596 622.372,70.008 636.799,66.991 C663.913,61.324 712.501,49.503 727.605,46.128 C780.47,34.317 818.839,22.532 856.324,15.904 C922.689,4.169 955.676,2.522 1011.185,0.432 C1060.705,1.477 1097.39,3.129 1121.236,5.387 C1161.703,9.219 1208.621,17.821 1235.4,22.304 C1285.855,30.748 1354.351,47.432 1440.886,72.354 L1441.191,104.352 L1.121,104.031 L0.457,34.035 Z"
               />
@@ -171,74 +254,102 @@
           <div
             class="mx-auto bg-blue-200 border-4 border-white w-20 h-20 my-0 py-0 rounded-full flex items-center"
           >
-            <img src="../assets/img/section01.png" alt />
+            <img
+              src="../assets/img/section01.png"
+              alt
+            >
           </div>
         </div>
         <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4">
           <h1
-            class="w-full my-2 text-4xl lg:text-5xl font-bold leading-tight text-center text-gray-300"
             v-scroll-reveal.reset
-          >How to Start ?</h1>
+            class="w-full my-2 text-4xl lg:text-5xl font-bold leading-tight text-center text-gray-300"
+          >
+            How to Start ?
+          </h1>
           <div class="w-full mb-5">
-            <p class="leading-tight text-base text-center tracking-widest relative heading-sub">如何使用</p>
+            <p class="leading-tight text-base text-center tracking-widest relative heading-sub">
+              如何使用
+            </p>
           </div>
 
           <div
-            class="-ml-3 w-full md:w-1/4 py-6 px-4 flex flex-col flex-grow flex-shrink relative"
             v-scroll-reveal.reset="{ delay: 250 }"
+            class="-ml-3 w-full md:w-1/4 py-6 px-4 flex flex-col flex-grow flex-shrink relative"
           >
             <div class="flex-1 bg-white rounded-lg overflow-hidden shadow arrow-step">
               <div class="flex items-center justify-center">
                 <div
                   class="mx-auto lg:mx-0 bg-blue-600 text-white rounded-full mt-6 mb-4 py-2 px-8"
-                >Step 01</div>
+                >
+                  Step 01
+                </div>
               </div>
               <div class="flex items-center justify-center mb-3 w-46 mx-auto">
-                <img src="../assets/img/feature001.png" alt="feature001.png" />
+                <img
+                  src="../assets/img/feature001.png"
+                  alt="feature001.png"
+                >
               </div>
 
               <div
                 class="w-full font-bold text-base text-center text-gray-800 px-6 pb-6"
-              >決定好旅行的區域、預算</div>
+              >
+                決定好旅行的區域、預算
+              </div>
             </div>
           </div>
           <!-- step01 -->
 
           <div
-            class="w-full md:w-1/4 py-6 px-4 flex flex-col flex-grow flex-shrink relative"
             v-scroll-reveal.reset="{ delay: 450 }"
+            class="w-full md:w-1/4 py-6 px-4 flex flex-col flex-grow flex-shrink relative"
           >
             <div class="flex-1 bg-white rounded-lg overflow-hidden shadow arrow-step">
               <div class="flex items-center justify-center">
                 <div
                   class="mx-auto lg:mx-0 bg-blue-600 text-white rounded-full mt-6 mb-4 py-2 px-8"
-                >Step 02</div>
+                >
+                  Step 02
+                </div>
               </div>
               <div class="flex items-center justify-center mb-3 w-46 mx-auto">
-                <img src="../assets/img/feature002.png" alt="feature002.png" />
+                <img
+                  src="../assets/img/feature002.png"
+                  alt="feature002.png"
+                >
               </div>
 
               <div
                 class="w-full font-bold text-base text-center text-gray-800 px-6 pb-6"
-              >尋找專屬您的旅行規劃師</div>
+              >
+                尋找專屬您的旅行規劃師
+              </div>
             </div>
           </div>
           <!-- step02 -->
           <div
-            class="w-full md:w-1/4 py-6 px-4 flex flex-col flex-grow flex-shrink relative"
             v-scroll-reveal.reset="{ delay: 650 }"
+            class="w-full md:w-1/4 py-6 px-4 flex flex-col flex-grow flex-shrink relative"
           >
             <div class="flex-1 bg-white rounded-lg overflow-hidden shadow">
               <div class="flex items-center justify-center">
                 <div
                   class="mx-auto lg:mx-0 bg-orange-600 text-white rounded-full mt-6 mb-4 py-2 px-8"
-                >Step 03</div>
+                >
+                  Step 03
+                </div>
               </div>
               <div class="flex items-center justify-center mb-3 w-46 mx-auto">
-                <img src="../assets/img/feature003.png" alt="feature003.png" />
+                <img
+                  src="../assets/img/feature003.png"
+                  alt="feature003.png"
+                >
               </div>
 
-              <div class="w-full font-bold text-base text-center text-gray-800 px-6 pb-6">享受量身打造旅程</div>
+              <div class="w-full font-bold text-base text-center text-gray-800 px-6 pb-6">
+                享受量身打造旅程
+              </div>
             </div>
           </div>
 
@@ -247,7 +358,11 @@
 
         <div class="relative -mt-12 lg:-mt-10">
           <!--lg:-mt-24-->
-          <svg id="data-bg-top" viewBox="0 0 3000 760" preserveAspectRatio="none">
+          <svg
+            id="data-bg-top"
+            viewBox="0 0 3000 760"
+            preserveAspectRatio="none"
+          >
             <path
               d="M0 760h3000V68.7C2930 36.5 2825.1.2 2712.3 0c-155.9-.3-370.4 59.3-513.3 180.5-206.7 175.1-472 143.6-554 124-182.6-43.8-156.4-143.2-450-140-212.8 2.3-263.7 120.5-491 243-179.3 96.6-580.1 65.8-704-41.8V760z"
             />
@@ -256,24 +371,37 @@
       </section>
 
       <!-- 熱門規劃師 Component -->
-      <section class="bg-chiaki-blue" v-scroll-reveal.reset="{ delay: 250 }">
+      <section
+        v-scroll-reveal.reset="{ delay: 250 }"
+        class="bg-chiaki-blue"
+      >
         <div class="w-full mb-5">
           <div
             class="mx-auto bg-blue-200 border-4 border-white w-20 h-20 my-0 py-0 rounded-full flex items-center"
           >
-            <img src="../assets/img/section02.png" alt />
+            <img
+              src="../assets/img/section02.png"
+              alt
+            >
           </div>
         </div>
         <div class="container mx-auto flex max-w-7xl flex-wrap pb-12 sm:px-4">
           <h1
             class="w-full my-2 font-bold leading-tight text-center text-blue-600 text-4xl lg:text-5xl"
-          >Recommend</h1>
+          >
+            Recommend
+          </h1>
           <div class="w-full mb-5">
             <p
               class="leading-tight text-base text-center tracking-widest text-gray-700 relative heading-sub"
-            >熱門規劃師</p>
+            >
+              熱門規劃師
+            </p>
           </div>
-          <Travel-card :project="recommends" v-scroll-reveal.reset="{ delay: 250 }" />
+          <Travel-card
+            v-scroll-reveal.reset="{ delay: 250 }"
+            :project="recommends"
+          />
         </div>
       </section>
 
@@ -284,65 +412,100 @@
           <div
             class="mx-auto bg-blue-200 border-4 border-white w-20 h-20 my-0 py-0 rounded-full flex items-center"
           >
-            <img src="../assets/img/section03.png" alt />
+            <img
+              src="../assets/img/section03.png"
+              alt
+            >
           </div>
         </div>
         <div class="container mx-auto flex max-w-7xl flex-wrap pb-12">
           <h1
-            class="w-full my-2 text-4xl lg:text-5xl font-bold leading-tight text-center text-blue-600"
             v-scroll-reveal.reset="{ delay: 250 }"
-          >Feature</h1>
+            class="w-full my-2 text-4xl lg:text-5xl font-bold leading-tight text-center text-blue-600"
+          >
+            Feature
+          </h1>
           <div class="w-full mb-5">
             <p
               class="leading-tight text-base text-center tracking-widest text-gray-700 relative heading-sub"
-            >打造您的完美旅行</p>
+            >
+              打造您的完美旅行
+            </p>
           </div>
 
           <div class="mt-12 sm:flex items-start justify-between sm:-mx-2">
             <div
-              class="max-h-350 w-full bg-white rounded-lg shadow-lg py-8 px-4 sm:w-1/3 sm:mx-2 lg:mx-6"
               v-scroll-reveal.reset="{ delay: 450 }"
+              class="max-h-350 w-full bg-white rounded-lg shadow-lg py-8 px-4 sm:w-1/3 sm:mx-2 lg:mx-6"
             >
               <div class="h-24">
-                <img src="../assets/img/icon_home-01.png" alt class="w-32 mx-auto" />
+                <img
+                  src="../assets/img/icon_home-01.png"
+                  alt
+                  class="w-32 mx-auto"
+                >
               </div>
-              <h4 class="text-center text-xl text-gray-800 font-bold mt-10">為什麼選擇尋旅？</h4>
+              <h4 class="text-center text-xl text-gray-800 font-bold mt-10">
+                為什麼選擇尋旅？
+              </h4>
               <p
                 class="text-base text-gray-600 mt-2 leading-loose"
-              >擁有各路旅遊大師精選秘境景點 ，不用透過旅行社花大錢 ，只要小額購買旅行規劃師時間， 也可小資玩全球，省時又簡單！</p>
+              >
+                擁有各路旅遊大師精選秘境景點 ，不用透過旅行社花大錢 ，只要小額購買旅行規劃師時間， 也可小資玩全球，省時又簡單！
+              </p>
             </div>
 
             <div
-              class="w-full bg-white rounded-lg shadow-lg py-8 px-4 mt-6 sm:mt-0 sm:w-1/3 sm:mx-2 lg:mx-6"
               v-scroll-reveal.reset="{ delay: 550 }"
+              class="w-full bg-white rounded-lg shadow-lg py-8 px-4 mt-6 sm:mt-0 sm:w-1/3 sm:mx-2 lg:mx-6"
             >
               <div class="h-24">
-                <img src="../assets/img/icon-home-02.png" alt class="w-32 mx-auto" />
+                <img
+                  src="../assets/img/icon-home-02.png"
+                  alt
+                  class="w-32 mx-auto"
+                >
               </div>
-              <h4 class="text-center text-xl text-gray-800 font-bold mt-10">嚴格謹慎的規劃師篩選</h4>
+              <h4 class="text-center text-xl text-gray-800 font-bold mt-10">
+                嚴格謹慎的規劃師篩選
+              </h4>
               <p
                 class="text-base text-gray-600 mt-2 leading-loose"
-              >成為旅行大師們可不是說說而已 ，尋旅上的每個規劃師都是透過嚴謹的內部審核， 才能提供好玩又有趣的旅行計劃</p>
+              >
+                成為旅行大師們可不是說說而已 ，尋旅上的每個規劃師都是透過嚴謹的內部審核， 才能提供好玩又有趣的旅行計劃
+              </p>
             </div>
 
             <div
-              class="w-full bg-white rounded-lg shadow-lg py-8 px-4 mt-6 sm:mt-0 sm:w-1/3 sm:mx-2 lg:mx-6"
               v-scroll-reveal.reset="{ delay: 650 }"
+              class="w-full bg-white rounded-lg shadow-lg py-8 px-4 mt-6 sm:mt-0 sm:w-1/3 sm:mx-2 lg:mx-6"
             >
               <div class="h-24">
-                <img src="../assets/img/icon-home-03.png" alt class="w-32 mx-auto" />
+                <img
+                  src="../assets/img/icon-home-03.png"
+                  alt
+                  class="w-32 mx-auto"
+                >
               </div>
-              <h4 class="text-center text-xl text-gray-800 font-bold mt-10">小額費用享用完善服務</h4>
+              <h4 class="text-center text-xl text-gray-800 font-bold mt-10">
+                小額費用享用完善服務
+              </h4>
               <p
                 class="text-base text-gray-600 mt-2 leading-loose leading-loose"
-              >尋旅不只提供專屬你的規劃師服務， 也能找尋最適合您的交通規劃與住宿，讓旅行規劃師幫您完善打理您的旅途</p>
+              >
+                尋旅不只提供專屬你的規劃師服務， 也能找尋最適合您的交通規劃與住宿，讓旅行規劃師幫您完善打理您的旅途
+              </p>
             </div>
           </div>
         </div>
       </section>
 
       <div class="relative -mt-12 lg:-mt-10 pb-12">
-        <svg id="life-bg-bottom" viewBox="0 0 3000 210" preserveAspectRatio="none">
+        <svg
+          id="life-bg-bottom"
+          viewBox="0 0 3000 210"
+          preserveAspectRatio="none"
+        >
           <path
             d="M3000 0H0v149c7-.3 14.7 0 23.1 1.1 60.3 8 94.4 48.7 161.6 50.8 171.8 5.3 192-70.9 304-70.5 116.5.5 187.2 76.4 401 79.5 155.3 2.2 146.8-43.7 286-52 115.5 7.8 132.2 49.8 300.5 49.8 83.4 0 172.2-43.8 328.5-43.8 106 0 155.3 43 254.1 43 98.8 0 196.3-81.2 279-110 110-38.3 231.4 46.2 317.9 43 66.8-2.5 104.2-27.9 178-26 85.4 2.3 106.9 54.7 166.4 76.6V0z"
           />
@@ -351,28 +514,38 @@
 
       <!-- 許願池  Component-->
       <section class="gradient-blue">
-        <div class="w-full mb-5 mt-2" v-scroll-reveal.reset="{ delay: 250 }">
+        <div
+          v-scroll-reveal.reset="{ delay: 250 }"
+          class="w-full mb-5 mt-2"
+        >
           <div
             class="mx-auto bg-blue-200 border-4 border-white w-20 h-20 my-0 py-0 rounded-full flex items-center"
           >
-            <img src="../assets/img/section04.png" alt />
+            <img
+              src="../assets/img/section04.png"
+              alt
+            >
           </div>
         </div>
         <div class="container mx-auto flex max-w-7xl flex-wrap pb-12">
           <h1
             class="w-full my-2 text-5xl font-bold leading-tight text-center text-gray-100"
-          >Wishing board</h1>
+          >
+            Wishing board
+          </h1>
           <div class="w-full mb-5">
             <p
               class="leading-tight text-base text-center tracking-widest text-gray-100 relative heading-sub"
-            >許下理想行程</p>
+            >
+              許下理想行程
+            </p>
           </div>
           <!-- wishboard -->
           <div
-            class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3 cursor-pointer"
             v-for="item in homeWish"
-            @click="getWish(item.id)"
             :key="item.id"
+            class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3 cursor-pointer"
+            @click="getWish(item.id)"
           >
             <div
               class="min-h-180 overflow-hidden bg-white round-xll shadow hover:shadow-md transition duration-500 ease-in-out transform hover:bg-gray-200 hover:-translate-y-8"
@@ -384,14 +557,14 @@
                       class="border-gray-500 shadow border-2 w-10 h-10 rounded-full mr-3 flex-1"
                       :src=" item.manpic ? item.manpic : 'https://picsum.photos/50/50/?people=4'"
                       alt="people"
-                    />
+                    >
                   </div>
 
-                  <span class="font-medium text-gray-600 font-bold leading-normal">{{item.name}}</span>
+                  <span class="font-medium text-gray-600 font-bold leading-normal">{{ item.name }}</span>
                 </div>
 
                 <p class="inline-flex items-center py-4">
-                  <span class="text-gray-700 text-sm">我想去{{item.Comment1}} 想做 {{item.Comment2}}</span>
+                  <span class="text-gray-700 text-sm">我想去{{ item.Comment1 }} 想做 {{ item.Comment2 }}</span>
                 </p>
 
                 <!-- 評論點數 -->
@@ -400,7 +573,10 @@
                     <span
                       class="w-8 h-8 hover:bg-blue-200 rounded-full flex items-center justify-center hover:text-blue-500"
                     >
-                      <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current">
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="w-4 h-4 fill-current"
+                      >
                         <g>
                           <path
                             d="M14.046 2.242l-4.148-.01h-.002c-4.374 0-7.8 3.427-7.8 7.802 0 4.098 3.186 7.206 7.465 7.37v3.828c0 .108.044.286.12.403.142.225.384.347.632.347.138 0 .277-.038.402-.118.264-.168 6.473-4.14 8.088-5.506 1.902-1.61 3.04-3.97 3.043-6.312v-.017c-.006-4.367-3.43-7.787-7.8-7.788zm3.787 12.972c-1.134.96-4.862 3.405-6.772 4.643V16.67c0-.414-.335-.75-.75-.75h-.396c-3.66 0-6.318-2.476-6.318-5.886 0-3.534 2.768-6.302 6.3-6.302l4.147.01h.002c3.532 0 6.3 2.766 6.302 6.296-.003 1.91-.942 3.844-2.514 5.176z"
@@ -408,14 +584,17 @@
                         </g>
                       </svg>
                     </span>
-                    <span class="ml-1">{{item.CommentTotal}}</span>
+                    <span class="ml-1">{{ item.CommentTotal }}</span>
                   </div>
 
                   <div class="text-gray-600 flex hover:text-red-500 items-center mr-2">
                     <span
                       class="w-8 h-8 hover:bg-red-200 rounded-full flex items-center justify-center hover:text-red-500"
                     >
-                      <svg viewBox="0 0 24 24" class="w-4 h-4 fill-current">
+                      <svg
+                        viewBox="0 0 24 24"
+                        class="w-4 h-4 fill-current"
+                      >
                         <g>
                           <path
                             d="M12 21.638h-.014C9.403 21.59 1.95 14.856 1.95 8.478c0-3.064 2.525-5.754 5.403-5.754 2.29 0 3.83 1.58 4.646 2.73.814-1.148 2.354-2.73 4.645-2.73 2.88 0 5.404 2.69 5.404 5.755 0 6.376-7.454 13.11-10.037 13.157H12zM7.354 4.225c-2.08 0-3.903 1.988-3.903 4.255 0 5.74 7.034 11.596 8.55 11.658 1.518-.062 8.55-5.917 8.55-11.658 0-2.267-1.823-4.255-3.903-4.255-2.528 0-3.94 2.936-3.952 2.965-.23.562-1.156.562-1.387 0-.014-.03-1.425-2.965-3.954-2.965z"
@@ -423,7 +602,7 @@
                         </g>
                       </svg>
                     </span>
-                    <span class="ml-0">{{item.LikeTotal}}</span>
+                    <span class="ml-0">{{ item.LikeTotal }}</span>
                   </div>
 
                   <!-- 收藏功能 -->
@@ -453,15 +632,17 @@
             <router-link
               to="/wish"
               class="bg-orange-500 outline-none hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full"
-            >更多內容</router-link>
+            >
+              更多內容
+            </router-link>
           </div>
 
           <ZDialog
             v-if="commentVisible"
-            :ZDialog="commentVisible"
+            :z-dialog="commentVisible"
+            :wish-message="wishMessage"
             @dialog-cancel="closeManage"
-            :wishMessage="wishMessage"
-          ></ZDialog>
+          />
         </div>
       </section>
 
@@ -471,7 +652,11 @@
         <div class="flex-col-reverse lg:flex-row container max-w-7xl mx-auto my-8">
           <div class="flex flex-wrap flex-col-reverse lg:flex-row">
             <div class="lg:visible w-full sm:w-1/2 mt-6 relative">
-              <img src="../assets/img/bg_day.svg" alt="bg_day.svg" class="Sday" />
+              <img
+                src="../assets/img/bg_day.svg"
+                alt="bg_day.svg"
+                class="Sday"
+              >
               <div class="car">
                 <svg
                   width="307"
@@ -479,7 +664,10 @@
                   viewBox="0 0 307 210"
                   xmlns="http://www.w3.org/2000/svg"
                 >
-                  <g fill="none" fill-rule="evenodd">
+                  <g
+                    fill="none"
+                    fill-rule="evenodd"
+                  >
                     <path
                       d="M153.424 201.22c84.677 0 153.424-.013 153.424 4.39 0 4.404-68.747 4.39-153.424 4.39S0 210.044 0 205.61c0-4.433 68.747-4.39 153.424-4.39z"
                       fill="#DDD"
@@ -558,8 +746,14 @@
                       fill-opacity="0.5"
                       fill="#BCBCBC"
                     />
-                    <path fill="#C77D76" d="M81.768 40.563H192.55v-2.634H81.768z" />
-                    <path fill="#C5E5E7" d="M96.714 14.225h80.01v-2.633h-80.01z" />
+                    <path
+                      fill="#C77D76"
+                      d="M81.768 40.563H192.55v-2.634H81.768z"
+                    />
+                    <path
+                      fill="#C5E5E7"
+                      d="M96.714 14.225h80.01v-2.633h-80.01z"
+                    />
                     <path
                       d="M271.68 145.912c2.912 0 5.275 4.721 5.275 10.535 0 5.815-2.363 10.535-5.275 10.535-2.912 0-5.276-4.72-5.276-10.535 0-5.814 2.364-10.535 5.276-10.535z"
                       fill="#E6C06D"
@@ -618,14 +812,20 @@
             </div>
             <div class="w-full sm:w-1/2 mt-6">
               <div class="ml-10">
-                <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">如何成為旅行規劃師？</h3>
+                <h3 class="text-3xl text-gray-800 font-bold leading-none mb-3">
+                  如何成為旅行規劃師？
+                </h3>
                 <p
                   class="text-gray-600 mb-8 text-base leading-loose"
-                >想跟更多的人分享您的旅行感悟嗎?想通過智力服務獲取不菲的經濟收入嗎?想看到遊客旅行之後露出滿意的微笑嗎? 加入Find Trip 吧!</p>
+                >
+                  想跟更多的人分享您的旅行感悟嗎?想通過智力服務獲取不菲的經濟收入嗎?想看到遊客旅行之後露出滿意的微笑嗎? 加入Find Trip 吧!
+                </p>
                 <div class="outline-none">
                   <button
                     class="bg-orange-500 outline-none hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full"
-                  >申請成為旅行規劃師</button>
+                  >
+                    申請成為旅行規劃師
+                  </button>
                 </div>
               </div>
             </div>
@@ -649,9 +849,9 @@ import WishBoard from "@/components/WishBoard.vue";
 import ZDialog from "@/components/ZDialog.vue";
 
 import Loading from "@/components/Loading.vue";
-
+// import Mouse from "@/components/MouceIcon.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
-//
+
 export default {
   name: "Home",
   data() {
@@ -669,7 +869,8 @@ export default {
     Footer,
     TravelCard,
     WishBoard,
-    ZDialog
+    ZDialog,
+  
   },
   computed: {
     ...mapState(["projects"], ["userInfo"], ["Permission"], ["wishList"]),
@@ -773,7 +974,7 @@ export default {
 .search-box {
   position: relative;
   top: 0px;
-  height: 18rem;
+  max-height: 18rem;
   /* margin-bottom: -126px; */
   margin: 0 auto;
   /* margin-top: -79px; */

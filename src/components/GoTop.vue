@@ -2,8 +2,11 @@
   <div>
     <!-- top -->
 
-    <div class="e-backtop-btn js-e-backtop-btn" @click="goTop">
-      <i class="fas fa-arrow-up"></i>
+    <div
+      class="e-backtop-btn js-e-backtop-btn"
+      @click="goTop"
+    >
+      <i class="fas fa-arrow-up" />
       <span>TOP</span>
     </div>
   </div>
@@ -15,6 +18,9 @@ import $ from "jquery";
 export default {
   data() {
     return {};
+  },
+  created() {
+    window.addEventListener("scroll,click", this.goTop);
   },
   methods: {
     goTop() {
@@ -35,9 +41,6 @@ export default {
         }
       });
     }
-  },
-  created() {
-    window.addEventListener("scroll,click", this.goTop);
   }
 };
 </script>

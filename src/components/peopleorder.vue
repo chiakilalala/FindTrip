@@ -32,20 +32,31 @@
                 <span class="tracking-normal">--&gt;</span> SEA
               </p>
             </div>
-            <form class="p-10 px-22" @submit.prevent="createdOrder">
+            <form
+              class="p-10 px-22"
+              @submit.prevent="createdOrder"
+            >
               <div class="md:flex mb-8">
                 <div class="md:flex-1 md:pr-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-md font-bold">國家 :</label>
                   <div class="relative">
                     <select
-                      class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                       id="grid-state"
                       v-model="form.county"
+                      class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                     >
-                      <option disabled>-請選擇國家-</option>
-                      <option value="日本">日本</option>
-                      <option value="美國">美國</option>
-                      <option value="義大利">義大利</option>
+                      <option disabled>
+                        -請選擇國家-
+                      </option>
+                      <option value="日本">
+                        日本
+                      </option>
+                      <option value="美國">
+                        美國
+                      </option>
+                      <option value="義大利">
+                        義大利
+                      </option>
                     </select>
                     <div
                       class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -68,14 +79,22 @@
                   <label class="block uppercase tracking-wide text-gray-700 text-md font-bold">城市 :</label>
                   <div class="relative">
                     <select
-                      class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                       id="grid-state"
                       v-model="form.city"
+                      class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                     >
-                      <option disabled>-請選擇城市-</option>
-                      <option value="大阪">大阪</option>
-                      <option value="京都">京都</option>
-                      <option value="神戶">神戶</option>
+                      <option disabled>
+                        -請選擇城市-
+                      </option>
+                      <option value="大阪">
+                        大阪
+                      </option>
+                      <option value="京都">
+                        京都
+                      </option>
+                      <option value="神戶">
+                        神戶
+                      </option>
                     </select>
                     <div
                       class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -104,7 +123,7 @@
                     type="date"
                   />-->
                   <div class="calendar">
-                        <!-- <el-date-picker
+                    <!-- <el-date-picker
       v-model="value1"
       type="daterange"
       range-separator="至"
@@ -126,14 +145,22 @@
                   <label class="block uppercase tracking-wide text-gray-700 text-md font-bold">預算 :</label>
                   <div class="relative">
                     <select
-                      class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                       id="grid-state"
                       v-model="form.money"
+                      class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                     >
-                      <option disabled>-預算範圍-</option>
-                      <option value="＄10,000~＄30,000">＄10,000~＄30,000</option>
-                      <option value="＄30,000~＄50,000">＄30,000~＄50,000</option>
-                      <option value="＄50,000~＄80,000">＄50,000~＄80,000</option>
+                      <option disabled>
+                        -預算範圍-
+                      </option>
+                      <option value="＄10,000~＄30,000">
+                        ＄10,000~＄30,000
+                      </option>
+                      <option value="＄30,000~＄50,000">
+                        ＄30,000~＄50,000
+                      </option>
+                      <option value="＄50,000~＄80,000">
+                        ＄50,000~＄80,000
+                      </option>
                     </select>
                     <div
                       class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -157,77 +184,79 @@
 
               <div class="mb-8">
                 <fieldset class="border-0">
-                  <legend class="text-gray-700 mb-2 font-bold">旅行喜好類型 （可多選）</legend>
+                  <legend class="text-gray-700 mb-2 font-bold">
+                    旅行喜好類型 （可多選）
+                  </legend>
                   <label class="mr-1 text-gray-700 font-bold mb-2 inline-flex items-center">
                     <input
+                      v-model="form.type['act']"
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
-                      v-model="form.type['act']"
                       value="冒險"
                       :true-value="1"
                       :false-value="0"
                       name="type"
-                    />
+                    >
                     <span class="text-sm mx-4">冒險</span>
                   </label>
                   <label class="mr-1 text-gray-700 font-bold mb-2 inline-flex items-center">
                     <input
+                      v-model="form.type['secrect']"
                       class="text-indigo-600 mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
                       name="type"
-                      v-model="form.type['secrect']"
                       :true-value="1"
                       :false-value="0"
                       value="秘境"
-                    />
+                    >
                     <span class="text-sm mx-4">秘境</span>
                   </label>
                   <label class="text-gray-700 font-bold mb-2 inline-flex items-center">
                     <input
+                      v-model="form.type['culture']"
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
                       name="type"
-                      v-model="form.type['culture']"
                       value="文化"
                       :true-value="1"
                       :false-value="0"
-                    />
+                    >
                     <span class="text-sm mx-4">文化</span>
                   </label>
                   <label class="text-gray-700 font-bold mb-2 inline-flex items-center">
                     <input
+                      v-model="form.type['food']"
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
                       name="type"
-                      v-model="form.type['food']"
                       value="吃貨"
                       :true-value="1"
                       :false-value="0"
-                    />
+                    >
                     <span class="text-sm mx-4">吃貨</span>
                   </label>
                   <label class="text-gray-700 font-bold mb-2 inline-flex items-center">
                     <input
+                      v-model="form.type['shopping']"
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
-                      v-model="form.type['shopping']"
                       name="type"
                       value="購物"
                       :true-value="1"
                       :false-value="0"
-                    />
+                    >
                     <span class="text-sm mx-4">購物</span>
                   </label>
                   <label class="text-gray-700 font-bold mb-2 inline-flex items-center">
                     <input
+                      v-model="form.type['religion']"
                       class="mr-1 leading-tight form-checkbox h-6 w-6"
                       type="checkbox"
-                      v-model="form.type['religion']"
                       name="type"
                       value="宗教"
                       :true-value="1"
                       :false-value="0"
-                    />
+                    >
                     <span class="text-sm mx-4">宗教</span>
                   </label>
 
@@ -240,26 +269,26 @@
                 <div class="md:flex-1 md:pr-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-md font-bold">大人 :</label>
                   <el-input-number
-                    class
                     v-model="form.adult"
-                    @change="handleChange"
+                    class
                     :min="0"
                     :max="10"
                     label="大人人數"
-                  ></el-input-number>
+                    @change="handleChange"
+                  />
                   <!--<div class="text-sm text-red-600">Error message</div>-->
                   <!--<div class="text-xs text-gray-600">Help text</div>-->
                 </div>
                 <div class="md:flex-1 md:pl-3">
                   <label class="block uppercase tracking-wide text-gray-700 text-md font-bold">小孩 :</label>
                   <el-input-number
-                    class
                     v-model="form.child"
-                    @change="handleChange"
+                    class
                     :min="0"
                     :max="10"
                     label="小孩人數"
-                  ></el-input-number>
+                    @change="handleChange"
+                  />
                   <!-- <input
                     class="bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                     type="text"
@@ -275,11 +304,11 @@
                 <label class="block text-gray-700 text-md font-bold mb-2">
                   備註 :
                   <textarea
+                    v-model="form.messages"
                     class="h-32 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                     type="input"
                     row="5"
-                    v-model="form.messages"
-                  ></textarea>
+                  />
                 </label>
                 <!--<div class="text-sm text-red-600">Error message</div>-->
                 <!--<div class="text-xs text-gray-600">Help text</div>-->
@@ -294,13 +323,17 @@
               </p>
               <div class="mb-8">
                 <div class="flex justify-around">
-                   <button @click="close"
+                  <button
                     class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-4"
-                  >上一步</button>
+                    @click="close"
+                  >
+                    上一步
+                  </button>
                   <button
                     class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-4"
-                    
-                  >確認送出</button>
+                  >
+                    確認送出
+                  </button>
                 </div>
               </div>
             </form>
@@ -319,6 +352,7 @@
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
+  name: "Order",
   components: {
     // HotelDatePicker
   },
@@ -370,7 +404,6 @@ export default {
       }
     };
   },
-  name: "order",
   computed: {
     ...mapState(["projects"]),
     // ...mapGetters(["city"], ["county"]),

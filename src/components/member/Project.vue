@@ -1,18 +1,30 @@
 <template>
   <div>
-    <loading loader="bars" :active.sync="isLoading"></loading>
+    <loading
+      loader="bars"
+      :active.sync="isLoading"
+    />
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
           <li class="pr-2">
-            <router-link to="/home" class="hover:text-blue-500">
-              <i class="fa fa-home"></i>
+            <router-link
+              to="/home"
+              class="hover:text-blue-500"
+            >
+              <i class="fa fa-home" />
             </router-link>
             <span class="mx-1">/</span>
           </li>
 
-            <router-link to="/member/project" class="hover:text-blue-500">
-          <li class="pr-2">  旅行計劃</li>  </router-link>
+          <router-link
+            to="/member/project"
+            class="hover:text-blue-500"
+          >
+            <li class="pr-2">
+              旅行計劃
+            </li>
+          </router-link>
         </ul>
       </div>
     </div>
@@ -21,18 +33,18 @@
     <div class="mt-1 mb-3 flex justify-end">
       <el-button
         type="primary"
-        @click="openModel(true)"
         class="bg-teal-600 text-lg rounded px-5 py-3 text-white hover:bg-teal-400 cursor-pointer"
+        @click="openModel(true)"
       >
         新增計畫
-        <i class="fa fa-plus"></i>
+        <i class="fa fa-plus" />
       </el-button>
     </div>
     <!-- 訂單目錄 -->
     <div
-      class="py-0 flex-1 text-gray-700 text-left bg-white sm:py-0 md:py-0   lg:py-5 my-2 rounded-lg shadow-lg mb-5"
-      v-for="item   in plans"
+      v-for="item in plans"
       :key="item.id"
+      class="py-0 flex-1 text-gray-700 text-left bg-white sm:py-0 md:py-0   lg:py-5 my-2 rounded-lg shadow-lg mb-5"
     >
       <div class="lg:flex">
         <div class="lg:flex-shrink-0 relative">
@@ -40,7 +52,7 @@
           <div
             class="mx-0 my-0 lg:mx-5 md:mx-0 h-48 lg:w-64 w-full flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l overflow-hidde"
             :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}"
-          ></div>
+          />
 
           <!-- :style="{backgroundImage:`url(${item.Cpicture ? item.Cpicture : 'https://picsum.photos/300/200?random=1' })`}" -->
         </div>
@@ -52,20 +64,20 @@
               class="block   mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               國家 ：
-              <span class="text-md font-light">{{item.country}}</span>
+              <span class="text-md font-light">{{ item.country }}</span>
             </p>
             <p
               class="block mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               城市區域 ：
               <!--item.city.join( ',' -->
-              <span class="text-md font-light">{{item.city}}</span>
+              <span class="text-md font-light">{{ item.city }}</span>
             </p>
             <p
               class="block mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               上架日期 ：
-              <span class="text-md font-light">{{item.CreateOn.slice(0,10)}}</span>
+              <span class="text-md font-light">{{ item.CreateOn.slice(0,10) }}</span>
             </p>
             <!-- item.CreateOn.substring(0,10) -->
             <div class="mt-0 lg:flex justify-between">
@@ -97,13 +109,17 @@
               </div>
               <div class="lg:flex-0 flex justify-between items-center">
                 <el-button
-                  @click="deleteDialogModal(item)"
                   class="sm:mr-3 bg-red-500 hover:bg-red-400 hover:shadow-xl text-white font-thin py-3 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
-                >刪除</el-button>
+                  @click="deleteDialogModal(item)"
+                >
+                  刪除
+                </el-button>
                 <button
-                  @click="openModel(false, item)"
                   class="bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
-                >編輯</button>
+                  @click="openModel(false, item)"
+                >
+                  編輯
+                </button>
               </div>
             </div>
           </div>
@@ -115,8 +131,12 @@
 
     <!-- 新增modal -->
 
-    <el-dialog title="編輯旅行計劃" :visible.sync="dialogVisible" width="70%">
-      <ValidationObserver >
+    <el-dialog
+      title="編輯旅行計劃"
+      :visible.sync="dialogVisible"
+      width="70%"
+    >
+      <ValidationObserver>
         <div
           class="lg:px-10 pt-3 pb-5 px-2 flex-1 text-gray-700 text-left bg-white rounded-lg shadow-lg mb-10"
         >
@@ -126,7 +146,9 @@
             </span>
             <div
               class="text-xl text-gray-600 font-medium mb-3 border-l-4 border-transparent border-blue-400 pl-3"
-            >上傳背景圖</div>
+            >
+              上傳背景圖
+            </div>
             <div class="relative lg:p-4 p-6 lg:flex-shrink-0 w-full">
               <div class="lg:flex-shrink-0 w-full">
                 <div
@@ -136,7 +158,7 @@
                   <img
                     class="absolute inset-y-0 w-full max-h-full object-cover"
                     :src="temPlans.TPBGImg"
-                  />
+                  >
 
                   <svg
                     class="mx-auto feather feather-image"
@@ -150,12 +172,25 @@
                     stroke-linecap="round"
                     stroke-linejoin="round"
                   >
-                    <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                    <circle cx="8.5" cy="8.5" r="1.5" />
+                    <rect
+                      x="3"
+                      y="3"
+                      width="18"
+                      height="18"
+                      rx="2"
+                      ry="2"
+                    />
+                    <circle
+                      cx="8.5"
+                      cy="8.5"
+                      r="1.5"
+                    />
                     <polyline points="21 15 16 10 5 21" />
                   </svg>
 
-                  <div class="py-4">Add Cover Art</div>
+                  <div class="py-4">
+                    Add Cover Art
+                  </div>
                 </div>
               </div>
 
@@ -163,8 +198,6 @@
               <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
 
               <div class="flex justify-center mt-2">
-          
-
                 <div class="flex items-center justify-center border-blue-500 mt-2">
                   <label
                     class="w-28 flex items-end py-1 px-3 rounded-full shadow-md bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white cursor-pointer"
@@ -181,19 +214,21 @@
                     </svg>
                     <span class="mt-2 text-sm leading-normal">上傳圖片</span>
                     <input
+                      ref="fileupload"
                       type="file"
                       name="fileupload-c"
-                      ref="fileupload"
                       class="hidden"
-                      @change="uploadImg"
                       accept="image/png,image/gif,image/jpeg"
-                    />
+                      @change="uploadImg"
+                    >
                   </label>
                 </div>
                 <!-- 上傳圖片
                 <i class="fa fa-upload"></i>-->
               </div>
-              <p class="lg:visible hidden text-xs leading-normal">上傳背景圖</p>
+              <p class="lg:visible hidden text-xs leading-normal">
+                上傳背景圖
+              </p>
             </div>
           </div>
         </div>
@@ -208,12 +243,12 @@
                   class="text-xl text-gray-600 font-medium mb-3 border-l-4 border-transparent border-blue-400 pl-3"
                 >簡介</div>
 
-               <quill-editor
-                  v-model="temPlans.TravelPlanIntro"
-                  ref="quillEditorA"
-                  :options="editorOption"
+                <quill-editor
                   id="fir"
-                ></quill-editor> 
+                  ref="quillEditorA"
+                  v-model="temPlans.TravelPlanIntro"
+                  :options="editorOption"
+                /> 
   
               </label>
 
@@ -222,14 +257,18 @@
                   class="text-xl text-gray-600 font-medium mb-3 border-l-4 border-transparent border-blue-400 pl-3"
                 >經歷</div>
                 <quill-editor
-                  v-model="temPlans.TPExperience"
-                  ref="quillEditorB"
                   id="qq"
+                  ref="quillEditorB"
+                  v-model="temPlans.TPExperience"
                   :options="editorOption02"
-                ></quill-editor>
+                />
               </label>
 
-              <ValidationProvider rules="required" v-slot="{ errors, classes }" name="點數">
+              <ValidationProvider
+                v-slot="{ errors, classes }"
+                rules="required"
+                name="點數"
+              >
                 <label class="block mb-6">
                   <div
                     class="text-xl text-gray-600 font-medium mb-3 border-l-4 border-transparent border-blue-400 pl-3"
@@ -238,15 +277,17 @@
                   </div>
                   <div :class="classes">
                     <input
+                      v-model="temPlans.points"
                       class="h-10 bg-white focus:outline-none focus:shadow-outline border border-gray-400 rounded px-4 py-1 mt-2 block w-full lg:w-40 appearance-none leading-normal"
                       type="text"
                       name="點數"
                       placeholder="請設定點數"
-                      v-model="temPlans.points"
-                    />
+                    >
                   </div>
                 </label>
-                <div class="text-sm text-red-400">{{ errors[0] }}</div>
+                <div class="text-sm text-red-400">
+                  {{ errors[0] }}
+                </div>
               </ValidationProvider>
             </div>
           </div>
@@ -255,7 +296,9 @@
         <div
           class="lg:px-10 pt-3 pb-5 px-6 flex-1 text-gray-700 text-left bg-white rounded-lg shadow-lg mb-10"
         >
-          <p class="pt-5 text-gray-600 leading-normal text-lg">以上資料可以幫助旅行家更了解你的規劃內容</p>
+          <p class="pt-5 text-gray-600 leading-normal text-lg">
+            以上資料可以幫助旅行家更了解你的規劃內容
+          </p>
           <div class="lg:flex flex-col">
             <div class="lg:flex-shrink-0 py-4 w-full lg:flex">
               <div class="w-full lg:w-1/2 text-xl text-gray-800 leading-normal flex-1">
@@ -264,7 +307,11 @@
                     id=" empty-cover-art"
                     class="relative rounded w-full h-auto py-16 px-0 text-center bg-gray-300 md:border-solid md:border-2 md:border-gray-400"
                   >
-                    <img :src="temPlans.Cpicture" alt class="absolute inset-y-0 img_maxHeight" />
+                    <img
+                      :src="temPlans.Cpicture"
+                      alt
+                      class="absolute inset-y-0 img_maxHeight"
+                    >
                     <svg
                       class="mx-auto feather feather-image"
                       xmlns="http://www.w3.org/2000/svg"
@@ -277,15 +324,30 @@
                       stroke-linecap="round"
                       stroke-linejoin="round"
                     >
-                      <rect x="3" y="3" width="18" height="18" rx="2" ry="2" />
-                      <circle cx="8.5" cy="8.5" r="1.5" />
+                      <rect
+                        x="3"
+                        y="3"
+                        width="18"
+                        height="18"
+                        rx="2"
+                        ry="2"
+                      />
+                      <circle
+                        cx="8.5"
+                        cy="8.5"
+                        r="1.5"
+                      />
                       <polyline points="21 15 16 10 5 21" />
                     </svg>
-                    <div class="py-4">Add Cover Art</div>
+                    <div class="py-4">
+                      Add Cover Art
+                    </div>
                   </div>
                 </div>
                 <div class="lg:mt-4 mt-0 flex items-center mt-4 lg:flex-0 justify-center">
-                  <p class="lg:visible hidden text-xs leading-normal">上傳圖片</p>
+                  <p class="lg:visible hidden text-xs leading-normal">
+                    上傳圖片
+                  </p>
 
                   <!-- <input
                   type="file"
@@ -311,13 +373,13 @@
                       </svg>
                       <span class="mt-2 text-sm leading-normal">上傳圖片</span>
                       <input
+                        ref="files"
                         type="file"
                         name="pic-to-upload"
-                        ref="files"
                         class="hidden"
-                        @change="uploadPic"
                         accept="image/png,image/gif,image/jpeg"
-                      />
+                        @change="uploadPic"
+                      >
                     </label>
                   </div>
                 </div>
@@ -326,35 +388,49 @@
                 <label class="block mb-6">
                   <div class="text-md text-gray-600 font-medium mb-3">
                     <span class="text-red-500 text-base">*必填</span>國家 :
-                    <span class="text-gray-500 text-md font-mono">{{temPlans.country}}</span>
+                    <span class="text-gray-500 text-md font-mono">{{ temPlans.country }}</span>
                   </div>
-                  <ValidationProvider rules="required" v-slot="{ errors, classes }" name="國家">
-                    <div class="relative inline-block w-full lg:w-48" :class="classes">
+                  <ValidationProvider
+                    v-slot="{ errors, classes }"
+                    rules="required"
+                    name="國家"
+                  >
+                    <div
+                      class="relative inline-block w-full lg:w-48"
+                      :class="classes"
+                    >
                       <input
                         v-model="temPlans.country"
                         type="text"
                         name="國家"
                         class="max-w-6xl block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                      />
+                      >
                     </div>
                     <div class="text-sm text-red-400">{{ errors[0] }}</div>
                   </ValidationProvider>
                 </label>
 
                 <label class="block mb-6">
-                  <ValidationProvider rules="required" v-slot="{ errors, classes }" name="城市">
+                  <ValidationProvider
+                    v-slot="{ errors, classes }"
+                    rules="required"
+                    name="城市"
+                  >
                     <div class="text-md text-gray-600 font-medium mb-3">
                       <span class="text-red-500 text-base">*必填</span>城市:
-                      <span class="text-gray-500 text-base font-mono">{{temPlans.city}}</span>
+                      <span class="text-gray-500 text-base font-mono">{{ temPlans.city }}</span>
                     </div>
 
-                    <div class="relative inline-block w-full lg:w-48" :class="classes">
+                    <div
+                      class="relative inline-block w-full lg:w-48"
+                      :class="classes"
+                    >
                       <input
                         v-model="temPlans.city"
                         type="text"
                         name="城市"
                         class="max-w-6xl block appearance-none w-full bg-gray-200 border border-gray-300 text-gray-700 py-2 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                      />
+                      >
                     </div>
                     <div class="text-sm text-red-400">{{ errors[0] }}</div>
                   </ValidationProvider>
@@ -362,65 +438,67 @@
                 <!-- 旅遊類型 -->
                 <div class="mb-3">
                   <fieldset class="border-0">
-                    <legend class="text-gray-600 mb-3 font-bold">制定行程擅長類型 （最多可選3個）</legend>
+                    <legend class="text-gray-600 mb-3 font-bold">
+                      制定行程擅長類型 （最多可選3個）
+                    </legend>
 
                     <label class="mr-1 text-gray-600 mb-2 inline-flex items-center">
                       <input
+                        v-model="temPlans['Act']"
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
-                        name="group"
-                        v-model="temPlans['Act']" 
+                        name="group" 
                         value="冒險"
-                      />
+                      >
                       <span class="text-base">冒險</span>
                     </label>
                     <label class="mr-1 text-gray-600 mb-2 inline-flex items-center">
                       <input
+                        v-model="temPlans['Secret']"
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
-                        v-model="temPlans['Secret']"
                         value="秘境"
                         name="group"
-                      />
+                      >
                       <span class="text-base">秘境</span>
                     </label>
                     <label class="text-gray-600 mb-2 inline-flex items-center">
                       <input
-                        class="mr-1 leading-tight form-checkbox h-6 w-6"
                         v-model="temPlans['Culture']"
+                        class="mr-1 leading-tight form-checkbox h-6 w-6"
                         value="文化"
                         type="checkbox"
                         name="group"
-                      />
+                      >
                       <span class="text-sm">文化</span>
                     </label>
                     <label class="text-gray-600 mb-2 inline-flex items-center">
                       <input
-                        class="mr-1 leading-tight form-checkbox h-6 w-6"
                         v-model="temPlans['Food']"
+                        class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
                         name="group"
-                      />
+                      >
                       <span class="text-base">吃貨</span>
                     </label>
                     <label class="text-gray-600 mb-2 inline-flex items-center">
                       <input
-                        class="mr-1 leading-tight form-checkbox h-6 w-6"
                         v-model="temPlans['Shopping']"
+                        class="mr-1 leading-tight form-checkbox h-6 w-6"
                         value="購物"
                         type="checkbox"
                         name="group"
-                      />
+                      >
                       <span class="text-base">購物</span>
                     </label>
                     <label class="text-gray-600 mb-2 inline-flex items-center">
                       <input
+                        v-model="temPlans['Religion']"
                         class="mr-1 leading-tight form-checkbox h-6 w-6"
                         type="checkbox"
-                        v-model="temPlans['Religion']"
                         value="宗教"
                         name="group"
-                      />
+                      >
                       <span class="text-base">宗教</span>
                     </label>
                   </fieldset>
@@ -432,28 +510,47 @@
           <!-- 訂單資料 -->
         </div>
 
-          <div class="mb-12">
-        <div slot="footer" class="flex justify-center dialog-footer">
-          <el-button
-            @click="dialogVisible = false"
-            class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full mx-4"
-          >取消</el-button>
-          <el-button
-            @click="updatePlan"
-            class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded-full mx-4"
-          >確認送出</el-button>
+        <div class="mb-12">
+          <div
+            slot="footer"
+            class="flex justify-center dialog-footer"
+          >
+            <el-button
+              class="bg-blue-500 hover:bg-blue-400 text-white font-bold py-2 px-4 rounded-full mx-4"
+              @click="dialogVisible = false"
+            >
+              取消
+            </el-button>
+            <el-button
+              class="bg-orange-500 hover:bg-orange-400 text-white font-bold py-2 px-4 rounded-full mx-4"
+              @click="updatePlan"
+            >
+              確認送出
+            </el-button>
+          </div>
         </div>
-      </div>
       </ValidationObserver>
-    
     </el-dialog>
     <!-- 刪除modal -->
 
-    <el-dialog :visible="deleteModal" :before-close="beforeClose">
+    <el-dialog
+      :visible="deleteModal"
+      :before-close="beforeClose"
+    >
       確定要將此旅行計劃永久刪除？
-      <div slot="footer" class="dialog-footer">
-        <el-button @click=" deleteModal = false">取 消</el-button>
-        <el-button type="primary" @click="deletePlans">确 定</el-button>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click=" deleteModal = false">
+          取 消
+        </el-button>
+        <el-button
+          type="primary"
+          @click="deletePlans"
+        >
+          确 定
+        </el-button>
       </div>
     </el-dialog>
   </div>

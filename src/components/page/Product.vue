@@ -4,7 +4,7 @@
     <NavBar />
 
     <!-- banner -->
-    <div class="hero bg-cover h-112 overflow-hidden"></div>
+    <div class="hero bg-cover h-112 overflow-hidden" />
     <!--search  -->
 
     <div
@@ -15,9 +15,11 @@
       >
         <div class="pt-0 bg-blue-prod h-1 0 px-5 py-12 w-full rounded-t-lg">
           <div class="flex justify-between lg:mt-2 mt-4 text-gray-200">
-            <div class="lg:text-lg text-sm lg:tracking-xl md:tracking-normal font-bold">Find-Trip</div>
+            <div class="lg:text-lg text-sm lg:tracking-xl md:tracking-normal font-bold">
+              Find-Trip
+            </div>
             <h3 class="lg:text-2xl text-md font-extrabold">
-              <i class="fas fa-plane text-md pr-2 text-gray-300"></i>BOARDING PASS
+              <i class="fas fa-plane text-md pr-2 text-gray-300" />BOARDING PASS
             </h3>
           </div>
         </div>
@@ -25,7 +27,10 @@
         <div class="w-full md:w-1/4 h-auto right-0">
           <div class="w-full lg:w-4/5">
             <div class="barcode sm:w-50">
-              <img src="https://www.barcoding.com/wp-content/uploads/2016/09/Picture-111.png" alt />
+              <img
+                src="https://www.barcoding.com/wp-content/uploads/2016/09/Picture-111.png"
+                alt
+              >
             </div>
           </div>
         </div>
@@ -37,14 +42,28 @@
                 for="grid-state"
               >帶你深入探索有趣又獨特的旅遊體驗行程</label>
               <select
-                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                 id="grid-state"
-                name="country"
                 v-model="filter"
+                class="block appearance-none w-full bg-gray-200 border border-gray-200 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                name="country"
               >
-                <option value disabled selected>--請選擇你想要去的國家--</option>
-                <option value="all">全部國家</option>
-                <option v-for="item in county" :key="item.id" :value="item">{{item}}</option>
+                <option
+                  value
+                  disabled
+                  selected
+                >
+                  --請選擇你想要去的國家--
+                </option>
+                <option value="all">
+                  全部國家
+                </option>
+                <option
+                  v-for="item in county"
+                  :key="item.id"
+                  :value="item"
+                >
+                  {{ item }}
+                </option>
               </select>
 
               <div
@@ -101,13 +120,21 @@
         <div class="py-2 lg:px-0 px-2 text-gray-600 text-sm">
           <ul class="list-inline inline-flex hover:underlines">
             <li class="pr-2">
-              <router-link to="/home" class="hover:text-blue-500">
-                <i class="fa fa-home"></i>
+              <router-link
+                to="/home"
+                class="hover:text-blue-500"
+              >
+                <i class="fa fa-home" />
               </router-link>
               <span class="mx-1">/</span>
             </li>
             <li>
-              <router-link to="/product" class="hover:text-blue-500">旅行規劃師</router-link>
+              <router-link
+                to="/product"
+                class="hover:text-blue-500"
+              >
+                旅行規劃師
+              </router-link>
             </li>
           </ul>
         </div>
@@ -122,12 +149,12 @@
           <div class="relative mr-8 flex">
             <!-- search 功能 -->
             <input
+              v-model.trim="searchText"
               type="search"
               class="rounded-r-none w-full pl-10 pr-4 py-2 rounded-lg shadow focus:outline-none focus:shadow-outline text-gray-600 font-medium"
               placeholder="請輸入關鍵字..."
-              v-model.trim="searchText"
               @keyup.enter="KeysearchData"
-            />
+            >
             <div class="absolute top-0 left-0 inline-flex items-center p-2">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -139,66 +166,117 @@
                 stroke-linecap="round"
                 stroke-linejoin="round"
               >
-                <rect x="0" y="0" width="24" height="24" stroke="none" />
-                <circle cx="10" cy="10" r="7" />
-                <line x1="21" y1="21" x2="15" y2="15" />
+                <rect
+                  x="0"
+                  y="0"
+                  width="24"
+                  height="24"
+                  stroke="none"
+                />
+                <circle
+                  cx="10"
+                  cy="10"
+                  r="7"
+                />
+                <line
+                  x1="21"
+                  y1="21"
+                  x2="15"
+                  y2="15"
+                />
               </svg>
             </div>
 
             <button
-              @click="KeysearchData"
               class="rounded-l-none rounded-lg items-center flex bg-teal-500 hover:bg-teal-600 focus:outline-none focus:shadow-outline hover:bg-darken text-white py-2 px-4 cursor-pointer"
+              @click="KeysearchData"
             >
-              <i class="fas fa-search fa-lg"></i>
+              <i class="fas fa-search fa-lg" />
             </button>
             <button
-              @click="clearText"
               class="bg-transparent hover:bg-primary text-primary font-semibold hover:text-white hover:border-transparent cursor-pointer py-2 px-4"
+              @click="clearText"
             >
-              <i class="fas fa-sync-alt fa-lg"></i>
+              <i class="fas fa-sync-alt fa-lg" />
             </button>
           </div>
 
           <button
+            class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
             @click="sort('rating','asc')"
-            class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
-          >熱 門 評 價</button>
+          >
+            熱 門 評 價
+          </button>
           <button
+            class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
             @click="sort('points','asc')"
-            class="shadow-lg bg-white mr-4 xs:mr-8 hover:text-gray-900 hover:font-medium focus:outline-none hover:shadow-xs px-4"
-          >點 數 高 低</button>
+          >
+            點 數 高 低
+          </button>
           <button
-            @click="sort(null, true)"
             class="hover:text-gray-900 hover:font-medium focus:outline-none text-lg"
-          >⇅</button>
+            @click="sort(null, true)"
+          >
+            ⇅
+          </button>
         </div>
         <!-- 類型挑選 -->
         <div class="container mx-auto max-w-7xl px-4 xs:px-4 mb-5">
           <div class="people_wrap my-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center">
-            <button class="bg-blue-500" @click="selectTag('act')" :class="tagDisplay('act')">冒險</button>
             <button
               class="bg-blue-500"
-              @click="selectTag('secret')"
+              :class="tagDisplay('act')"
+              @click="selectTag('act')"
+            >
+              冒險
+            </button>
+            <button
+              class="bg-blue-500"
               :class="tagDisplay('secret')"
-            >秘境</button>
+              @click="selectTag('secret')"
+            >
+              秘境
+            </button>
             <button
               class="bg-blue-500"
-              @click="selectTag('culture')"
               :class="tagDisplay('culture')"
-            >文化</button>
-            <button class="bg-blue-500" @click="selectTag('food')" :class="tagDisplay('food')">吃貨</button>
+              @click="selectTag('culture')"
+            >
+              文化
+            </button>
             <button
               class="bg-blue-500"
-              @click="selectTag('religion')"
+              :class="tagDisplay('food')"
+              @click="selectTag('food')"
+            >
+              吃貨
+            </button>
+            <button
+              class="bg-blue-500"
               :class="tagDisplay('religion')"
-            >宗教</button>
+              @click="selectTag('religion')"
+            >
+              宗教
+            </button>
             <button
               class="bg-blue-500"
-              @click="selectTag('shopping')"
               :class="tagDisplay('shopping')"
-            >購物</button>
-            <button @click="selectTag('all')" class="toolBtn bg-teal-500">全部</button>
-            <button @click="tags = []" class="toolBtn bg-teal-500">清除</button>
+              @click="selectTag('shopping')"
+            >
+              購物
+            </button>
+            <button
+              class="toolBtn bg-teal-500"
+              @click="selectTag('all')"
+            >
+              全部
+            </button>
+            <button
+              class="toolBtn bg-teal-500"
+              @click="tags = []"
+            >
+              清除
+            </button>
           </div>
         </div>
 

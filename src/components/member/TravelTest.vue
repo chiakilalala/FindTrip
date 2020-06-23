@@ -1,36 +1,47 @@
 <template>
   <div>
-
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
           <li class="pr-2">
-            <router-link to="/home" class="hover:text-blue-500">
-              <i class="fa fa-home"></i>
+            <router-link
+              to="/home"
+              class="hover:text-blue-500"
+            >
+              <i class="fa fa-home" />
             </router-link>
             <span class="mx-1">/</span>
           </li>
 
-          <li class="pr-2">訂單記錄</li>
+          <li class="pr-2">
+            訂單記錄
+          </li>
         </ul>
       </div>
     </div>
     <!-- 書籤表示旅行家和規劃師 -->
     <div class="mb-10">
-      <ul class="flex border-b" v-if=" $store.state.Permission == '02' ">
+      <ul
+        v-if=" $store.state.Permission == '02' "
+        class="flex border-b"
+      >
         <li class="-mb-px mr-1">
           <router-link
             to="/member/Order"
             class="inline-block py-2 px-4 text-gray-500 hover:text-blue-800"
             href="#"
-          >旅行家</router-link>
+          >
+            旅行家
+          </router-link>
         </li>
         <li class="mr-1">
           <router-link
             to="/member/traveler"
             class="border-b-2 border-teal-400 font-semibold inline-block py-2 px-4 text-teal-400 font-normal hover:text-blue-800"
             href="#"
-          >規劃師</router-link>
+          >
+            規劃師
+          </router-link>
         </li>
       </ul>
     </div>
@@ -45,34 +56,60 @@
           <table class="border-collapse table-auto w-full leading-normal text-left">
             <thead>
               <tr class="whitespace-no-wrap">
-                <th class="traveler_th">編號</th>
-                <th class="traveler_th">客戶名字</th>
-                <th class="traveler_th">國家</th>
-                <th class="traveler_th">訂購時間</th>
-                <th class="traveler_th">訂單狀態</th>
-                <th class="traveler_th">詳細內容</th>
-                <th class="traveler_th"></th>
+                <th class="traveler_th">
+                  編號
+                </th>
+                <th class="traveler_th">
+                  客戶名字
+                </th>
+                <th class="traveler_th">
+                  國家
+                </th>
+                <th class="traveler_th">
+                  訂購時間
+                </th>
+                <th class="traveler_th">
+                  訂單狀態
+                </th>
+                <th class="traveler_th">
+                  詳細內容
+                </th>
+                <th class="traveler_th" />
               </tr>
             </thead>
             <tbody>
-              <tr class="whitespace-no-wrap" v-for="item in  sellOrders" :key="item.id ">
-                <td class="px-5 py-3 border-b border-gray-200 bg-white text-base">{{item.id}}</td>
-                <td class="px-5 py-3 border-b border-gray-200 bg-white text-baitemse">{{item.name}}</td>
-                <td class="px-5 py-3 border-b border-gray-200 bg-white text-base">{{item.country}}</td>
+              <tr
+                v-for="item in sellOrders"
+                :key="item.id "
+                class="whitespace-no-wrap"
+              >
+                <td class="px-5 py-3 border-b border-gray-200 bg-white text-base">
+                  {{ item.id }}
+                </td>
+                <td class="px-5 py-3 border-b border-gray-200 bg-white text-baitemse">
+                  {{ item.name }}
+                </td>
+                <td class="px-5 py-3 border-b border-gray-200 bg-white text-base">
+                  {{ item.country }}
+                </td>
 
                 <td
                   class="px-5 py-3 border-b border-gray-200 bg-white text-base"
-                >{{item.CreateOn.slice(0,10)}}</td>
+                >
+                  {{ item.CreateOn.slice(0,10) }}
+                </td>
                 <!-- 創建日期 -->
                 <td
                   class="px-5 py-3 border-b border-gray-200 bg-white text-base"
                   :class="[
                     item.Status == 1
-                    ? 'text-teal-600' : item.Status === 2 
-                    ? 'text-blue-500' : item.Status === 3
-                    ? 'text-gray-500 ' : 'text-blue-500'
-                    ]"
-                >{{item.Status | status }}</td>
+                      ? 'text-teal-600' : item.Status === 2 
+                        ? 'text-blue-500' : item.Status === 3
+                          ? 'text-gray-500 ' : 'text-blue-500'
+                  ]"
+                >
+                  {{ item.Status | status }}
+                </td>
                 <!-- 單子狀態 -->
                 <td class="px-5 py-3 border-b border-gray-200 bg-white text-base">
                   <span
@@ -81,12 +118,16 @@
                   >
                     <span
                       class="shadow absolute inset-0 bg-blue-500 hover:bg-blue-200 rounded-full"
-                    ></span>
+                    />
                     <span class="relative">查看</span>
                   </span>
                 </td>
                 <td class="cursor-pointer px-5 py-3 border-b border-gray-200 bg-white text-base">
-                  <i class="fas fa-trash-alt text-lg" title="刪除" @click="deleteDialogModal(item)"></i>
+                  <i
+                    class="fas fa-trash-alt text-lg"
+                    title="刪除"
+                    @click="deleteDialogModal(item)"
+                  />
                 </td>
               </tr>
             </tbody>
@@ -95,75 +136,130 @@
       </div>
     </div>
 
-    <el-dialog :visible.sync="dialogVisible" width="80%">
+    <el-dialog
+      :visible.sync="dialogVisible"
+      width="80%"
+    >
       <div class="container mx-auto max-w-2xl round-xll overflow-hidden bg-white relative">
         <div
           class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head bg-blue-300"
         >
           <h3 class="lg:text-2xl text-gray-100 text-md font-extrabold">
-            <i class="fas fa-plane text-md pr-2 text-gray-100"></i>BOARDING PASS
+            <i class="fas fa-plane text-md pr-2 text-gray-100" />BOARDING PASS
           </h3>
         </div>
-        <div class="bg-gray-200 p-12 px-22" v-for="(item) in OneTraveler" :key="item.id">
+        <div
+          v-for="(item) in OneTraveler"
+          :key="item.id"
+          class="bg-gray-200 p-12 px-22"
+        >
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">會員姓名:</label>
-              <p class="order_text">{{item.name}}</p>
+              <p class="order_text">
+                {{ item.name }}
+              </p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">電子信箱:</label>
-              <p class="order_text">{{item.Email}}</p>
+              <p class="order_text">
+                {{ item.Email }}
+              </p>
             </div>
           </div>
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">聯絡電話:</label>
-              <p class="order_text">{{item.Tel}}</p>
+              <p class="order_text">
+                {{ item.Tel }}
+              </p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">創建日期:</label>
               <p
                 v-if="item.CreateOn !=undefined && item.CreateOn.length >= 1"
                 class="order_text"
-              >{{item.CreateOn.slice(0,10)}} {{item.CreateOn.slice(14,19)}}(GTM+8)</p>
+              >
+                {{ item.CreateOn.slice(0,10) }} {{ item.CreateOn.slice(14,19) }}(GTM+8)
+              </p>
             </div>
           </div>
 
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">國家:</label>
-              <p class="order_text">{{item.country}}</p>
+              <p class="order_text">
+                {{ item.country }}
+              </p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">城市區域:</label>
-              <p class="order_text">{{item.city}}</p>
+              <p class="order_text">
+                {{ item.city }}
+              </p>
             </div>
           </div>
 
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">行程的日期 範圍 :</label>
-              <p class="order_text">{{item.DepartureTime1}} ~ {{item.DepartureTime2}}</p>
+              <p class="order_text">
+                {{ item.DepartureTime1 }} ~ {{ item.DepartureTime2 }}
+              </p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">預算:</label>
-              <p class="order_text">{{item.Budget}}</p>
+              <p class="order_text">
+                {{ item.Budget }}
+              </p>
             </div>
           </div>
 
           <div class="mb-8">
             <fieldset class="border-0">
-              <legend class="text-gray-700 mb-2 text-xl font-bold">旅行喜好類型 :</legend>
+              <legend class="text-gray-700 mb-2 text-xl font-bold">
+                旅行喜好類型 :
+              </legend>
               <div
                 class="people_wrap mt-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center"
               >
-                <button class="bg-blue-500" :class="{'hidden' : !item['Act']}">冒險</button>
-                <button class="bg-blue-500" :class="{'hidden' : !item['Secret']}">秘境</button>
-                <button class="bg-blue-500" :class="{'hidden' : !item['Culture']}">文化</button>
+                <button
+                  class="bg-blue-500"
+                  :class="{'hidden' : !item['Act']}"
+                >
+                  冒險
+                </button>
+                <button
+                  class="bg-blue-500"
+                  :class="{'hidden' : !item['Secret']}"
+                >
+                  秘境
+                </button>
+                <button
+                  class="bg-blue-500"
+                  :class="{'hidden' : !item['Culture']}"
+                >
+                  文化
+                </button>
 
-                <button class="bg-blue-600" :class="{'hidden' : !item['Religion']}">宗教</button>
-                <button class="bg-blue-600" :class="{'hidden' : !item['Shopping']}">購物</button>
-                <button class="bg-blue-600" :class="{'hidden' : !item['Food']}">吃貨</button>
+                <button
+                  class="bg-blue-600"
+                  :class="{'hidden' : !item['Religion']}"
+                >
+                  宗教
+                </button>
+                <button
+                  class="bg-blue-600"
+                  :class="{'hidden' : !item['Shopping']}"
+                >
+                  購物
+                </button>
+                <button
+                  class="bg-blue-600"
+                  :class="{'hidden' : !item['Food']}"
+                >
+                  吃貨
+                </button>
               </div>
             </fieldset>
           </div>
@@ -171,18 +267,24 @@
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">大人:</label>
-              <p class="order_text">{{item.Adult}} 人</p>
+              <p class="order_text">
+                {{ item.Adult }} 人
+              </p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">小孩:</label>
-              <p class="order_text">{{item.Children}} 人</p>
+              <p class="order_text">
+                {{ item.Children }} 人
+              </p>
             </div>
           </div>
 
           <div class="mb-6">
             <label class="text-gray-700 text-xl font-bold mb-2">備註 :</label>
             <div class="my-5 font-medium mb-7 bg-white rounded-lg h-auto pb-5">
-              <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">{{item.Remark}}</p>
+              <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">
+                {{ item.Remark }}
+              </p>
             </div>
           </div>
 
@@ -194,45 +296,72 @@
            
               >確認點擊訂單 switchState(item.id){{count}}</el-button>-->
               <el-button
-                @click="changeDialogModal(item)"
                 :class="[
-                    item.Status == 1
+                  item.Status == 1
                     ? 'bg-teal-600' : item.Status === 2 
-                    ? 'bg-blue-500' : item.Status === 3
-                    ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-500'
-                    ]"
+                      ? 'bg-blue-500' : item.Status === 3
+                        ? 'bg-gray-500 cursor-not-allowed' : 'bg-gray-500'
+                ]"
                 class="hover:opacity-75 text-white font-bold py-2 px-4 rounded-full mx-4"
-              >{{ item.Status | status }}</el-button>
+                @click="changeDialogModal(item)"
+              >
+                {{ item.Status | status }}
+              </el-button>
             </div>
           </div>
         </div>
         <div
           class="relative bg-blue-500 bg-cover bg-center h-20 p-4 flex justify-end items-center form-head"
         >
-          <div class="sbarcode"></div>
+          <div class="sbarcode" />
         </div>
       </div>
     </el-dialog>
 
     <!-- 修改訂單狀態 dialog -->
 
-    <el-dialog :visible="commentVisible" :before-close="beforeClose">
+    <el-dialog
+      :visible="commentVisible"
+      :before-close="beforeClose"
+    >
       <!-- 下面是留言格式 -->
       <span class="text-xl text-center font-extrabold">確定是否修改訂單狀態？</span>
-      <span slot="footer" class="dialog-footer">
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="commentVisible = false">取 消</el-button>
-        <el-button type="primary" @click="changeStatus">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="changeStatus"
+        >确 定</el-button>
       </span>
     </el-dialog>
     <!-- delete model -->
     <!-- 刪除modal -->
 
-    <el-dialog :visible="deleteModal" :before-close="beforeClose" center>
-      <p class="text-xl text-center font-extrabold">不得擅自取消，請確定已經跟客戶告知原因,才可繼續？</p>
-      <p></p>
-      <div slot="footer" class="dialog-footer">
-        <el-button @click=" deleteModal = false">取消刪除</el-button>
-        <el-button type="primary" @click="deleteOrder">确定刪除</el-button>
+    <el-dialog
+      :visible="deleteModal"
+      :before-close="beforeClose"
+      center
+    >
+      <p class="text-xl text-center font-extrabold">
+        不得擅自取消，請確定已經跟客戶告知原因,才可繼續？
+      </p>
+      <p />
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button @click=" deleteModal = false">
+          取消刪除
+        </el-button>
+        <el-button
+          type="primary"
+          @click="deleteOrder"
+        >
+          确定刪除
+        </el-button>
       </div>
     </el-dialog>
   </div>

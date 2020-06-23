@@ -1,28 +1,29 @@
 <template>
   <div id="wrapper">
-   
-      <div class="flex container max-w-xl mx-auto">
-       <div class="w-full flex flex-col flex-wrap justify-center px-6 lg:px-0 my-10">
-       <div class="mt-6 container mx-auto  round-xll overflow-hidden bg-white relative my-10 max-w-450 shadow-md">
-            <div
-              class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head"
-              style="background-image: url(https://upload.cc/i1/2020/06/18/XT05If.jpg)"
+    <div class="flex container max-w-xl mx-auto">
+      <div class="w-full flex flex-col flex-wrap justify-center px-6 lg:px-0 my-10">
+        <div class="mt-6 container mx-auto  round-xll overflow-hidden bg-white relative my-10 max-w-450 shadow-md">
+          <div
+            class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head"
+            style="background-image: url(https://upload.cc/i1/2020/06/18/XT05If.jpg)"
+          >
+            <p
+              class="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg"
             >
-              <p
-                class="uppercase tracking-widest text-sm text-white bg-black py-1 px-2 rounded opacity-75 shadow-lg"
-              >
-                DFW
-                <span class="tracking-normal">--&gt;</span> SEA
-              </p>
-            </div>
-             <div class="p-0 px-10 ">
-              <div class="mb-3">
-                <div class="w-full flex flex-wrap">
-                  <div class="w-full flex-1 ">
-                    <h3 class="text-center text-2xl text-blue-700 my-5 tracking-widest">會 員 註 冊</h3>
-                   <div
-                      class="flex md:flex-1 tracking-widestflex flex-col  items-center lg:justify-around justify-center"
-                    >
+              DFW
+              <span class="tracking-normal">--&gt;</span> SEA
+            </p>
+          </div>
+          <div class="p-0 px-10 ">
+            <div class="mb-3">
+              <div class="w-full flex flex-wrap">
+                <div class="w-full flex-1 ">
+                  <h3 class="text-center text-2xl text-blue-700 my-5 tracking-widest">
+                    會 員 註 冊
+                  </h3>
+                  <div
+                    class="flex md:flex-1 tracking-widestflex flex-col  items-center lg:justify-around justify-center"
+                  >
                     <!-- <button
                         class="mr-2  mb-4 w-full  font-semibold shadow-sm rounded-lg py-3 bg-blue-300 hover:bg-blue-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
@@ -49,7 +50,7 @@
                         <span class="ml-4">Sign Up with Google</span>
                       </button> -->
 
-                     <!-- <button
+                    <!-- <button
                         class="mr-2 lg:mb-0 mb-4 w-full  font-semibold shadow-sm rounded-lg py-3 bg-blue-300 hover:bg-blue-400 text-gray-800 flex items-center justify-center transition-all duration-300 ease-in-out focus:outline-none hover:shadow focus:shadow-sm focus:shadow-outline"
                       >
                         <div class="bg-white p-2 rounded-full">
@@ -65,141 +66,168 @@
                         </div>
                         <span class="ml-1">Sign Up with Facebook</span>
                       </button> -->
-                    </div>
-
-                    <div class="mb-5  border-b-2 text-center  ">
-                      <div
-                        class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
-                      >Or sign up with e-mail</div>
-                    </div>
-                    <ValidationObserver >
-                      <div class="mx-auto max-w-xl">
-                        <ValidationProvider
-                          rules="required|max:10"
-                          v-slot="{ errors, classes }"
-                          name="姓名"
-                        >
-                          <div class="relative mb-5" :class="classes">
-                            <input
-                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
-                              type="name"
-                              name="name"
-                              placeholder="會員姓名"
-                              v-model="user.Name"
-                            />
-                            <i
-                              class="pointer-events-none fa fa-user absolute inset-0 pl-2 flex items-center text-gray-500"
-                            ></i>
-                            <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
-                          </div>
-                        </ValidationProvider>
-                        <ValidationProvider
-                          rules="required|email"
-                          v-slot="{ errors, classes }"
-                          name="email"
-                        >
-                          <div class="relative my-5 " :class="classes">
-                            <input
-                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
-                              type="email"
-                              name="E-mail"
-                              placeholder="電子郵件"
-                              v-model="user.Email"
-                            />
-                            <i
-                              class="pointer-events-none fa fa-envelope absolute inset-0 pl-2 flex items-center text-gray-500"
-                            ></i>
-                            <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
-                          </div>
-                        </ValidationProvider>
-
-                        <ValidationProvider
-                          rules="required|confirmed:password|min:6|max:20"
-                          v-slot="{ errors, classes }"
-                          vid="password"
-                          name="密碼"
-                        >
-                          <div class="relative my-5 " :class="classes">
-                            <input
-                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
-                              type="Password"
-                              id="password"
-                              placeholder="密碼"
-                              autocomplete="current-password"
-                              v-model="user.Password"
-                            />
-                            <i
-                              class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
-                            ></i>
-                          </div>
-                          <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
-                        </ValidationProvider>
-                        <ValidationProvider
-                          rules="required|confirmed:password"
-                          v-slot="{ errors, classes }"
-                          name="密碼"
-                        >
-                          <div class="relative my-5 " :class="classes">
-                            <input
-                              class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
-                              type="Password"
-                              placeholder="確認密碼 "
-                              v-model="user.PasswordConfirm"
-                            />
-
-                            <i class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500" ></i>
-
-                          </div>
-                          <div class="text-sm text-red-400 my-2">{{ errors[0] }}</div>
-
-                        </ValidationProvider>
-
-                        <div class="text-sm text-gray-600 mb-2"></div>
-                        <button
-                          class="my-5 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
-                          type="submit"
-                          @click.prevent="SingUp"
-                        >
-                          <svg
-                            class="w-6 h-6 -ml-2"
-                            fill="none"
-                            stroke="currentColor"
-                            stroke-width="2"
-                            stroke-linecap="round"
-                            stroke-linejoin="round"
-                          >
-                            <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
-                            <circle cx="8.5" cy="7" r="4" />
-                            <path d="M20 8v6M23 11h-6" />
-                          </svg>
-                          <span class="ml-3">Sign Up</span>
-                        </button>
-                        <div class="text-md text-gray-600 mb-2 flex justify-between">
-                          <router-link to="/login" class="text-right hover:text-blue-300">快速登入</router-link>
-                          <!-- <p class="text-right">忘記密碼？</p> -->
-                        </div>
-
-                        <!-- barcode -->
-                        <div class="depart-barcode"></div>
-                      </div>
-                    </ValidationObserver>
                   </div>
+
+                  <div class="mb-5  border-b-2 text-center  ">
+                    <div
+                      class="leading-none px-2 inline-block text-sm text-gray-600 tracking-wide font-medium bg-white transform translate-y-1/2"
+                    >
+                      Or sign up with e-mail
+                    </div>
+                  </div>
+                  <ValidationObserver>
+                    <div class="mx-auto max-w-xl">
+                      <ValidationProvider
+                        v-slot="{ errors, classes }"
+                        rules="required|max:10"
+                        name="姓名"
+                      >
+                        <div
+                          class="relative mb-5"
+                          :class="classes"
+                        >
+                          <input
+                            v-model="user.Name"
+                            class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
+                            type="name"
+                            name="name"
+                            placeholder="會員姓名"
+                          >
+                          <i
+                            class="pointer-events-none fa fa-user absolute inset-0 pl-2 flex items-center text-gray-500"
+                          />
+                          <div class="text-sm text-red-400 my-2">
+                            {{ errors[0] }}
+                          </div>
+                        </div>
+                      </ValidationProvider>
+                      <ValidationProvider
+                        v-slot="{ errors, classes }"
+                        rules="required|email"
+                        name="email"
+                      >
+                        <div
+                          class="relative my-5 "
+                          :class="classes"
+                        >
+                          <input
+                            v-model="user.Email"
+                            class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
+                            type="email"
+                            name="E-mail"
+                            placeholder="電子郵件"
+                          >
+                          <i
+                            class="pointer-events-none fa fa-envelope absolute inset-0 pl-2 flex items-center text-gray-500"
+                          />
+                          <div class="text-sm text-red-400 my-2">
+                            {{ errors[0] }}
+                          </div>
+                        </div>
+                      </ValidationProvider>
+
+                      <ValidationProvider
+                        v-slot="{ errors, classes }"
+                        rules="required|confirmed:password|min:6|max:20"
+                        vid="password"
+                        name="密碼"
+                      >
+                        <div
+                          class="relative my-5 "
+                          :class="classes"
+                        >
+                          <input
+                            id="password"
+                            v-model="user.Password"
+                            class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
+                            type="Password"
+                            placeholder="密碼"
+                            autocomplete="current-password"
+                          >
+                          <i
+                            class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500"
+                          />
+                        </div>
+                        <div class="text-sm text-red-400 my-2">
+                          {{ errors[0] }}
+                        </div>
+                      </ValidationProvider>
+                      <ValidationProvider
+                        v-slot="{ errors, classes }"
+                        rules="required|confirmed:password"
+                        name="密碼"
+                      >
+                        <div
+                          class="relative my-5 "
+                          :class="classes"
+                        >
+                          <input
+                            v-model="user.PasswordConfirm"
+                            class="w-full px-8 py-5 rounded-lg font-medium bg-gray-100 border border-gray-200 placeholder-gray-500 text-md focus:outline-none focus:border-gray-400 focus:bg-white"
+                            type="Password"
+                            placeholder="確認密碼 "
+                          >
+
+                          <i class="mt-2 pointer-events-none fas fa-key absolute inset-0 pl-2 flex items-center text-gray-500" />
+                        </div>
+                        <div class="text-sm text-red-400 my-2">
+                          {{ errors[0] }}
+                        </div>
+                      </ValidationProvider>
+
+                      <div class="text-sm text-gray-600 mb-2" />
+                      <button
+                        class="my-5 tracking-wide font-semibold bg-blue-500 text-gray-100 w-full py-4 rounded-lg hover:bg-blue-700 transition-all duration-300 ease-in-out flex items-center justify-center focus:shadow-outline focus:outline-none"
+                        type="submit"
+                        @click.prevent="SingUp"
+                      >
+                        <svg
+                          class="w-6 h-6 -ml-2"
+                          fill="none"
+                          stroke="currentColor"
+                          stroke-width="2"
+                          stroke-linecap="round"
+                          stroke-linejoin="round"
+                        >
+                          <path d="M16 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2" />
+                          <circle
+                            cx="8.5"
+                            cy="7"
+                            r="4"
+                          />
+                          <path d="M20 8v6M23 11h-6" />
+                        </svg>
+                        <span class="ml-3">Sign Up</span>
+                      </button>
+                      <div class="text-md text-gray-600 mb-2 flex justify-between">
+                        <router-link
+                          to="/login"
+                          class="text-right hover:text-blue-300"
+                        >
+                          快速登入
+                        </router-link>
+                        <!-- <p class="text-right">忘記密碼？</p> -->
+                      </div>
+
+                      <!-- barcode -->
+                      <div class="depart-barcode" />
+                    </div>
+                  </ValidationObserver>
                 </div>
               </div>
             </div>
-
-            <div
-              class="bg-blue-800 bg-cover bg-right h-20 p-4 flex justify-end items-center form-head"
-                  style="background-image: url(https://upload.cc/i1/2020/06/18/XT05If.jpg)"
-            ></div>
           </div>
 
-          <!-- </div> -->
-       
+          <div
+            class="bg-blue-800 bg-cover bg-right h-20 p-4 flex justify-end items-center form-head"
+            style="background-image: url(https://upload.cc/i1/2020/06/18/XT05If.jpg)"
+          />
+        </div>
+
+        <!-- </div> -->
       </div>
-      </div>
-      <Footer />
-    
+    </div>
+    <Footer />
   </div>
 </template>
 

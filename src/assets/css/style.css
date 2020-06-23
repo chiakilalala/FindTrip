@@ -1034,3 +1034,30 @@ div.loadingText span:nth-child(7) {
         margin-left: 20%;
     }
 }
+
+@media screen and (max-width: 768px) {
+    .airplane img {
+        display: none;
+    }
+}
+
+@media screen and (max-width: 569px) {
+    .airplane img {
+        display: none;
+    }
+    .hero-bg .main-congent {
+        margin-top: 4rem;
+    }
+    .hero-bg .main-congent .main-title {
+        font-size: 2.3rem;
+    }
+    .hero-bg .subtitle {
+        font-size: 1rem;
+    }
+    .hero-bg .search-box {
+        height: 13rem;
+    }
+    .dropdownn {
+        display: none;
+    }
+}

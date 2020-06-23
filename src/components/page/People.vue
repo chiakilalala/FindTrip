@@ -1,12 +1,15 @@
 <template>
   <div>
-    <loading loader="bars" :active.sync="isLoading"></loading>
+    <loading
+      loader="bars"
+      :active.sync="isLoading"
+    />
     <!-- NavBar Component v-for="item in traveler" :key="item.id" -->
     <NavBar />
 
     <!-- banner -->
     <div class="hero h-64 bg-cover h-112 overflow-hidden">
-      <div class="container mx-auto flex max-w-5xl flex-col items-center"></div>
+      <div class="container mx-auto flex max-w-5xl flex-col items-center" />
     </div>
     <div>
       <div class="my-2 lg:ml-10 ml-2">
@@ -15,15 +18,22 @@
             <ul class="list-inline inline-flex hover:underlines">
               <li class="pr-2">
                 <router-link to="/home">
-                  <i class="fa fa-home hover:text-blue-500"></i>
+                  <i class="fa fa-home hover:text-blue-500" />
                 </router-link>
                 <span class="mx-1">/</span>
               </li>
               <li class="pr-2">
-                <router-link to="/product" class="hover:text-blue-500">旅行規劃師</router-link>
+                <router-link
+                  to="/product"
+                  class="hover:text-blue-500"
+                >
+                  旅行規劃師
+                </router-link>
                 <span class="mx-1">/</span>
               </li>
-              <li class="pr-3">{{traveler.PlannerName}} 旅行規劃師</li>
+              <li class="pr-3">
+                {{ traveler.PlannerName }} 旅行規劃師
+              </li>
             </ul>
           </div>
         </div>
@@ -37,70 +47,122 @@
                 <!--右邊資訊 max-w-3xl-->
                 <div class="w-full px-8 lg:px10">
                   <div class="flex items-center text-xs my-5">
-                    <div class="icon icon001"></div>
-                    <h3 class="text-xl text-blue-500 font-medium">簡介</h3>
+                    <div class="icon icon001" />
+                    <h3 class="text-xl text-blue-500 font-medium">
+                      簡介
+                    </h3>
                   </div>
 
                   <div class="text-lg text-gray-700 ml-1 leading-8">
-                    <div class="mb-2" v-html="traveler.TPExperience"></div>
+                    <div
+                      class="mb-2"
+                      v-html="traveler.TPExperience"
+                    />
                   </div>
 
-                  <hr class="border-grey-light border-t my-6" />
+                  <hr class="border-grey-light border-t my-6">
                   <!-- step2 -->
                   <div class="flex items-center text-xs my-5">
-                    <div class="icon icon002"></div>
-                    <h3 class="text-xl text-blue-500 font-medium">經歷</h3>
+                    <div class="icon icon002" />
+                    <h3 class="text-xl text-blue-500 font-medium">
+                      經歷
+                    </h3>
                   </div>
 
-                  <p class="text-lg text-gray-700 leading-8 ml-1" v-html="traveler.TravelPlanIntro"></p>
+                  <p
+                    class="text-lg text-gray-700 leading-8 ml-1"
+                    v-html="traveler.TravelPlanIntro"
+                  />
 
-                  <hr class="border-grey-light border-t my-6" />
+                  <hr class="border-grey-light border-t my-6">
 
                   <div class="flex items-center text-xs my-5">
-                    <div class="icon icon003"></div>
-                    <h3 class="text-xl text-blue-500 font-medium">專長</h3>
+                    <div class="icon icon003" />
+                    <h3 class="text-xl text-blue-500 font-medium">
+                      專長
+                    </h3>
                   </div>
                   <div class="px-2">
                     <div class="flex flex-wrap -mx-3 ml-1">
                       <div
                         class="w-full lg:w-1/2 bg-cover bg-center h-48"
                         :style="{backgroundImage:`url(${traveler.Cpicture ? traveler.Cpicture : 'https://picsum.photos/600/400?random=1' })`}"
-                      ></div>
+                      />
 
                       <div class="w-full lg:w-1/2 px-0 lg:px-4 flex flex-col justify-between">
                         <h3 class="text-xl text-blue-500 font-medium my-2 px:0 lg:px-2">
                           國家：
-                          <span class="text-gray-500 text-base font-mono">{{ traveler.country}}</span>
+                          <span class="text-gray-500 text-base font-mono">{{ traveler.country }}</span>
                         </h3>
                         <h3 class="text-xl text-blue-500 font-medium my-2 px:0 lg:px-2">
                           城市：
-                          <span class="text-gray-500 text-base font-mono">{{ traveler.city}}</span>
+                          <span class="text-gray-500 text-base font-mono">{{ traveler.city }}</span>
                         </h3>
                         <div
                           class="people_wrap mt-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center"
                         >
-                          <button class="bg-blue-500" :class="{'hidden' : !traveler['Act']}">冒險</button>
-                          <button class="bg-blue-500" :class="{'hidden' : !traveler['Secret']}">秘境</button>
-                          <button class="bg-blue-500" :class="{'hidden' : !traveler['Culture']}">文化</button>
-                          <button class="bg-blue-600" :class="{'hidden' : !traveler['Food']}">吃貨</button>
-                          <button class="bg-blue-500" :class="{'hidden' :!traveler['Religion']}">宗教</button>
-                          <button class="bg-blue-600" :class="{'hidden' : !traveler['Shopping']}">購物</button>
+                          <button
+                            class="bg-blue-500"
+                            :class="{'hidden' : !traveler['Act']}"
+                          >
+                            冒險
+                          </button>
+                          <button
+                            class="bg-blue-500"
+                            :class="{'hidden' : !traveler['Secret']}"
+                          >
+                            秘境
+                          </button>
+                          <button
+                            class="bg-blue-500"
+                            :class="{'hidden' : !traveler['Culture']}"
+                          >
+                            文化
+                          </button>
+                          <button
+                            class="bg-blue-600"
+                            :class="{'hidden' : !traveler['Food']}"
+                          >
+                            吃貨
+                          </button>
+                          <button
+                            class="bg-blue-500"
+                            :class="{'hidden' :!traveler['Religion']}"
+                          >
+                            宗教
+                          </button>
+                          <button
+                            class="bg-blue-600"
+                            :class="{'hidden' : !traveler['Shopping']}"
+                          >
+                            購物
+                          </button>
                         </div>
                       </div>
                     </div>
                   </div>
 
-                  <hr class="border-grey-light border-t my-6" />
+                  <hr class="border-grey-light border-t my-6">
                   <div class="flex items-center text-xs my-5">
-                    <div class="icon icon004"></div>
-                    <h3 class="text-xl text-blue-500 font-medium">旅行家評價</h3>
+                    <div class="icon icon004" />
+                    <h3 class="text-xl text-blue-500 font-medium">
+                      旅行家評價
+                    </h3>
                   </div>
-                  <div class="mb-8 px-2" v-if="!traveler.rating">尚無其他評價</div>
-                  <div class="mb-8 px-2" v-else>
+                  <div
+                    v-if="!traveler.rating"
+                    class="mb-8 px-2"
+                  >
+                    尚無其他評價
+                  </div>
+                  <div
+                    v-else
+                    class="mb-8 px-2"
+                  >
                     <div
-                      class="flex flex-wrap -mx-3"
-                      v-for="(el,index) in  traveler.rating"
+                      v-for="(el,index) in traveler.rating"
                       :key="index"
+                      class="flex flex-wrap -mx-3"
                     >
                       <!--v-for="(el,index) in  traveler.rating"
                       :key="index"-->
@@ -110,27 +172,31 @@
                             :src="el.buyerPic"
                             alt
                             class="mx-auto object-cover w-10 h-10 rounded-full"
-                          />
+                          >
                         </div>
                       </div>
 
                       <div class="text-sm md:4/6 lg:w-10/12 ml-2">
                         <p class="text-gray-900 leading-none text-base">
-                          {{el.buyerName}}
+                          {{ el.buyerName }}
                           <el-rate
                             v-model="el.star"
                             disabled
                             text-color="#ff9900"
                             class="inline-block"
-                          ></el-rate>
+                          />
                         </p>
 
                         <div class="mt-2 mb-8 py-2 text-gray-800">
                           <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
-                            <p class="text-sm leading-relaxed px-5 pt-5">{{ el.RatingContent}}</p>
+                            <p class="text-sm leading-relaxed px-5 pt-5">
+                              {{ el.RatingContent }}
+                            </p>
                             <p
                               class="text-xs text-gray-500 px-5 pt-5"
-                            >{{ el.CreateOn.slice(0,10) }} 評價</p>
+                            >
+                              {{ el.CreateOn.slice(0,10) }} 評價
+                            </p>
                           </div>
                         </div>
                       </div>
@@ -148,14 +214,19 @@
                     <div class="flex items-center justify-center">
                       <h2
                         class="text-center font-semibold text-gray-700 text-xl text-blue-500 mt-10 my-5"
-                      >關於規劃師 {{traveler.PlannerName}}</h2>
+                      >
+                        關於規劃師 {{ traveler.PlannerName }}
+                      </h2>
                       <ul class="list-none">
                         <li class="w-1 h-2">
-                          <a href="#" @click.prevent="toggleHeart(traveler)">
+                          <a
+                            href="#"
+                            @click.prevent="toggleHeart(traveler)"
+                          >
                             <i
                               class="ml-2 far fa-heart text-2xl align-items"
                               :class="{ 'text-red-500  fas' : isStar, '' : !isStar}"
-                            ></i>
+                            />
                           </a>
                         </li>
                       </ul>
@@ -166,7 +237,7 @@
                         alt
                         srcset
                         class="border-2 border-blue-200 bg-white w-48 h-48 object-cover rounded-full overflow-hidden"
-                      />
+                      >
                     </div>
                     <div class="mx-auto flex justify-center my-5">
                       <a
@@ -174,34 +245,52 @@
                         :title="traveler.PlannerSocial3"
                         target="_blabk"
                       >
-                        <img src="../../assets/img/ic-facebook.svg" alt srcset class="w-6 b-6 mr-3" />
+                        <img
+                          src="../../assets/img/ic-facebook.svg"
+                          alt
+                          srcset
+                          class="w-6 b-6 mr-3"
+                        >
                       </a>
                       <a
                         :href="traveler.PlannerSocial2 "
                         :title="traveler.PlannerSocial4 "
                         target="_blabk"
                       >
-                        <img class="w-6 b-6" src="../../assets/img/ic-line@.svg" alt srcset />
+                        <img
+                          class="w-6 b-6"
+                          src="../../assets/img/ic-line@.svg"
+                          alt
+                          srcset
+                        >
                       </a>
                     </div>
                     <div class="flex justify-center my-3">
-                      <span class="text-sm pr-2">評價 ({{traveler.ratings}} )</span>
+                      <span class="text-sm pr-2">評價 ({{ traveler.ratings }} )</span>
                       <span class="star">
                         <el-rate
                           v-model="traveler.stars"
                           disabled
                           text-color="#ff9900"
                           class="inline-block text-xl"
-                        ></el-rate>
+                        />
                       </span>
                     </div>
-                    <p class="font-normal mb-3 text-sm leading-6 px-12">{{traveler.PlannerIntro}}</p>
+                    <p class="font-normal mb-3 text-sm leading-6 px-12">
+                      {{ traveler.PlannerIntro }}
+                    </p>
                     <div class="px-12">
-                      <h2 class="font-semibold text-gray-700 text-xl mb-3">服務售價</h2>
+                      <h2 class="font-semibold text-gray-700 text-xl mb-3">
+                        服務售價
+                      </h2>
                     </div>
                     <div class="flex px-10 justify-start mb-10">
-                      <img src="../../assets/img/coin.png" alt class="w-12 h-12 mr-2" />
-                      <span class="text-3xl text-gray-700 font-extrabold">{{traveler.points}}</span>
+                      <img
+                        src="../../assets/img/coin.png"
+                        alt
+                        class="w-12 h-12 mr-2"
+                      >
+                      <span class="text-3xl text-gray-700 font-extrabold">{{ traveler.points }}</span>
                       <span
                         class="ml-1 text-sm text-gray-700 font-semibold transform translate-y-4"
                       >Point</span>
@@ -221,7 +310,9 @@
                       <el-button
                         class="bg-orange-500 hover:bg-orange-400 text-white rounded-lg mt-3 w-full py-3 font-medium text-lg tracking-wider shadow font-huninn focus:outline-none select-none"
                         @click="getOrder"
-                      >立即下單</el-button>
+                      >
+                        立即下單
+                      </el-button>
                     </div>
                   </div>
                 </div>
@@ -233,7 +324,11 @@
     </div>
 
     <!-- dialog -->
-    <el-dialog :visible.sync="dialogVisible" top="8vh" width="65%">
+    <el-dialog
+      :visible.sync="dialogVisible"
+      top="8vh"
+      width="65%"
+    >
       <div class>
         <div class="flex container max-w-7xl mx-auto">
           <div class="w-full flex flex-row flex-wrap justify-center">
@@ -257,22 +352,33 @@
                     <div class="md:flex-1 md:pr-3">
                       <div class="md:flex-1 md:pr-3">
                         <label class="order_title">規劃國家:</label>
-                        <p class="order_text">{{traveler.country}}</p>
-                        <input v-model="form.country" />
+                        <p class="order_text">
+                          {{ traveler.country }}
+                        </p>
+                        <input v-model="form.country">
                       </div>
                     </div>
                     <div class="md:flex-1 md:pl-3">
                       <label class="order_title">規劃城市旅遊 :</label>
-                      <p class="order_text">{{traveler.city}}</p>
-                      <input v-model="form.city" />
+                      <p class="order_text">
+                        {{ traveler.city }}
+                      </p>
+                      <input v-model="form.city">
                     </div>
                   </div>
 
                   <div class="md:flex mb-8">
                     <div class="md:flex-1 md:pr-3">
-                      <ValidationProvider v-slot="{ errors, classes }" name="行程日期" rules="required">
+                      <ValidationProvider
+                        v-slot="{ errors, classes }"
+                        name="行程日期"
+                        rules="required"
+                      >
                         <label class="order_title">行程的日期 範圍 :</label>
-                        <div :class="classes" class="calerdar">
+                        <div
+                          :class="classes"
+                          class="calerdar"
+                        >
                           <el-date-picker
                             v-model="startTime"
                             name="行程日期"
@@ -284,26 +390,46 @@
                             format="yyyy - MM - dd "
                             value-format="yyyy-MM-dd"
                             class="bg-white relative focus:outline-none focus:border-gray-400 focus:bg-white border border-gray-300 rounded-lg py-8 px-4 mt-2 block w-full appearance-none leading-normal"
-                          ></el-date-picker>
+                          />
                         </div>
-                        <div class="text-sm text-red-600">{{ errors[0] }}</div>
+                        <div class="text-sm text-red-600">
+                          {{ errors[0] }}
+                        </div>
                       </ValidationProvider>
                     </div>
                     <div class="md:flex-1 md:pl-3">
-                      <ValidationProvider v-slot="{ errors, classes }" name="預算" rules="required">
+                      <ValidationProvider
+                        v-slot="{ errors, classes }"
+                        name="預算"
+                        rules="required"
+                      >
                         <label class="order_title">預算 :</label>
                         <div class="relative">
                           <select
+                            v-model="form.Budget"
                             class="text-base focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                             name="預算"
-                            v-model="form.Budget"
                             :class="classes"
                           >
-                            <option value="-  預算範圍 -" selected disabled>- 預算範圍 -</option>
-                            <option value="＄10,000~＄30,000">＄10,000 ~ ＄30,000</option>
-                            <option value="＄30,000~＄50,000">＄30,000 ~ ＄50,000</option>
-                            <option value="＄50,000~＄80,000">＄50,000 ~ ＄80,000</option>
-                            <option value="＄80,000 ~ 以上">＄80,000 ~ 以上</option>
+                            <option
+                              value="-  預算範圍 -"
+                              selected
+                              disabled
+                            >
+                              - 預算範圍 -
+                            </option>
+                            <option value="＄10,000~＄30,000">
+                              ＄10,000 ~ ＄30,000
+                            </option>
+                            <option value="＄30,000~＄50,000">
+                              ＄30,000 ~ ＄50,000
+                            </option>
+                            <option value="＄50,000~＄80,000">
+                              ＄50,000 ~ ＄80,000
+                            </option>
+                            <option value="＄80,000 ~ 以上">
+                              ＄80,000 ~ 以上
+                            </option>
                           </select>
                           <div
                             class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700"
@@ -319,73 +445,82 @@
                             </svg>
                           </div>
                         </div>
-                        <div class="text-sm text-red-600">{{ errors[0] }}</div>
-                        <div class="text-sm text-red-600" v-if="isBudget">預算範圍不能為空</div>
+                        <div class="text-sm text-red-600">
+                          {{ errors[0] }}
+                        </div>
+                        <div
+                          v-if="isBudget"
+                          class="text-sm text-red-600"
+                        >
+                          預算範圍不能為空
+                        </div>
                       </ValidationProvider>
                     </div>
                   </div>
 
                   <div class="mb-8">
                     <fieldset class="border-0">
-                      <legend class="order_title mb-2">旅行喜好類型 （可多選）</legend>
+                      <legend class="order_title mb-2">
+                        旅行喜好類型 （可多選）
+                      </legend>
                       <label class="mr-1 text-gray-700 font-bold mb-2 inline-flex items-center">
                         <input
+                          v-model="form['Act']"
                           class="mr-1 leading-tight form-checkbox h-6 w-6"
                           type="checkbox"
-                          v-model="form['Act']"
                           value="冒險"
                           name="type"
-                        />
+                        >
                         <span class="text-sm mx-4">冒險</span>
                       </label>
                       <label class="mr-1 text-gray-700 font-bold mb-2 inline-flex items-center">
                         <input
+                          v-model="form['Secret']"
                           class="mr-1 leading-tight form-checkbox h-6 w-6"
                           type="checkbox"
                           name="type"
-                          v-model="form['Secret']"
                           value="秘境"
-                        />
+                        >
                         <span class="text-sm mx-4">秘境</span>
                       </label>
                       <label class="text-gray-700 font-bold mb-2 inline-flex items-center">
                         <input
+                          v-model="form['Culture']"
                           class="mr-1 leading-tight form-checkbox h-6 w-6"
                           type="checkbox"
                           name="type"
-                          v-model="form['Culture']"
                           value="文化"
-                        />
+                        >
                         <span class="text-sm mx-4">文化</span>
                       </label>
                       <label class="text-gray-700 font-bold mb-2 inline-flex items-center">
                         <input
+                          v-model="form['Food']"
                           class="mr-1 leading-tight form-checkbox h-6 w-6"
                           type="checkbox"
                           name="type"
-                          v-model="form['Food']"
                           value="吃貨"
-                        />
+                        >
                         <span class="text-sm mx-4">吃貨</span>
                       </label>
                       <label class="text-gray-700 font-bold mb-2 inline-flex items-center">
                         <input
+                          v-model="form['Shopping']"
                           class="mr-1 leading-tight form-checkbox h-6 w-6"
                           type="checkbox"
-                          v-model="form['Shopping']"
                           name="type"
                           value="購物"
-                        />
+                        >
                         <span class="text-sm mx-4">購物</span>
                       </label>
                       <label class="text-gray-700 font-bold mb-2 inline-flex items-center">
                         <input
+                          v-model="form['Religion']"
                           class="mr-1 leading-tight form-checkbox h-6 w-6"
                           type="checkbox"
-                          v-model="form['Religion']"
                           name="type"
                           value="宗教"
-                        />
+                        >
                         <span class="text-sm mx-4">宗教</span>
                       </label>
                     </fieldset>
@@ -394,8 +529,19 @@
                   <div class="md:flex mb-8">
                     <div class="md:flex-1 md:pr-3">
                       <label class="block mb-2 tracking-wide text-gray-700 text-md font-bold">大人 :</label>
-                      <el-input-number class v-model="form.Adult" :min="0" :max="10" label="大人人數"></el-input-number>
-                      <div class="text-sm text-red-600" v-if="isVaild">人數都不可為零</div>
+                      <el-input-number
+                        v-model="form.Adult"
+                        class
+                        :min="0"
+                        :max="10"
+                        label="大人人數"
+                      />
+                      <div
+                        v-if="isVaild"
+                        class="text-sm text-red-600"
+                      >
+                        人數都不可為零
+                      </div>
                       <!--<div class="text-xs text-gray-600">Help text</div>-->
                     </div>
                     <div class="md:flex-1 md:pl-3">
@@ -407,9 +553,14 @@
                         :max="10"
                         name="小孩人數"
                         label="小孩人數"
-                      ></el-input-number>
+                      />
 
-                      <div class="text-sm text-red-600" v-if="isVaild">人數都不可為零</div>
+                      <div
+                        v-if="isVaild"
+                        class="text-sm text-red-600"
+                      >
+                        人數都不可為零
+                      </div>
                     </div>
                   </div>
 
@@ -417,12 +568,12 @@
                     <label class="block text-gray-700 text-base font-bold mb-2">
                       備註 :
                       <textarea
+                        v-model="form.Remark"
                         class="h-32 bg-white focus:outline-none focus:shadow-outline border border-gray-300 rounded-lg py-2 px-4 mt-2 block w-full appearance-none leading-normal"
                         type="input"
                         row="5"
                         placeholder="提交您的旅行願望，我們會盡快與您聯繫"
-                        v-model="form.Remark"
-                      ></textarea>
+                      />
                     </label>
                     <!--<div class="text-sm text-red-600">Error message</div>-->
                     <!--<div class="text-xs text-gray-600">Help text</div>-->
@@ -430,11 +581,11 @@
 
                   <p class="text-right text-base text-gray-700 font-semibold mb-8">
                     本次將扣除
-                    <span class="text-xl text-blue-500">{{traveler.points}}</span>
+                    <span class="text-xl text-blue-500">{{ traveler.points }}</span>
                     <span
                       class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-1"
                     >點數</span> 購買後將剩餘
-                    <span class="text-xl text-blue-500">{{Number(price)}}</span>
+                    <span class="text-xl text-blue-500">{{ Number(price) }}</span>
                     <span
                       class="ml-1 text-xs text-gray-700 font-semibold transform translate-y-4"
                     >點數</span>
@@ -442,14 +593,18 @@
                   <div class="mb-8">
                     <div class="flex justify-around">
                       <el-button
-                        @click="dialogVisible = false"
                         class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full mx-4"
-                      >取消</el-button>
+                        @click="dialogVisible = false"
+                      >
+                        取消
+                      </el-button>
                       <el-button
                         type="primary"
-                        @click="createdOrder"
                         class="bg-orange-500 hover:bg-orange-700 text-white font-bold py-2 px-4 rounded-full mx-4"
-                      >確認送出</el-button>
+                        @click="createdOrder"
+                      >
+                        確認送出
+                      </el-button>
                     </div>
                   </div>
                 </div>
@@ -458,7 +613,7 @@
               <div
                 class="bg-blue-800 bg-cover bg-right h-20 p-4 flex justify-end items-center form-head"
                 style="background-image: url(https://images.unsplash.com/photo-1545922016-87c93aaca2ce?ixlib=rb-1.2.1&q=85&fm=jpg&crop=entropy&cs=srgb&ixid=eyJhcHBfaWQiOjE0NTg5fQ)"
-              ></div>
+              />
             </div>
 
             <!-- </div> -->
@@ -482,7 +637,7 @@ import Footer from "@/components/Footer.vue";
 import { mapState, mapActions, mapMutations } from "vuex";
 
 export default {
-  name: "people",
+  name: "People",
 
   components: {
     NavBar,
@@ -713,18 +868,19 @@ export default {
       });
     }
   },
+   created() {
+    this.getProjects();
+    this.LookPlan();
+
+    this.$store.dispatch("getOneUser");
+  },
   computed: {
     ...mapState(["projects"], ["userInfo"], ["started"]),
     price() {
       return this.$store.state.userInfo.points - this.traveler.points;
     }
   },
-  created() {
-    this.getProjects();
-    this.LookPlan();
-
-    this.$store.dispatch("getOneUser");
-  }
+ 
 };
 </script>
 <style scoped>

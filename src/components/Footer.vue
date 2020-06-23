@@ -20,9 +20,24 @@
           />
         </defs>
         <g class="parallax">
-          <use xlink:href="#gentle-wave" x="50" y="0" fill="#1983d4" />
-          <use xlink:href="#gentle-wave" x="50" y="3" fill="#1983d4" />
-          <use xlink:href="#gentle-wave" x="50" y="6" fill="#0a65c2" />
+          <use
+            xlink:href="#gentle-wave"
+            x="50"
+            y="0"
+            fill="#1983d4"
+          />
+          <use
+            xlink:href="#gentle-wave"
+            x="50"
+            y="3"
+            fill="#1983d4"
+          />
+          <use
+            xlink:href="#gentle-wave"
+            x="50"
+            y="6"
+            fill="#0a65c2"
+          />
         </g>
       </svg>
     </div>
@@ -35,48 +50,81 @@
                 id="changeLogo"
                 class="bg-cover bg-no-repeat toggleColour no-underline hover:no-underline font-bold text-2xl lg:text-4xl flex relative h-10 w-40 logo"
                 href="#"
-              ></a>
+              />
             </h5>
           </div>
           <div class="w-full md:w-1/4 text-center md:text-left">
-            <h5 class="mb-6 font-bold text-md">服務須知</h5>
+            <h5 class="mb-6 font-bold text-md">
+              服務須知
+            </h5>
             <ul class="mb-4">
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">常見問題</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >常見問題</a>
               </li>
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">付款方式</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >付款方式</a>
               </li>
             </ul>
           </div>
           <div class="w-full md:w-1/4 text-center md:text-left">
-            <h5 class="mb-6 font-bold text-md">給旅行家</h5>
+            <h5 class="mb-6 font-bold text-md">
+              給旅行家
+            </h5>
             <ul class="mb-4">
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">關於尋旅</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >關於尋旅</a>
               </li>
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">Points 介紹</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >Points 介紹</a>
               </li>
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">官方部落格</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >官方部落格</a>
               </li>
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">會員好禮</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >會員好禮</a>
               </li>
             </ul>
           </div>
           <div class="w-full md:w-1/4 text-center md:text-left">
-            <h5 class="mb-6 font-bold text-md">合作夥伴</h5>
+            <h5 class="mb-6 font-bold text-md">
+              合作夥伴
+            </h5>
             <ul class="mb-4">
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">部落客/攝影師合作計畫</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >部落客/攝影師合作計畫</a>
               </li>
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">聯盟行銷</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >聯盟行銷</a>
               </li>
               <li class="mt-2">
-                <a href="#" class="text-gray-200 text-sm">申請成為旅行規劃師</a>
+                <a
+                  href="#"
+                  class="text-gray-200 text-sm"
+                >申請成為旅行規劃師</a>
               </li>
             </ul>
           </div>
