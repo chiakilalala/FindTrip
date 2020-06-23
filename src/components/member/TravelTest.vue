@@ -1,6 +1,6 @@
 <template>
   <div>
-   <loading loader="bars" :active.sync="isLoading"></loading>
+
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
@@ -239,7 +239,7 @@
 </template>
 
 <script>
-import { mapGetters,mapState, mapActions, mapMutations } from "vuex";
+import {mapState, mapActions, mapMutations } from "vuex";
 
 export default {
   data() {
@@ -399,7 +399,7 @@ export default {
       // let httpMethod = "patch";
 
       let api = `${process.env.VUE_APP_APIPATH}order/update/${id}`;
-      console.log(api);
+      
       this.$http
         .patch(
           api,
@@ -410,7 +410,7 @@ export default {
         )
         .then(res => {
           if (res.data.success) {
-            console.log(res.data.message);
+          
             // console.log(vm.sellerOrder());
             this.$notify({
               title: "成功",
@@ -436,7 +436,7 @@ export default {
       };
       const vm = this;
       const api = `${process.env.VUE_APP_APIPATH}order/delete/${vm.state.id}`;
-      console.log(api, "deleteOrder");
+      // console.log(api, "deleteOrder");
 
       vm.axios
         .delete(api, { headers })
@@ -472,7 +472,7 @@ export default {
     }
   },
   computed: {
-     ...mapGetters(['isLoading']),
+    
     ...mapState(["sellOrders"], ["userInfo"], ["projects"])
   },
   updated() {

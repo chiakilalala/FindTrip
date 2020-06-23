@@ -14,6 +14,7 @@ const store = new Vuex.Store({
 
     state: {
         isLoading: false,
+        started: [],
         projects: [],
         onePlan: {}, //檢視旅行家個人檔案
         SearchPlans: [], //搜尋資料
@@ -45,7 +46,7 @@ const store = new Vuex.Store({
 
     },
     getter: {
-
+        getStarted: (state) => state.started,
         getUserList: (state) => state.userInfo,
         selectedCountry: (state) => state.selectedCountry,
         selectedCity: (state) => state.selectedCity,
@@ -162,6 +163,9 @@ const store = new Vuex.Store({
             state.wishList = val;
             // console.log(val);
         },
+        STARED(state, val) {
+            state.started = val;
+        }
 
 
     },

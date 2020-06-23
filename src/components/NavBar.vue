@@ -14,7 +14,7 @@
           <router-link
             to="/home"
             id="changeLogo"
-            class="bg-cover bg-no-repeat toggleColour no-underline hover:no-underline font-bold text-2xl lg:text-4xl flex relative h-10 w-40 logo"
+            class="bg-cover bg-no-repeat toggleColour no-underline font-bold text-2xl lg:text-4xl flex relative h-10 w-40 logo"
             href="#"
           ></router-link>
         </div>
@@ -53,20 +53,20 @@
             class="list-reset text-lg lg:flex justify-end flex-1 items-center"
             :class="{'active': isBurgerActive}"
           >
-            <li class="mr-3 ">
+            <li class="mr-3  sm:hover:bg-red-100 lg:hover:bg-transparent">
               <router-link
                 class-active="active"
                 tag="li"
                 to="/product"
-                class="inline-block text-lg py-2 px-4 text-black no-underline sm:text-xl"
+                class="inline-block lg:text-lg py-2 px-4 text-black no-underline sm:text-xl"
               >尋找旅行規劃師</router-link>
             </li>
-            <li class="mr-3 ">
+            <li class="mr-3 sm:hover:bg-red-100 lg:hover:bg-transparent">
               <router-link
                 class-active="active"
                 tag="li"
                 to="/wish"
-                class="inline-block text-lg text-black no-underline py-2 px-4 sm:text-xl"
+                class="inline-block lg:text-lg text-black no-underline py-2 px-4 sm:text-xl"
               >進入許願池</router-link>
             </li>
           </ul>
@@ -307,7 +307,7 @@ export default {
 <style >
 #nav-content li:hover,
 #nav-content li:active {
-  border-bottom: 1px solid #ddd;
+  border-bottom: 1px solid #333;
   transition: all 0.35s ease-in-out;
   cursor: pointer;
 }

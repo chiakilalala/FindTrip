@@ -11,7 +11,8 @@
             <span class="mx-1">/</span>
           </li>
 
-          <li class="pr-2">旅行計劃</li>
+            <router-link to="/member/project" class="hover:text-blue-500">
+          <li class="pr-2">  旅行計劃</li>  </router-link>
         </ul>
       </div>
     </div>
@@ -45,23 +46,23 @@
         </div>
         <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
           <div
-            class="sm:pb-2 px-4 mt-8 lg:px-0 lg:mt-0 h-full flex sm:flex-row lg:flex-col justify-between"
+            class="sm:mt-2 sm:pb-2 px-4 mt-8 lg:px-0 lg:mt-0 h-full block lg:flex sm:flex-row lg:flex-col justify-between"
           >
             <p
-              class="block lg:mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
+              class="block   mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               國家 ：
               <span class="text-md font-light">{{item.country}}</span>
             </p>
             <p
-              class="block lg:mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
+              class="block mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               城市區域 ：
               <!--item.city.join( ',' -->
               <span class="text-md font-light">{{item.city}}</span>
             </p>
             <p
-              class="block lg:mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
+              class="block mb-4 lg:text-lg mt-0 text-md leading-tight font-semibold text-gray-900"
             >
               上架日期 ：
               <span class="text-md font-light">{{item.CreateOn.slice(0,10)}}</span>
@@ -162,13 +163,7 @@
               <!-- <i v-else class="el-icon-plus avatar-uploader-icon"></i> -->
 
               <div class="flex justify-center mt-2">
-                <!-- <input
-                type="file"
-                name="fileupload-c"
-                class="form-control bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white font-thin py-2 px-6 rounded-full lg:ml-4 ml-0 mt-0 text-sm shadow-md"
-                ref="fileupload"
-                @change="uploadImg"
-                />-->
+          
 
                 <div class="flex items-center justify-center border-blue-500 mt-2">
                   <label
@@ -191,6 +186,7 @@
                       ref="fileupload"
                       class="hidden"
                       @change="uploadImg"
+                      accept="image/png,image/gif,image/jpeg"
                     />
                   </label>
                 </div>
@@ -320,6 +316,7 @@
                         ref="files"
                         class="hidden"
                         @change="uploadPic"
+                        accept="image/png,image/gif,image/jpeg"
                       />
                     </label>
                   </div>
@@ -643,7 +640,7 @@ export default {
         api = `${process.env.VUE_APP_APIPATH}plan/update/${vm.temPlans.id}`;
         httpMethod = "patch";
       }
-      console.log(api, "update");
+      // console.log(api, "update");
 
       this.$http[httpMethod](
         api,

@@ -46,14 +46,15 @@
 
      
 
-          <div class="flex   items-center  justify-center border-blue-500 mt-2">
+          <div class="flex   lg:flex-col items-center  justify-center border-blue-500 mt-2">
     <label class="w-28 flex items-end py-1 px-3   rounded-full shadow-md  bg-blue-500 border border-blue-500 hover:bg-transparent hover:shadow-xl hover:text-blue-500 text-white cursor-pointer">
         <svg class="w-6 h-6 pr-2" fill="currentColor" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20">
             <path d="M16.88 9.1A4 4 0 0 1 16 17H5a5 5 0 0 1-1-9.9V7a3 3 0 0 1 4.52-2.59A4.98 4.98 0 0 1 17 8c0 .38-.04.74-.12 1.1zM11 11h3l-4-4-4 4h3v3h2v-3z" />
         </svg>
         <span class="mt-2 text-sm leading-normal ">上傳大頭照</span>
-        <input   type="file" name="file-to-upload" id="customFile" ref="files" class="hidden"   @change="uploadFile"/>
+        <input  accept="image/png,image/gif,image/jpeg"  type="file" name="file-to-upload" id="customFile" ref="files" class="hidden"   @change="uploadFile"/>
     </label>
+     <div class="flex  text-sm text-red-400 mt-2">*格式限制png/jpg/jpeg</div>
 </div>
           <!-- 更換 -->
           <!-- <i class="fa fa-upload"></i> -->
@@ -231,7 +232,11 @@ export default {
          
           } else {
          
-            console.log("失敗");
+          this.$notify({
+          title: '失敗',
+          message: '檔案格式只能是jpg/png &&不可超過2MB',
+          type: 'warning'
+        });
           }
         });
     },

@@ -1,6 +1,6 @@
 <template>
   <div>
-    
+    <loading loader="bars" :active.sync="isLoading"></loading>
     <!-- NavBar Component v-for="item in traveler" :key="item.id" -->
     <NavBar />
 
@@ -63,7 +63,7 @@
                   <div class="px-2">
                     <div class="flex flex-wrap -mx-3 ml-1">
                       <div
-                        class="w-full lg:w-1/2 bg-cover h-48"
+                        class="w-full lg:w-1/2 bg-cover bg-center h-48"
                         :style="{backgroundImage:`url(${traveler.Cpicture ? traveler.Cpicture : 'https://picsum.photos/600/400?random=1' })`}"
                       ></div>
 
@@ -151,7 +151,7 @@
                       >關於規劃師 {{traveler.PlannerName}}</h2>
                       <ul class="list-none">
                         <li class="w-1 h-2">
-                          <a href="#" @click.prevent="toggleHeart">
+                          <a href="#" @click.prevent="toggleHeart(traveler)">
                             <i
                               class="ml-2 far fa-heart text-2xl align-items"
                               :class="{ 'text-red-500  fas' : isStar, '' : !isStar}"
@@ -165,14 +165,22 @@
                         :src="traveler.manpic"
                         alt
                         srcset
-                        class="border-2 border-blue-200 bg-white w-48 h-48  object-cover rounded-full overflow-hidden"
+                        class="border-2 border-blue-200 bg-white w-48 h-48 object-cover rounded-full overflow-hidden"
                       />
                     </div>
                     <div class="mx-auto flex justify-center my-5">
-                      <a :href="traveler.PlannerSocial1" :title="traveler.PlannerSocial3">
+                      <a
+                        :href="traveler.PlannerSocial1"
+                        :title="traveler.PlannerSocial3"
+                        target="_blabk"
+                      >
                         <img src="../../assets/img/ic-facebook.svg" alt srcset class="w-6 b-6 mr-3" />
                       </a>
-                      <a :href="traveler.PlannerSocial2 " :title="traveler.PlannerSocial4 ">
+                      <a
+                        :href="traveler.PlannerSocial2 "
+                        :title="traveler.PlannerSocial4 "
+                        target="_blabk"
+                      >
                         <img class="w-6 b-6" src="../../assets/img/ic-line@.svg" alt srcset />
                       </a>
                     </div>
@@ -201,13 +209,13 @@
 
                     <div class="flex px-12 relative">
                       <!-- :href="`mailto:${item.PlannerEmail[0].Email}`" -->
-                     
-                      <a   
+
+                      <a
                         href="https://m.facebook.com/messages/thread/230134660393770"
-                        target="_blank"   data-msg="可跟規劃師FB訊息聯絡"
+                        target="_blank"
+                        data-msg="可跟規劃師FB訊息聯絡"
                         class="tooltip text-center cursor-pointer bg-blue-500 hover:bg-blue-400 text-white rounded-lg mt-3 w-full py-2 font-medium text-lg tracking-wider shadow font-huninn"
                       >聯絡諮詢</a>
-                      
                     </div>
                     <div class="flex mb-20 px-12 mt-4">
                       <el-button
@@ -227,9 +235,11 @@
     <!-- dialog -->
     <el-dialog :visible.sync="dialogVisible" top="8vh" width="65%">
       <div class>
-        <div class="flex container max-w-7xl mx-auto ">
+        <div class="flex container max-w-7xl mx-auto">
           <div class="w-full flex flex-row flex-wrap justify-center">
-            <div class="container mx-auto max-w-3xl round-xll overflow-hidden bg-white relative shadow-lgㄒ">
+            <div
+              class="container mx-auto max-w-3xl round-xll overflow-hidden bg-white relative shadow-lgㄒ"
+            >
               <div
                 class="bg-cover bg-center h-24 p-4 flex justify-end items-center form-head"
                 style="background-image: url(https://content.api.news/v3/images/bin/11990db1d540d5c13ea8ca3e01f2083c)"
@@ -250,24 +260,18 @@
                         <p class="order_text">{{traveler.country}}</p>
                         <input v-model="form.country" />
                       </div>
-                    
-
-                 
                     </div>
                     <div class="md:flex-1 md:pl-3">
                       <label class="order_title">規劃城市旅遊 :</label>
                       <p class="order_text">{{traveler.city}}</p>
                       <input v-model="form.city" />
-                    
                     </div>
                   </div>
 
                   <div class="md:flex mb-8">
                     <div class="md:flex-1 md:pr-3">
                       <ValidationProvider v-slot="{ errors, classes }" name="行程日期" rules="required">
-                        <label
-                          class="order_title"
-                        >行程的日期 範圍 :</label>
+                        <label class="order_title">行程的日期 範圍 :</label>
                         <div :class="classes" class="calerdar">
                           <el-date-picker
                             v-model="startTime"
@@ -486,7 +490,8 @@ export default {
   },
   data() {
     return {
-   
+      stared: [], //關注城市列表
+      isLoading: false,
       isStar: false,
       dialogVisible: false,
       startTime: "",
@@ -518,39 +523,66 @@ export default {
       },
       isVaild: false,
       isBudget: false,
-      pickerOptions : { 
+      pickerOptions: {
         // disabledDate是一個函數,參數是當前選中的日期值,這個函數需要返回一個Boolean值,
-        disabledDate : ( time ) => {   
+        disabledDate: time => {
           // 如果函數處理比較簡單,可以直接在這裡寫邏輯方法
           // return time.getTime() < Date.now() - 8.64e7
- 
+
           // 如果函數里處理的數據比較麻煩,也可以單獨放在一個函數里,避免data數據太臃腫
-          return this . dealDisabledDate ( time ) 
+          return this.dealDisabledDate(time);
         }
-      }, //日期設置對象 
+      } //日期設置對象
     };
   },
   methods: {
-     dealDisabledDate ( time ) { 
+    dealDisabledDate(time) {
       // time.getTime是把選中的時間轉化成自1970年1月1日00:00:00 UTC到當前時間的毫秒數
       // Date.now()是把今天的時間轉化成自1970年1月1日00:00:00 UTC到當前時間的毫秒數,這樣比較好比較
       // return的值,true是不可以操作選擇,false可以操作選擇,比如下面這個判斷就只能選擇今天之後的時間
-      return time . getTime () < Date . now ()  
- 
+      return time.getTime() < Date.now();
+
       // 這裡減8.64e7的作用是,讓今天的日期可以選擇,如果不減的話,今天的日期就不可以選擇,判斷中寫<= 也是沒用的,一天的毫秒數就是8.64e7
       // return time.getTime() <= Date.now()
       // return time.getTime() < Date.now() - 8.64e7
     },
-    toggleHeart() {
-      this.isStar = !this.isStar;
+    toggleHeart(Name) {
+      // console.log(Name)
+      if (!this.$store.state.token) {
+        this.$notify.info({
+          title: "提醒",
+          message: "收藏請先登入或是註冊會員"
+        });
+      } else if (
+        this.$store.state.userInfo.PlannerId == this.traveler.PlannerId
+      ) {
+        this.$notify.error({
+          title: "提醒",
+          message: "旅行規劃師不能收藏自己規劃的行程"
+        });
+      } else {
+        if (!this.stared.includes(Name.id)) {
+          this.stared.push(Name);
+          this.isStar = !this.isStar;
+          // 將 stared 存到 localStorage
+          localStorage.setItem("stared", JSON.stringify(this.stared));
+        } else {
+          this.stared.splice(this.stared.indexOf(Name), 1);
+        }
+      }
     },
     selectTime(val) {
       this.startTime = val;
-      console.log(val);
+      // console.log(val);
     },
     //api 動作
     ...mapActions(["getProjects"], ["LookPlan"], ["getOneUser"]),
-    ...mapMutations(["setProjectInfo"], ["LOOKPLAN"], ["GETORDER"],["UPDATE_USER"],),
+    ...mapMutations(
+      ["setProjectInfo"],
+      ["LOOKPLAN"],
+      ["GETORDER"],
+      ["UPDATE_USER"]
+    ),
     getOrder() {
       if (!this.$store.state.token) {
         this.$notify.info({
@@ -641,11 +673,10 @@ export default {
             { headers: headers }
           )
           .then(res => {
-           
             if (res.data.success) {
               // console.log("訂單建立", res.data.result);
               this.dialogVisible = false;
-   
+
               vm.checkOrder = res.data.result;
               // console.log(vm.checkOrder);
               this.$store.dispatch("checkOrder");
@@ -666,45 +697,40 @@ export default {
       let api = `${process.env.VUE_APP_APIPATH}plan/inner/${this.$route.params.id}`;
       vm.isLoading = true;
       this.$http.get(api).then(res => {
-
         if (res.data.success) {
-             vm.isLoading = false;
+          vm.isLoading = false;
           vm.traveler = res.data.result;
           vm.rating = res.data.result.rating;
 
           // console.log(vm.traveler);
+          // 取得 localStorage 的 stared
+          const localStorageStared = JSON.parse(localStorage.getItem("stared"));
+          if (localStorageStared) {
+            this.stared = localStorageStared;
+            this.$store.commit("STARED", localStorageStared);
+          }
         }
       });
     }
   },
   computed: {
-    ...mapState(["projects"], ["userInfo"]),
+    ...mapState(["projects"], ["userInfo"], ["started"]),
     price() {
       return this.$store.state.userInfo.points - this.traveler.points;
     }
-
-    // tomorrow() {
-    //   const dt = new Date();
-    //   return new Date(dt.getTime() + 1000 * 60 * 60 * 24);
-    // },
-    // endDate() {
-    //   const dt = new Date();
-    //   return new Date(dt.getTime() + 1000 * 60 * 60 * 24 * 90);
-    // }
   },
   created() {
     this.getProjects();
     this.LookPlan();
 
-     this.$store.dispatch("getOneUser");
+    this.$store.dispatch("getOneUser");
   }
 };
 </script>
 <style scoped>
-
-.form-head:before, .form-head:after {
-display: none;
-  
+.form-head:before,
+.form-head:after {
+  display: none;
 }
 .el-dialog {
   background-color: #ebf8ff;

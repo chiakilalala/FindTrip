@@ -1,8 +1,6 @@
 <template>
   <div>
-   <loading loader="bars" 
-        :active.sync="isLoading" 
-       ></loading>
+    <loading loader="bars" :active.sync="isLoading"></loading>
     <div class="flex max-w-6xl mx-auto">
       <div class="pb-2 lg:px-0 px-2 text-gray-600 text-sm">
         <ul class="list-inline inline-flex hover:underlines">
@@ -18,7 +16,7 @@
       </div>
     </div>
     <!-- 書籤表示旅行家和規劃師 -->
-    <div class="mb-10 flex justify-between" >
+    <div class="mb-10 flex justify-between">
       <ul class="flex border-b" v-if=" $store.state.Permission == '02' ">
         <li class="-mb-px mr-1">
           <router-link
@@ -33,12 +31,15 @@
           >規劃師</router-link>
         </li>
       </ul>
-      <el-button @click=" QAisVisble  = true" class='bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded'>Ｑ＆Ａ</el-button>
+      <el-button
+        @click=" QAisVisble  = true"
+        class="bg-transparent hover:bg-blue-500 text-blue-700 font-semibold hover:text-white py-2 px-4 border border-blue-500 hover:border-transparent rounded"
+      >Ｑ＆Ａ</el-button>
     </div>
 
-   <!-- Q&A跳窗 -->
+    <!-- Q&A跳窗 -->
 
-      <QAModel v-if="QAisVisble"  :QAModel="QAisVisble" @dialog-cancel="closeManage" ></QAModel>
+    <QAModel v-if="QAisVisble" :QAModel="QAisVisble" @dialog-cancel="closeManage"></QAModel>
 
     <div
       class="flex-1 text-gray-700 text-left bg-white py-5 my-2 rounded-lg shadow-lg mb-5 hover:shadow-sm hover:bg-gray-100"
@@ -46,8 +47,11 @@
       :key="item.id "
     >
       <!-- $router.push({ name: 'orderlist', params: { id: item.id } }) -->
-      <div class="lg:flex" >
-        <div class="lg:flex-shrink-0 relative" v-if=' item.PlannerPic !=undefined && item.PlannerPic.length >= 1'>
+      <div class="lg:flex">
+        <div
+          class="lg:flex-shrink-0 relative"
+          v-if=" item.PlannerPic !=undefined && item.PlannerPic.length >= 1"
+        >
           <img
             :src="item.PlannerPic[0].manpic"
             alt
@@ -55,7 +59,7 @@
             class="object-cover ml-8 -mt-3 border-2 border-white w-12 h-12 rounded-full absolute top-0 left-0 bg-blue-500"
           />
           <div
-            class="lg:mx-5 mx-4 h-48 lg:w-70 w-52 md:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l overflow-hidden"
+            class="lg:mx-5 mx-4 h-48 lg:w-64 flex-none bg-cover bg-center rounded rounded-t sm:rounded sm:rounded-l overflow-hidden"
             :style="{backgroundImage:`url(${item.PlanPic[0]? item.PlanPic[0].Cpicture : 'https://picsum.photos/300/200?random=1' })`}"
           ></div>
           <p
@@ -63,9 +67,8 @@
             class="cursor-pointer ml-5 mt-2 text-blue-400 hover:text-blue-700 font-sm"
             @click="openComment(item)"
           >
-            <i class="fas fa-edit "></i>撰寫評論
+            <i class="fas fa-edit"></i>撰寫評論
           </p>
-       
         </div>
         <div class="mt-4 lg:mt-0 w-full max-w-full lg:max-w-full lg:pr-8">
           <div class="flex relative">
@@ -97,9 +100,9 @@
                 class="w-20 flex-none rounded-t lg:rounded-t-none lg:rounded-l text-center shadow"
               >
                 <div class="block rounded-t overflow-hidden text-center">
-                   <div class="bg-blue-200 text-gray-500 py-1">{{item.CreateOn.slice(0,4) }}</div>
-                  <div class="bg-gray-200 text-gray-500 ">{{item.CreateOn.slice(5,7) | month }}</div>
-                  <div class=" bg-gray-200">
+                  <div class="bg-blue-200 text-gray-500 py-1">{{item.CreateOn.slice(0,4) }}</div>
+                  <div class="bg-gray-200 text-gray-500">{{item.CreateOn.slice(5,7) | month }}</div>
+                  <div class="bg-gray-200">
                     <span
                       class="text-3xl font-bold text-gray-500 leading-tight"
                     >{{item.CreateOn.slice(8,10) }}</span>
@@ -110,41 +113,69 @@
           </div>
           <div class="px-4 mt-8 lg:px-0 lg:mt-0">
             <!-- !=undefined && orderInfo.PlannerName.length >= 1 -->
-            <p class="block lg:mt-4 text-base mt-2 leading-tight font-semibold text-gray-900" v-if='item.PlannerName!=undefined && item.PlannerName.length >= 1'>
+            <p
+              class="sm:my-2 block lg:mt-4 text-base mt-2 leading-tight font-semibold text-gray-900"
+              v-if="item.PlannerName!=undefined && item.PlannerName.length >= 1"
+            >
               旅行規劃師
-              <span class="text-sm font-thin">— {{item.PlannerName[0].PlannerName}}</span>
+              <span
+                class="text-sm font-thin sm:text-base"
+              >— {{item.PlannerName[0].PlannerName}}</span>
             </p>
-            <p class="block lg:mt-4 text-base mt-2 leading-tight font-semibold text-gray-900">
+            <p
+              class="sm:my-2 block lg:mt-4 text-base mt-2 leading-tight font-semibold text-gray-900"
+            >
               國家 ：
-              <span class="text-sm font-thin">{{item.country}}</span>
+              <span class="text-sm font-thin sm:text-base">{{item.country}}</span>
             </p>
-            <p class="block lg:mt-4 mt-2 text-base leading-tight font-semibold text-gray-900">
+            <p
+              class="sm:my-2 block lg:mt-4 mt-2 text-base leading-tight font-semibold text-gray-900"
+            >
               城市 ：
-              <span class="text-sm font-thin">{{item.city}}</span>
+              <span class="text-sm font-thin sm:text-base">{{item.city}}</span>
             </p>
-            <div class="mt-8 lg:flex justify-between">
-              <div class="flex items-center">
-                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Culture']}" >文化</span>
-                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Religion']}" >宗教</span>
-                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Secret']}" >秘境</span>
-                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Shopping']}" >購物</span>
-                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Act']}" >冒險</span>
-                <span class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider" :class="{'hidden' : !item['Food']}" >吃貨</span>
+            <div class="lg:mt-8 sm:mt-2 lg:flex justify-between">
+              <div class="lg:my-0 sm:my-6 flex items-center">
+                <span
+                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
+                  :class="{'hidden' : !item['Culture']}"
+                >文化</span>
+                <span
+                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
+                  :class="{'hidden' : !item['Religion']}"
+                >宗教</span>
+                <span
+                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
+                  :class="{'hidden' : !item['Secret']}"
+                >秘境</span>
+                <span
+                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
+                  :class="{'hidden' : !item['Shopping']}"
+                >購物</span>
+                <span
+                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
+                  :class="{'hidden' : !item['Act']}"
+                >冒險</span>
+                <span
+                  class="inline-block bg-transparent border border-blue-400 px-3 py-1 rounded-full text-xs font-normal text-blue-400 mr-2 tracking-wider"
+                  :class="{'hidden' : !item['Food']}"
+                >吃貨</span>
               </div>
 
               <div class="flex justify-between items-baseline">
                 <button
                   v-if="item.Status === 2"
-                  @click="totalCahange(item.id)"
+                  @click="totalCahange(item.id)" :class= "{ hidden :isHidden}"
                   class="bg-transparent border border-blue-500 hover:bg-blue-500 hover:shadow-xl hover:text-white text-blue-500 font-thin py-2 px-4 rounded xl:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                 >完成訂單</button>
                 <button
                   v-else-if="item.Status === 3"
-                  class="cursor-not-allowed opacity-50 bg-gray-600 text-white font-thin py-2 px-4 rounded  ml-0 lg:mt-0 mt-8 text-sm"
+                  class="cursor-not-allowed opacity-50 bg-gray-600 text-white font-thin py-2 px-4 rounded ml-0 lg:mt-0 mt-8 text-sm"
                 >已完成</button>
                 <div v-if="item.PlannerEmail !=undefined && item.PlannerEmail.length >= 1">
                   <a
-                    target="_blank"   data-msg="Email用來傳遞規劃師行程表"
+                    target="_blank"
+                    data-msg="Email用來傳遞規劃師行程表"
                     :href="`mailto:${item.PlannerEmail[0].Email}`"
                     class="tooltip cursor-pointer bg-blue-500 border border-blue-500 hover:bg-transparent hover:text-blue-500 text-white font-thin py-2 px-4 rounded lg:ml-4 ml-0 lg:mt-0 mt-8 text-sm shadow-md"
                   >訊息聯絡</a>
@@ -156,9 +187,6 @@
       </div>
     </div>
 
-
-  
-  
     <!-- 訂單完成 -->
 
     <el-dialog :visible="centerVisibl" :before-close="beforeClose" width="50%" center>
@@ -171,7 +199,7 @@
           </div>
           <div slot="footer" class="dialog-footer">
             <el-button @click=" centerVisibl  = false">取 消</el-button>
-            <el-button type="primary" @click="switchState(travelerId)">送出</el-button>
+            <el-button type="primary" @click="sendState">送出</el-button>
           </div>
           <!-- </div> -->
         </div>
@@ -199,23 +227,17 @@
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">會員姓名:</label>
-              <p
-                class="order_text"
-              >{{ Oneorders.name}}</p>
+              <p class="order_text">{{ Oneorders.name}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">電子信箱:</label>
-              <p
-                class="order_text"
-              >{{Oneorders.Email}}</p>
+              <p class="order_text">{{Oneorders.Email}}</p>
             </div>
           </div>
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">聯絡電話:</label>
-              <p
-                class="order_text"
-              >{{Oneorders.Tel}}</p>
+              <p class="order_text">{{Oneorders.Tel}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">創建日期:</label>
@@ -229,32 +251,22 @@
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">國家:</label>
-              <p
-                class="order_text"
-              >{{Oneorders.country}}</p>
+              <p class="order_text">{{Oneorders.country}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">城市:</label>
-              <p
-                class="order_text"
-              >{{Oneorders.city}}</p>
+              <p class="order_text">{{Oneorders.city}}</p>
             </div>
           </div>
 
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
-              <label
-                class="order_title"
-              >行程的日期 範圍 :</label>
-              <p
-                class="order_text"
-              >{{Oneorders.DepartureTime1}} ~ {{Oneorders.DepartureTime2}}</p>
+              <label class="order_title">行程的日期 範圍 :</label>
+              <p class="order_text">{{Oneorders.DepartureTime1}} ~ {{Oneorders.DepartureTime2}}</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">預算:</label>
-              <p
-                class="order_text"
-              >{{Oneorders.Budget}}</p>
+              <p class="order_text">{{Oneorders.Budget}}</p>
             </div>
           </div>
 
@@ -278,20 +290,16 @@
           <div class="md:flex mb-8">
             <div class="md:flex-1 md:pr-3">
               <label class="order_title">大人:</label>
-              <p
-                class="order_text"
-              >{{Oneorders.Adult}} 人</p>
+              <p class="order_text">{{Oneorders.Adult}} 人</p>
             </div>
             <div class="md:flex-1 md:pl-3">
               <label class="order_title">小孩:</label>
-              <p
-                class="order_text"
-              >{{Oneorders.Children}} 人</p>
+              <p class="order_text">{{Oneorders.Children}} 人</p>
             </div>
           </div>
 
           <div class="mb-6">
-            <label class="block text-gray-700 text-xl  font-bold mb-2">備註 :</label>
+            <label class="block text-gray-700 text-xl font-bold mb-2">備註 :</label>
             <div class="font-medium mb-7 bg-gray-200 rounded-lg h-auto pb-5">
               <p class="text-sm text-gray-600 leading-relaxed px-5 pt-5">{{Oneorders.Remark}}</p>
             </div>
@@ -389,13 +397,7 @@
         </div>
       </div>
     </el-dialog>
-  
-</div>
-
-  
- 
-
-  
+  </div>
 </template>
 
 <script>
@@ -406,14 +408,15 @@ import { mapState, mapActions, mapMutations } from "vuex";
 export default {
   data() {
     return {
-      isLoading:false,
+      isHidden:false,
+      isLoading: false,
       value2: null,
       Oneorders: {}, //model資料
       dialogVisible: false,
       commentVisible: false,
       centerVisibl: false, //旅行家的button
-      QAisVisble:false,
-      deleteModal:false,//刪除訂單
+      QAisVisble: false,
+      deleteModal: false, //刪除訂單
       isTraveler: "all",
       comment: {
         rating: null,
@@ -425,15 +428,12 @@ export default {
     };
   },
   components: {
-    QAModel,
-  
+    QAModel
   },
 
   methods: {
-
-
-  closeManage() { 
-      this.QAisVisble = false //QA-Dialog
+    closeManage() {
+      this.QAisVisble = false; //QA-Dialog
     },
     totalCahange(id) {
       //旅行家確定規劃師已經完成訂單後 按下訂單完成按鈕
@@ -444,7 +444,12 @@ export default {
       //呼叫單筆api
       this.centerVisibl = true;
     },
-  
+    sendState() {
+       this.isHidden = true;
+
+       this.centerVisibl = false;
+
+    },
 
     //   //單筆訂單整理
     // },
@@ -469,7 +474,7 @@ export default {
         )
         .then(res => {
           if (res.data.success) {
-            console.log(res.data.message);
+            // console.log(res.data.message);
             // console.log(vm.checkOrder());
             vm.checkOrder(); //重新全部取得資料一次
           } else {
@@ -485,7 +490,7 @@ export default {
     openComment(item) {
       this.commentVisible = true;
       this.comment = Object.assign({}, item); //資料傳餐特性
-      console.log(this.comment);
+      // console.log(this.comment);
     },
     beforeClose(done) {
       //dialog關掉的xx
@@ -513,18 +518,15 @@ export default {
       const vm = this;
 
       vm.orderId = this.$route.params.id;
-      
+
       let api = `${process.env.VUE_APP_APIPATH}/order/loadsingle/${id}`;
 
-      vm.isLoading = true
+      vm.isLoading = true;
       this.$http.get(api, { headers }).then(res => {
-        vm.isLoading = false
+        vm.isLoading = false;
         if (res.data.success) {
-        
           vm.Oneorders = res.data.result[0];
           vm.dialogVisible = true;
-       
-        
         }
       });
     },
@@ -570,7 +572,7 @@ export default {
       const vm = this;
       vm.temPlans = item;
       vm.deleteModal = true;
-    },
+    }
   },
   computed: {
     ...mapState(["orders"], ["userInfo"], ["projects"]),
@@ -578,8 +580,8 @@ export default {
       return this.$store.state.orders;
     },
     price() {
-      return   this.$store.state.userInfo.points 
-       
+      return this.$store.state.userInfo.points;
+
       //   if(this.$store.state.userInfo.point < this.Oneorders.PlannerName[0].points){
       //      return '無法購買還請儲值'
       //   }else if(this.$store.state.userInfo.point >= this.Oneorders.PlannerName[0].points){
@@ -590,7 +592,6 @@ export default {
   },
   mounted() {},
   created() {
-   
     this.$store.dispatch("getProjects");
 
     this.checkOrder();

@@ -69,19 +69,19 @@
           </div>
         </div>
       <!-- filter -->
-      <div class="flex container mx-auto flex-wrap max-w-7xl px-4 sm:px-5" name="fade-list" is="transition-group">
+      <div class="flex container mx-auto flex-wrap max-w-7xl px-4 sm:px-5" name="fade-list" is="transition-group" >
         
         <!-- 類型挑選 -->
-        <div class="container mx-auto max-w-7xl pr-4 mb-5">
-          <!-- <div class="people_wrap my-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center">
+         <!--<div class="container mx-auto max-w-7xl pr-4 mb-5">
+          <div class="people_wrap my-6 lg:mt-4 flex flex-wrap leading-sm inline-flex items-center">
             <button class="bg-blue-500">冒險</button>
             <button class="bg-blue-500">秘境</button>
             <button class="bg-blue-500">文化</button>
             <button class="bg-blue-500">吃貨</button>
             <button class="bg-blue-500">宗教</button>
             <button class="bg-blue-500">購物</button>
-          </div>-->
-        </div>
+          </div>
+        </div>-->
      
         <div
           class="w-full md:w-1/2 lg:w-1/4 flex flex-col mb-8 mt-4 px-3 cursor-pointer"
@@ -412,7 +412,7 @@ export default {
   },
   data() {
     return {
-       isLoading: false,
+      isLoading: false,
       wishBoard: [],
       relyMessage: {},
       wishMessage: {},
